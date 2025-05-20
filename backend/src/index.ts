@@ -3,6 +3,7 @@ import cors from "cors";
 import { AuthRouter } from "./router/auth.routes";
 import { IndustryRouter } from "./router/industry.routes";
 import { CompanyRouter } from "./router/company.routes";
+import { UserRouter } from "./router/user.routes";
 import { PasswordRouter } from "./router/password.routes";
 
 const PORT: number = 8000;
@@ -26,6 +27,9 @@ app.use("/api/company", companyRouter.getRouter());
 
 const industryRouter = new IndustryRouter();
 app.use("/api/industries", industryRouter.getRouter());
+
+const userRouter = new UserRouter();
+app.use("/api/users", userRouter.getRouter());
 
 app.listen(PORT, () => {
   console.log(`Server running http://localhost:${PORT}/api`);
