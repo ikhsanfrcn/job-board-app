@@ -9,24 +9,29 @@ export class PasswordController {
       const result = await requestPasswordReset(email);
       res.status(200).json(result);
     } catch (error: any) {
-      res.status(error.status || 500).json({ message: error.message || "Internal server error" });
+      res
+        .status(error.status || 500)
+        .json({ message: error.message || "Internal server error" });
     }
   }
 
   async resetPassword(req: Request, res: Response) {
-    try {
-      const userId = req.user?.id;
-      const { newPassword } = req.body;
+  try {
+    const authHeader = req.headers.authorization;
+    const { newPassword } = req.body;
 
-      if (!userId) {
-        res.status(401).json({ message: "Unauthorized" });
-        return;
-      }
-
-      const result = await resetPassword(userId, newPassword);
-      res.status(200).json(result);
-    } catch (error: any) {
-      res.status(error.status || 500).json({ message: error.message || "Internal server error" });
+    if (!authHeader || !authHeader.startsWith("Bearer ")) {
+      res.status(400).json({ message: "Authorization token is missing or invalid" });
+      return;
     }
+
+    const token = authHeader.split(" ")[1];
+
+    const result = await resetPassword(token, newPassword);
+    res.status(200).json(result);
+  } catch (error: any) {
+    res.status(error.status || 500).json({ message: error.message || "Internal server error" });
   }
+}
+
 }
