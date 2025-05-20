@@ -32,7 +32,7 @@ export class AuthController {
         expiresIn: "1h",
       });
 
-      const link = `${process.env.BASE_URL_FRONTEND}/verify/user${token}`;
+      const link = `${process.env.BASE_URL_FRONTEND}/verify/${token}`;
       const templatePath = path.join(__dirname, "../templates", `verify.hbs`);
       const templateSource = fs.readFileSync(templatePath, "utf-8");
       const compiledTemplate = handlebars.compile(templateSource);
@@ -56,17 +56,17 @@ export class AuthController {
       const userId = req.user?.id;
 
       if (!userId) {
-        res.status(400).json({ message: "Unauthorized" });
+        res.status(400).send({ message: "Unauthorized" });
       }
 
       const user = await prisma.user.findUnique({ where: { id: userId } });
       if (!user) {
-        res.status(404).json({ message: "User not found" });
+        res.status(404).send({ message: "User not found" });
         return;
       }
 
       if (user?.isVerify) {
-        res.status(400).json({ message: "User already verified" });
+        res.status(400).send({ message: "User already verified" });
         return;
       }
 
@@ -75,9 +75,9 @@ export class AuthController {
         where: { id: userId },
       });
 
-      res.status(200).json({ message: "Verification Success" });
+      res.status(200).send({ message: "Verification Success" });
     } catch (error) {
-      res.status(500).json({ message: "Server internal error" });
+      res.status(500).send({ message: "Server internal error" });
     }
   }
 
