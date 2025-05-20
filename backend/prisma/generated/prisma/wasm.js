@@ -120,9 +120,109 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
   Serializable: 'Serializable'
 });
 
+exports.Prisma.UserScalarFieldEnum = {
+  id: 'id',
+  username: 'username',
+  email: 'email',
+  password: 'password',
+  firstName: 'firstName',
+  lastName: 'lastName',
+  gender: 'gender',
+  dob: 'dob',
+  education: 'education',
+  country: 'country',
+  state: 'state',
+  city: 'city',
+  zipCode: 'zipCode',
+  regionNumber: 'regionNumber',
+  phoneNumber: 'phoneNumber',
+  avatar: 'avatar',
+  isVerify: 'isVerify',
+  verificationSent: 'verificationSent',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.CompanyScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  email: 'email',
+  password: 'password',
+  about: 'about',
+  country: 'country',
+  state: 'state',
+  city: 'city',
+  zipCode: 'zipCode',
+  regionNumber: 'regionNumber',
+  phoneNumber: 'phoneNumber',
+  address: 'address',
+  website: 'website',
+  logo: 'logo',
+  isVerify: 'isVerify',
+  industryId: 'industryId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.IndustryScalarFieldEnum = {
+  id: 'id',
+  name: 'name'
+};
+
+exports.Prisma.JobScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  description: 'description',
+  city: 'city',
+  category: 'category',
+  tags: 'tags',
+  salary: 'salary',
+  deadline: 'deadline',
+  isPublished: 'isPublished',
+  companyId: 'companyId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.JobdescScalarFieldEnum = {
+  id: 'id',
+  name: 'name'
+};
+
+exports.Prisma.DeveloperScalarFieldEnum = {
+  id: 'id',
+  email: 'email',
+  password: 'password',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.SortOrder = {
+  asc: 'asc',
+  desc: 'desc'
+};
+
+exports.Prisma.QueryMode = {
+  default: 'default',
+  insensitive: 'insensitive'
+};
+
+exports.Prisma.NullsOrder = {
+  first: 'first',
+  last: 'last'
+};
+exports.Gender = exports.$Enums.Gender = {
+  MALE: 'MALE',
+  FEMALE: 'FEMALE'
+};
 
 exports.Prisma.ModelName = {
-
+  User: 'User',
+  Company: 'Company',
+  Industry: 'Industry',
+  Job: 'Job',
+  Jobdesc: 'Jobdesc',
+  Developer: 'Developer'
 };
 
 /**
