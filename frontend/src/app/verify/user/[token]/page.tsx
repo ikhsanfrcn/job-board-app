@@ -1,15 +1,16 @@
 import VerifyUser from "./_components/verify";
 
-export default function VerifyPage({
+export default async function VerifyPage({
   params,
 }: {
-  params: { token: string }; // ✅ langsung object, bukan Promise
+  params: Promise<{ token: string }>;
 }) {
-  const { token } = params;
-
+  const token = (await params).token;
+  console.log(token);
   return (
     <div>
       <VerifyUser token={token} />
     </div>
   );
 }
+ 
