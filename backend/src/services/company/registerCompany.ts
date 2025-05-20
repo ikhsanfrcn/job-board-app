@@ -3,7 +3,8 @@ import { hashPassword } from "../../utils/password";
 import { generateToken } from "../../utils/token";
 import { sendVerificationEmail } from "../../utils/mailer";
 import { RegisterCompanyParams } from "../../types/type";
-import { buildVerificationLink, ensureCompanyNotExists } from "../../helpers/companyHelpers";
+import { ensureCompanyNotExists } from "../../helpers/companyHelpers";
+import { buildVerificationLinkCompany } from "../../helpers/linkBuilder";
 
 export const registerCompany = async (params: RegisterCompanyParams) => {
   await ensureCompanyNotExists(params.email);
@@ -20,7 +21,7 @@ export const registerCompany = async (params: RegisterCompanyParams) => {
   templateName: "verifyCompany",
   templateData: {
     name: params.name,
-    link: buildVerificationLink(token),
+    link: buildVerificationLinkCompany(token),
   },
 });
 
