@@ -37,6 +37,14 @@ export default function RootLayout({
           closeOnClick
         />
         {children}
+        <ToastContainer
+            position="bottom-right"
+            autoClose={5000}
+            draggable
+            theme="dark"
+            transition={Bounce}
+            closeOnClick
+          />
       </body>
     </html>
   );
