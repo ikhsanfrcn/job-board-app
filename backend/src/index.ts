@@ -1,6 +1,7 @@
 import express, { Application, Request, Response } from "express";
 import cors from "cors";
 import { AuthRouter } from "./router/auth.routes";
+import { UserRouter } from "./router/user.routes";
 // import { CompanyRouter } from "./router/company.routes";
 
 const PORT: number = 8000;
@@ -18,6 +19,9 @@ app.use("/api/users", authRouter.getRouter());
 
 // const companyRouter = new CompanyRouter();
 // app.use("/api/company", companyRouter.getRouter());
+
+const userRouter = new UserRouter();
+app.use("/api/users", userRouter.getRouter());
 
 app.listen(PORT, () => {
   console.log(`Server running http://localhost:${PORT}/api`);

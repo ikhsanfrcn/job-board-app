@@ -32,7 +32,7 @@ export class AuthController {
         expiresIn: "1h",
       });
 
-      const link = `${process.env.BASE_URL_FRONTEND}/verify/user${token}`;
+      const link = `${process.env.BASE_URL_FRONTEND}/verify/user/${token}`;
       const templatePath = path.join(__dirname, "../templates", `verify.hbs`);
       const templateSource = fs.readFileSync(templatePath, "utf-8");
       const compiledTemplate = handlebars.compile(templateSource);
