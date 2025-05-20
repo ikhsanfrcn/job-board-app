@@ -15,7 +15,7 @@ export class CompanyRouter {
   }
 
   private initializeRoute() {
-    this.router.post("/register", this.authMiddleware.verifyToken, this.companyController.registerCompany);
+    this.router.post("/register", this.companyController.register);
     this.router.patch("/verify", this.authMiddleware.verifyToken, this.companyController.verify);
     this.router.post("/login", this.companyController.login);
   }
