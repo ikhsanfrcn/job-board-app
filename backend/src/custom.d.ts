@@ -6,10 +6,16 @@ export type UserPayLoad = {
   role: string;
 };
 
+export type CompanyPayLoad = {
+  id: string;
+  role: string;
+};
+
 declare global {
   namespace Express {
     export interface Request {
       user?: UserPayLoad;
+      company?: CompanyPayLoad;
     }
   }
 }
