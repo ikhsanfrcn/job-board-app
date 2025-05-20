@@ -1,4 +1,4 @@
-import VerifyPage from "../../../../components/verify";
+import VerifyPage from "./_components/verify";
 
 export default async function Page({
   params,

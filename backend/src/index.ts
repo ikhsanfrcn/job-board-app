@@ -3,6 +3,7 @@ import cors from "cors";
 import { AuthRouter } from "./router/auth.routes";
 import { IndustryRouter } from "./router/industry.routes";
 import { CompanyRouter } from "./router/company.routes";
+import { PasswordRouter } from "./router/password.routes";
 
 const PORT: number = 8000;
 
@@ -15,7 +16,10 @@ app.get("/api", (req: Request, res: Response) => {
 });
 
 const authRouter = new AuthRouter();
-app.use("/api/users", authRouter.getRouter());
+app.use("/api/auth", authRouter.getRouter());
+
+const passwordRouter = new PasswordRouter();
+app.use("/api/password", passwordRouter.getRouter());
 
 const companyRouter = new CompanyRouter();
 app.use("/api/company", companyRouter.getRouter());

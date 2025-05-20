@@ -5,7 +5,6 @@ import { AxiosError } from "axios";
 import { Field, Form, Formik, FormikHelpers, FormikProps } from "formik";
 import { signIn } from "next-auth/react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import { toast } from "react-toastify";
@@ -29,7 +28,6 @@ interface ILoginForm {
 
 export default function Page() {
   const [showPassword, setShowPassword] = useState(false);
-  const router = useRouter();
 
   const initialValues: ILoginForm = {
     username: "",
@@ -41,34 +39,28 @@ export default function Page() {
     action: FormikHelpers<ILoginForm>
   ) => {
     try {
-      const { data } = await axios.post("/users/login", value);
+      const { data } = await axios.post("/auth/login", value);
       const user = data.data;
-
+      toast.success("Login Success !");
+      action.resetForm();
+      
       await signIn("credentials", {
         redirectTo: "/",
         id: user.id,
-        username: user.username,
+        name: user.name,
         email: user.email,
-        firstName: user.firstName,
-        lastName: user.lastName,
-        gender: user.gender,
-        dob: user.dob,
-        education: user.education,
-        country: user.country,
-        state: user.state,
-        city: user.city,
-        zipCode: user.zipCode,
-        regionNumber: user.regionNumber,
-        phoneNumber: user.phoneNumber,
+        role: user.role,
         avatar: user.avatar || "",
         accessToken: data.access_token,
       });
-      toast.success("Login Success !");
-      action.resetForm();
     } catch (err) {
       console.log(err);
       if (err instanceof AxiosError) {
-        toast.error(err.response?.data.message);
+        toast.error(err.response?.data?.message || "Login failed");
+        console.log(err);
+      } else {
+        toast.error("An unexpected error occurred");
+        console.error(err);
       }
     }
   };

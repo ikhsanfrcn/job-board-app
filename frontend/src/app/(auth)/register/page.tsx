@@ -50,7 +50,7 @@ export default function Page() {
     action: FormikHelpers<IRegForm>
   ) => {
     try {
-      const { data } = await axios.post("/users/register", value);
+      const { data } = await axios.post("/auth/register", value);
       action.resetForm();
       toast.success(data.message);
       router.push("/login");
