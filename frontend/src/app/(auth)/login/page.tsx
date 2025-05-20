@@ -144,7 +144,7 @@ export default function Page() {
                     </div>
                   ) : null}
                 </div>
-                <Link href={"/forgot"} className="text-xs text-red-600 hover:text-red-500 tracking-wide">Forgot password?</Link>
+                <Link href={"/password/forgot"} className="text-xs text-red-600 hover:text-red-500 tracking-wide">Forgot password?</Link>
                 <div className="mt-4 w-full">
                   <button
                     className="font-bold py-2 px-2 rounded-sm bg-black-500 disabled:bg-gray-300 disabled:cursor-not-allowed text-md border w-full cursor-pointer hover:bg-green-600 hover:text-white transition duration-300 text-shadow-sm"
