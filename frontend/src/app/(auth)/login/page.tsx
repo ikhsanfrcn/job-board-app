@@ -7,6 +7,7 @@ import { signIn } from "next-auth/react";
 import Link from "next/link";
 import { useState } from "react";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
+import { FcGoogle } from "react-icons/fc";
 import { toast } from "react-toastify";
 import * as yup from "yup";
 
@@ -43,7 +44,7 @@ export default function Page() {
       const user = data.data;
       toast.success("Login Success !");
       action.resetForm();
-      
+
       await signIn("credentials", {
         redirectTo: "/",
         id: user.id,
@@ -144,7 +145,12 @@ export default function Page() {
                     </div>
                   ) : null}
                 </div>
-                <Link href={"/password/forgot"} className="text-xs text-red-600 hover:text-red-500 tracking-wide">Forgot password?</Link>
+                <Link
+                  href={"/password/forgot"}
+                  className="text-xs text-red-600 hover:text-red-500 tracking-wide"
+                >
+                  Forgot password?
+                </Link>
                 <div className="mt-4 w-full">
                   <button
                     className="font-bold py-2 px-2 rounded-sm bg-black-500 disabled:bg-gray-300 disabled:cursor-not-allowed text-md border w-full cursor-pointer hover:bg-green-600 hover:text-white transition duration-300 text-shadow-sm"
@@ -158,7 +164,23 @@ export default function Page() {
             );
           }}
         </Formik>
-        <div className="my-5 text-xs">
+        <div className="relative w-[77%] md:w-[80%] mt-5">
+          <hr className="text-gray-400 w-full" />
+          <label
+            htmlFor="or"
+            className="absolute -top-2.5 left-[47%] bg-white px-2 text-sm"
+          >
+            or
+          </label>
+        </div>
+        <button
+          onClick={() => signIn("google", {redirectTo: "/"})}
+          className="flex justify-between items-center border w-[77%] md:w-[80%] my-5 py-2 px-3 font-semibold text-md text-shadow-sm rounded-sm cursor-pointer hover:border-green-600"
+        >
+          <FcGoogle className="text-2xl" />
+          Continue with Google<span>&nbsp;</span>
+        </button>
+        <div className="text-xs">
           Don&apos;t have an account?&nbsp;
           <Link
             href="/register"

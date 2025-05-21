@@ -2,6 +2,7 @@ import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import { Session } from "next-auth";
 import { JWT } from "next-auth/jwt";
+import Google from "next-auth/providers/google";
 
 export const { auth, handlers, signIn, signOut } = NextAuth({
   providers: [
@@ -11,6 +12,26 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
         return null;
       },
     }),
+    Google({
+      clientId: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+      authorization: {
+        params: {
+          prompt: "consent",
+          access_type: "offline",
+          response_type: "code",
+        },
+      },
+      async profile(profile) {
+        console.log("Google Profile:", profile);
+        return {
+          username: profile.given_name,
+          email: profile.email,
+          password: profile.at_hash,
+          avatar: profile.picture,
+        };
+      },
+    })
   ],
   pages: {
     signIn: "/login",
