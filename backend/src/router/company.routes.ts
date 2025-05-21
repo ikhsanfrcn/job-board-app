@@ -18,6 +18,8 @@ export class CompanyRouter {
     this.router.post("/register", this.companyController.register);
     this.router.patch("/verify", this.authMiddleware.verifyToken, this.companyController.verify);
     this.router.post("/login", this.companyController.login);
+    this.router.post("/request-reset", this.companyController.requestPasswordReset);
+    this.router.patch("/reset-password", this.authMiddleware.verifyToken, this.companyController.passwordReset);
   }
 
   getRouter(): Router {
