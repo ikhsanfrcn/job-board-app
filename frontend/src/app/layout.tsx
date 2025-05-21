@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Bounce, ToastContainer } from "react-toastify";
+import { SessionProvider } from "next-auth/react";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -36,15 +37,7 @@ export default function RootLayout({
           transition={Bounce}
           closeOnClick
         />
-        {children}
-        <ToastContainer
-            position="bottom-right"
-            autoClose={5000}
-            draggable
-            theme="dark"
-            transition={Bounce}
-            closeOnClick
-          />
+        <SessionProvider>{children}</SessionProvider>
       </body>
     </html>
   );

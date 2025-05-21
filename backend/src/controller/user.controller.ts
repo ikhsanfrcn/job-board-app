@@ -6,6 +6,21 @@ export class UserController {
     try {
       const user = await prisma.user.findUnique({
         where: { id: req.user?.id },
+        select: {
+          email: true,
+          username: true,
+          firstName: true,
+          lastName: true,
+          gender: true,
+          dob: true,
+          education: true,
+          country: true,
+          state: true,
+          city: true,
+          zipCode: true,
+          regionNumber: true,
+          phoneNumber: true,
+        },
       });
       res.status(200).send({
         message: "User fetched successfully✅",
