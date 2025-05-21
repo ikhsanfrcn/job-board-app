@@ -57,7 +57,7 @@ export default function VerifyUser({ token }: { token: string }) {
 
   useEffect(() => {
     if (countdown === 0 && isSuccess) {
-      router.push("/");
+      router.push("/login");
     }
   }, [countdown, isSuccess, router]);
 
@@ -76,7 +76,7 @@ export default function VerifyUser({ token }: { token: string }) {
 
           {isSuccess && (
             <p className="text-sm text-gray-500">
-              Redirecting to homepage in {countdown} seconds...
+              Redirecting to login page in {countdown} seconds...
             </p>
           )}
 

@@ -1,12 +1,12 @@
 import { ensureUserNotExists } from "../../helpers/authHelpers";
 import { buildVerificationLinkUser } from "../../helpers/linkBuilder";
 import prisma from "../../prisma";
-import { RegisterUserParams } from "../../types/type";
+import { AuthParams } from "../../types/type";
 import { sendVerificationEmail } from "../../utils/mailer";
 import { hashPassword } from "../../utils/password";
 import { generateToken } from "../../utils/token";
 
-export const registerUser = async (params: RegisterUserParams) => {
+export const registerUser = async (params: AuthParams) => {
   await ensureUserNotExists(params.email, params.password);
 
   const hashed = await hashPassword(params.password);

@@ -5,8 +5,9 @@ export interface RegisterCompanyParams {
   industryId: string;
 }
 
-export interface RegisterUserParams {
+export interface AuthParams {
   username: string;
   email: string;
   password: string;
+  avatar?: string;
 }

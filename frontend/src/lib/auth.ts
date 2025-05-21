@@ -34,12 +34,28 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
 
         try {
           const res = await axios.post("/auth/google", userData);
-          return res.data.user;
+          const user = res.data.data;
+          const token = res.data.access_token;
+
+          return {
+            id: user.id,
+            username: user.username,
+            email: user.email,
+            avatar: user.avatar,
+            accessToken: token,
+            // ...user, // kalau mau bawa data lain ke JWT
+          };
         } catch (err) {
-          console.log(err);
+          console.error("Error during Google auth:", err);
+          return {
+            id: profile.sub,
+            username: profile.username || profile.given_name || "No Name",
+            email: profile.email,
+            avatar: profile.picture,
+          };
         }
       },
-    })
+    }),
   ],
   pages: {
     signIn: "/login",
