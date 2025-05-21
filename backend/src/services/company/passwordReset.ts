@@ -2,6 +2,7 @@ import prisma from "../../prisma";
 import { hashPassword } from "../../utils/password";
 import { decodeToken } from "../../utils/decodeToken";
 import { validatePasswordStrength } from "../../utils/validatePassword";
+import { getCompanyOrThrow } from "../../helpers/companyHelpers";
 
 export const passwordReset = async (token: string, newPassword: string) => {
   validatePasswordStrength(newPassword);
@@ -9,8 +10,7 @@ export const passwordReset = async (token: string, newPassword: string) => {
   const decoded = decodeToken(token);
   const companyId = decoded.companyId || decoded.id;
 
-  const company = await prisma.company.findUnique({ where: { id: companyId } });
-  if (!company) throw { status: 404, message: "Company not found" };
+  const company = await getCompanyOrThrow(companyId)
 
   const tokenIssuedAt = decoded.iat * 1000;
   if (tokenIssuedAt < company.updatedAt.getTime()) {

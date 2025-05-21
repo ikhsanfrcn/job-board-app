@@ -7,7 +7,7 @@ import { hashPassword } from "../../utils/password";
 import { generateToken } from "../../utils/token";
 
 export const registerUser = async (params: AuthParams) => {
-  await ensureUserNotExists(params.email, params.password);
+  await ensureUserNotExists(params.email, params.username);
 
   const hashed = await hashPassword(params.password);
   const user = await prisma.user.create({

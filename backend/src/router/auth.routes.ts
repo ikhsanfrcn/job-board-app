@@ -19,6 +19,8 @@ export class AuthRouter {
     this.router.patch("/verify", this.authMiddleware.verifyToken, this.authController.verify);
     this.router.post("/login", this.authController.login);
     this.router.post("/google", this.authController.googleAuth)
+    this.router.post("/request-reset", this.authController.requestPasswordReset);
+    this.router.patch("/password-reset", this.authMiddleware.verifyToken, this.authController.passwordReset);
   }
 
   getRouter(): Router {

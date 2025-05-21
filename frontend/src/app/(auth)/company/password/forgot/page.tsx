@@ -67,7 +67,7 @@ export default function Page() {
             Please check your inbox.
           </p>
           <Link
-            href="/login"
+            href="/company/login"
             className="inline-block bg-green-600 text-white py-2 px-4 rounded-sm font-semibold hover:bg-green-700 transition"
           >
             Back to Login

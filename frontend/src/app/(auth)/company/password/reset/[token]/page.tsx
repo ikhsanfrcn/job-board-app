@@ -28,7 +28,7 @@ export default function ResetPasswordPage() {
     action: FormikHelpers<ICompanyResetForm>
   ) => {
     try {
-      await axios.patch("/company/reset-password", value, {
+      await axios.patch("/company/password-reset", value, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

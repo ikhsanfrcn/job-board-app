@@ -130,7 +130,7 @@ export default function Page() {
                   ) : null}
                 </div>
                 <Link
-                  href={"/password/forgot"}
+                  href={"/company/password/forgot"}
                   className="text-xs text-red-600 hover:text-red-500 tracking-wide"
                 >
                   Forgot password?

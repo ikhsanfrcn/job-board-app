@@ -49,8 +49,9 @@ export type Developer = $Result.DefaultSelection<Prisma.$DeveloperPayload>
  */
 export namespace $Enums {
   export const Gender: {
-  MALE: 'MALE',
-  FEMALE: 'FEMALE'
+  PreferNotToSay: 'PreferNotToSay',
+  Male: 'Male',
+  Female: 'Female'
 };
 
 export type Gender = (typeof Gender)[keyof typeof Gender]
@@ -8447,12 +8448,12 @@ export namespace Prisma {
 
   export type IndustryWhereUniqueInput = Prisma.AtLeast<{
     id?: string
+    name?: string
     AND?: IndustryWhereInput | IndustryWhereInput[]
     OR?: IndustryWhereInput[]
     NOT?: IndustryWhereInput | IndustryWhereInput[]
-    name?: StringFilter<"Industry"> | string
     Company?: CompanyListRelationFilter
-  }, "id">
+  }, "id" | "name">
 
   export type IndustryOrderByWithAggregationInput = {
     id?: SortOrder

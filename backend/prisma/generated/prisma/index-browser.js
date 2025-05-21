@@ -212,8 +212,9 @@ exports.Prisma.NullsOrder = {
   last: 'last'
 };
 exports.Gender = exports.$Enums.Gender = {
-  MALE: 'MALE',
-  FEMALE: 'FEMALE'
+  PreferNotToSay: 'PreferNotToSay',
+  Male: 'Male',
+  Female: 'Female'
 };
 
 exports.Prisma.ModelName = {
