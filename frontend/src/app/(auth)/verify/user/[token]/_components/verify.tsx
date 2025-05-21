@@ -8,21 +8,13 @@ import { useRouter } from "next/navigation";
 
 export default function VerifyUser({ token }: { token: string }) {
   const [loading, setLoading] = useState(true);
-  const [statusMessage, setStatusMessage] = useState(
-    "Verifying your account..."
-  );
+  const [statusMessage, setStatusMessage] = useState("Verifying your account...");
+  const [countdown, setCountdown] = useState(6);
+  const [isSuccess, setIsSuccess] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
     const onVerify = async () => {
-      if (!token) {
-        toast.error("Missing verification token.");
-        setStatusMessage("Token not provided.");
-        setLoading(false);
-        setTimeout(() => router.push("/"), 2000);
-        return;
-      }
-
       try {
         const { data } = await axios.patch(
           "/auth/verify",
@@ -35,6 +27,7 @@ export default function VerifyUser({ token }: { token: string }) {
         );
         toast.success(data.message || "Verification successful");
         setStatusMessage("Your account has been successfully verified.");
+        setIsSuccess(true);
       } catch (err) {
         if (err instanceof AxiosError) {
           const msg = err.response?.data?.message || "Verification failed";
@@ -46,12 +39,27 @@ export default function VerifyUser({ token }: { token: string }) {
         }
       } finally {
         setLoading(false);
-        setTimeout(() => router.push("/"), 3000);
       }
     };
 
     onVerify();
-  }, [router, token]);
+  }, [token]);
+
+  useEffect(() => {
+    if (!isSuccess) return;
+
+    const interval = setInterval(() => {
+      setCountdown((prev) => prev - 1);
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [isSuccess]);
+
+  useEffect(() => {
+    if (countdown === 0 && isSuccess) {
+      router.push("/");
+    }
+  }, [countdown, isSuccess, router]);
 
   return (
     <div className="w-full h-screen flex items-center justify-center flex-col gap-4 text-center px-4">
@@ -62,15 +70,21 @@ export default function VerifyUser({ token }: { token: string }) {
         </>
       ) : (
         <>
-          <div className="text-green-600 text-xl font-semibold">
+          <div className={`text-xl font-semibold ${isSuccess ? "text-green-600" : "text-red-600"}`}>
             {statusMessage}
           </div>
-          <p className="text-sm text-gray-500">Redirecting to homepage...</p>
+
+          {isSuccess && (
+            <p className="text-sm text-gray-500">
+              Redirecting to homepage in {countdown} seconds...
+            </p>
+          )}
+
           <button
             onClick={() => router.push("/")}
-            className="mt-4 px-4 py-2 bg-gray-400 text-white rounded hover:bg-green-700 transition"
+            className="mt-4 px-4 py-2 bg-gray-400 text-white rounded hover:bg-blue-700 transition"
           >
-            Go now
+            Go to homepage
           </button>
         </>
       )}
