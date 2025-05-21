@@ -11,8 +11,12 @@ import * as yup from "yup";
 const ResetSchema = yup.object().shape({
   newPassword: yup
     .string()
-    .min(8, "Password must be at least 8 characters")
-    .required("New password is required"),
+    .min(6, "Min 6 character")
+    .matches(/[0-9]/, "Password requires a number")
+    .matches(/[a-z]/, "Password requires a lowercase letter")
+    .matches(/[A-Z]/, "Password requires an uppercase letter")
+    .matches(/[^\w]/, "Password requires a symbol")
+    .required("Password is required!"),
 });
 
 interface IResetForm {
