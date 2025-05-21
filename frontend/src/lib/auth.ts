@@ -22,6 +22,15 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
           response_type: "code",
         },
       },
+      async profile(profile) {
+        console.log("Google Profile:", profile);
+        return {
+          username: profile.given_name,
+          email: profile.email,
+          password: profile.at_hash,
+          avatar: profile.picture,
+        };
+      },
     })
   ],
   pages: {
