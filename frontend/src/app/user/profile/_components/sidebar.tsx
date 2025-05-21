@@ -1,3 +1,5 @@
+"use client";
+import { signOut } from "next-auth/react";
 import { HiOutlineLogout } from "react-icons/hi";
 
 export default function SideBar() {
@@ -30,7 +32,9 @@ export default function SideBar() {
       </div>
       <hr className="w-full border-1 border-gray-200 mt-5" />
       <div className="w-full flex items-center justify-between px-4 py-2 my-2">
-        <button className="hover:underline">Signout</button>
+        <button className="hover:underline" onClick={() => signOut()}>
+          Signout
+        </button>
         <HiOutlineLogout className="text-2xl" />
       </div>
       <button className="w-full font-medium px-4 py-2 border-1 rounded-lg">

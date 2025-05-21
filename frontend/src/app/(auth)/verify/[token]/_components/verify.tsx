@@ -6,7 +6,7 @@ import { useCallback, useEffect, useState } from "react";
 
 export default function VerifyPage({ token }: { token: string }) {
   const [msg, setMsg] = useState<string>("");
-  const [isSuccess, setIsSuccess] = useState<boolean>(false)
+  const [isSuccess, setIsSuccess] = useState<boolean>(false);
   const router = useRouter();
 
   const onVerify = useCallback(async () => {
@@ -42,9 +42,9 @@ export default function VerifyPage({ token }: { token: string }) {
       <h1 className="text-6xl text-shadow-lg">
         {msg}
         {isSuccess && (
-        <span className="text-sm block mt-4 text-center">
-          Redirecting the page in 5 seconds...
-        </span>
+          <span className="text-sm block mt-4 text-center">
+            Redirecting the page in 5 seconds...
+          </span>
         )}
       </h1>
     </div>

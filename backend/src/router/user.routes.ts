@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { UserController } from "../controller/user.controller";
 import { AuthMiddleware } from "../middleware/auth.middleware";
+import { validateUpdateProfile } from "../middleware/validation";
 
 export class UserRouter {
   private router: Router;
@@ -22,7 +23,8 @@ export class UserRouter {
     );
 
     this.router.patch(
-      "/update",
+      "/profile",
+      validateUpdateProfile,
       this.authMiddleware.verifyToken,
       this.userController.updateUser
     );

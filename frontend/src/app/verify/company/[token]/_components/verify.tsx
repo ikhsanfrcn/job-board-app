@@ -6,54 +6,52 @@ import axios from "@/lib/axios";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 
-export default function VerifyCompany({ token }: { token: string }) {
+export default function VerifyUser({ token }: { token: string }) {
   const [loading, setLoading] = useState(true);
   const [statusMessage, setStatusMessage] = useState(
     "Verifying your account..."
   );
-  const [countdown, setCountdown] = useState(6);
   const router = useRouter();
 
-  const onVerify = async () => {
-    try {
-      const { data } = await axios.patch(
-        "/users/verify",
-        {},
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      toast.success(data.message || "Verification successful");
-      setStatusMessage("Your account has been successfully verified.");
-    } catch (err) {
-      if (err instanceof AxiosError) {
-        const msg = err.response?.data?.message || "Verification failed";
-        toast.error(msg);
-        setStatusMessage(msg);
-      } else {
-        toast.error("Unexpected error");
-        setStatusMessage("Unexpected error during verification.");
-      }
-    } finally {
-      setLoading(false);
-
-      const interval = setInterval(() => {
-        setCountdown((prev) => {
-          if (prev === 1) {
-            clearInterval(interval);
-            router.push("/");
-          }
-          return prev - 1;
-        });
-      }, 1000);
-    }
-  };
-
   useEffect(() => {
+    const onVerify = async () => {
+      if (!token) {
+        toast.error("Missing verification token.");
+        setStatusMessage("Token not provided.");
+        setLoading(false);
+        setTimeout(() => router.push("/"), 2000);
+        return;
+      }
+
+      try {
+        const { data } = await axios.patch(
+          "/company/verify",
+          {},
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        toast.success(data.message || "Verification successful");
+        setStatusMessage("Your account has been successfully verified.");
+      } catch (err) {
+        if (err instanceof AxiosError) {
+          const msg = err.response?.data?.message || "Verification failed";
+          toast.error(msg);
+          setStatusMessage(msg);
+        } else {
+          toast.error("Unexpected error");
+          setStatusMessage("Unexpected error during verification.");
+        }
+      } finally {
+        setLoading(false);
+        setTimeout(() => router.push("/"), 3000);
+      }
+    };
+
     onVerify();
-  }, []);
+  }, [router, token]);
 
   return (
     <div className="w-full h-screen flex items-center justify-center flex-col gap-4 text-center px-4">
@@ -67,12 +65,10 @@ export default function VerifyCompany({ token }: { token: string }) {
           <div className="text-green-600 text-xl font-semibold">
             {statusMessage}
           </div>
-          <p className="text-sm text-gray-500">
-            Redirecting to homepage in {countdown} seconds...
-          </p>
+          <p className="text-sm text-gray-500">Redirecting to homepage...</p>
           <button
             onClick={() => router.push("/")}
-            className="mt-4 px-4 py-2 bg-gray-400 text-white rounded hover:bg-blue-700 transition"
+            className="mt-4 px-4 py-2 bg-gray-400 text-white rounded hover:bg-green-700 transition"
           >
             Go now
           </button>
