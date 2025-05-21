@@ -6,29 +6,59 @@ import { MdOutlineModeEdit } from "react-icons/md";
 import Resume from "./resume";
 import Hero from "./hero";
 import { userProfileSchema } from "@/schema/userProfileSchema";
+import { IUserProfile } from "@/types/userProfile";
+import axios from "@/lib/axios";
+import { normalizeProfile } from "@/helper/normalizerProfile";
+import { toast } from "react-toastify";
+import { AxiosError } from "axios";
+import Skeleton from "./skeleton";
 
-const initialProfile = {
-  firstName: "John",
-  lastName: "Doe",
-  gender: "Male",
-  dob: "1990-01-01",
-  education: "Bachelor",
-  country: "Indonesia",
-  state: "DKI Jakarta",
-  city: "Jakarta",
-  zipCode: "12345",
-  regionNumber: "021",
-  phoneNumber: "+628123456789",
-};
+interface IProps {
+  profileData?: IUserProfile;
+  onReload: () => void;
+  fetchLoading?: boolean;
+  token: string;
+}
 
-export default function ProfileForm() {
+export default function ProfileForm({
+  profileData: initialProfile,
+  onReload,
+  fetchLoading,
+  token,
+}: IProps) {
+  if (fetchLoading || !initialProfile) {
+    return (
+      <div className="w-full h-full">
+        <Skeleton />;
+      </div>
+    );
+  }
+
   const [isEditing, setIsEditing] = useState(false);
-  const [profileData, setProfileData] = useState(initialProfile);
+  const [profileData, setProfileData] = useState<IUserProfile>(initialProfile);
+  const [loading, setLoading] = useState(false);
 
-  const handleSubmit = (values: typeof initialProfile) => {
-    console.log("Updated profile:", values);
-    setProfileData(values);
-    setIsEditing(false);
+  const handleSubmit = async (values: IUserProfile) => {
+    try {
+      setLoading(true);
+      await axios.patch("/users/profile", normalizeProfile(values), {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      setProfileData(values);
+      setIsEditing(false);
+      toast.success("Update Success !");
+      onReload();
+    } catch (err) {
+      if (err instanceof AxiosError) {
+        console.log("Error Response:", err.response);
+        toast.error(err.response?.data?.message || "Update Failed !");
+      }
+      console.log(err);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -53,23 +83,39 @@ export default function ProfileForm() {
 
             {isEditing ? (
               <Formik
-                initialValues={profileData}
+                initialValues={normalizeProfile(profileData)}
                 validationSchema={userProfileSchema}
                 onSubmit={handleSubmit}
+                enableReinitialize
               >
                 {({ handleReset }) => (
                   <Form className="space-y-4 text-sm text-gray-800">
                     {[
+                      { label: "Email", name: "email" },
+                      { label: "Username", name: "username" },
                       { label: "First Name", name: "firstName" },
                       { label: "Last Name", name: "lastName" },
                       {
                         label: "Gender",
                         name: "gender",
                         as: "select",
-                        options: ["Male", "Female"],
+                        options: ["MALE", "FEMALE"],
                       },
                       { label: "Date of Birth", name: "dob", type: "date" },
-                      { label: "Education", name: "education" },
+                      {
+                        label: "Education",
+                        name: "education",
+                        as: "select",
+                        options: [
+                          "High School",
+                          "Diploma",
+                          "Associate Degree",
+                          "Bachelor's Degree",
+                          "Master's Degree",
+                          "Doctorate (PhD)",
+                          "Other",
+                        ],
+                      },
                       { label: "Country", name: "country" },
                       { label: "State", name: "state" },
                       { label: "City", name: "city" },
@@ -85,7 +131,7 @@ export default function ProfileForm() {
                             name={name}
                             className="mt-1 border border-gray-300 rounded px-4 py-2 w-full text-sm"
                           >
-                            <option value="">Select gender</option>
+                            <option value="">Select {label}</option>
                             {options?.map((opt) => (
                               <option key={opt} value={opt}>
                                 {opt}
@@ -120,9 +166,14 @@ export default function ProfileForm() {
                       </button>
                       <button
                         type="submit"
-                        className="w-full bg-gray-400 text-white px-4 py-2 rounded hover:bg-gray-600 transition"
+                        disabled={loading}
+                        className={`w-full px-4 py-2 rounded text-white transition ${
+                          loading
+                            ? "bg-gray-300 cursor-not-allowed"
+                            : "bg-gray-400 hover:bg-gray-600"
+                        }`}
                       >
-                        Save
+                        {loading ? "Saving..." : "Save"}
                       </button>
                     </div>
                   </Form>
