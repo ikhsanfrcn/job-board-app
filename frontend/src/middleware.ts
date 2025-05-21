@@ -12,9 +12,9 @@ export async function middleware(req: NextRequest) {
     return NextResponse.redirect(new URL("/login", req.url));
   }
 
-  if (!data && req.nextUrl.pathname.startsWith("/company")) {
-    return NextResponse.redirect(new URL("/login", req.url));
-  }
+  // if (!data && req.nextUrl.pathname.startsWith("/company")) {
+  //   return NextResponse.redirect(new URL("/login", req.url));
+  // }
 
   return NextResponse.next();
 }
