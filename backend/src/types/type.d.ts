@@ -11,3 +11,24 @@ export interface AuthParams {
   password: string;
   avatar?: string;
 }
+
+export interface CreateJobParams {
+  title: string;
+  description: string;
+  city: string;
+  category: string;
+  tags: string[];
+  salary?: string | null | undefined;
+  deadline: string;
+  companyId: string;
+  isPublished?: boolean;
+}
+
+export interface GetJobsParams {
+  city?: string;
+  category?: string;
+  tags?: string[];
+  isPublished?: boolean;
+  page?: number;
+  size?: number;
+}

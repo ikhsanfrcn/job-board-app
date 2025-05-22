@@ -4924,7 +4924,7 @@ export namespace Prisma {
     city: string | null
     category: string | null
     salary: string | null
-    deadline: Date | null
+    deadline: string | null
     isPublished: boolean | null
     companyId: string | null
     createdAt: Date | null
@@ -4938,7 +4938,7 @@ export namespace Prisma {
     city: string | null
     category: string | null
     salary: string | null
-    deadline: Date | null
+    deadline: string | null
     isPublished: boolean | null
     companyId: string | null
     createdAt: Date | null
@@ -5086,7 +5086,7 @@ export namespace Prisma {
     category: string
     tags: string[]
     salary: string | null
-    deadline: Date
+    deadline: string
     isPublished: boolean
     companyId: string
     createdAt: Date
@@ -5197,7 +5197,7 @@ export namespace Prisma {
       category: string
       tags: string[]
       salary: string | null
-      deadline: Date
+      deadline: string
       isPublished: boolean
       companyId: string
       createdAt: Date
@@ -5633,7 +5633,7 @@ export namespace Prisma {
     readonly category: FieldRef<"Job", 'String'>
     readonly tags: FieldRef<"Job", 'String[]'>
     readonly salary: FieldRef<"Job", 'String'>
-    readonly deadline: FieldRef<"Job", 'DateTime'>
+    readonly deadline: FieldRef<"Job", 'String'>
     readonly isPublished: FieldRef<"Job", 'Boolean'>
     readonly companyId: FieldRef<"Job", 'String'>
     readonly createdAt: FieldRef<"Job", 'DateTime'>
@@ -8520,7 +8520,7 @@ export namespace Prisma {
     category?: StringFilter<"Job"> | string
     tags?: StringNullableListFilter<"Job">
     salary?: StringNullableFilter<"Job"> | string | null
-    deadline?: DateTimeFilter<"Job"> | Date | string
+    deadline?: StringFilter<"Job"> | string
     isPublished?: BoolFilter<"Job"> | boolean
     companyId?: StringFilter<"Job"> | string
     createdAt?: DateTimeFilter<"Job"> | Date | string
@@ -8555,7 +8555,7 @@ export namespace Prisma {
     category?: StringFilter<"Job"> | string
     tags?: StringNullableListFilter<"Job">
     salary?: StringNullableFilter<"Job"> | string | null
-    deadline?: DateTimeFilter<"Job"> | Date | string
+    deadline?: StringFilter<"Job"> | string
     isPublished?: BoolFilter<"Job"> | boolean
     companyId?: StringFilter<"Job"> | string
     createdAt?: DateTimeFilter<"Job"> | Date | string
@@ -8592,7 +8592,7 @@ export namespace Prisma {
     category?: StringWithAggregatesFilter<"Job"> | string
     tags?: StringNullableListFilter<"Job">
     salary?: StringNullableWithAggregatesFilter<"Job"> | string | null
-    deadline?: DateTimeWithAggregatesFilter<"Job"> | Date | string
+    deadline?: StringWithAggregatesFilter<"Job"> | string
     isPublished?: BoolWithAggregatesFilter<"Job"> | boolean
     companyId?: StringWithAggregatesFilter<"Job"> | string
     createdAt?: DateTimeWithAggregatesFilter<"Job"> | Date | string
@@ -9060,7 +9060,7 @@ export namespace Prisma {
     category: string
     tags?: JobCreatetagsInput | string[]
     salary?: string | null
-    deadline: Date | string
+    deadline: string
     isPublished?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -9075,7 +9075,7 @@ export namespace Prisma {
     category: string
     tags?: JobCreatetagsInput | string[]
     salary?: string | null
-    deadline: Date | string
+    deadline: string
     isPublished?: boolean
     companyId: string
     createdAt?: Date | string
@@ -9090,7 +9090,7 @@ export namespace Prisma {
     category?: StringFieldUpdateOperationsInput | string
     tags?: JobUpdatetagsInput | string[]
     salary?: NullableStringFieldUpdateOperationsInput | string | null
-    deadline?: DateTimeFieldUpdateOperationsInput | Date | string
+    deadline?: StringFieldUpdateOperationsInput | string
     isPublished?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -9105,7 +9105,7 @@ export namespace Prisma {
     category?: StringFieldUpdateOperationsInput | string
     tags?: JobUpdatetagsInput | string[]
     salary?: NullableStringFieldUpdateOperationsInput | string | null
-    deadline?: DateTimeFieldUpdateOperationsInput | Date | string
+    deadline?: StringFieldUpdateOperationsInput | string
     isPublished?: BoolFieldUpdateOperationsInput | boolean
     companyId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -9120,7 +9120,7 @@ export namespace Prisma {
     category: string
     tags?: JobCreatetagsInput | string[]
     salary?: string | null
-    deadline: Date | string
+    deadline: string
     isPublished?: boolean
     companyId: string
     createdAt?: Date | string
@@ -9135,7 +9135,7 @@ export namespace Prisma {
     category?: StringFieldUpdateOperationsInput | string
     tags?: JobUpdatetagsInput | string[]
     salary?: NullableStringFieldUpdateOperationsInput | string | null
-    deadline?: DateTimeFieldUpdateOperationsInput | Date | string
+    deadline?: StringFieldUpdateOperationsInput | string
     isPublished?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -9149,7 +9149,7 @@ export namespace Prisma {
     category?: StringFieldUpdateOperationsInput | string
     tags?: JobUpdatetagsInput | string[]
     salary?: NullableStringFieldUpdateOperationsInput | string | null
-    deadline?: DateTimeFieldUpdateOperationsInput | Date | string
+    deadline?: StringFieldUpdateOperationsInput | string
     isPublished?: BoolFieldUpdateOperationsInput | boolean
     companyId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -9934,7 +9934,7 @@ export namespace Prisma {
     category: string
     tags?: JobCreatetagsInput | string[]
     salary?: string | null
-    deadline: Date | string
+    deadline: string
     isPublished?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -9948,7 +9948,7 @@ export namespace Prisma {
     category: string
     tags?: JobCreatetagsInput | string[]
     salary?: string | null
-    deadline: Date | string
+    deadline: string
     isPublished?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -10006,7 +10006,7 @@ export namespace Prisma {
     category?: StringFilter<"Job"> | string
     tags?: StringNullableListFilter<"Job">
     salary?: StringNullableFilter<"Job"> | string | null
-    deadline?: DateTimeFilter<"Job"> | Date | string
+    deadline?: StringFilter<"Job"> | string
     isPublished?: BoolFilter<"Job"> | boolean
     companyId?: StringFilter<"Job"> | string
     createdAt?: DateTimeFilter<"Job"> | Date | string
@@ -10248,7 +10248,7 @@ export namespace Prisma {
     category: string
     tags?: JobCreatetagsInput | string[]
     salary?: string | null
-    deadline: Date | string
+    deadline: string
     isPublished?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -10262,7 +10262,7 @@ export namespace Prisma {
     category?: StringFieldUpdateOperationsInput | string
     tags?: JobUpdatetagsInput | string[]
     salary?: NullableStringFieldUpdateOperationsInput | string | null
-    deadline?: DateTimeFieldUpdateOperationsInput | Date | string
+    deadline?: StringFieldUpdateOperationsInput | string
     isPublished?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -10276,7 +10276,7 @@ export namespace Prisma {
     category?: StringFieldUpdateOperationsInput | string
     tags?: JobUpdatetagsInput | string[]
     salary?: NullableStringFieldUpdateOperationsInput | string | null
-    deadline?: DateTimeFieldUpdateOperationsInput | Date | string
+    deadline?: StringFieldUpdateOperationsInput | string
     isPublished?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -10290,7 +10290,7 @@ export namespace Prisma {
     category?: StringFieldUpdateOperationsInput | string
     tags?: JobUpdatetagsInput | string[]
     salary?: NullableStringFieldUpdateOperationsInput | string | null
-    deadline?: DateTimeFieldUpdateOperationsInput | Date | string
+    deadline?: StringFieldUpdateOperationsInput | string
     isPublished?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string

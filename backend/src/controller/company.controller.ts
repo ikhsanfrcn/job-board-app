@@ -4,17 +4,16 @@ import { loginCompany } from "../services/company/loginCompany";
 import { verifyCompanyAccount } from "../services/company/verifyCompany";
 import { requestPasswordReset } from "../services/company/requestReset";
 import { passwordReset } from "../services/company/passwordReset";
+import { registerCompanySchema } from "../validation/authValidation";
 
 export class CompanyController {
   async register(req: Request, res: Response) {
     try {
-      const { name, email, password, industryId } = req.body;
-      const result = await registerCompany({
-        name,
-        email,
-        password,
-        industryId,
-      });
+      const validateData = await registerCompanySchema.validate(req.body, {
+        abortEarly: false,
+        stripUnknown: true
+      })
+      const result = await registerCompany(validateData);
 
       res.status(201).json(result);
     } catch (err: any) {

@@ -5,16 +5,17 @@ import { loginUser } from "../services/auth/loginUser";
 import { googleAuth } from "../services/auth/googleAuth";
 import { userPasswordReset } from "../services/auth/resetPassword";
 import { requestUserPasswordReset } from "../services/auth/requestReset";
+import { registerUserSchema } from "../validation/authValidation";
 
 export class AuthController {
   async register(req: Request, res: Response) {
     try {
-      const { username, email, password } = req.body;
-      const user = await registerUser({
-        username,
-        email,
-        password,
-      });
+      const validatedData = await registerUserSchema.validate(req.body, {
+      abortEarly: false,
+      stripUnknown: true,
+    });
+    
+      const user = await registerUser(validatedData);
 
       res.status(200).json(user);
     } catch (error: any) {

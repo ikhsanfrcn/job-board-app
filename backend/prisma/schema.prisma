@@ -83,7 +83,7 @@ model Job {
   category    String
   tags        String[]
   salary      String?
-  deadline    DateTime
+  deadline    String
   isPublished Boolean  @default(false)
   companyId   String
   company     Company  @relation(fields: [companyId], references: [id])
