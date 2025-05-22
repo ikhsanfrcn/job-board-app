@@ -12,15 +12,6 @@ export default function SideBar() {
           Profile
         </button>
         <button className="px-4 py-2 border-l-4 border-white hover:border-l-4 hover:border-gray-300 hover:font-semibold">
-          Job Preferences
-        </button>
-        <button className="px-4 py-2 border-l-4 border-white hover:border-l-4 hover:border-gray-300 hover:font-semibold">
-          Job Activity
-        </button>
-        <button className="px-4 py-2 border-l-4 border-white hover:border-l-4 hover:border-gray-300 hover:font-semibold">
-          Following
-        </button>
-        <button className="px-4 py-2 border-l-4 border-white hover:border-l-4 hover:border-gray-300 hover:font-semibold">
           Account Settings
         </button>
         <button className="px-4 py-2 border-l-4 border-white hover:border-l-4 hover:border-gray-300 hover:font-semibold">

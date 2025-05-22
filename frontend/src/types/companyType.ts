@@ -17,3 +17,17 @@ export interface ICompanyResetForm {
 export interface ICompanyForgotForm {
   email: string;
 }
+
+export interface ICompanyProfile {
+  name: string;
+  email: string;
+  about: string;
+  country: string;
+  state: string;
+  city: string;
+  zipCode: string;
+  regionNumber: string;
+  phoneNumber: string;
+  address: string;
+  website: string;
+}

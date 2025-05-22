@@ -4,40 +4,34 @@ import { useSession } from "next-auth/react";
 import { useCallback, useEffect, useState } from "react";
 import axios from "@/lib/axios";
 import { IUserProfile } from "@/types/userProfile";
-import SideBar from "./sidebar";
 import ProfileForm from "./profileForm";
-import Bowls from "./bowls";
+import SideBar from "./sidebar";
+import Bowls from "./bowl";
+import { ICompanyProfile } from "@/types/companyType";
 
 export default function Profile() {
   const { data: user } = useSession();
-  const [userProfile, setUserProfile] = useState<IUserProfile>();
+  const [companyProfile, setCompanyProfile] = useState<ICompanyProfile>();
   const [loading, setLoading] = useState(true);
   const token = user?.accessToken;
 
-  const fetchUserProfile = useCallback(async () => {
+  const fetchCompanyProfile = useCallback(async () => {
     if (!token) return;
 
     try {
-      setLoading(true);
-      const { data } = await axios.get("/users/profile", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      setUserProfile(data.user);
     } catch (err) {
       console.error("Failed to fetch user profile", err);
     } finally {
       setLoading(false);
     }
-  }, [user?.accessToken]);
+  }, [token]);
 
   useEffect(() => {
-    fetchUserProfile();
-  }, [fetchUserProfile]);
+    fetchCompanyProfile();
+  }, [fetchCompanyProfile]);
 
   const onReload = () => {
-    fetchUserProfile();
+    fetchCompanyProfile();
   };
 
   return (
@@ -47,12 +41,7 @@ export default function Profile() {
           <SideBar />
         </div>
         <div className="w-full md:w-6/12">
-          <ProfileForm
-            profileData={userProfile}
-            onReload={onReload}
-            fetchLoading={loading}
-            token={token!}
-          />
+          <ProfileForm />
         </div>
         <div className="hidden md:block md:w-3/12">
           <Bowls />
