@@ -160,6 +160,8 @@ exports.Prisma.CompanyScalarFieldEnum = {
   logo: 'logo',
   isVerify: 'isVerify',
   industryId: 'industryId',
+  latitude: 'latitude',
+  longitude: 'longitude',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };

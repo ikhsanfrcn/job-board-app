@@ -2620,6 +2620,8 @@ export namespace Prisma {
     logo: string | null
     isVerify: boolean | null
     industryId: string | null
+    latitude: string | null
+    longitude: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -2641,6 +2643,8 @@ export namespace Prisma {
     logo: string | null
     isVerify: boolean | null
     industryId: string | null
+    latitude: string | null
+    longitude: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -2662,6 +2666,8 @@ export namespace Prisma {
     logo: number
     isVerify: number
     industryId: number
+    latitude: number
+    longitude: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -2685,6 +2691,8 @@ export namespace Prisma {
     logo?: true
     isVerify?: true
     industryId?: true
+    latitude?: true
+    longitude?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -2706,6 +2714,8 @@ export namespace Prisma {
     logo?: true
     isVerify?: true
     industryId?: true
+    latitude?: true
+    longitude?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -2727,6 +2737,8 @@ export namespace Prisma {
     logo?: true
     isVerify?: true
     industryId?: true
+    latitude?: true
+    longitude?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -2821,6 +2833,8 @@ export namespace Prisma {
     logo: string | null
     isVerify: boolean
     industryId: string
+    latitude: string | null
+    longitude: string | null
     createdAt: Date
     updatedAt: Date
     _count: CompanyCountAggregateOutputType | null
@@ -2859,6 +2873,8 @@ export namespace Prisma {
     logo?: boolean
     isVerify?: boolean
     industryId?: boolean
+    latitude?: boolean
+    longitude?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     jobs?: boolean | Company$jobsArgs<ExtArgs>
@@ -2883,6 +2899,8 @@ export namespace Prisma {
     logo?: boolean
     isVerify?: boolean
     industryId?: boolean
+    latitude?: boolean
+    longitude?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     industry?: boolean | IndustryDefaultArgs<ExtArgs>
@@ -2905,6 +2923,8 @@ export namespace Prisma {
     logo?: boolean
     isVerify?: boolean
     industryId?: boolean
+    latitude?: boolean
+    longitude?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     industry?: boolean | IndustryDefaultArgs<ExtArgs>
@@ -2927,11 +2947,13 @@ export namespace Prisma {
     logo?: boolean
     isVerify?: boolean
     industryId?: boolean
+    latitude?: boolean
+    longitude?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type CompanyOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "password" | "about" | "country" | "state" | "city" | "zipCode" | "regionNumber" | "phoneNumber" | "address" | "website" | "logo" | "isVerify" | "industryId" | "createdAt" | "updatedAt", ExtArgs["result"]["company"]>
+  export type CompanyOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "password" | "about" | "country" | "state" | "city" | "zipCode" | "regionNumber" | "phoneNumber" | "address" | "website" | "logo" | "isVerify" | "industryId" | "latitude" | "longitude" | "createdAt" | "updatedAt", ExtArgs["result"]["company"]>
   export type CompanyInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     jobs?: boolean | Company$jobsArgs<ExtArgs>
     industry?: boolean | IndustryDefaultArgs<ExtArgs>
@@ -2967,6 +2989,8 @@ export namespace Prisma {
       logo: string | null
       isVerify: boolean
       industryId: string
+      latitude: string | null
+      longitude: string | null
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["company"]>
@@ -3410,6 +3434,8 @@ export namespace Prisma {
     readonly logo: FieldRef<"Company", 'String'>
     readonly isVerify: FieldRef<"Company", 'Boolean'>
     readonly industryId: FieldRef<"Company", 'String'>
+    readonly latitude: FieldRef<"Company", 'String'>
+    readonly longitude: FieldRef<"Company", 'String'>
     readonly createdAt: FieldRef<"Company", 'DateTime'>
     readonly updatedAt: FieldRef<"Company", 'DateTime'>
   }
@@ -8034,6 +8060,8 @@ export namespace Prisma {
     logo: 'logo',
     isVerify: 'isVerify',
     industryId: 'industryId',
+    latitude: 'latitude',
+    longitude: 'longitude',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -8328,6 +8356,8 @@ export namespace Prisma {
     logo?: StringNullableFilter<"Company"> | string | null
     isVerify?: BoolFilter<"Company"> | boolean
     industryId?: StringFilter<"Company"> | string
+    latitude?: StringNullableFilter<"Company"> | string | null
+    longitude?: StringNullableFilter<"Company"> | string | null
     createdAt?: DateTimeFilter<"Company"> | Date | string
     updatedAt?: DateTimeFilter<"Company"> | Date | string
     jobs?: JobListRelationFilter
@@ -8351,6 +8381,8 @@ export namespace Prisma {
     logo?: SortOrderInput | SortOrder
     isVerify?: SortOrder
     industryId?: SortOrder
+    latitude?: SortOrderInput | SortOrder
+    longitude?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     jobs?: JobOrderByRelationAggregateInput
@@ -8377,6 +8409,8 @@ export namespace Prisma {
     logo?: StringNullableFilter<"Company"> | string | null
     isVerify?: BoolFilter<"Company"> | boolean
     industryId?: StringFilter<"Company"> | string
+    latitude?: StringNullableFilter<"Company"> | string | null
+    longitude?: StringNullableFilter<"Company"> | string | null
     createdAt?: DateTimeFilter<"Company"> | Date | string
     updatedAt?: DateTimeFilter<"Company"> | Date | string
     jobs?: JobListRelationFilter
@@ -8400,6 +8434,8 @@ export namespace Prisma {
     logo?: SortOrderInput | SortOrder
     isVerify?: SortOrder
     industryId?: SortOrder
+    latitude?: SortOrderInput | SortOrder
+    longitude?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: CompanyCountOrderByAggregateInput
@@ -8427,6 +8463,8 @@ export namespace Prisma {
     logo?: StringNullableWithAggregatesFilter<"Company"> | string | null
     isVerify?: BoolWithAggregatesFilter<"Company"> | boolean
     industryId?: StringWithAggregatesFilter<"Company"> | string
+    latitude?: StringNullableWithAggregatesFilter<"Company"> | string | null
+    longitude?: StringNullableWithAggregatesFilter<"Company"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Company"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Company"> | Date | string
   }
@@ -8827,6 +8865,8 @@ export namespace Prisma {
     website?: string | null
     logo?: string | null
     isVerify?: boolean
+    latitude?: string | null
+    longitude?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     jobs?: JobCreateNestedManyWithoutCompanyInput
@@ -8850,6 +8890,8 @@ export namespace Prisma {
     logo?: string | null
     isVerify?: boolean
     industryId: string
+    latitude?: string | null
+    longitude?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     jobs?: JobUncheckedCreateNestedManyWithoutCompanyInput
@@ -8871,6 +8913,8 @@ export namespace Prisma {
     website?: NullableStringFieldUpdateOperationsInput | string | null
     logo?: NullableStringFieldUpdateOperationsInput | string | null
     isVerify?: BoolFieldUpdateOperationsInput | boolean
+    latitude?: NullableStringFieldUpdateOperationsInput | string | null
+    longitude?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     jobs?: JobUpdateManyWithoutCompanyNestedInput
@@ -8894,6 +8938,8 @@ export namespace Prisma {
     logo?: NullableStringFieldUpdateOperationsInput | string | null
     isVerify?: BoolFieldUpdateOperationsInput | boolean
     industryId?: StringFieldUpdateOperationsInput | string
+    latitude?: NullableStringFieldUpdateOperationsInput | string | null
+    longitude?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     jobs?: JobUncheckedUpdateManyWithoutCompanyNestedInput
@@ -8916,6 +8962,8 @@ export namespace Prisma {
     logo?: string | null
     isVerify?: boolean
     industryId: string
+    latitude?: string | null
+    longitude?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -8936,6 +8984,8 @@ export namespace Prisma {
     website?: NullableStringFieldUpdateOperationsInput | string | null
     logo?: NullableStringFieldUpdateOperationsInput | string | null
     isVerify?: BoolFieldUpdateOperationsInput | boolean
+    latitude?: NullableStringFieldUpdateOperationsInput | string | null
+    longitude?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -8957,6 +9007,8 @@ export namespace Prisma {
     logo?: NullableStringFieldUpdateOperationsInput | string | null
     isVerify?: BoolFieldUpdateOperationsInput | boolean
     industryId?: StringFieldUpdateOperationsInput | string
+    latitude?: NullableStringFieldUpdateOperationsInput | string | null
+    longitude?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -9422,6 +9474,8 @@ export namespace Prisma {
     logo?: SortOrder
     isVerify?: SortOrder
     industryId?: SortOrder
+    latitude?: SortOrder
+    longitude?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -9443,6 +9497,8 @@ export namespace Prisma {
     logo?: SortOrder
     isVerify?: SortOrder
     industryId?: SortOrder
+    latitude?: SortOrder
+    longitude?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -9464,6 +9520,8 @@ export namespace Prisma {
     logo?: SortOrder
     isVerify?: SortOrder
     industryId?: SortOrder
+    latitude?: SortOrder
+    longitude?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -9992,6 +10050,8 @@ export namespace Prisma {
     website?: string | null
     logo?: string | null
     isVerify?: boolean
+    latitude?: string | null
+    longitude?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     jobs?: JobCreateNestedManyWithoutCompanyInput
@@ -10013,6 +10073,8 @@ export namespace Prisma {
     website?: string | null
     logo?: string | null
     isVerify?: boolean
+    latitude?: string | null
+    longitude?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     jobs?: JobUncheckedCreateNestedManyWithoutCompanyInput
@@ -10064,6 +10126,8 @@ export namespace Prisma {
     logo?: StringNullableFilter<"Company"> | string | null
     isVerify?: BoolFilter<"Company"> | boolean
     industryId?: StringFilter<"Company"> | string
+    latitude?: StringNullableFilter<"Company"> | string | null
+    longitude?: StringNullableFilter<"Company"> | string | null
     createdAt?: DateTimeFilter<"Company"> | Date | string
     updatedAt?: DateTimeFilter<"Company"> | Date | string
   }
@@ -10084,6 +10148,8 @@ export namespace Prisma {
     website?: string | null
     logo?: string | null
     isVerify?: boolean
+    latitude?: string | null
+    longitude?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     industry: IndustryCreateNestedOneWithoutCompanyInput
@@ -10106,6 +10172,8 @@ export namespace Prisma {
     logo?: string | null
     isVerify?: boolean
     industryId: string
+    latitude?: string | null
+    longitude?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -10142,6 +10210,8 @@ export namespace Prisma {
     website?: NullableStringFieldUpdateOperationsInput | string | null
     logo?: NullableStringFieldUpdateOperationsInput | string | null
     isVerify?: BoolFieldUpdateOperationsInput | boolean
+    latitude?: NullableStringFieldUpdateOperationsInput | string | null
+    longitude?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     industry?: IndustryUpdateOneRequiredWithoutCompanyNestedInput
@@ -10164,6 +10234,8 @@ export namespace Prisma {
     logo?: NullableStringFieldUpdateOperationsInput | string | null
     isVerify?: BoolFieldUpdateOperationsInput | boolean
     industryId?: StringFieldUpdateOperationsInput | string
+    latitude?: NullableStringFieldUpdateOperationsInput | string | null
+    longitude?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -10240,6 +10312,8 @@ export namespace Prisma {
     website?: string | null
     logo?: string | null
     isVerify?: boolean
+    latitude?: string | null
+    longitude?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -10260,6 +10334,8 @@ export namespace Prisma {
     website?: NullableStringFieldUpdateOperationsInput | string | null
     logo?: NullableStringFieldUpdateOperationsInput | string | null
     isVerify?: BoolFieldUpdateOperationsInput | boolean
+    latitude?: NullableStringFieldUpdateOperationsInput | string | null
+    longitude?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     jobs?: JobUpdateManyWithoutCompanyNestedInput
@@ -10281,6 +10357,8 @@ export namespace Prisma {
     website?: NullableStringFieldUpdateOperationsInput | string | null
     logo?: NullableStringFieldUpdateOperationsInput | string | null
     isVerify?: BoolFieldUpdateOperationsInput | boolean
+    latitude?: NullableStringFieldUpdateOperationsInput | string | null
+    longitude?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     jobs?: JobUncheckedUpdateManyWithoutCompanyNestedInput
@@ -10302,6 +10380,8 @@ export namespace Prisma {
     website?: NullableStringFieldUpdateOperationsInput | string | null
     logo?: NullableStringFieldUpdateOperationsInput | string | null
     isVerify?: BoolFieldUpdateOperationsInput | boolean
+    latitude?: NullableStringFieldUpdateOperationsInput | string | null
+    longitude?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }

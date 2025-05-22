@@ -62,6 +62,9 @@ model Company {
   industryId String
   industry   Industry @relation(fields: [industryId], references: [id])
 
+  latitude  String?
+  longitude String?
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
