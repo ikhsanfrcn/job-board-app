@@ -62,7 +62,7 @@ export default function ProfileForm({
   };
 
   return (
-    <div className="w-full px-8 md:px-24">
+    <div className="w-full px-4 md:px-14">
       <div className="bg-white border border-gray-200 rounded-xl shadow-sm">
         <Hero />
 
@@ -99,7 +99,7 @@ export default function ProfileForm({
                         label: "Gender",
                         name: "gender",
                         as: "select",
-                        options: ["MALE", "FEMALE"],
+                        options: ["Male", "Female", "PreferNotToSay"],
                       },
                       { label: "Date of Birth", name: "dob", type: "date" },
                       {

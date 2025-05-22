@@ -60,7 +60,7 @@ model Company {
   isVerify     Boolean @default(false)
 
   industryId String
-  industry     Industry @relation(fields: [industryId], references: [id])
+  industry   Industry @relation(fields: [industryId], references: [id])
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
