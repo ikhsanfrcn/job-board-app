@@ -61,11 +61,11 @@ export default function Page() {
           opacity: 0.05,
         }}
       />
-      <div className="relative flex flex-col justify-center items-center w-full md:w-[60%] p-4 h-fit md:h-full text-center text-shadow-md z-10">
+      <div className="relative flex flex-col justify-center items-center w-full md:w-[60%] mt-20 md:mt-0 p-4 h-fit md:h-full text-center text-shadow-md z-10">
         <h2 className="text-5xl font-bold my-3">
-          Your Next Big Move Starts Here
+          Step Into Your Future With Us
         </h2>
-        <p className="text-xl">Where Talent Meets Destiny</p>
+        <p className="text-xl">Find the Talent That Drives Success</p>
       </div>
       <div className="relative flex flex-col items-center justify-center w-[480px] rounded-sm mx-auto pb-8 h-fit md:h-full z-10">
         <Formik

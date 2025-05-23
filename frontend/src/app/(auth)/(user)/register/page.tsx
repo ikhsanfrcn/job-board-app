@@ -55,7 +55,7 @@ export default function Page() {
           opacity: 0.05,
         }}
       />
-      <div className="relative flex flex-col justify-center items-center w-full md:w-[60%] p-4 h-fit md:h-full text-center text-shadow-md z-10">
+      <div className="relative flex flex-col justify-center items-center w-full md:w-[60%] mt-20 md:mt-0 p-4 h-fit md:h-full text-center text-shadow-md z-10">
         <h2 className="text-5xl font-bold my-3">
           Your Next Big Move Starts Here
         </h2>
