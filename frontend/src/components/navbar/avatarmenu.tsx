@@ -5,7 +5,7 @@ export default function AvatarMenu() {
   const { data: session } = useSession();
 
   return (
-    <div className="font-[family-name:var(--font-geist-sans)]">
+    <div className="font-sans">
       <div className="block text-sm px-2 pb-2">
         Hi, welcome Back
         <br />

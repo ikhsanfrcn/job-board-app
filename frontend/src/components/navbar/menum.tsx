@@ -7,7 +7,7 @@ export default function MenuMobile() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="text-center font-[family-name:var(--font-geist-sans)]">
+    <div className="text-center font-sans">
       <div className="block px-3 pt-2 text-lg text-shadow-sm font-bold">
         Register / Login to your account
       </div>

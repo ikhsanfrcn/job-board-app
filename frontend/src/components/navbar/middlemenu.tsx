@@ -6,7 +6,7 @@ export default function MiddleMenu() {
   const { data: session } = useSession();
 
   return (
-    <div className="hidden lg:flex gap-10 h-full items-center text-sm font-semibold font-[family-name:var(--font-geist-sans)]">
+    <div className="hidden lg:flex gap-10 h-full items-center text-sm font-semibold font-sans">
       <Link
         href="/subscription"
         className="relative group h-full flex items-center"

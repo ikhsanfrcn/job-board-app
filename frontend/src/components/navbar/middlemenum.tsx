@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export default function MiddleMenuMobile() {
   return (
-    <div className="font-[family-name:var(--font-geist-sans)]">
+    <div className="font-sans">
       <Link
         href={"/subscription"}
         className="block w-full px-4 py-2 mb-2 text-sm hover:bg-gray-200 transition duration-300"
