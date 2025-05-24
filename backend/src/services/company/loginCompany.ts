@@ -10,6 +10,6 @@ export const loginCompany = async (email: string, password: string) => {
   const valid = await comparePassword(password, company.password);
   if (!valid) throw { status: 401, message: "Invalid password" };
 
-  const token = generateToken({ id: company.id, role: "Admin" });
+  const token = generateToken({ id: company.id, role: company.role });
   return { message: "Login successful", data: company, access_token: token };
 };

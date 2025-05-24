@@ -18,7 +18,7 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "JobsDoors",
   description: "Where Talent Meets Destiny",
-  icons:"/door.svg"
+  icons: "/door.svg",
 };
 
 export default function RootLayout({
@@ -40,7 +40,6 @@ export default function RootLayout({
           closeOnClick
         />
         <SessionProvider>
-          <Navbar />
           {children}
         </SessionProvider>
       </body>

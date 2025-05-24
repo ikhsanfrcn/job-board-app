@@ -70,6 +70,7 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
         token.id = user.id;
         token.username = user.username;
         token.email = user.email;
+        token.role = user.role;
         token.firstName = user.firstName;
         token.lastName = user.lastName;
         token.gender = user.gender;
@@ -91,6 +92,7 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
         id: token.id as number,
         username: token.username as string,
         email: token.email as string,
+        role: token.role as string,
         firstName: token.firstName as string,
         lastName: token.lastName as string,
         gender: token.gender as string,

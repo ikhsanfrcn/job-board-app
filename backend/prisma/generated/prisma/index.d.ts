@@ -304,7 +304,7 @@ export namespace Prisma {
   export import Exact = $Public.Exact
 
   /**
-   * Prisma Client JS version: 6.8.1
+   * Prisma Client JS version: 6.8.2
    * Query Engine version: 2060c79ba17c6bb9f5823312b6f6b7f4a845738e
    */
   export type PrismaVersion = {
@@ -1417,6 +1417,7 @@ export namespace Prisma {
     id: string | null
     username: string | null
     email: string | null
+    role: string | null
     password: string | null
     firstName: string | null
     lastName: string | null
@@ -1440,6 +1441,7 @@ export namespace Prisma {
     id: string | null
     username: string | null
     email: string | null
+    role: string | null
     password: string | null
     firstName: string | null
     lastName: string | null
@@ -1463,6 +1465,7 @@ export namespace Prisma {
     id: number
     username: number
     email: number
+    role: number
     password: number
     firstName: number
     lastName: number
@@ -1488,6 +1491,7 @@ export namespace Prisma {
     id?: true
     username?: true
     email?: true
+    role?: true
     password?: true
     firstName?: true
     lastName?: true
@@ -1511,6 +1515,7 @@ export namespace Prisma {
     id?: true
     username?: true
     email?: true
+    role?: true
     password?: true
     firstName?: true
     lastName?: true
@@ -1534,6 +1539,7 @@ export namespace Prisma {
     id?: true
     username?: true
     email?: true
+    role?: true
     password?: true
     firstName?: true
     lastName?: true
@@ -1630,6 +1636,7 @@ export namespace Prisma {
     id: string
     username: string
     email: string
+    role: string
     password: string
     firstName: string | null
     lastName: string | null
@@ -1670,6 +1677,7 @@ export namespace Prisma {
     id?: boolean
     username?: boolean
     email?: boolean
+    role?: boolean
     password?: boolean
     firstName?: boolean
     lastName?: boolean
@@ -1693,6 +1701,7 @@ export namespace Prisma {
     id?: boolean
     username?: boolean
     email?: boolean
+    role?: boolean
     password?: boolean
     firstName?: boolean
     lastName?: boolean
@@ -1716,6 +1725,7 @@ export namespace Prisma {
     id?: boolean
     username?: boolean
     email?: boolean
+    role?: boolean
     password?: boolean
     firstName?: boolean
     lastName?: boolean
@@ -1739,6 +1749,7 @@ export namespace Prisma {
     id?: boolean
     username?: boolean
     email?: boolean
+    role?: boolean
     password?: boolean
     firstName?: boolean
     lastName?: boolean
@@ -1758,7 +1769,7 @@ export namespace Prisma {
     updatedAt?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "username" | "email" | "password" | "firstName" | "lastName" | "gender" | "dob" | "education" | "country" | "state" | "city" | "zipCode" | "regionNumber" | "phoneNumber" | "avatar" | "isVerify" | "verificationSent" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "username" | "email" | "role" | "password" | "firstName" | "lastName" | "gender" | "dob" | "education" | "country" | "state" | "city" | "zipCode" | "regionNumber" | "phoneNumber" | "avatar" | "isVerify" | "verificationSent" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
 
   export type $UserPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "User"
@@ -1767,6 +1778,7 @@ export namespace Prisma {
       id: string
       username: string
       email: string
+      role: string
       password: string
       firstName: string | null
       lastName: string | null
@@ -2210,6 +2222,7 @@ export namespace Prisma {
     readonly id: FieldRef<"User", 'String'>
     readonly username: FieldRef<"User", 'String'>
     readonly email: FieldRef<"User", 'String'>
+    readonly role: FieldRef<"User", 'String'>
     readonly password: FieldRef<"User", 'String'>
     readonly firstName: FieldRef<"User", 'String'>
     readonly lastName: FieldRef<"User", 'String'>
@@ -2607,6 +2620,7 @@ export namespace Prisma {
     id: string | null
     name: string | null
     email: string | null
+    role: string | null
     password: string | null
     about: string | null
     country: string | null
@@ -2630,6 +2644,7 @@ export namespace Prisma {
     id: string | null
     name: string | null
     email: string | null
+    role: string | null
     password: string | null
     about: string | null
     country: string | null
@@ -2653,6 +2668,7 @@ export namespace Prisma {
     id: number
     name: number
     email: number
+    role: number
     password: number
     about: number
     country: number
@@ -2678,6 +2694,7 @@ export namespace Prisma {
     id?: true
     name?: true
     email?: true
+    role?: true
     password?: true
     about?: true
     country?: true
@@ -2701,6 +2718,7 @@ export namespace Prisma {
     id?: true
     name?: true
     email?: true
+    role?: true
     password?: true
     about?: true
     country?: true
@@ -2724,6 +2742,7 @@ export namespace Prisma {
     id?: true
     name?: true
     email?: true
+    role?: true
     password?: true
     about?: true
     country?: true
@@ -2820,6 +2839,7 @@ export namespace Prisma {
     id: string
     name: string
     email: string
+    role: string
     password: string
     about: string | null
     country: string | null
@@ -2860,6 +2880,7 @@ export namespace Prisma {
     id?: boolean
     name?: boolean
     email?: boolean
+    role?: boolean
     password?: boolean
     about?: boolean
     country?: boolean
@@ -2886,6 +2907,7 @@ export namespace Prisma {
     id?: boolean
     name?: boolean
     email?: boolean
+    role?: boolean
     password?: boolean
     about?: boolean
     country?: boolean
@@ -2910,6 +2932,7 @@ export namespace Prisma {
     id?: boolean
     name?: boolean
     email?: boolean
+    role?: boolean
     password?: boolean
     about?: boolean
     country?: boolean
@@ -2934,6 +2957,7 @@ export namespace Prisma {
     id?: boolean
     name?: boolean
     email?: boolean
+    role?: boolean
     password?: boolean
     about?: boolean
     country?: boolean
@@ -2953,7 +2977,7 @@ export namespace Prisma {
     updatedAt?: boolean
   }
 
-  export type CompanyOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "password" | "about" | "country" | "state" | "city" | "zipCode" | "regionNumber" | "phoneNumber" | "address" | "website" | "logo" | "isVerify" | "industryId" | "latitude" | "longitude" | "createdAt" | "updatedAt", ExtArgs["result"]["company"]>
+  export type CompanyOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "role" | "password" | "about" | "country" | "state" | "city" | "zipCode" | "regionNumber" | "phoneNumber" | "address" | "website" | "logo" | "isVerify" | "industryId" | "latitude" | "longitude" | "createdAt" | "updatedAt", ExtArgs["result"]["company"]>
   export type CompanyInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     jobs?: boolean | Company$jobsArgs<ExtArgs>
     industry?: boolean | IndustryDefaultArgs<ExtArgs>
@@ -2976,6 +3000,7 @@ export namespace Prisma {
       id: string
       name: string
       email: string
+      role: string
       password: string
       about: string | null
       country: string | null
@@ -3421,6 +3446,7 @@ export namespace Prisma {
     readonly id: FieldRef<"Company", 'String'>
     readonly name: FieldRef<"Company", 'String'>
     readonly email: FieldRef<"Company", 'String'>
+    readonly role: FieldRef<"Company", 'String'>
     readonly password: FieldRef<"Company", 'String'>
     readonly about: FieldRef<"Company", 'String'>
     readonly country: FieldRef<"Company", 'String'>
@@ -7021,6 +7047,7 @@ export namespace Prisma {
   export type DeveloperMinAggregateOutputType = {
     id: string | null
     email: string | null
+    role: string | null
     password: string | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -7029,6 +7056,7 @@ export namespace Prisma {
   export type DeveloperMaxAggregateOutputType = {
     id: string | null
     email: string | null
+    role: string | null
     password: string | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -7037,6 +7065,7 @@ export namespace Prisma {
   export type DeveloperCountAggregateOutputType = {
     id: number
     email: number
+    role: number
     password: number
     createdAt: number
     updatedAt: number
@@ -7047,6 +7076,7 @@ export namespace Prisma {
   export type DeveloperMinAggregateInputType = {
     id?: true
     email?: true
+    role?: true
     password?: true
     createdAt?: true
     updatedAt?: true
@@ -7055,6 +7085,7 @@ export namespace Prisma {
   export type DeveloperMaxAggregateInputType = {
     id?: true
     email?: true
+    role?: true
     password?: true
     createdAt?: true
     updatedAt?: true
@@ -7063,6 +7094,7 @@ export namespace Prisma {
   export type DeveloperCountAggregateInputType = {
     id?: true
     email?: true
+    role?: true
     password?: true
     createdAt?: true
     updatedAt?: true
@@ -7144,6 +7176,7 @@ export namespace Prisma {
   export type DeveloperGroupByOutputType = {
     id: string
     email: string
+    role: string
     password: string
     createdAt: Date
     updatedAt: Date
@@ -7169,6 +7202,7 @@ export namespace Prisma {
   export type DeveloperSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     email?: boolean
+    role?: boolean
     password?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -7177,6 +7211,7 @@ export namespace Prisma {
   export type DeveloperSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     email?: boolean
+    role?: boolean
     password?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -7185,6 +7220,7 @@ export namespace Prisma {
   export type DeveloperSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     email?: boolean
+    role?: boolean
     password?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -7193,12 +7229,13 @@ export namespace Prisma {
   export type DeveloperSelectScalar = {
     id?: boolean
     email?: boolean
+    role?: boolean
     password?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type DeveloperOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "password" | "createdAt" | "updatedAt", ExtArgs["result"]["developer"]>
+  export type DeveloperOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "role" | "password" | "createdAt" | "updatedAt", ExtArgs["result"]["developer"]>
 
   export type $DeveloperPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Developer"
@@ -7206,6 +7243,7 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       id: string
       email: string
+      role: string
       password: string
       createdAt: Date
       updatedAt: Date
@@ -7634,6 +7672,7 @@ export namespace Prisma {
   interface DeveloperFieldRefs {
     readonly id: FieldRef<"Developer", 'String'>
     readonly email: FieldRef<"Developer", 'String'>
+    readonly role: FieldRef<"Developer", 'String'>
     readonly password: FieldRef<"Developer", 'String'>
     readonly createdAt: FieldRef<"Developer", 'DateTime'>
     readonly updatedAt: FieldRef<"Developer", 'DateTime'>
@@ -8021,6 +8060,7 @@ export namespace Prisma {
     id: 'id',
     username: 'username',
     email: 'email',
+    role: 'role',
     password: 'password',
     firstName: 'firstName',
     lastName: 'lastName',
@@ -8047,6 +8087,7 @@ export namespace Prisma {
     id: 'id',
     name: 'name',
     email: 'email',
+    role: 'role',
     password: 'password',
     about: 'about',
     country: 'country',
@@ -8106,6 +8147,7 @@ export namespace Prisma {
   export const DeveloperScalarFieldEnum: {
     id: 'id',
     email: 'email',
+    role: 'role',
     password: 'password',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
@@ -8216,6 +8258,7 @@ export namespace Prisma {
     id?: StringFilter<"User"> | string
     username?: StringFilter<"User"> | string
     email?: StringFilter<"User"> | string
+    role?: StringFilter<"User"> | string
     password?: StringFilter<"User"> | string
     firstName?: StringNullableFilter<"User"> | string | null
     lastName?: StringNullableFilter<"User"> | string | null
@@ -8239,6 +8282,7 @@ export namespace Prisma {
     id?: SortOrder
     username?: SortOrder
     email?: SortOrder
+    role?: SortOrder
     password?: SortOrder
     firstName?: SortOrderInput | SortOrder
     lastName?: SortOrderInput | SortOrder
@@ -8265,6 +8309,7 @@ export namespace Prisma {
     AND?: UserWhereInput | UserWhereInput[]
     OR?: UserWhereInput[]
     NOT?: UserWhereInput | UserWhereInput[]
+    role?: StringFilter<"User"> | string
     password?: StringFilter<"User"> | string
     firstName?: StringNullableFilter<"User"> | string | null
     lastName?: StringNullableFilter<"User"> | string | null
@@ -8288,6 +8333,7 @@ export namespace Prisma {
     id?: SortOrder
     username?: SortOrder
     email?: SortOrder
+    role?: SortOrder
     password?: SortOrder
     firstName?: SortOrderInput | SortOrder
     lastName?: SortOrderInput | SortOrder
@@ -8317,6 +8363,7 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"User"> | string
     username?: StringWithAggregatesFilter<"User"> | string
     email?: StringWithAggregatesFilter<"User"> | string
+    role?: StringWithAggregatesFilter<"User"> | string
     password?: StringWithAggregatesFilter<"User"> | string
     firstName?: StringNullableWithAggregatesFilter<"User"> | string | null
     lastName?: StringNullableWithAggregatesFilter<"User"> | string | null
@@ -8343,6 +8390,7 @@ export namespace Prisma {
     id?: StringFilter<"Company"> | string
     name?: StringFilter<"Company"> | string
     email?: StringFilter<"Company"> | string
+    role?: StringFilter<"Company"> | string
     password?: StringFilter<"Company"> | string
     about?: StringNullableFilter<"Company"> | string | null
     country?: StringNullableFilter<"Company"> | string | null
@@ -8368,6 +8416,7 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     email?: SortOrder
+    role?: SortOrder
     password?: SortOrder
     about?: SortOrderInput | SortOrder
     country?: SortOrderInput | SortOrder
@@ -8397,6 +8446,7 @@ export namespace Prisma {
     OR?: CompanyWhereInput[]
     NOT?: CompanyWhereInput | CompanyWhereInput[]
     name?: StringFilter<"Company"> | string
+    role?: StringFilter<"Company"> | string
     password?: StringFilter<"Company"> | string
     about?: StringNullableFilter<"Company"> | string | null
     country?: StringNullableFilter<"Company"> | string | null
@@ -8421,6 +8471,7 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     email?: SortOrder
+    role?: SortOrder
     password?: SortOrder
     about?: SortOrderInput | SortOrder
     country?: SortOrderInput | SortOrder
@@ -8450,6 +8501,7 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"Company"> | string
     name?: StringWithAggregatesFilter<"Company"> | string
     email?: StringWithAggregatesFilter<"Company"> | string
+    role?: StringWithAggregatesFilter<"Company"> | string
     password?: StringWithAggregatesFilter<"Company"> | string
     about?: StringNullableWithAggregatesFilter<"Company"> | string | null
     country?: StringNullableWithAggregatesFilter<"Company"> | string | null
@@ -8642,6 +8694,7 @@ export namespace Prisma {
     NOT?: DeveloperWhereInput | DeveloperWhereInput[]
     id?: StringFilter<"Developer"> | string
     email?: StringFilter<"Developer"> | string
+    role?: StringFilter<"Developer"> | string
     password?: StringFilter<"Developer"> | string
     createdAt?: DateTimeFilter<"Developer"> | Date | string
     updatedAt?: DateTimeFilter<"Developer"> | Date | string
@@ -8650,6 +8703,7 @@ export namespace Prisma {
   export type DeveloperOrderByWithRelationInput = {
     id?: SortOrder
     email?: SortOrder
+    role?: SortOrder
     password?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -8661,6 +8715,7 @@ export namespace Prisma {
     AND?: DeveloperWhereInput | DeveloperWhereInput[]
     OR?: DeveloperWhereInput[]
     NOT?: DeveloperWhereInput | DeveloperWhereInput[]
+    role?: StringFilter<"Developer"> | string
     password?: StringFilter<"Developer"> | string
     createdAt?: DateTimeFilter<"Developer"> | Date | string
     updatedAt?: DateTimeFilter<"Developer"> | Date | string
@@ -8669,6 +8724,7 @@ export namespace Prisma {
   export type DeveloperOrderByWithAggregationInput = {
     id?: SortOrder
     email?: SortOrder
+    role?: SortOrder
     password?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -8683,6 +8739,7 @@ export namespace Prisma {
     NOT?: DeveloperScalarWhereWithAggregatesInput | DeveloperScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"Developer"> | string
     email?: StringWithAggregatesFilter<"Developer"> | string
+    role?: StringWithAggregatesFilter<"Developer"> | string
     password?: StringWithAggregatesFilter<"Developer"> | string
     createdAt?: DateTimeWithAggregatesFilter<"Developer"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Developer"> | Date | string
@@ -8692,6 +8749,7 @@ export namespace Prisma {
     id?: string
     username: string
     email: string
+    role?: string
     password: string
     firstName?: string | null
     lastName?: string | null
@@ -8715,6 +8773,7 @@ export namespace Prisma {
     id?: string
     username: string
     email: string
+    role?: string
     password: string
     firstName?: string | null
     lastName?: string | null
@@ -8738,6 +8797,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     username?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    role?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -8761,6 +8821,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     username?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    role?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -8784,6 +8845,7 @@ export namespace Prisma {
     id?: string
     username: string
     email: string
+    role?: string
     password: string
     firstName?: string | null
     lastName?: string | null
@@ -8807,6 +8869,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     username?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    role?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -8830,6 +8893,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     username?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    role?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -8853,6 +8917,7 @@ export namespace Prisma {
     id?: string
     name: string
     email: string
+    role?: string
     password: string
     about?: string | null
     country?: string | null
@@ -8877,6 +8942,7 @@ export namespace Prisma {
     id?: string
     name: string
     email: string
+    role?: string
     password: string
     about?: string | null
     country?: string | null
@@ -8901,6 +8967,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    role?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     about?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
@@ -8925,6 +8992,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    role?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     about?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
@@ -8949,6 +9017,7 @@ export namespace Prisma {
     id?: string
     name: string
     email: string
+    role?: string
     password: string
     about?: string | null
     country?: string | null
@@ -8972,6 +9041,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    role?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     about?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
@@ -8994,6 +9064,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    role?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     about?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
@@ -9194,6 +9265,7 @@ export namespace Prisma {
   export type DeveloperCreateInput = {
     id?: string
     email: string
+    role?: string
     password: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -9202,6 +9274,7 @@ export namespace Prisma {
   export type DeveloperUncheckedCreateInput = {
     id?: string
     email: string
+    role?: string
     password: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -9210,6 +9283,7 @@ export namespace Prisma {
   export type DeveloperUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    role?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -9218,6 +9292,7 @@ export namespace Prisma {
   export type DeveloperUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    role?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -9226,6 +9301,7 @@ export namespace Prisma {
   export type DeveloperCreateManyInput = {
     id?: string
     email: string
+    role?: string
     password: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -9234,6 +9310,7 @@ export namespace Prisma {
   export type DeveloperUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    role?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -9242,6 +9319,7 @@ export namespace Prisma {
   export type DeveloperUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    role?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -9309,6 +9387,7 @@ export namespace Prisma {
     id?: SortOrder
     username?: SortOrder
     email?: SortOrder
+    role?: SortOrder
     password?: SortOrder
     firstName?: SortOrder
     lastName?: SortOrder
@@ -9332,6 +9411,7 @@ export namespace Prisma {
     id?: SortOrder
     username?: SortOrder
     email?: SortOrder
+    role?: SortOrder
     password?: SortOrder
     firstName?: SortOrder
     lastName?: SortOrder
@@ -9355,6 +9435,7 @@ export namespace Prisma {
     id?: SortOrder
     username?: SortOrder
     email?: SortOrder
+    role?: SortOrder
     password?: SortOrder
     firstName?: SortOrder
     lastName?: SortOrder
@@ -9461,6 +9542,7 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     email?: SortOrder
+    role?: SortOrder
     password?: SortOrder
     about?: SortOrder
     country?: SortOrder
@@ -9484,6 +9566,7 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     email?: SortOrder
+    role?: SortOrder
     password?: SortOrder
     about?: SortOrder
     country?: SortOrder
@@ -9507,6 +9590,7 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     email?: SortOrder
+    role?: SortOrder
     password?: SortOrder
     about?: SortOrder
     country?: SortOrder
@@ -9625,6 +9709,7 @@ export namespace Prisma {
   export type DeveloperCountOrderByAggregateInput = {
     id?: SortOrder
     email?: SortOrder
+    role?: SortOrder
     password?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -9633,6 +9718,7 @@ export namespace Prisma {
   export type DeveloperMaxOrderByAggregateInput = {
     id?: SortOrder
     email?: SortOrder
+    role?: SortOrder
     password?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -9641,6 +9727,7 @@ export namespace Prisma {
   export type DeveloperMinOrderByAggregateInput = {
     id?: SortOrder
     email?: SortOrder
+    role?: SortOrder
     password?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -10038,6 +10125,7 @@ export namespace Prisma {
     id?: string
     name: string
     email: string
+    role?: string
     password: string
     about?: string | null
     country?: string | null
@@ -10061,6 +10149,7 @@ export namespace Prisma {
     id?: string
     name: string
     email: string
+    role?: string
     password: string
     about?: string | null
     country?: string | null
@@ -10113,6 +10202,7 @@ export namespace Prisma {
     id?: StringFilter<"Company"> | string
     name?: StringFilter<"Company"> | string
     email?: StringFilter<"Company"> | string
+    role?: StringFilter<"Company"> | string
     password?: StringFilter<"Company"> | string
     about?: StringNullableFilter<"Company"> | string | null
     country?: StringNullableFilter<"Company"> | string | null
@@ -10136,6 +10226,7 @@ export namespace Prisma {
     id?: string
     name: string
     email: string
+    role?: string
     password: string
     about?: string | null
     country?: string | null
@@ -10159,6 +10250,7 @@ export namespace Prisma {
     id?: string
     name: string
     email: string
+    role?: string
     password: string
     about?: string | null
     country?: string | null
@@ -10198,6 +10290,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    role?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     about?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
@@ -10221,6 +10314,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    role?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     about?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
@@ -10300,6 +10394,7 @@ export namespace Prisma {
     id?: string
     name: string
     email: string
+    role?: string
     password: string
     about?: string | null
     country?: string | null
@@ -10322,6 +10417,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    role?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     about?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
@@ -10345,6 +10441,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    role?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     about?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
@@ -10368,6 +10465,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    role?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     about?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null

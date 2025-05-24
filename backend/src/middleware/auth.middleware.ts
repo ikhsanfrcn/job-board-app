@@ -14,7 +14,7 @@ export class AuthMiddleware {
 
       const decoded = verify(token, process.env.JWT_SECRET!) as any;
 
-      if (decoded?.role === "Admin") {
+      if (decoded?.role === "company") {
         req.company = {
           id: decoded.id,
           role: decoded.role,
