@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
   output   = "./generated/prisma"
@@ -13,4 +7,99 @@ datasource db {
   provider  = "postgresql"
   url       = env("DATABASE_URL")
   directUrl = env("DIRECT_URL")
+}
+
+model User {
+  id       String @id @default(uuid())
+  username String @unique
+  email    String @unique
+  password String
+
+  firstName    String?
+  lastName     String?
+  gender       Gender? @default(PreferNotToSay)
+  dob          String?
+  education    String?
+  country      String?
+  state        String?
+  city         String?
+  zipCode      String?
+  regionNumber String?
+  phoneNumber  String?
+  avatar       String? @default("https://res.cloudinary.com/dbq88i6pk/image/upload/v1744257650/profile-default-icon-512x511-v4sw4m29_cyf3m5.png")
+
+  isVerify         Boolean  @default(false)
+  verificationSent DateTime @default(now())
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+enum Gender {
+  PreferNotToSay
+  Male
+  Female
+}
+
+model Company {
+  id           String  @id @default(uuid())
+  name         String
+  email        String  @unique
+  password     String
+  about        String?
+  country      String?
+  state        String?
+  city         String?
+  zipCode      String?
+  regionNumber String?
+  phoneNumber  String?
+  address      String?
+  jobs         Job[]
+  website      String? @unique
+  logo         String? @default("https://res.cloudinary.com/dbq88i6pk/image/upload/v1744257650/profile-default-icon-512x511-v4sw4m29_cyf3m5.png")
+  isVerify     Boolean @default(false)
+
+  industryId String
+  industry   Industry @relation(fields: [industryId], references: [id])
+
+  latitude  String?
+  longitude String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Industry {
+  id      String    @id @default(uuid())
+  name    String    @unique
+  Company Company[]
+}
+
+model Job {
+  id          String   @id @default(uuid())
+  title       String
+  description String
+  city        String
+  category    String
+  tags        String[]
+  salary      String?
+  deadline    String
+  isPublished Boolean  @default(false)
+  companyId   String
+  company     Company  @relation(fields: [companyId], references: [id])
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Jobdesc {
+  id   String @id @default(uuid())
+  name String
+}
+
+model Developer {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  password  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
