@@ -19,8 +19,10 @@ export interface ICompanyForgotForm {
 }
 
 export interface ICompanyProfile {
+  id: string;
   name: string;
   email: string;
+  role: string;
   about: string;
   country: string;
   state: string;
@@ -30,4 +32,9 @@ export interface ICompanyProfile {
   phoneNumber: string;
   address: string;
   website: string;
+  logo: string;
+  isVerify: boolean;
+  industryId: string;
+  latitude: string;
+  longitude: string;
 }

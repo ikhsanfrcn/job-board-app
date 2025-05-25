@@ -8,7 +8,7 @@ import Hero from "./hero";
 import { userProfileSchema } from "@/schema/userProfileSchema";
 import { IUserProfile } from "@/types/userProfile";
 import axios from "@/lib/axios";
-import { normalizeProfile } from "@/helper/normalizerProfile";
+import { normalizeProfile } from "@/helper/normalizerUserProfile";
 import { toast } from "react-toastify";
 import { AxiosError } from "axios";
 import Skeleton from "./skeleton";
@@ -62,7 +62,7 @@ export default function ProfileForm({
   };
 
   return (
-    <div className="w-full px-4 md:px-14">
+    <div className="w-full md:px-14">
       <div className="bg-white border border-gray-200 rounded-xl shadow-sm">
         <Hero />
 

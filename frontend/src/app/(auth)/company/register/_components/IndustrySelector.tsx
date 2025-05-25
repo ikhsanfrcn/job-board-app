@@ -15,7 +15,11 @@ interface Props {
   onSelect: (industry: Industry) => void;
 }
 
-export const IndustrySelectorModal: React.FC<Props> = ({ isOpen, onClose, onSelect }) => {
+export const IndustrySelectorModal: React.FC<Props> = ({
+  isOpen,
+  onClose,
+  onSelect,
+}) => {
   const [industries, setIndustries] = useState<Industry[]>([]);
   const [filteredIndustries, setFilteredIndustries] = useState<Industry[]>([]);
   const [isCreating, setIsCreating] = useState(false);
@@ -124,7 +128,7 @@ export const IndustrySelectorModal: React.FC<Props> = ({ isOpen, onClose, onSele
                 <button
                   type="button"
                   onClick={() => handleSubmit()}
-                  className="text-black border rounded-md px-4 py-2 rounded-md cursor-pointer hover:bg-green-600 hover:text-white transition duration-300 text-shadow-sm"
+                  className="text-black border px-4 py-2 rounded-md cursor-pointer hover:bg-green-600 hover:text-white transition duration-300 text-shadow-sm"
                   disabled={isSubmitting}
                 >
                   {isSubmitting ? "Creating..." : "Create Industry"}

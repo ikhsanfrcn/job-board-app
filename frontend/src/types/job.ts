@@ -1,4 +1,4 @@
-export interface Job {
+export interface IJob {
   id: string;
   title: string;
   description: string;
@@ -7,8 +7,6 @@ export interface Job {
   tags: string[];
   salary?: string;
   deadline: string;
-  company: {
-    id: string,
-    name: string,
-  }
+  isPublished: boolean;
+  createdAt: string;
 }

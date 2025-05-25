@@ -15,13 +15,33 @@ export class JobRouter {
   }
 
   private initializeRoute() {
-    this.router.post("/", this.authMiddleware.verifyToken, this.jobController.create);
+    this.router.post(
+      "/",
+      this.authMiddleware.verifyToken,
+      this.jobController.create
+    );
     this.router.get("/", this.jobController.getJobs);
-    this.router.get("/admin", this.authMiddleware.verifyToken, this.jobController.getCompanyJobs);
+    this.router.get(
+      "/admin",
+      this.authMiddleware.verifyToken,
+      this.jobController.getCompanyJobs
+    );
     this.router.get("/:id", this.jobController.getById);
-    this.router.patch("/:id/publish", this.authMiddleware.verifyToken, this.jobController.togglePublish);
-    this.router.put("/:id", this.authMiddleware.verifyToken, this.jobController.togglePublish);
-    this.router.delete("/:id", this.authMiddleware.verifyToken, this.jobController.delete)
+    this.router.patch(
+      "/:id/publish",
+      this.authMiddleware.verifyToken,
+      this.jobController.togglePublish
+    );
+    this.router.patch(
+      "/:id",
+      this.authMiddleware.verifyToken,
+      this.jobController.update
+    );
+    this.router.delete(
+      "/:id",
+      this.authMiddleware.verifyToken,
+      this.jobController.delete
+    );
   }
   getRouter(): Router {
     return this.router;

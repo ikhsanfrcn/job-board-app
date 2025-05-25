@@ -45,3 +45,20 @@ export const CompanyForgotSchema = yup.object().shape({
     .email("Invalid email format")
     .required("Email is required!"),
 });
+
+export const companyProfileSchema = yup.object({
+  name: yup.string().required("Name is required"),
+  phoneNumber: yup.string().nullable(),
+  address: yup.string().nullable(),
+  country: yup.string().nullable(),
+  state: yup.string().nullable(),
+  city: yup.string().nullable(),
+  zipCode: yup.string().nullable(),
+  regionNumber: yup.string().nullable(),
+  website: yup.string().url("Invalid URL").nullable(),
+  about: yup.string().nullable(),
+  latitude: yup.string().nullable(),
+  longitude: yup.string().nullable(),
+  logo: yup.string().nullable(),
+  industryId: yup.string().required("Industry ID is required"),
+});

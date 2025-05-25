@@ -5,14 +5,16 @@ import { verifyCompanyAccount } from "../services/company/verifyCompany";
 import { requestPasswordReset } from "../services/company/requestReset";
 import { passwordReset } from "../services/company/passwordReset";
 import { registerCompanySchema } from "../validation/authValidation";
+import { getCompanyProfile } from "../services/company/profile";
+import prisma from "../prisma";
 
 export class CompanyController {
   async register(req: Request, res: Response) {
     try {
       const validateData = await registerCompanySchema.validate(req.body, {
         abortEarly: false,
-        stripUnknown: true
-      })
+        stripUnknown: true,
+      });
       const result = await registerCompany(validateData);
 
       res.status(201).json(result);
@@ -72,6 +74,66 @@ export class CompanyController {
       res
         .status(error.status || 500)
         .json({ message: error.message || "Internal server error" });
+    }
+  }
+
+  async profile(req: Request, res: Response) {
+    try {
+      const profile = await getCompanyProfile(req.company?.id!);
+      res.status(200).send({
+        message: "Profile fetched successfully✅",
+        profile,
+      });
+    } catch (err) {
+      console.log(err);
+      res.status(404).send(err);
+    }
+  }
+
+  async updateProfile(req: Request, res: Response) {
+    try {
+      const companyId = req.company?.id;
+      const {
+        name,
+        about,
+        country,
+        state,
+        city,
+        zipCode,
+        regionNumber,
+        phoneNumber,
+        address,
+        website,
+        logo,
+        latitude,
+        longitude,
+        industryId,
+      } = req.body;
+
+      const updated = await prisma.company.update({
+        where: { id: companyId },
+        data: {
+          name,
+          about,
+          country,
+          state,
+          city,
+          zipCode,
+          regionNumber,
+          phoneNumber,
+          address,
+          website,
+          logo,
+          latitude,
+          longitude,
+          industryId,
+        },
+      });
+
+      res.status(200).send({ message: "Profile updated", data: updated });
+    } catch (err) {
+      console.log(err);
+      res.status(404).send(err);
     }
   }
 }
