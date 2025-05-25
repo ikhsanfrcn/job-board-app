@@ -20,11 +20,11 @@ exports.Prisma = Prisma
 exports.$Enums = {}
 
 /**
- * Prisma Client JS version: 6.8.1
+ * Prisma Client JS version: 6.8.2
  * Query Engine version: 2060c79ba17c6bb9f5823312b6f6b7f4a845738e
  */
 Prisma.prismaVersion = {
-  client: "6.8.1",
+  client: "6.8.2",
   engine: "2060c79ba17c6bb9f5823312b6f6b7f4a845738e"
 }
 
@@ -120,9 +120,115 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
   Serializable: 'Serializable'
 });
 
+exports.Prisma.UserScalarFieldEnum = {
+  id: 'id',
+  username: 'username',
+  email: 'email',
+  role: 'role',
+  password: 'password',
+  firstName: 'firstName',
+  lastName: 'lastName',
+  gender: 'gender',
+  dob: 'dob',
+  education: 'education',
+  country: 'country',
+  state: 'state',
+  city: 'city',
+  zipCode: 'zipCode',
+  regionNumber: 'regionNumber',
+  phoneNumber: 'phoneNumber',
+  avatar: 'avatar',
+  isVerify: 'isVerify',
+  verificationSent: 'verificationSent',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.CompanyScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  email: 'email',
+  role: 'role',
+  password: 'password',
+  about: 'about',
+  country: 'country',
+  state: 'state',
+  city: 'city',
+  zipCode: 'zipCode',
+  regionNumber: 'regionNumber',
+  phoneNumber: 'phoneNumber',
+  address: 'address',
+  website: 'website',
+  logo: 'logo',
+  isVerify: 'isVerify',
+  industryId: 'industryId',
+  latitude: 'latitude',
+  longitude: 'longitude',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.IndustryScalarFieldEnum = {
+  id: 'id',
+  name: 'name'
+};
+
+exports.Prisma.JobScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  description: 'description',
+  city: 'city',
+  category: 'category',
+  tags: 'tags',
+  salary: 'salary',
+  deadline: 'deadline',
+  isPublished: 'isPublished',
+  companyId: 'companyId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.JobdescScalarFieldEnum = {
+  id: 'id',
+  name: 'name'
+};
+
+exports.Prisma.DeveloperScalarFieldEnum = {
+  id: 'id',
+  email: 'email',
+  role: 'role',
+  password: 'password',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.SortOrder = {
+  asc: 'asc',
+  desc: 'desc'
+};
+
+exports.Prisma.QueryMode = {
+  default: 'default',
+  insensitive: 'insensitive'
+};
+
+exports.Prisma.NullsOrder = {
+  first: 'first',
+  last: 'last'
+};
+exports.Gender = exports.$Enums.Gender = {
+  PreferNotToSay: 'PreferNotToSay',
+  Male: 'Male',
+  Female: 'Female'
+};
 
 exports.Prisma.ModelName = {
-
+  User: 'User',
+  Company: 'Company',
+  Industry: 'Industry',
+  Job: 'Job',
+  Jobdesc: 'Jobdesc',
+  Developer: 'Developer'
 };
 
 /**
