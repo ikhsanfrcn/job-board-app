@@ -24,7 +24,7 @@ export default function Navbar() {
   const router = useRouter();
   const handleSearch = () => {
     if (searchQuery.trim()) {
-      router.push(`/jobs?search=${searchQuery}`);
+      router.push(`/jobs?title=${searchQuery}`);
     }
   };
 
@@ -37,10 +37,10 @@ export default function Navbar() {
             <Link href="/" className="text-xl font-bold text-gray-800">
               <Image
                 src="/logo.svg"
-                width={250}
+                width={200}
                 height={100}
                 alt="jobsdoors-logo"
-                className="h-auto"
+                className="w-auto h-auto"
                 priority
               />
             </Link>
