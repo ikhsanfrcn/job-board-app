@@ -20,7 +20,7 @@ export default function JobFilter() {
       queryParams = `?city=${city}`;
     }
 
-    router.push(`/job${queryParams}`); // Push the formatted URL to Next.js Router
+    router.push(`/job${queryParams}`);
   };
 
 
