@@ -1,21 +1,28 @@
 "use client";
 
-import axios from "@/lib/axios";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { IoLocationOutline, IoSearchOutline } from "react-icons/io5";
 
 export default function JobFilter() {
   const [title, setTitle] = useState("");
   const [city, setCity] = useState("");
+  const router = useRouter();
 
-  const fetch = async () => {
-    try {
-      const res = await axios.get("/jobs", { params: { title, city } });
-      console.log(res.data);
-    } catch (err) {
-      console.log(err);
+  const handleSearch = () => {
+    let queryParams = "";
+    
+    if (title && city) {
+      queryParams = `?title=${title}&city=${city}`;
+    } else if (title) {
+      queryParams = `?title=${title}`;
+    } else if (city) {
+      queryParams = `?city=${city}`;
     }
+
+    router.push(`/job${queryParams}`); // Push the formatted URL to Next.js Router
   };
+
 
   return (
     <div className="px-4 py-10 bg-gray-100 font-sans">
@@ -32,7 +39,7 @@ export default function JobFilter() {
             onChange={(e) => setTitle(e.target.value)}
             onKeyDown={(e) => {
               if (e.key === "Enter") {
-                fetch();
+                handleSearch();
               }
             }}
             className="w-full focus:outline-0"
@@ -48,7 +55,7 @@ export default function JobFilter() {
             onChange={(e) => setCity(e.target.value)}
             onKeyDown={(e) => {
               if (e.key === "Enter") {
-                fetch();
+                handleSearch();
               }
             }}
             className="w-full focus:outline-0"
@@ -58,7 +65,7 @@ export default function JobFilter() {
           </div>
         </div>
         <button
-          onClick={fetch}
+          onClick={handleSearch}
           className="w-[25%] px-3 py-2 bg-black text-white rounded-md cursor-pointer transition duration-200 hover:bg-green-600"
         >
           Search

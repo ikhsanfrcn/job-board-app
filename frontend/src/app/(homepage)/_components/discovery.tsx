@@ -21,7 +21,7 @@ export default async function Discovery() {
           <p className="text-gray-600">Explore job opportunities</p>
         </div>
         <div>
-          <Link href={"/jobs"} className="bg-black text-white hover:bg-green-600 px-3 py-2 rounded-lg cursor-pointer transition duration-200">
+          <Link href={"/job"} className="bg-black text-white hover:bg-green-600 px-3 py-2 rounded-lg cursor-pointer transition duration-200">
             View all
           </Link>
         </div>
@@ -88,7 +88,7 @@ export default async function Discovery() {
                 </p>
 
                 {/* View Details Button */}
-                <Link href={`/jobs/${job.id}`}>
+                <Link href={`/job/${job.id}`}>
                 <button className="mt-4 w-full bg-white border px-4 py-2 rounded-md hover:bg-green-600 transition duration-200 hover:text-white cursor-pointer">
                   View Details
                 </button>

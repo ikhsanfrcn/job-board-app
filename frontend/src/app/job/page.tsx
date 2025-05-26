@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Job } from "@/types/job";
+import { IJob } from "@/types/job";
 import JobCard from "@/components/molecules/job/JobCard";
 import JobDetail from "@/components/molecules/job/jobDetail";
 import axios from "@/lib/axios";
@@ -10,8 +10,8 @@ import JobFilters from "@/components/molecules/job/JobFilter";
 import { SalaryFilter } from "@/components/molecules/job/SalaryFilter";
 
 export default function JobListingsPage() {
-  const [jobs, setJobs] = useState<Job[]>([]);
-  const [selectedJob, setSelectedJob] = useState<Job | null>(null);
+  const [jobs, setJobs] = useState<IJob[]>([]);
+  const [selectedJob, setSelectedJob] = useState<IJob | null>(null);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [filters, setFilters] = useState<{ city?: string; salary?: string }>({});

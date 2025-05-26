@@ -15,13 +15,13 @@ export default function MiddleMenu() {
           Subscription
         </span>
       </Link>
-      <Link href="/jobs" className="relative group h-full flex items-center">
+      <Link href="/job" className="relative group h-full flex items-center">
         <span className="relative after:absolute after:left-1/2 after:top-9.5 after:w-0 after:h-1 after:bg-gray-300 after:transition-all after:duration-300 group-hover:after:w-full group-hover:after:left-0">
           Jobs
         </span>
       </Link>
       <Link
-        href="/companies"
+        href="/company"
         className="relative group h-full flex items-center"
       >
         <span className="relative after:absolute after:left-1/2 after:top-9.5 after:w-0 after:h-1 after:bg-gray-300 after:transition-all after:duration-300 group-hover:after:w-full group-hover:after:left-0">
@@ -29,7 +29,7 @@ export default function MiddleMenu() {
         </span>
       </Link>
       <Link
-        href="/salaries"
+        href="/salary"
         className="relative group h-full flex items-center"
       >
         <span className="relative after:absolute after:left-1/2 after:top-9.5 after:w-0 after:h-1 after:bg-gray-300 after:transition-all after:duration-300 group-hover:after:w-full group-hover:after:left-0">

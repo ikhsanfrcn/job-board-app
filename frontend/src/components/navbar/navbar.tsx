@@ -24,7 +24,7 @@ export default function Navbar() {
   const router = useRouter();
   const handleSearch = () => {
     if (searchQuery.trim()) {
-      router.push(`/jobs?title=${searchQuery}`);
+      router.push(`/job?title=${searchQuery}`);
     }
   };
 
