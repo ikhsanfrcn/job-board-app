@@ -37,7 +37,6 @@ export default function ModalCreateJob({
         "https://www.emsifa.com/api-wilayah-indonesia/api/provinces.json"
       );
       setProvinces(response.data);
-      console.log(response.data);
     } catch (error) {
       console.error("Failed to fetch provinces:", error);
     }

@@ -10,7 +10,7 @@ import { FaXTwitter } from "react-icons/fa6";
 
 export default function SocialShare() {
   return (
-    <div className="flex justify-center my-10">
+    <div className="w-full flex justify-center my-10 overflow-auto">
       <ul className="flex items-center space-x-5 text-2xl">
         <li>
           <Link

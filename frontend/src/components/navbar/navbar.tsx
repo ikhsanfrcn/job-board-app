@@ -29,7 +29,7 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="fixed top-0 bg-white shadow-sm w-screen z-50 font-sans">
+    <nav className="sticky top-0 bg-white shadow-sm w-full z-50 font-sans ">
       <div className="w-full mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16 items-center">
           {/* Logo */}
@@ -81,9 +81,9 @@ export default function Navbar() {
                         className="group-hover:rotate-[15deg] transition duration-200 z-10"
                       />
                       <span className="text-sm font-medium ml-2">Search</span>
-                      <span
-                        className="absolute bg-green-500 w-2 h-2 rounded-full top-4.5 right-38.5 opacity-0 scale-50 transition-all duration-200 group-hover:opacity-100 group-hover:scale-100 group-hover:translate-x-[-100%] group-hover:translate-y-[100%]"
-                      >&nbsp;</span>
+                      <span className="absolute bg-green-500 w-2 h-2 rounded-full top-4.5 right-38.5 opacity-0 scale-50 transition-all duration-200 group-hover:opacity-100 group-hover:scale-100 group-hover:translate-x-[-100%] group-hover:translate-y-[100%]">
+                        &nbsp;
+                      </span>
                     </div>
                   )}
                 </button>
@@ -111,9 +111,7 @@ export default function Navbar() {
                       className="absolute right-0 top-13 w-48 bg-white shadow-sm font-semibold px-2 py-3"
                       onClick={toggleMenu}
                     >
-                      {session.user && (
-                        <AvatarMenu />
-                      )}
+                      {session.user && <AvatarMenu />}
                       <button
                         onClick={() => signOut({ callbackUrl: "/" })}
                         className="flex items-center justify-between w-full px-2 py-2 text-sm hover:bg-gray-200 cursor-pointer text-left "
@@ -128,14 +126,20 @@ export default function Navbar() {
             )}
           </div>
           {/* Burger Icon */}
-          <div className="lg:hidden flex items-center px-7">
+          <div className="lg:hidden flex items-center">
             <button
               onClick={toggleMenu}
               className="text-black font-bold cursor-pointer"
             >
-              {isOpen ? <div className="hover:bg-gray-200 p-3 rounded-full transition duration-300"><CgCloseR size={24} /></div> : <div className="hover:bg-gray-200 p-3 rounded-full transition duration-300">
-                <CgMenu size={24} />
-                </div>}
+              {isOpen ? (
+                <div className="hover:bg-gray-200 p-3 rounded-full transition duration-300">
+                  <CgCloseR size={24} />
+                </div>
+              ) : (
+                <div className="hover:bg-gray-200 p-3 rounded-full transition duration-300">
+                  <CgMenu size={24} />
+                </div>
+              )}
             </button>
           </div>
         </div>
