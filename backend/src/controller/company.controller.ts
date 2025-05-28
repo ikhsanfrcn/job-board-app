@@ -7,6 +7,7 @@ import { passwordReset } from "../services/company/passwordReset";
 import { registerCompanySchema } from "../validation/authValidation";
 import { getCompanyProfile } from "../services/company/profile";
 import prisma from "../prisma";
+import { cloudinaryUpload } from "../helpers/cloudinary";
 
 export class CompanyController {
   async register(req: Request, res: Response) {
@@ -130,7 +131,104 @@ export class CompanyController {
         },
       });
 
-      res.status(200).send({ message: "Profile updated", data: updated });
+      res
+        .status(200)
+        .send({ message: "Profile updated successfully ✅", data: updated });
+    } catch (err) {
+      console.log(err);
+      res.status(404).send(err);
+    }
+  }
+
+  async getAllCompanies(req: Request, res: Response) {
+    try {
+      const { name, city, industryId } = req.query;
+
+      const filters: any = {};
+
+      if (name) {
+        filters.name = { contains: name as string, mode: "insensitive" };
+      }
+      if (city) {
+        filters.city = { contains: city as string, mode: "insensitive" };
+      }
+      if (industryId) {
+        filters.industryId = industryId as string;
+      }
+
+      const companies = await prisma.company.findMany({
+        where: filters,
+        select: {
+          id: true,
+          name: true,
+          about: true,
+          country: true,
+          state: true,
+          city: true,
+          zipCode: true,
+          regionNumber: true,
+          phoneNumber: true,
+          address: true,
+          website: true,
+          logo: true,
+          industryId: true,
+        },
+      });
+
+      res.status(200).json({
+        message: "Companies fetched successfully ✅",
+        data: companies,
+      });
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ error: "Failed to fetch companies" });
+    }
+  }
+  async getCompanyDetail(req: Request, res: Response) {
+    try {
+      const { id } = req.params;
+      const company = await prisma.company.findUnique({
+        where: { id },
+        select: {
+          id: true,
+          name: true,
+          about: true,
+          country: true,
+          state: true,
+          city: true,
+          zipCode: true,
+          regionNumber: true,
+          phoneNumber: true,
+          address: true,
+          website: true,
+          logo: true,
+        },
+      });
+      res
+        .status(200)
+        .send({ message: "Company fetched successfully ✅", data: company });
+    } catch (err) {
+      console.log(err);
+      res.status(404).send(err);
+    }
+  }
+
+  async updateLogo(req: Request, res: Response) {
+    try {
+      const companyId = req.company?.id;
+
+      if (!req.file) throw { message: "Logo is required" };
+      const { secure_url } = await cloudinaryUpload(req.file, "jobsdoors");
+
+      await prisma.company.update({
+        where: { id: companyId },
+        data: {
+          logo: secure_url,
+        },
+      });
+      res
+        .status(200)
+        .send({ message: "Logo updated successfully ✅", secure_url });
     } catch (err) {
       console.log(err);
       res.status(404).send(err);

@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { AuthMiddleware } from "../middleware/auth.middleware";
 import { CompanyController } from "../controller/company.controller";
+import { uploader } from "../helpers/uploader";
 
 export class CompanyRouter {
   private router: Router;
@@ -41,6 +42,16 @@ export class CompanyRouter {
       this.authMiddleware.verifyToken,
       this.companyController.updateProfile
     );
+    this.router.get("/", this.companyController.getAllCompanies);
+
+    this.router.patch(
+      "/update-logo",
+      uploader("memoryStorage", "logo-").single("image"),
+      this.authMiddleware.verifyToken,
+      this.companyController.updateLogo
+    );
+
+    this.router.get("/:id", this.companyController.getCompanyDetail);
   }
 
   getRouter(): Router {
