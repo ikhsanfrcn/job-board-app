@@ -24,6 +24,12 @@ export interface CreateJobParams {
   isPublished?: boolean;
 }
 
+export interface GetCompanyJobsParams {
+  companyId: string;
+  page?: number;
+  size?: number;
+}
+
 export interface GetJobsParams {
   city?: string;
   category?: string;
@@ -31,4 +37,17 @@ export interface GetJobsParams {
   isPublished?: boolean;
   page?: number;
   size?: number;
+}
+
+export interface CreateApplicationParams {
+  userId: string;
+  jobId: string;
+  expectedSalary: string;
+  cvUrl: string;
+}
+
+export interface GetApplicationsParams {
+  userId: string;
+  page?: number;
+  pageSize?: number;
 }
