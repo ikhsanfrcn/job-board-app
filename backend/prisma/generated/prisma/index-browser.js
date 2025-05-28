@@ -20,11 +20,11 @@ exports.Prisma = Prisma
 exports.$Enums = {}
 
 /**
- * Prisma Client JS version: 6.8.2
+ * Prisma Client JS version: 6.8.1
  * Query Engine version: 2060c79ba17c6bb9f5823312b6f6b7f4a845738e
  */
 Prisma.prismaVersion = {
-  client: "6.8.2",
+  client: "6.8.1",
   engine: "2060c79ba17c6bb9f5823312b6f6b7f4a845738e"
 }
 
@@ -202,6 +202,17 @@ exports.Prisma.DeveloperScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.ApplicationScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  jobId: 'jobId',
+  status: 'status',
+  cvUrl: 'cvUrl',
+  expectedSalary: 'expectedSalary',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -222,13 +233,23 @@ exports.Gender = exports.$Enums.Gender = {
   Female: 'Female'
 };
 
+exports.ApplicationStatus = exports.$Enums.ApplicationStatus = {
+  PENDING: 'PENDING',
+  VIEWED: 'VIEWED',
+  SHORTLISTED: 'SHORTLISTED',
+  INTERVIEW: 'INTERVIEW',
+  OFFERED: 'OFFERED',
+  REJECTED: 'REJECTED'
+};
+
 exports.Prisma.ModelName = {
   User: 'User',
   Company: 'Company',
   Industry: 'Industry',
   Job: 'Job',
   Jobdesc: 'Jobdesc',
-  Developer: 'Developer'
+  Developer: 'Developer',
+  Application: 'Application'
 };
 
 /**
