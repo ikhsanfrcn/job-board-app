@@ -5,6 +5,7 @@ import { useCallback, useEffect, useState } from "react";
 import { MdOutlineVerified } from "react-icons/md";
 import SkeletonDetail from "./skeletonDetail";
 import Image from "next/image";
+import Link from "next/link";
 
 interface IProps {
   id: string;
@@ -90,12 +91,15 @@ export default function Detail({ id }: IProps) {
             )}
           </div>
           <div className="flex gap-2">
-            <button className="px-4 py-2 text-white text-sm bg-black rounded-md">
+            <button className="px-4 py-2 text-white text-sm bg-black rounded-md hover:scale-105 transition duration-300 cursor-pointer">
               Follow
             </button>
-            <button className="px-4 py-2 text-white text-sm bg-black rounded-md">
-              Add a review
-            </button>
+
+            <Link href={`/review/${id}`}>
+              <button className="px-4 py-2 text-white text-sm bg-black rounded-md hover:scale-105 transition duration-300 cursor-pointer">
+                Add a review
+              </button>
+            </Link>
           </div>
         </div>
 
@@ -104,7 +108,7 @@ export default function Detail({ id }: IProps) {
             <button
               key={tab}
               onClick={() => setActiveTab(tab as typeof activeTab)}
-              className={`py-2 border-b-2 transition-all duration-200 font-medium ${
+              className={`py-2 border-b-2 transition-all duration-200 font-medium cursor-pointer ${
                 activeTab === tab
                   ? "border-green-600 text-black"
                   : "border-transparent text-gray-600 hover:text-black hover:border-green-600"
