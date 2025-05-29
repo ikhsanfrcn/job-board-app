@@ -4,23 +4,13 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { createJobSchema } from "@/schema/jobSchema";
 
 interface IProps {
   isOpen: boolean;
   onClose: () => void;
   handleCreate: (newJob: IJob) => void;
 }
-
-const JobSchema = Yup.object().shape({
-  title: Yup.string().required("Title is required"),
-  description: Yup.string().required("Description is required"),
-  province: Yup.string().required("Province is required"),
-  city: Yup.string().required("City is required"),
-  category: Yup.string().required("Category is required"),
-  tags: Yup.string().required("Tags are required"),
-  salary: Yup.number().typeError("Salary must be a number").min(0),
-  deadline: Yup.string().required("Deadline is required"),
-});
 
 export default function ModalCreateJob({
   isOpen,
@@ -86,7 +76,7 @@ export default function ModalCreateJob({
             deadline: "",
             isPublished: false,
           }}
-          validationSchema={JobSchema}
+          validationSchema={createJobSchema}
           onSubmit={(values, { resetForm }) => {
             const newJob: IJob = {
               id: crypto.randomUUID(),

@@ -1,200 +1,322 @@
 "use client";
 
-import { useState } from "react";
-import { Formik, Form, Field, ErrorMessage } from "formik";
-import { MdOutlineModeEdit } from "react-icons/md";
-import Resume from "./resume";
-import Hero from "./hero";
+import { normalizeProfile } from "@/helper/normalizerUserProfile";
+import axios from "@/lib/axios";
 import { userProfileSchema } from "@/schema/userProfileSchema";
 import { IUserProfile } from "@/types/userProfile";
-import axios from "@/lib/axios";
-import { normalizeProfile } from "@/helper/normalizerUserProfile";
-import { toast } from "react-toastify";
 import { AxiosError } from "axios";
-import Skeleton from "./skeleton";
+import { ErrorMessage, Field, Form, Formik } from "formik";
+import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 
 interface IProps {
-  profileData?: IUserProfile;
-  onReload: () => void;
-  fetchLoading?: boolean;
-  token: string;
+  profile: IUserProfile;
+  token?: string;
+  setProfile: (profile: IUserProfile) => void;
+  setIsEditing: (isEditing: boolean) => void;
 }
 
 export default function ProfileForm({
-  profileData: initialProfile,
-  onReload,
-  fetchLoading,
+  profile,
   token,
+  setProfile,
+  setIsEditing,
 }: IProps) {
-  if (fetchLoading || !initialProfile) {
-    return (
-      <div className="w-full h-full">
-        <Skeleton />;
-      </div>
-    );
-  }
+  const [provinces, setProvinces] = useState<any[]>([]);
+  const [cities, setCities] = useState<any[]>([]);
+  const [selectedProvinceId, setSelectedProvinceId] = useState("");
 
-  const [isEditing, setIsEditing] = useState(false);
-  const [profileData, setProfileData] = useState<IUserProfile>(initialProfile);
-  const [loading, setLoading] = useState(false);
+  const fetchProvinces = async () => {
+    try {
+      const response = await axios.get(
+        "https://www.emsifa.com/api-wilayah-indonesia/api/provinces.json"
+      );
+      setProvinces(response.data);
+    } catch (error) {
+      console.error("Failed to fetch provinces:", error);
+    }
+  };
+
+  const fetchCities = async (provinceId: string) => {
+    try {
+      const response = await axios.get(
+        `https://www.emsifa.com/api-wilayah-indonesia/api/regencies/${provinceId}.json`
+      );
+      setCities(response.data);
+    } catch (error) {
+      console.error("Failed to fetch cities:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchProvinces();
+  }, []);
+
+  useEffect(() => {
+    if (selectedProvinceId) {
+      fetchCities(selectedProvinceId);
+    } else {
+      setCities([]);
+    }
+  }, [selectedProvinceId]);
 
   const handleSubmit = async (values: IUserProfile) => {
     try {
-      setLoading(true);
-      await axios.patch("/users/profile", normalizeProfile(values), {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      setProfileData(values);
+      const selectedProvince = provinces.find((p) => p.id === values.state);
+      const updatedValues = {
+        ...values,
+        state: selectedProvince?.name || "",
+      };
+
+      const { data } = await axios.patch(
+        "/users/profile",
+        normalizeProfile(updatedValues),
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      setProfile(data.user);
       setIsEditing(false);
       toast.success("Update Success !");
-      onReload();
     } catch (err) {
       if (err instanceof AxiosError) {
-        console.log("Error Response:", err.response);
         toast.error(err.response?.data?.message || "Update Failed !");
       }
-      console.log(err);
-    } finally {
-      setLoading(false);
+      console.error(err);
     }
   };
 
   return (
-    <div className="w-full md:px-14">
-      <div className="bg-white border border-gray-200 rounded-xl shadow-sm">
-        <Hero />
-
-        <div className="border-b border-gray-200">
-          <div className="p-6">
-            <div className="flex items-center mb-2 space-x-2">
-              <h2 className="text-xl font-semibold">My Information</h2>
-              {!isEditing && (
-                <MdOutlineModeEdit
-                  className="text-4xl p-2 rounded-full hover:bg-gray-200 cursor-pointer"
-                  onClick={() => setIsEditing(true)}
-                />
-              )}
+    <div>
+      <Formik
+        initialValues={normalizeProfile(profile)}
+        validationSchema={userProfileSchema}
+        onSubmit={handleSubmit}
+      >
+        {({ setFieldValue }) => (
+          <Form className="space-y-4 text-sm text-gray-800">
+            <div>
+              <label className="text-xs font-medium capitalize">
+                First Name:
+              </label>
+              <Field name="firstName" className="border p-2 rounded w-full" />
+              <ErrorMessage
+                name="firstName"
+                component="div"
+                className="text-red-500 text-xs"
+              />
             </div>
-            <p className="text-sm text-gray-600 mb-6">
-              Update your personal details to keep your profile up to date.
-            </p>
 
-            {isEditing ? (
-              <Formik
-                initialValues={normalizeProfile(profileData)}
-                validationSchema={userProfileSchema}
-                onSubmit={handleSubmit}
-                enableReinitialize
+            <div>
+              <label className="text-xs font-medium capitalize">
+                Last Name:
+              </label>
+              <Field name="lastName" className="border p-2 rounded w-full" />
+              <ErrorMessage
+                name="lastName"
+                component="div"
+                className="text-red-500 text-xs"
+              />
+            </div>
+
+            <div>
+              <label className="text-xs font-medium capitalize">
+                Username:
+              </label>
+              <Field
+                name="username"
+                className="border p-2 rounded w-full bg-gray-100"
+                readOnly
+              />
+            </div>
+
+            <div>
+              <label className="text-xs font-medium capitalize">Email:</label>
+              <Field
+                name="email"
+                className="border p-2 rounded w-full bg-gray-100"
+                readOnly
+              />
+            </div>
+
+            <div>
+              <label className="text-xs font-medium capitalize">Gender:</label>
+              <Field
+                as="select"
+                name="gender"
+                className="border p-2 rounded w-full"
               >
-                {({ handleReset }) => (
-                  <Form className="space-y-4 text-sm text-gray-800">
-                    {[
-                      { label: "Email", name: "email" },
-                      { label: "Username", name: "username" },
-                      { label: "First Name", name: "firstName" },
-                      { label: "Last Name", name: "lastName" },
-                      {
-                        label: "Gender",
-                        name: "gender",
-                        as: "select",
-                        options: ["Male", "Female", "PreferNotToSay"],
-                      },
-                      { label: "Date of Birth", name: "dob", type: "date" },
-                      {
-                        label: "Education",
-                        name: "education",
-                        as: "select",
-                        options: [
-                          "High School",
-                          "Diploma",
-                          "Associate Degree",
-                          "Bachelor's Degree",
-                          "Master's Degree",
-                          "Doctorate (PhD)",
-                          "Other",
-                        ],
-                      },
-                      { label: "Country", name: "country" },
-                      { label: "State", name: "state" },
-                      { label: "City", name: "city" },
-                      { label: "Zip Code", name: "zipCode" },
-                      { label: "Region Number", name: "regionNumber" },
-                      { label: "Phone Number", name: "phoneNumber" },
-                    ].map(({ label, name, type = "text", as, options }) => (
-                      <div key={name}>
-                        <p className="text-xs font-medium">{label}</p>
-                        {as === "select" ? (
-                          <Field
-                            as="select"
-                            name={name}
-                            className="mt-1 border border-gray-300 rounded px-4 py-2 w-full text-sm"
-                          >
-                            <option value="">Select {label}</option>
-                            {options?.map((opt) => (
-                              <option key={opt} value={opt}>
-                                {opt}
-                              </option>
-                            ))}
-                          </Field>
-                        ) : (
-                          <Field
-                            type={type}
-                            name={name}
-                            className="mt-1 border border-gray-300 rounded px-4 py-2 w-full text-sm"
-                          />
-                        )}
-                        <ErrorMessage
-                          name={name}
-                          component="div"
-                          className="text-red-500 text-xs mt-1"
-                        />
-                      </div>
-                    ))}
+                <option value="">Select Gender</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="PreferNotToSay">PreferNotToSay</option>
+              </Field>
+              <ErrorMessage
+                name="gender"
+                component="div"
+                className="text-red-500 text-xs"
+              />
+            </div>
 
-                    <div className="flex justify-between mt-6 gap-4">
-                      <button
-                        type="button"
-                        onClick={() => {
-                          handleReset();
-                          setIsEditing(false);
-                        }}
-                        className="w-full border border-black px-4 py-2 rounded hover:bg-gray-100"
-                      >
-                        Cancel
-                      </button>
-                      <button
-                        type="submit"
-                        disabled={loading}
-                        className={`w-full px-4 py-2 rounded text-white transition ${
-                          loading
-                            ? "bg-gray-300 cursor-not-allowed"
-                            : "bg-gray-400 hover:bg-gray-600"
-                        }`}
-                      >
-                        {loading ? "Saving..." : "Save"}
-                      </button>
-                    </div>
-                  </Form>
-                )}
-              </Formik>
-            ) : (
-              <div className="space-y-4 text-sm text-gray-800">
-                {Object.entries(profileData).map(([key, value]) => (
-                  <div key={key}>
-                    <p className="text-xs font-medium capitalize">
-                      {key.replace(/([A-Z])/g, " $1")}
-                    </p>
-                    <p className="mt-1">{value || "-"}</p>
-                  </div>
+            <div>
+              <label className="text-xs font-medium capitalize">
+                Date of Birth:
+              </label>
+              <Field
+                type="date"
+                name="dob"
+                className="border p-2 rounded w-full"
+              />
+              <ErrorMessage
+                name="dob"
+                component="div"
+                className="text-red-500 text-xs"
+              />
+            </div>
+
+            <div>
+              <label className="text-xs font-medium capitalize">
+                Education:
+              </label>
+              <Field
+                as="select"
+                name="education"
+                className="border p-2 rounded w-full"
+              >
+                <option value="">Select Education</option>
+                <option value="High School">High School</option>
+                <option value="Diploma">Diploma</option>
+                <option value="Bachelor">Bachelor</option>
+                <option value="Master">Master</option>
+                <option value="Doctorate">Doctorate</option>
+                <option value="Other">Other</option>
+              </Field>
+              <ErrorMessage
+                name="education"
+                component="div"
+                className="text-red-500 text-xs"
+              />
+            </div>
+
+            <div>
+              <label className="text-xs font-medium capitalize">Country:</label>
+              <Field name="country" className="border p-2 rounded w-full" />
+              <ErrorMessage
+                name="country"
+                component="div"
+                className="text-red-500 text-xs"
+              />
+            </div>
+
+            <div>
+              <label className="text-xs font-medium capitalize">
+                Province:
+              </label>
+              <Field
+                as="select"
+                name="state"
+                className="w-full border px-3 py-2 rounded"
+                onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
+                  const selectedId = e.target.value;
+                  setFieldValue("state", selectedId);
+                  setFieldValue("city", "");
+                  setSelectedProvinceId(selectedId);
+                }}
+              >
+                <option value="">Select Province</option>
+                {provinces.map((prov) => (
+                  <option key={prov.id} value={prov.id}>
+                    {prov.name}
+                  </option>
                 ))}
-              </div>
-            )}
-          </div>
-        </div>
-        <Resume />
-      </div>
+              </Field>
+              <ErrorMessage
+                name="state"
+                component="div"
+                className="text-red-500 text-sm"
+              />
+            </div>
+
+            <div>
+              <label className="text-xs font-medium capitalize">City:</label>
+              <Field
+                as="select"
+                name="city"
+                className="w-full border px-3 py-2 rounded"
+                disabled={!cities.length}
+              >
+                <option value="">Select City</option>
+                {cities.map((city: any) => (
+                  <option key={city.id} value={city.name}>
+                    {city.name}
+                  </option>
+                ))}
+              </Field>
+              <ErrorMessage
+                name="city"
+                component="div"
+                className="text-red-500 text-sm"
+              />
+            </div>
+
+            <div>
+              <label className="text-xs font-medium capitalize">
+                Zip Code:
+              </label>
+              <Field name="zipCode" className="border p-2 rounded w-full" />
+              <ErrorMessage
+                name="zipCode"
+                component="div"
+                className="text-red-500 text-xs"
+              />
+            </div>
+            <div>
+              <label className="text-xs font-medium capitalize">
+                Region Number:
+              </label>
+              <Field
+                name="regionNumber"
+                className="border p-2 rounded w-full"
+              />
+              <ErrorMessage
+                name="regionNumber"
+                component="div"
+                className="text-red-500 text-xs"
+              />
+            </div>
+            <div>
+              <label className="text-xs font-medium capitalize">
+                Phone Number:
+              </label>
+              <Field name="phoneNumber" className="border p-2 rounded w-full" />
+              <ErrorMessage
+                name="phoneNumber"
+                component="div"
+                className="text-red-500 text-xs"
+              />
+            </div>
+
+            <div className="flex justify-between mt-6 gap-4">
+              <button
+                type="button"
+                onClick={() => setIsEditing(false)}
+                className="w-full border border-black px-4 py-2 rounded hover:bg-gray-100"
+              >
+                Cancel
+              </button>
+              <button
+                type="submit"
+                className="w-full text-white px-4 py-2 border rounded bg-gray-400 hover:bg-gray-600"
+              >
+                Save
+              </button>
+            </div>
+          </Form>
+        )}
+      </Formik>
     </div>
   );
 }

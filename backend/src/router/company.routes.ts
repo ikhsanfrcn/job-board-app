@@ -2,6 +2,7 @@ import { Router } from "express";
 import { AuthMiddleware } from "../middleware/auth.middleware";
 import { CompanyController } from "../controller/company.controller";
 import { uploader } from "../helpers/uploader";
+import { validateUpdateAvatar } from "../middleware/validation";
 
 export class CompanyRouter {
   private router: Router;
@@ -47,6 +48,7 @@ export class CompanyRouter {
     this.router.patch(
       "/update-logo",
       uploader("memoryStorage", "logo-").single("image"),
+      validateUpdateAvatar,
       this.authMiddleware.verifyToken,
       this.companyController.updateLogo
     );

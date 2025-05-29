@@ -1,0 +1,12 @@
+import * as yup from "yup";
+
+export const createJobSchema = yup.object().shape({
+  title: yup.string().required("Title is required"),
+  description: yup.string().required("Description is required"),
+  province: yup.string().required("Province is required"),
+  city: yup.string().required("City is required"),
+  category: yup.string().required("Category is required"),
+  tags: yup.string().required("Tags are required"),
+  salary: yup.number().typeError("Salary must be a number").min(0),
+  deadline: yup.string().required("Deadline is required"),
+});
