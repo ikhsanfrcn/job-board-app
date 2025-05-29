@@ -4,17 +4,20 @@ import { useSession } from "next-auth/react";
 import { useCallback, useEffect, useState } from "react";
 import axios from "@/lib/axios";
 import { IUserProfile } from "@/types/userProfile";
+import { MdOutlineModeEdit } from "react-icons/md";
 import ProfileForm from "./profileForm";
+import ProfileSkeleton from "./profileSkeleton";
 
 export default function Profile() {
   const { data: user } = useSession();
-  const [userProfile, setUserProfile] = useState<IUserProfile>();
-  const [loading, setLoading] = useState(true);
   const token = user?.accessToken;
+
+  const [profile, setProfile] = useState<IUserProfile>();
+  const [isEditing, setIsEditing] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const fetchUserProfile = useCallback(async () => {
     if (!token) return;
-
     try {
       setLoading(true);
       const { data } = await axios.get("/users/profile", {
@@ -22,13 +25,13 @@ export default function Profile() {
           Authorization: `Bearer ${token}`,
         },
       });
-      setUserProfile(data.user);
+      setProfile(data.user);
     } catch (err) {
       console.error("Failed to fetch user profile", err);
     } finally {
       setLoading(false);
     }
-  }, [user?.accessToken]);
+  }, [token]);
 
   useEffect(() => {
     fetchUserProfile();
@@ -38,14 +41,98 @@ export default function Profile() {
     fetchUserProfile();
   };
 
+  if (loading) return <ProfileSkeleton />;
+  if (!profile) return <div className="p-6">No user profile</div>;
   return (
     <div className="w-full">
-      <ProfileForm
-        profileData={userProfile}
-        onReload={onReload}
-        fetchLoading={loading}
-        token={token!}
-      />
+      <div className="p-6">
+        <div className="flex items-center mb-2 space-x-2">
+          <h2 className="text-xl font-semibold">My Information</h2>
+          {!isEditing && (
+            <MdOutlineModeEdit
+              className="text-4xl p-2 rounded-full hover:bg-gray-200 cursor-pointer"
+              onClick={() => setIsEditing(true)}
+            />
+          )}
+        </div>
+        <p className="text-sm text-gray-600 mb-6">
+          Update your personal details to keep your profile up to date.
+        </p>
+
+        {!isEditing && (
+          <div className="space-y-4 text-sm text-gray-800">
+            <div>
+              <p className="text-xs font-medium capitalize">First Name:</p>
+              <p>{profile.firstName || "-"}</p>
+            </div>
+            <div>
+              <p className="text-xs font-medium capitalize">Last Name:</p>
+              <p>{profile.lastName || "-"}</p>
+            </div>
+            <div>
+              <p className="text-xs font-medium capitalize">Username:</p>
+              <p>{profile.username}</p>
+            </div>
+            <div>
+              <p className="text-xs font-medium capitalize">Email:</p>
+              <p>{profile.email}</p>
+            </div>
+            <div>
+              <p className="text-xs font-medium capitalize">Gender:</p>
+              <p>{profile.gender || "-"}</p>
+            </div>
+            <div>
+              <p className="text-xs font-medium capitalize">Date of Birth:</p>
+              <p>
+                {profile.dob
+                  ? new Intl.DateTimeFormat("en-US", {
+                      year: "numeric",
+                      month: "long",
+                      day: "numeric",
+                    }).format(new Date(profile.dob))
+                  : "-"}
+              </p>
+            </div>
+            <div>
+              <p className="text-xs font-medium capitalize">Education:</p>
+              <p>{profile.education || "-"}</p>
+            </div>
+            <div>
+              <p className="text-xs font-medium capitalize">Country:</p>
+              <p>{profile.country || "-"}</p>
+            </div>
+            <div>
+              <p className="text-xs font-medium capitalize">State:</p>
+              <p>{profile.state || "-"}</p>
+            </div>
+            <div>
+              <p className="text-xs font-medium capitalize">City:</p>
+              <p>{profile.city || "-"}</p>
+            </div>
+            <div>
+              <p className="text-xs font-medium capitalize">Zip Code:</p>
+              <p>{profile.zipCode || "-"}</p>
+            </div>
+            <div>
+              <p className="text-xs font-medium capitalize">Region Number:</p>
+              <p>{profile.regionNumber || "-"}</p>
+            </div>
+            <div>
+              <p className="text-xs font-medium capitalize">Phone Number:</p>
+              <p>{profile.phoneNumber || "-"}</p>
+            </div>
+          </div>
+        )}
+
+        {isEditing && (
+          <ProfileForm
+            profile={profile}
+            token={token}
+            setProfile={setProfile}
+            setIsEditing={setIsEditing}
+          />
+        )}
+      </div>
     </div>
   );
 }

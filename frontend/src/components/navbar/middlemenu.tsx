@@ -21,7 +21,7 @@ export default function MiddleMenu() {
         </span>
       </Link>
       <Link
-        href="/company"
+        href="/companies"
         className="relative group h-full flex items-center"
       >
         <span className="relative after:absolute after:left-1/2 after:top-9.5 after:w-0 after:h-1 after:bg-gray-300 after:transition-all after:duration-300 group-hover:after:w-full group-hover:after:left-0">

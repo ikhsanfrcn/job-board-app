@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { ReviewController } from "../controller/review.controller";
 import { AuthMiddleware } from "../middleware/auth.middleware";
+import { validateCreateReview } from "../middleware/validation";
 
 export class ReviewRouter {
   private router: Router;
@@ -17,6 +18,7 @@ export class ReviewRouter {
   private initializeRoute() {
     this.router.post(
       "/:id",
+      validateCreateReview,
       this.authMiddleware.verifyToken,
       this.reviewController.createReview
     );

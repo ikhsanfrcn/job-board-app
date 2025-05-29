@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import Link from "next/link";
 import { useState } from "react";
@@ -42,7 +42,7 @@ export default function MenuMobile() {
         Jobs
       </Link>
       <Link
-        href={"/company"}
+        href={"/companies"}
         className="block w-full px-4 py-2 mb-2 text-sm hover:bg-gray-200 transition duration-300"
       >
         Companies
@@ -53,19 +53,31 @@ export default function MenuMobile() {
       >
         Salaries
       </Link>
-      <div 
+      <div
         className="relative group block w-full px-4 py-2 text-sm hover:bg-gray-200 transition-all duration-300 cursor-pointer"
         onMouseEnter={() => setIsOpen(true)}
         onMouseLeave={() => setIsOpen(false)}
       >
         For Employers
         {/* Dropdown Menu (Hidden by Default) */}
-        <div className={`absolute left-0 mt-2 w-full bg-gray-50 shadow-lg rounded-md transition-all duration-300 
-            ${isOpen ? "opacity-100 scale-100 max-h-[200px]" : "opacity-0 scale-95 max-h-0 overflow-hidden"}`}>
-          <Link href={"/company/register"} className="block w-full px-4 py-2 text-sm hover:bg-gray-200 transition duration-300">
+        <div
+          className={`absolute left-0 mt-2 w-full bg-gray-50 shadow-lg rounded-md transition-all duration-300 
+            ${
+              isOpen
+                ? "opacity-100 scale-100 max-h-[200px]"
+                : "opacity-0 scale-95 max-h-0 overflow-hidden"
+            }`}
+        >
+          <Link
+            href={"/company/register"}
+            className="block w-full px-4 py-2 text-sm hover:bg-gray-200 transition duration-300"
+          >
             Register
           </Link>
-          <Link href={"/company/login"} className="block w-full px-4 py-2 text-sm hover:bg-gray-200 transition duration-300">
+          <Link
+            href={"/company/login"}
+            className="block w-full px-4 py-2 text-sm hover:bg-gray-200 transition duration-300"
+          >
             Login
           </Link>
         </div>

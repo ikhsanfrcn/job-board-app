@@ -1,3 +1,5 @@
+"use client";
+
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { toast } from "react-toastify";
 import { ICompanyProfile } from "@/types/companyType";
@@ -5,6 +7,10 @@ import axios from "@/lib/axios";
 import { normalizeCompanyProfile } from "@/helper/normalizerCompanyProfile";
 import { useEffect, useState } from "react";
 import { companyProfileSchema } from "@/schema/companySchema";
+import dynamic from "next/dynamic";
+import { AxiosError } from "axios";
+
+const MapWithNoSSR = dynamic(() => import("./profileMap"), { ssr: false });
 
 interface IProps {
   profile: ICompanyProfile;
@@ -12,6 +18,7 @@ interface IProps {
   setProfile: (profile: ICompanyProfile) => void;
   setIsEditing: (isEditing: boolean) => void;
 }
+
 export default function ProfileForm({
   profile,
   token,
@@ -21,17 +28,18 @@ export default function ProfileForm({
   const [provinces, setProvinces] = useState<any[]>([]);
   const [cities, setCities] = useState<any[]>([]);
   const [selectedProvinceId, setSelectedProvinceId] = useState("");
+
   const fetchProvinces = async () => {
     try {
       const response = await axios.get(
         "https://www.emsifa.com/api-wilayah-indonesia/api/provinces.json"
       );
       setProvinces(response.data);
-      console.log(response.data);
     } catch (error) {
       console.error("Failed to fetch provinces:", error);
     }
   };
+
   const fetchCities = async (provinceId: string) => {
     try {
       const response = await axios.get(
@@ -42,6 +50,7 @@ export default function ProfileForm({
       console.error("Failed to fetch cities:", error);
     }
   };
+
   useEffect(() => {
     fetchProvinces();
   }, []);
@@ -60,6 +69,8 @@ export default function ProfileForm({
       const updatedValues = {
         ...values,
         state: selectedProvince?.name || "",
+        latitude: values.latitude?.toString?.() || "",
+        longitude: values.longitude?.toString?.() || "",
       };
       const { data } = await axios.patch(
         "/company/profile",
@@ -74,8 +85,9 @@ export default function ProfileForm({
       setIsEditing(false);
       toast.success("Profile updated successfully");
     } catch (err) {
-      console.error(err);
-      toast.error("Failed to update profile");
+      if (err instanceof AxiosError) {
+        toast.error(err.response?.data?.message || "Update Failed!");
+      }
     }
   };
 
@@ -86,7 +98,7 @@ export default function ProfileForm({
         validationSchema={companyProfileSchema}
         onSubmit={handleSubmit}
       >
-        {({ setFieldValue }) => (
+        {({ setFieldValue, values }) => (
           <Form className="space-y-4 text-sm text-gray-800">
             <div>
               <label className="text-xs font-medium capitalize">Name:</label>
@@ -121,8 +133,6 @@ export default function ProfileForm({
                 className="w-full border px-3 py-2 rounded"
                 onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
                   const selectedId = e.target.value;
-                  const selectedName =
-                    provinces.find((p) => p.id === selectedId)?.name || "";
                   setFieldValue("state", selectedId);
                   setFieldValue("city", "");
                   setSelectedProvinceId(selectedId);
@@ -187,15 +197,34 @@ export default function ProfileForm({
               <label className="text-xs font-medium capitalize">
                 Latitude:
               </label>
-              <Field name="latitude" className="border p-2 rounded w-full" />
+              <Field
+                name="latitude"
+                className="border p-2 rounded w-full"
+                readOnly
+              />
             </div>
             <div>
               <label className="text-xs font-medium capitalize">
                 Longitude:
               </label>
-              <Field name="longitude" className="border p-2 rounded w-full" />
+              <Field
+                name="longitude"
+                className="border p-2 rounded w-full"
+                readOnly
+              />
             </div>
-
+            <div>
+              <label className="text-xs font-medium capitalize">
+                Select Location on Map:
+              </label>
+              <div className="h-64">
+                <MapWithNoSSR
+                  lat={values.latitude}
+                  lng={values.longitude}
+                  setFieldValue={setFieldValue}
+                />
+              </div>
+            </div>
             <div>
               <label className="text-xs font-medium capitalize">Website:</label>
               <Field name="website" className="border p-2 rounded w-full" />

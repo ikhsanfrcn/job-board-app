@@ -65,7 +65,7 @@ export default function SideBar() {
     } catch (err) {
       if (err instanceof AxiosError) {
         console.log("Error Response:", err.response);
-        toast.error(err.response?.data?.message || "Logo update failed !");
+        toast.error(err.response?.data?.message || "Failde to update logo !");
       }
     }
   };
@@ -116,7 +116,10 @@ export default function SideBar() {
 
           <hr className="w-full border border-gray-200 mt-5" />
           <div className="w-full flex items-center justify-between px-4 py-2 my-2">
-            <button className="hover:underline" onClick={() => signOut()}>
+            <button
+              className="text-sm hover:underline"
+              onClick={() => signOut()}
+            >
               Signout
             </button>
             <HiOutlineLogout className="text-2xl" />
