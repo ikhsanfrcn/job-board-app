@@ -96,7 +96,7 @@ model Job {
   updatedAt   DateTime @updatedAt
 
   Application Application[]
-  test        Test[]
+  test        Test?
 }
 
 model Jobdesc {
@@ -158,10 +158,10 @@ model Review {
 
 model Test {
   id          String @id @default(uuid())
-  jobId       String
+  jobId       String @unique
   title       String
   description String
-  questions   Json
+  questions   String
 
   job Job @relation(fields: [jobId], references: [id])
 }

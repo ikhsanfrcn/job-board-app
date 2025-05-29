@@ -1843,12 +1843,10 @@ export namespace Prisma {
 
   export type JobCountOutputType = {
     Application: number
-    test: number
   }
 
   export type JobCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     Application?: boolean | JobCountOutputTypeCountApplicationArgs
-    test?: boolean | JobCountOutputTypeCountTestArgs
   }
 
   // Custom InputTypes
@@ -1867,13 +1865,6 @@ export namespace Prisma {
    */
   export type JobCountOutputTypeCountApplicationArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: ApplicationWhereInput
-  }
-
-  /**
-   * JobCountOutputType without action
-   */
-  export type JobCountOutputTypeCountTestArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: TestWhereInput
   }
 
 
@@ -5858,7 +5849,7 @@ export namespace Prisma {
     objects: {
       company: Prisma.$CompanyPayload<ExtArgs>
       Application: Prisma.$ApplicationPayload<ExtArgs>[]
-      test: Prisma.$TestPayload<ExtArgs>[]
+      test: Prisma.$TestPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -6269,7 +6260,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     company<T extends CompanyDefaultArgs<ExtArgs> = {}>(args?: Subset<T, CompanyDefaultArgs<ExtArgs>>): Prisma__CompanyClient<$Result.GetResult<Prisma.$CompanyPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     Application<T extends Job$ApplicationArgs<ExtArgs> = {}>(args?: Subset<T, Job$ApplicationArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ApplicationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    test<T extends Job$testArgs<ExtArgs> = {}>(args?: Subset<T, Job$testArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TestPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    test<T extends Job$testArgs<ExtArgs> = {}>(args?: Subset<T, Job$testArgs<ExtArgs>>): Prisma__TestClient<$Result.GetResult<Prisma.$TestPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -6747,11 +6738,6 @@ export namespace Prisma {
      */
     include?: TestInclude<ExtArgs> | null
     where?: TestWhereInput
-    orderBy?: TestOrderByWithRelationInput | TestOrderByWithRelationInput[]
-    cursor?: TestWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: TestScalarFieldEnum | TestScalarFieldEnum[]
   }
 
   /**
@@ -11061,6 +11047,7 @@ export namespace Prisma {
     jobId: string | null
     title: string | null
     description: string | null
+    questions: string | null
   }
 
   export type TestMaxAggregateOutputType = {
@@ -11068,6 +11055,7 @@ export namespace Prisma {
     jobId: string | null
     title: string | null
     description: string | null
+    questions: string | null
   }
 
   export type TestCountAggregateOutputType = {
@@ -11085,6 +11073,7 @@ export namespace Prisma {
     jobId?: true
     title?: true
     description?: true
+    questions?: true
   }
 
   export type TestMaxAggregateInputType = {
@@ -11092,6 +11081,7 @@ export namespace Prisma {
     jobId?: true
     title?: true
     description?: true
+    questions?: true
   }
 
   export type TestCountAggregateInputType = {
@@ -11180,7 +11170,7 @@ export namespace Prisma {
     jobId: string
     title: string
     description: string
-    questions: JsonValue
+    questions: string
     _count: TestCountAggregateOutputType | null
     _min: TestMinAggregateOutputType | null
     _max: TestMaxAggregateOutputType | null
@@ -11256,7 +11246,7 @@ export namespace Prisma {
       jobId: string
       title: string
       description: string
-      questions: Prisma.JsonValue
+      questions: string
     }, ExtArgs["result"]["test"]>
     composites: {}
   }
@@ -11685,7 +11675,7 @@ export namespace Prisma {
     readonly jobId: FieldRef<"Test", 'String'>
     readonly title: FieldRef<"Test", 'String'>
     readonly description: FieldRef<"Test", 'String'>
-    readonly questions: FieldRef<"Test", 'Json'>
+    readonly questions: FieldRef<"Test", 'String'>
   }
     
 
@@ -13391,13 +13381,6 @@ export namespace Prisma {
   export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
 
 
-  export const JsonNullValueInput: {
-    JsonNull: typeof JsonNull
-  };
-
-  export type JsonNullValueInput = (typeof JsonNullValueInput)[keyof typeof JsonNullValueInput]
-
-
   export const QueryMode: {
     default: 'default',
     insensitive: 'insensitive'
@@ -13412,15 +13395,6 @@ export namespace Prisma {
   };
 
   export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
-
-
-  export const JsonNullValueFilter: {
-    DbNull: typeof DbNull,
-    JsonNull: typeof JsonNull,
-    AnyNull: typeof AnyNull
-  };
-
-  export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
 
 
   /**
@@ -13502,20 +13476,6 @@ export namespace Prisma {
    * Reference to a field of type 'Int[]'
    */
   export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
-    
-
-
-  /**
-   * Reference to a field of type 'Json'
-   */
-  export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>
-    
-
-
-  /**
-   * Reference to a field of type 'QueryMode'
-   */
-  export type EnumQueryModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QueryMode'>
     
 
 
@@ -13876,7 +13836,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Job"> | Date | string
     company?: XOR<CompanyScalarRelationFilter, CompanyWhereInput>
     Application?: ApplicationListRelationFilter
-    test?: TestListRelationFilter
+    test?: XOR<TestNullableScalarRelationFilter, TestWhereInput> | null
   }
 
   export type JobOrderByWithRelationInput = {
@@ -13894,7 +13854,7 @@ export namespace Prisma {
     updatedAt?: SortOrder
     company?: CompanyOrderByWithRelationInput
     Application?: ApplicationOrderByRelationAggregateInput
-    test?: TestOrderByRelationAggregateInput
+    test?: TestOrderByWithRelationInput
   }
 
   export type JobWhereUniqueInput = Prisma.AtLeast<{
@@ -13915,7 +13875,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Job"> | Date | string
     company?: XOR<CompanyScalarRelationFilter, CompanyWhereInput>
     Application?: ApplicationListRelationFilter
-    test?: TestListRelationFilter
+    test?: XOR<TestNullableScalarRelationFilter, TestWhereInput> | null
   }, "id">
 
   export type JobOrderByWithAggregationInput = {
@@ -14230,7 +14190,7 @@ export namespace Prisma {
     jobId?: StringFilter<"Test"> | string
     title?: StringFilter<"Test"> | string
     description?: StringFilter<"Test"> | string
-    questions?: JsonFilter<"Test">
+    questions?: StringFilter<"Test"> | string
     job?: XOR<JobScalarRelationFilter, JobWhereInput>
   }
 
@@ -14245,15 +14205,15 @@ export namespace Prisma {
 
   export type TestWhereUniqueInput = Prisma.AtLeast<{
     id?: string
+    jobId?: string
     AND?: TestWhereInput | TestWhereInput[]
     OR?: TestWhereInput[]
     NOT?: TestWhereInput | TestWhereInput[]
-    jobId?: StringFilter<"Test"> | string
     title?: StringFilter<"Test"> | string
     description?: StringFilter<"Test"> | string
-    questions?: JsonFilter<"Test">
+    questions?: StringFilter<"Test"> | string
     job?: XOR<JobScalarRelationFilter, JobWhereInput>
-  }, "id">
+  }, "id" | "jobId">
 
   export type TestOrderByWithAggregationInput = {
     id?: SortOrder
@@ -14274,7 +14234,7 @@ export namespace Prisma {
     jobId?: StringWithAggregatesFilter<"Test"> | string
     title?: StringWithAggregatesFilter<"Test"> | string
     description?: StringWithAggregatesFilter<"Test"> | string
-    questions?: JsonWithAggregatesFilter<"Test">
+    questions?: StringWithAggregatesFilter<"Test"> | string
   }
 
   export type UserTestWhereInput = {
@@ -14747,7 +14707,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     company: CompanyCreateNestedOneWithoutJobsInput
     Application?: ApplicationCreateNestedManyWithoutJobInput
-    test?: TestCreateNestedManyWithoutJobInput
+    test?: TestCreateNestedOneWithoutJobInput
   }
 
   export type JobUncheckedCreateInput = {
@@ -14764,7 +14724,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     Application?: ApplicationUncheckedCreateNestedManyWithoutJobInput
-    test?: TestUncheckedCreateNestedManyWithoutJobInput
+    test?: TestUncheckedCreateNestedOneWithoutJobInput
   }
 
   export type JobUpdateInput = {
@@ -14781,7 +14741,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     company?: CompanyUpdateOneRequiredWithoutJobsNestedInput
     Application?: ApplicationUpdateManyWithoutJobNestedInput
-    test?: TestUpdateManyWithoutJobNestedInput
+    test?: TestUpdateOneWithoutJobNestedInput
   }
 
   export type JobUncheckedUpdateInput = {
@@ -14798,7 +14758,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     Application?: ApplicationUncheckedUpdateManyWithoutJobNestedInput
-    test?: TestUncheckedUpdateManyWithoutJobNestedInput
+    test?: TestUncheckedUpdateOneWithoutJobNestedInput
   }
 
   export type JobCreateManyInput = {
@@ -15132,7 +15092,7 @@ export namespace Prisma {
     id?: string
     title: string
     description: string
-    questions: JsonNullValueInput | InputJsonValue
+    questions: string
     job: JobCreateNestedOneWithoutTestInput
   }
 
@@ -15141,14 +15101,14 @@ export namespace Prisma {
     jobId: string
     title: string
     description: string
-    questions: JsonNullValueInput | InputJsonValue
+    questions: string
   }
 
   export type TestUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
-    questions?: JsonNullValueInput | InputJsonValue
+    questions?: StringFieldUpdateOperationsInput | string
     job?: JobUpdateOneRequiredWithoutTestNestedInput
   }
 
@@ -15157,7 +15117,7 @@ export namespace Prisma {
     jobId?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
-    questions?: JsonNullValueInput | InputJsonValue
+    questions?: StringFieldUpdateOperationsInput | string
   }
 
   export type TestCreateManyInput = {
@@ -15165,14 +15125,14 @@ export namespace Prisma {
     jobId: string
     title: string
     description: string
-    questions: JsonNullValueInput | InputJsonValue
+    questions: string
   }
 
   export type TestUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
-    questions?: JsonNullValueInput | InputJsonValue
+    questions?: StringFieldUpdateOperationsInput | string
   }
 
   export type TestUncheckedUpdateManyInput = {
@@ -15180,7 +15140,7 @@ export namespace Prisma {
     jobId?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
-    questions?: JsonNullValueInput | InputJsonValue
+    questions?: StringFieldUpdateOperationsInput | string
   }
 
   export type UserTestCreateInput = {
@@ -15598,14 +15558,9 @@ export namespace Prisma {
     isNot?: CompanyWhereInput
   }
 
-  export type TestListRelationFilter = {
-    every?: TestWhereInput
-    some?: TestWhereInput
-    none?: TestWhereInput
-  }
-
-  export type TestOrderByRelationAggregateInput = {
-    _count?: SortOrder
+  export type TestNullableScalarRelationFilter = {
+    is?: TestWhereInput | null
+    isNot?: TestWhereInput | null
   }
 
   export type JobCountOrderByAggregateInput = {
@@ -15840,29 +15795,6 @@ export namespace Prisma {
     _min?: NestedIntFilter<$PrismaModel>
     _max?: NestedIntFilter<$PrismaModel>
   }
-  export type JsonFilter<$PrismaModel = never> =
-    | PatchUndefined<
-        Either<Required<JsonFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonFilterBase<$PrismaModel>>, 'path'>>,
-        Required<JsonFilterBase<$PrismaModel>>
-      >
-    | OptionalFlat<Omit<Required<JsonFilterBase<$PrismaModel>>, 'path'>>
-
-  export type JsonFilterBase<$PrismaModel = never> = {
-    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
-    path?: string[]
-    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
-    string_contains?: string | StringFieldRefInput<$PrismaModel>
-    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
-    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
-    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
-  }
 
   export type TestCountOrderByAggregateInput = {
     id?: SortOrder
@@ -15877,6 +15809,7 @@ export namespace Prisma {
     jobId?: SortOrder
     title?: SortOrder
     description?: SortOrder
+    questions?: SortOrder
   }
 
   export type TestMinOrderByAggregateInput = {
@@ -15884,32 +15817,7 @@ export namespace Prisma {
     jobId?: SortOrder
     title?: SortOrder
     description?: SortOrder
-  }
-  export type JsonWithAggregatesFilter<$PrismaModel = never> =
-    | PatchUndefined<
-        Either<Required<JsonWithAggregatesFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonWithAggregatesFilterBase<$PrismaModel>>, 'path'>>,
-        Required<JsonWithAggregatesFilterBase<$PrismaModel>>
-      >
-    | OptionalFlat<Omit<Required<JsonWithAggregatesFilterBase<$PrismaModel>>, 'path'>>
-
-  export type JsonWithAggregatesFilterBase<$PrismaModel = never> = {
-    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
-    path?: string[]
-    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
-    string_contains?: string | StringFieldRefInput<$PrismaModel>
-    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
-    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
-    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedJsonFilter<$PrismaModel>
-    _max?: NestedJsonFilter<$PrismaModel>
+    questions?: SortOrder
   }
 
   export type FloatFilter<$PrismaModel = never> = {
@@ -16281,11 +16189,10 @@ export namespace Prisma {
     connect?: ApplicationWhereUniqueInput | ApplicationWhereUniqueInput[]
   }
 
-  export type TestCreateNestedManyWithoutJobInput = {
-    create?: XOR<TestCreateWithoutJobInput, TestUncheckedCreateWithoutJobInput> | TestCreateWithoutJobInput[] | TestUncheckedCreateWithoutJobInput[]
-    connectOrCreate?: TestCreateOrConnectWithoutJobInput | TestCreateOrConnectWithoutJobInput[]
-    createMany?: TestCreateManyJobInputEnvelope
-    connect?: TestWhereUniqueInput | TestWhereUniqueInput[]
+  export type TestCreateNestedOneWithoutJobInput = {
+    create?: XOR<TestCreateWithoutJobInput, TestUncheckedCreateWithoutJobInput>
+    connectOrCreate?: TestCreateOrConnectWithoutJobInput
+    connect?: TestWhereUniqueInput
   }
 
   export type ApplicationUncheckedCreateNestedManyWithoutJobInput = {
@@ -16295,11 +16202,10 @@ export namespace Prisma {
     connect?: ApplicationWhereUniqueInput | ApplicationWhereUniqueInput[]
   }
 
-  export type TestUncheckedCreateNestedManyWithoutJobInput = {
-    create?: XOR<TestCreateWithoutJobInput, TestUncheckedCreateWithoutJobInput> | TestCreateWithoutJobInput[] | TestUncheckedCreateWithoutJobInput[]
-    connectOrCreate?: TestCreateOrConnectWithoutJobInput | TestCreateOrConnectWithoutJobInput[]
-    createMany?: TestCreateManyJobInputEnvelope
-    connect?: TestWhereUniqueInput | TestWhereUniqueInput[]
+  export type TestUncheckedCreateNestedOneWithoutJobInput = {
+    create?: XOR<TestCreateWithoutJobInput, TestUncheckedCreateWithoutJobInput>
+    connectOrCreate?: TestCreateOrConnectWithoutJobInput
+    connect?: TestWhereUniqueInput
   }
 
   export type JobUpdatetagsInput = {
@@ -16329,18 +16235,14 @@ export namespace Prisma {
     deleteMany?: ApplicationScalarWhereInput | ApplicationScalarWhereInput[]
   }
 
-  export type TestUpdateManyWithoutJobNestedInput = {
-    create?: XOR<TestCreateWithoutJobInput, TestUncheckedCreateWithoutJobInput> | TestCreateWithoutJobInput[] | TestUncheckedCreateWithoutJobInput[]
-    connectOrCreate?: TestCreateOrConnectWithoutJobInput | TestCreateOrConnectWithoutJobInput[]
-    upsert?: TestUpsertWithWhereUniqueWithoutJobInput | TestUpsertWithWhereUniqueWithoutJobInput[]
-    createMany?: TestCreateManyJobInputEnvelope
-    set?: TestWhereUniqueInput | TestWhereUniqueInput[]
-    disconnect?: TestWhereUniqueInput | TestWhereUniqueInput[]
-    delete?: TestWhereUniqueInput | TestWhereUniqueInput[]
-    connect?: TestWhereUniqueInput | TestWhereUniqueInput[]
-    update?: TestUpdateWithWhereUniqueWithoutJobInput | TestUpdateWithWhereUniqueWithoutJobInput[]
-    updateMany?: TestUpdateManyWithWhereWithoutJobInput | TestUpdateManyWithWhereWithoutJobInput[]
-    deleteMany?: TestScalarWhereInput | TestScalarWhereInput[]
+  export type TestUpdateOneWithoutJobNestedInput = {
+    create?: XOR<TestCreateWithoutJobInput, TestUncheckedCreateWithoutJobInput>
+    connectOrCreate?: TestCreateOrConnectWithoutJobInput
+    upsert?: TestUpsertWithoutJobInput
+    disconnect?: TestWhereInput | boolean
+    delete?: TestWhereInput | boolean
+    connect?: TestWhereUniqueInput
+    update?: XOR<XOR<TestUpdateToOneWithWhereWithoutJobInput, TestUpdateWithoutJobInput>, TestUncheckedUpdateWithoutJobInput>
   }
 
   export type ApplicationUncheckedUpdateManyWithoutJobNestedInput = {
@@ -16357,18 +16259,14 @@ export namespace Prisma {
     deleteMany?: ApplicationScalarWhereInput | ApplicationScalarWhereInput[]
   }
 
-  export type TestUncheckedUpdateManyWithoutJobNestedInput = {
-    create?: XOR<TestCreateWithoutJobInput, TestUncheckedCreateWithoutJobInput> | TestCreateWithoutJobInput[] | TestUncheckedCreateWithoutJobInput[]
-    connectOrCreate?: TestCreateOrConnectWithoutJobInput | TestCreateOrConnectWithoutJobInput[]
-    upsert?: TestUpsertWithWhereUniqueWithoutJobInput | TestUpsertWithWhereUniqueWithoutJobInput[]
-    createMany?: TestCreateManyJobInputEnvelope
-    set?: TestWhereUniqueInput | TestWhereUniqueInput[]
-    disconnect?: TestWhereUniqueInput | TestWhereUniqueInput[]
-    delete?: TestWhereUniqueInput | TestWhereUniqueInput[]
-    connect?: TestWhereUniqueInput | TestWhereUniqueInput[]
-    update?: TestUpdateWithWhereUniqueWithoutJobInput | TestUpdateWithWhereUniqueWithoutJobInput[]
-    updateMany?: TestUpdateManyWithWhereWithoutJobInput | TestUpdateManyWithWhereWithoutJobInput[]
-    deleteMany?: TestScalarWhereInput | TestScalarWhereInput[]
+  export type TestUncheckedUpdateOneWithoutJobNestedInput = {
+    create?: XOR<TestCreateWithoutJobInput, TestUncheckedCreateWithoutJobInput>
+    connectOrCreate?: TestCreateOrConnectWithoutJobInput
+    upsert?: TestUpsertWithoutJobInput
+    disconnect?: TestWhereInput | boolean
+    delete?: TestWhereInput | boolean
+    connect?: TestWhereUniqueInput
+    update?: XOR<XOR<TestUpdateToOneWithWhereWithoutJobInput, TestUpdateWithoutJobInput>, TestUncheckedUpdateWithoutJobInput>
   }
 
   export type UserCreateNestedOneWithoutApplicationInput = {
@@ -16657,29 +16555,6 @@ export namespace Prisma {
     gte?: number | FloatFieldRefInput<$PrismaModel>
     not?: NestedFloatFilter<$PrismaModel> | number
   }
-  export type NestedJsonFilter<$PrismaModel = never> =
-    | PatchUndefined<
-        Either<Required<NestedJsonFilterBase<$PrismaModel>>, Exclude<keyof Required<NestedJsonFilterBase<$PrismaModel>>, 'path'>>,
-        Required<NestedJsonFilterBase<$PrismaModel>>
-      >
-    | OptionalFlat<Omit<Required<NestedJsonFilterBase<$PrismaModel>>, 'path'>>
-
-  export type NestedJsonFilterBase<$PrismaModel = never> = {
-    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
-    path?: string[]
-    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
-    string_contains?: string | StringFieldRefInput<$PrismaModel>
-    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
-    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
-    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
-  }
 
   export type NestedFloatWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | FloatFieldRefInput<$PrismaModel>
@@ -16899,7 +16774,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     Application?: ApplicationCreateNestedManyWithoutJobInput
-    test?: TestCreateNestedManyWithoutJobInput
+    test?: TestCreateNestedOneWithoutJobInput
   }
 
   export type JobUncheckedCreateWithoutCompanyInput = {
@@ -16915,7 +16790,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     Application?: ApplicationUncheckedCreateNestedManyWithoutJobInput
-    test?: TestUncheckedCreateNestedManyWithoutJobInput
+    test?: TestUncheckedCreateNestedOneWithoutJobInput
   }
 
   export type JobCreateOrConnectWithoutCompanyInput = {
@@ -17246,24 +17121,19 @@ export namespace Prisma {
     id?: string
     title: string
     description: string
-    questions: JsonNullValueInput | InputJsonValue
+    questions: string
   }
 
   export type TestUncheckedCreateWithoutJobInput = {
     id?: string
     title: string
     description: string
-    questions: JsonNullValueInput | InputJsonValue
+    questions: string
   }
 
   export type TestCreateOrConnectWithoutJobInput = {
     where: TestWhereUniqueInput
     create: XOR<TestCreateWithoutJobInput, TestUncheckedCreateWithoutJobInput>
-  }
-
-  export type TestCreateManyJobInputEnvelope = {
-    data: TestCreateManyJobInput | TestCreateManyJobInput[]
-    skipDuplicates?: boolean
   }
 
   export type CompanyUpsertWithoutJobsInput = {
@@ -17343,31 +17213,29 @@ export namespace Prisma {
     data: XOR<ApplicationUpdateManyMutationInput, ApplicationUncheckedUpdateManyWithoutJobInput>
   }
 
-  export type TestUpsertWithWhereUniqueWithoutJobInput = {
-    where: TestWhereUniqueInput
+  export type TestUpsertWithoutJobInput = {
     update: XOR<TestUpdateWithoutJobInput, TestUncheckedUpdateWithoutJobInput>
     create: XOR<TestCreateWithoutJobInput, TestUncheckedCreateWithoutJobInput>
+    where?: TestWhereInput
   }
 
-  export type TestUpdateWithWhereUniqueWithoutJobInput = {
-    where: TestWhereUniqueInput
+  export type TestUpdateToOneWithWhereWithoutJobInput = {
+    where?: TestWhereInput
     data: XOR<TestUpdateWithoutJobInput, TestUncheckedUpdateWithoutJobInput>
   }
 
-  export type TestUpdateManyWithWhereWithoutJobInput = {
-    where: TestScalarWhereInput
-    data: XOR<TestUpdateManyMutationInput, TestUncheckedUpdateManyWithoutJobInput>
+  export type TestUpdateWithoutJobInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    questions?: StringFieldUpdateOperationsInput | string
   }
 
-  export type TestScalarWhereInput = {
-    AND?: TestScalarWhereInput | TestScalarWhereInput[]
-    OR?: TestScalarWhereInput[]
-    NOT?: TestScalarWhereInput | TestScalarWhereInput[]
-    id?: StringFilter<"Test"> | string
-    jobId?: StringFilter<"Test"> | string
-    title?: StringFilter<"Test"> | string
-    description?: StringFilter<"Test"> | string
-    questions?: JsonFilter<"Test">
+  export type TestUncheckedUpdateWithoutJobInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    questions?: StringFieldUpdateOperationsInput | string
   }
 
   export type UserCreateWithoutApplicationInput = {
@@ -17440,7 +17308,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     company: CompanyCreateNestedOneWithoutJobsInput
-    test?: TestCreateNestedManyWithoutJobInput
+    test?: TestCreateNestedOneWithoutJobInput
   }
 
   export type JobUncheckedCreateWithoutApplicationInput = {
@@ -17456,7 +17324,7 @@ export namespace Prisma {
     companyId: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    test?: TestUncheckedCreateNestedManyWithoutJobInput
+    test?: TestUncheckedCreateNestedOneWithoutJobInput
   }
 
   export type JobCreateOrConnectWithoutApplicationInput = {
@@ -17551,7 +17419,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     company?: CompanyUpdateOneRequiredWithoutJobsNestedInput
-    test?: TestUpdateManyWithoutJobNestedInput
+    test?: TestUpdateOneWithoutJobNestedInput
   }
 
   export type JobUncheckedUpdateWithoutApplicationInput = {
@@ -17567,7 +17435,7 @@ export namespace Prisma {
     companyId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    test?: TestUncheckedUpdateManyWithoutJobNestedInput
+    test?: TestUncheckedUpdateOneWithoutJobNestedInput
   }
 
   export type UserCreateWithoutReviewInput = {
@@ -18180,7 +18048,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     Application?: ApplicationUpdateManyWithoutJobNestedInput
-    test?: TestUpdateManyWithoutJobNestedInput
+    test?: TestUpdateOneWithoutJobNestedInput
   }
 
   export type JobUncheckedUpdateWithoutCompanyInput = {
@@ -18196,7 +18064,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     Application?: ApplicationUncheckedUpdateManyWithoutJobNestedInput
-    test?: TestUncheckedUpdateManyWithoutJobNestedInput
+    test?: TestUncheckedUpdateOneWithoutJobNestedInput
   }
 
   export type JobUncheckedUpdateManyWithoutCompanyInput = {
@@ -18364,13 +18232,6 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
-  export type TestCreateManyJobInput = {
-    id?: string
-    title: string
-    description: string
-    questions: JsonNullValueInput | InputJsonValue
-  }
-
   export type ApplicationUpdateWithoutJobInput = {
     id?: StringFieldUpdateOperationsInput | string
     status?: EnumApplicationStatusFieldUpdateOperationsInput | $Enums.ApplicationStatus
@@ -18399,27 +18260,6 @@ export namespace Prisma {
     expectedSalary?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type TestUpdateWithoutJobInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    title?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
-    questions?: JsonNullValueInput | InputJsonValue
-  }
-
-  export type TestUncheckedUpdateWithoutJobInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    title?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
-    questions?: JsonNullValueInput | InputJsonValue
-  }
-
-  export type TestUncheckedUpdateManyWithoutJobInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    title?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
-    questions?: JsonNullValueInput | InputJsonValue
   }
 
 
