@@ -1,10 +1,5 @@
 import prisma from "../../prisma";
-
-interface GetCompanyJobsParams {
-  companyId: string;
-  page?: number;
-  size?: number;
-}
+import { GetCompanyJobsParams } from "../../types/type";
 
 export const getCompanyJobs = async ({
   companyId,

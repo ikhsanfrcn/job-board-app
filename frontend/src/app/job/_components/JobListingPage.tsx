@@ -1,6 +1,5 @@
-import { JobListingsPage } from "./_components/JobListingPage";
+"use client";
 
-<<<<<<< HEAD
 import { useEffect, useState } from "react";
 import { IJob } from "@/types/job";
 import JobCard from "@/components/molecules/job/JobCard";
@@ -10,7 +9,7 @@ import JobSearchHeader from "@/components/molecules/job/Header";
 import JobFilters from "@/components/molecules/job/JobFilter";
 import { SalaryFilter } from "@/components/molecules/job/SalaryFilter";
 
-export default function JobListingsPage() {
+export const JobListingsPage: React.FC = () => {
   const [jobs, setJobs] = useState<IJob[]>([]);
   const [selectedJob, setSelectedJob] = useState<IJob | null>(null);
   const [page, setPage] = useState(1);
@@ -82,8 +81,4 @@ export default function JobListingsPage() {
       </div>
     </div>
   );
-=======
-export default function Page() {
-  return <JobListingsPage />;
->>>>>>> 2c9690dc5b16f1e9492b428af22bef9ef09cb255
 }
