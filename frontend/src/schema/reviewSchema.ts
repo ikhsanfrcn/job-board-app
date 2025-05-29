@@ -9,11 +9,11 @@ export const ReviewSchema = yup.object().shape({
 
   isCurrentEmployee: yup
     .string()
+    .required("Employment status is required.")
     .oneOf(
       ["current", "former"],
       "Please select current or former employee status."
-    )
-    .required("Employment status (current/former) is required."),
+    ),
 
   employmentStatus: yup
     .string()

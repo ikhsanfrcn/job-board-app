@@ -10,17 +10,23 @@ import { Formik, Form, Field } from "formik";
 import { VscCircleSlash } from "react-icons/vsc";
 import SkeletonReview from "./skeletonReview";
 import { ReviewSchema } from "@/schema/reviewSchema";
+import { useSession } from "next-auth/react";
 
 interface IProps {
   companyId: string;
 }
 
 export default function CreateReview({ companyId }: IProps) {
+  const { data: user } = useSession();
+  const accessToken = user?.accessToken;
+
   const [detail, setDetail] = useState<ICompanyProfile | null>(null);
   const [loading, setLoading] = useState(false);
   const [hoverRating, setHoverRating] = useState(0);
+  const [submitting, setSubmitting] = useState(false);
 
   const fetchDetail = useCallback(async () => {
+    if (!accessToken) return;
     try {
       setLoading(true);
       const { data } = await axios.get(`/company/${companyId}`);
@@ -31,23 +37,38 @@ export default function CreateReview({ companyId }: IProps) {
     } finally {
       setLoading(false);
     }
-  }, [companyId]);
+  }, [companyId, accessToken]);
 
   useEffect(() => {
     fetchDetail();
   }, [fetchDetail]);
 
   const handleSubmit = async (values: any) => {
+    if (!accessToken) return;
+    setSubmitting(true);
+
     try {
-      console.log("Review submitted:", values);
+      const { agreed, ...dataToSend } = values;
+
+      const payload = {
+        ...dataToSend,
+        isCurrentEmployee: dataToSend.isCurrentEmployee === "current",
+      };
+
+      await axios.post(`/reviews/${companyId}`, payload, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
       toast.success("Create Success !");
-      // You can send to API here if needed:
-      // await axios.post("/api/reviews", values);
+      fetchDetail();
     } catch (err) {
       console.error(err);
       if (err instanceof AxiosError) {
         toast.error(err.response?.data?.message || "Create Failed !");
       }
+    } finally {
+      setSubmitting(false);
     }
   };
 
@@ -55,9 +76,7 @@ export default function CreateReview({ companyId }: IProps) {
 
   return (
     <div className="w-full p-4">
-      <h4 className="text-2xl font-semibold mb-3">
-        Rate a company
-      </h4>
+      <h4 className="text-2xl font-semibold mb-3">Rate a company</h4>
       <p className="text-sm mb-3">
         It only takes a minute! And your anonymous review will help other job
         seekers.
@@ -100,6 +119,7 @@ export default function CreateReview({ companyId }: IProps) {
                 />
               </div>
             </div>
+
             <div>
               <label className="text-xs">Overall Rating*</label>
               <div className="flex space-x-1 mt-1">
@@ -118,7 +138,6 @@ export default function CreateReview({ companyId }: IProps) {
                   );
                 })}
               </div>
-
               {errors.rating && touched.rating && (
                 <div className="text-red-500 text-xs flex items-center gap-1 mt-1">
                   <VscCircleSlash className="text-base" />
@@ -126,6 +145,7 @@ export default function CreateReview({ companyId }: IProps) {
                 </div>
               )}
             </div>
+
             <div>
               <label className="text-xs">
                 Are you a current or former employee?*
@@ -139,7 +159,7 @@ export default function CreateReview({ companyId }: IProps) {
                     <Field
                       type="radio"
                       name="isCurrentEmployee"
-                      value={status}
+                      value={status} // kirim string "current" atau "former"
                     />
                     {status.charAt(0).toUpperCase() + status.slice(1)}
                   </label>
@@ -152,6 +172,7 @@ export default function CreateReview({ companyId }: IProps) {
                 </div>
               )}
             </div>
+
             <div>
               <label className="text-xs">Employment Status*</label>
               <Field
@@ -172,6 +193,7 @@ export default function CreateReview({ companyId }: IProps) {
                 </div>
               )}
             </div>
+
             <div>
               <label className="text-xs">Job Title*</label>
               <Field
@@ -185,6 +207,7 @@ export default function CreateReview({ companyId }: IProps) {
                 </div>
               )}
             </div>
+
             <div>
               <label className="text-xs">Review Headline*</label>
               <Field
@@ -198,6 +221,7 @@ export default function CreateReview({ companyId }: IProps) {
                 </div>
               )}
             </div>
+
             <div>
               <label className="text-xs">Pros*</label>
               <Field
@@ -213,6 +237,7 @@ export default function CreateReview({ companyId }: IProps) {
                 </div>
               )}
             </div>
+
             <div>
               <label className="text-xs">Cons*</label>
               <Field
@@ -228,6 +253,7 @@ export default function CreateReview({ companyId }: IProps) {
                 </div>
               )}
             </div>
+
             <div>
               <label className="text-xs">Advice for management*</label>
               <Field
@@ -243,6 +269,7 @@ export default function CreateReview({ companyId }: IProps) {
                 </div>
               )}
             </div>
+
             <div className="w-full flex items-center space-x-4 border border-gray-300 rounded-lg p-2">
               <div className="min-w-[24px]">
                 <IoEarth className="text-xl sm:text-2xl" />
@@ -271,9 +298,10 @@ export default function CreateReview({ companyId }: IProps) {
 
             <button
               type="submit"
-              className="text-white text-sm px-4 py-2 bg-black rounded-lg hover:scale-105 transition duration-200 cursor-pointer "
+              disabled={submitting}
+              className="text-white text-sm px-4 py-2 bg-black rounded-lg hover:scale-105 transition duration-200 cursor-pointer disabled:opacity-50"
             >
-              Submit review
+              {submitting ? "Submitting..." : "Submit review"}
             </button>
           </Form>
         )}
