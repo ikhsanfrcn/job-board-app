@@ -53,6 +53,16 @@ export type Application = $Result.DefaultSelection<Prisma.$ApplicationPayload>
  * 
  */
 export type Review = $Result.DefaultSelection<Prisma.$ReviewPayload>
+/**
+ * Model Test
+ * 
+ */
+export type Test = $Result.DefaultSelection<Prisma.$TestPayload>
+/**
+ * Model UserTest
+ * 
+ */
+export type UserTest = $Result.DefaultSelection<Prisma.$UserTestPayload>
 
 /**
  * Enums
@@ -292,6 +302,26 @@ export class PrismaClient<
     * ```
     */
   get review(): Prisma.ReviewDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.test`: Exposes CRUD operations for the **Test** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Tests
+    * const tests = await prisma.test.findMany()
+    * ```
+    */
+  get test(): Prisma.TestDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.userTest`: Exposes CRUD operations for the **UserTest** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more UserTests
+    * const userTests = await prisma.userTest.findMany()
+    * ```
+    */
+  get userTest(): Prisma.UserTestDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -739,7 +769,9 @@ export namespace Prisma {
     Jobdesc: 'Jobdesc',
     Developer: 'Developer',
     Application: 'Application',
-    Review: 'Review'
+    Review: 'Review',
+    Test: 'Test',
+    UserTest: 'UserTest'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -758,7 +790,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "company" | "industry" | "job" | "jobdesc" | "developer" | "application" | "review"
+      modelProps: "user" | "company" | "industry" | "job" | "jobdesc" | "developer" | "application" | "review" | "test" | "userTest"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1354,6 +1386,154 @@ export namespace Prisma {
           }
         }
       }
+      Test: {
+        payload: Prisma.$TestPayload<ExtArgs>
+        fields: Prisma.TestFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.TestFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TestPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.TestFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TestPayload>
+          }
+          findFirst: {
+            args: Prisma.TestFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TestPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.TestFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TestPayload>
+          }
+          findMany: {
+            args: Prisma.TestFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TestPayload>[]
+          }
+          create: {
+            args: Prisma.TestCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TestPayload>
+          }
+          createMany: {
+            args: Prisma.TestCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.TestCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TestPayload>[]
+          }
+          delete: {
+            args: Prisma.TestDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TestPayload>
+          }
+          update: {
+            args: Prisma.TestUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TestPayload>
+          }
+          deleteMany: {
+            args: Prisma.TestDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.TestUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.TestUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TestPayload>[]
+          }
+          upsert: {
+            args: Prisma.TestUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TestPayload>
+          }
+          aggregate: {
+            args: Prisma.TestAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateTest>
+          }
+          groupBy: {
+            args: Prisma.TestGroupByArgs<ExtArgs>
+            result: $Utils.Optional<TestGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.TestCountArgs<ExtArgs>
+            result: $Utils.Optional<TestCountAggregateOutputType> | number
+          }
+        }
+      }
+      UserTest: {
+        payload: Prisma.$UserTestPayload<ExtArgs>
+        fields: Prisma.UserTestFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.UserTestFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserTestPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.UserTestFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserTestPayload>
+          }
+          findFirst: {
+            args: Prisma.UserTestFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserTestPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.UserTestFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserTestPayload>
+          }
+          findMany: {
+            args: Prisma.UserTestFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserTestPayload>[]
+          }
+          create: {
+            args: Prisma.UserTestCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserTestPayload>
+          }
+          createMany: {
+            args: Prisma.UserTestCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.UserTestCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserTestPayload>[]
+          }
+          delete: {
+            args: Prisma.UserTestDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserTestPayload>
+          }
+          update: {
+            args: Prisma.UserTestUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserTestPayload>
+          }
+          deleteMany: {
+            args: Prisma.UserTestDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.UserTestUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.UserTestUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserTestPayload>[]
+          }
+          upsert: {
+            args: Prisma.UserTestUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserTestPayload>
+          }
+          aggregate: {
+            args: Prisma.UserTestAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateUserTest>
+          }
+          groupBy: {
+            args: Prisma.UserTestGroupByArgs<ExtArgs>
+            result: $Utils.Optional<UserTestGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.UserTestCountArgs<ExtArgs>
+            result: $Utils.Optional<UserTestCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1446,6 +1626,8 @@ export namespace Prisma {
     developer?: DeveloperOmit
     application?: ApplicationOmit
     review?: ReviewOmit
+    test?: TestOmit
+    userTest?: UserTestOmit
   }
 
   /* Types for Logging */
@@ -1542,11 +1724,13 @@ export namespace Prisma {
   export type UserCountOutputType = {
     Application: number
     Review: number
+    userTest: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     Application?: boolean | UserCountOutputTypeCountApplicationArgs
     Review?: boolean | UserCountOutputTypeCountReviewArgs
+    userTest?: boolean | UserCountOutputTypeCountUserTestArgs
   }
 
   // Custom InputTypes
@@ -1572,6 +1756,13 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountReviewArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: ReviewWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountUserTestArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UserTestWhereInput
   }
 
 
@@ -1652,10 +1843,12 @@ export namespace Prisma {
 
   export type JobCountOutputType = {
     Application: number
+    test: number
   }
 
   export type JobCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     Application?: boolean | JobCountOutputTypeCountApplicationArgs
+    test?: boolean | JobCountOutputTypeCountTestArgs
   }
 
   // Custom InputTypes
@@ -1674,6 +1867,13 @@ export namespace Prisma {
    */
   export type JobCountOutputTypeCountApplicationArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: ApplicationWhereInput
+  }
+
+  /**
+   * JobCountOutputType without action
+   */
+  export type JobCountOutputTypeCountTestArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TestWhereInput
   }
 
 
@@ -1975,6 +2175,7 @@ export namespace Prisma {
     updatedAt?: boolean
     Application?: boolean | User$ApplicationArgs<ExtArgs>
     Review?: boolean | User$ReviewArgs<ExtArgs>
+    userTest?: boolean | User$userTestArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -2054,6 +2255,7 @@ export namespace Prisma {
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     Application?: boolean | User$ApplicationArgs<ExtArgs>
     Review?: boolean | User$ReviewArgs<ExtArgs>
+    userTest?: boolean | User$userTestArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -2064,6 +2266,7 @@ export namespace Prisma {
     objects: {
       Application: Prisma.$ApplicationPayload<ExtArgs>[]
       Review: Prisma.$ReviewPayload<ExtArgs>[]
+      userTest: Prisma.$UserTestPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -2483,6 +2686,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     Application<T extends User$ApplicationArgs<ExtArgs> = {}>(args?: Subset<T, User$ApplicationArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ApplicationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     Review<T extends User$ReviewArgs<ExtArgs> = {}>(args?: Subset<T, User$ReviewArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ReviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    userTest<T extends User$userTestArgs<ExtArgs> = {}>(args?: Subset<T, User$userTestArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserTestPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2966,6 +3170,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: ReviewScalarFieldEnum | ReviewScalarFieldEnum[]
+  }
+
+  /**
+   * User.userTest
+   */
+  export type User$userTestArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserTest
+     */
+    select?: UserTestSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserTest
+     */
+    omit?: UserTestOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserTestInclude<ExtArgs> | null
+    where?: UserTestWhereInput
+    orderBy?: UserTestOrderByWithRelationInput | UserTestOrderByWithRelationInput[]
+    cursor?: UserTestWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: UserTestScalarFieldEnum | UserTestScalarFieldEnum[]
   }
 
   /**
@@ -5560,6 +5788,7 @@ export namespace Prisma {
     updatedAt?: boolean
     company?: boolean | CompanyDefaultArgs<ExtArgs>
     Application?: boolean | Job$ApplicationArgs<ExtArgs>
+    test?: boolean | Job$testArgs<ExtArgs>
     _count?: boolean | JobCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["job"]>
 
@@ -5614,6 +5843,7 @@ export namespace Prisma {
   export type JobInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     company?: boolean | CompanyDefaultArgs<ExtArgs>
     Application?: boolean | Job$ApplicationArgs<ExtArgs>
+    test?: boolean | Job$testArgs<ExtArgs>
     _count?: boolean | JobCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type JobIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -5628,6 +5858,7 @@ export namespace Prisma {
     objects: {
       company: Prisma.$CompanyPayload<ExtArgs>
       Application: Prisma.$ApplicationPayload<ExtArgs>[]
+      test: Prisma.$TestPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -6038,6 +6269,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     company<T extends CompanyDefaultArgs<ExtArgs> = {}>(args?: Subset<T, CompanyDefaultArgs<ExtArgs>>): Prisma__CompanyClient<$Result.GetResult<Prisma.$CompanyPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     Application<T extends Job$ApplicationArgs<ExtArgs> = {}>(args?: Subset<T, Job$ApplicationArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ApplicationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    test<T extends Job$testArgs<ExtArgs> = {}>(args?: Subset<T, Job$testArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TestPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -6496,6 +6728,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: ApplicationScalarFieldEnum | ApplicationScalarFieldEnum[]
+  }
+
+  /**
+   * Job.test
+   */
+  export type Job$testArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Test
+     */
+    select?: TestSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Test
+     */
+    omit?: TestOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TestInclude<ExtArgs> | null
+    where?: TestWhereInput
+    orderBy?: TestOrderByWithRelationInput | TestOrderByWithRelationInput[]
+    cursor?: TestWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: TestScalarFieldEnum | TestScalarFieldEnum[]
   }
 
   /**
@@ -10791,6 +11047,2173 @@ export namespace Prisma {
 
 
   /**
+   * Model Test
+   */
+
+  export type AggregateTest = {
+    _count: TestCountAggregateOutputType | null
+    _min: TestMinAggregateOutputType | null
+    _max: TestMaxAggregateOutputType | null
+  }
+
+  export type TestMinAggregateOutputType = {
+    id: string | null
+    jobId: string | null
+    title: string | null
+    description: string | null
+  }
+
+  export type TestMaxAggregateOutputType = {
+    id: string | null
+    jobId: string | null
+    title: string | null
+    description: string | null
+  }
+
+  export type TestCountAggregateOutputType = {
+    id: number
+    jobId: number
+    title: number
+    description: number
+    questions: number
+    _all: number
+  }
+
+
+  export type TestMinAggregateInputType = {
+    id?: true
+    jobId?: true
+    title?: true
+    description?: true
+  }
+
+  export type TestMaxAggregateInputType = {
+    id?: true
+    jobId?: true
+    title?: true
+    description?: true
+  }
+
+  export type TestCountAggregateInputType = {
+    id?: true
+    jobId?: true
+    title?: true
+    description?: true
+    questions?: true
+    _all?: true
+  }
+
+  export type TestAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Test to aggregate.
+     */
+    where?: TestWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Tests to fetch.
+     */
+    orderBy?: TestOrderByWithRelationInput | TestOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: TestWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Tests from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Tests.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Tests
+    **/
+    _count?: true | TestCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: TestMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: TestMaxAggregateInputType
+  }
+
+  export type GetTestAggregateType<T extends TestAggregateArgs> = {
+        [P in keyof T & keyof AggregateTest]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateTest[P]>
+      : GetScalarType<T[P], AggregateTest[P]>
+  }
+
+
+
+
+  export type TestGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TestWhereInput
+    orderBy?: TestOrderByWithAggregationInput | TestOrderByWithAggregationInput[]
+    by: TestScalarFieldEnum[] | TestScalarFieldEnum
+    having?: TestScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: TestCountAggregateInputType | true
+    _min?: TestMinAggregateInputType
+    _max?: TestMaxAggregateInputType
+  }
+
+  export type TestGroupByOutputType = {
+    id: string
+    jobId: string
+    title: string
+    description: string
+    questions: JsonValue
+    _count: TestCountAggregateOutputType | null
+    _min: TestMinAggregateOutputType | null
+    _max: TestMaxAggregateOutputType | null
+  }
+
+  type GetTestGroupByPayload<T extends TestGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<TestGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof TestGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], TestGroupByOutputType[P]>
+            : GetScalarType<T[P], TestGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type TestSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    jobId?: boolean
+    title?: boolean
+    description?: boolean
+    questions?: boolean
+    job?: boolean | JobDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["test"]>
+
+  export type TestSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    jobId?: boolean
+    title?: boolean
+    description?: boolean
+    questions?: boolean
+    job?: boolean | JobDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["test"]>
+
+  export type TestSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    jobId?: boolean
+    title?: boolean
+    description?: boolean
+    questions?: boolean
+    job?: boolean | JobDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["test"]>
+
+  export type TestSelectScalar = {
+    id?: boolean
+    jobId?: boolean
+    title?: boolean
+    description?: boolean
+    questions?: boolean
+  }
+
+  export type TestOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "jobId" | "title" | "description" | "questions", ExtArgs["result"]["test"]>
+  export type TestInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    job?: boolean | JobDefaultArgs<ExtArgs>
+  }
+  export type TestIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    job?: boolean | JobDefaultArgs<ExtArgs>
+  }
+  export type TestIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    job?: boolean | JobDefaultArgs<ExtArgs>
+  }
+
+  export type $TestPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Test"
+    objects: {
+      job: Prisma.$JobPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      jobId: string
+      title: string
+      description: string
+      questions: Prisma.JsonValue
+    }, ExtArgs["result"]["test"]>
+    composites: {}
+  }
+
+  type TestGetPayload<S extends boolean | null | undefined | TestDefaultArgs> = $Result.GetResult<Prisma.$TestPayload, S>
+
+  type TestCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<TestFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: TestCountAggregateInputType | true
+    }
+
+  export interface TestDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Test'], meta: { name: 'Test' } }
+    /**
+     * Find zero or one Test that matches the filter.
+     * @param {TestFindUniqueArgs} args - Arguments to find a Test
+     * @example
+     * // Get one Test
+     * const test = await prisma.test.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends TestFindUniqueArgs>(args: SelectSubset<T, TestFindUniqueArgs<ExtArgs>>): Prisma__TestClient<$Result.GetResult<Prisma.$TestPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Test that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {TestFindUniqueOrThrowArgs} args - Arguments to find a Test
+     * @example
+     * // Get one Test
+     * const test = await prisma.test.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends TestFindUniqueOrThrowArgs>(args: SelectSubset<T, TestFindUniqueOrThrowArgs<ExtArgs>>): Prisma__TestClient<$Result.GetResult<Prisma.$TestPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Test that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TestFindFirstArgs} args - Arguments to find a Test
+     * @example
+     * // Get one Test
+     * const test = await prisma.test.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends TestFindFirstArgs>(args?: SelectSubset<T, TestFindFirstArgs<ExtArgs>>): Prisma__TestClient<$Result.GetResult<Prisma.$TestPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Test that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TestFindFirstOrThrowArgs} args - Arguments to find a Test
+     * @example
+     * // Get one Test
+     * const test = await prisma.test.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends TestFindFirstOrThrowArgs>(args?: SelectSubset<T, TestFindFirstOrThrowArgs<ExtArgs>>): Prisma__TestClient<$Result.GetResult<Prisma.$TestPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Tests that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TestFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Tests
+     * const tests = await prisma.test.findMany()
+     * 
+     * // Get first 10 Tests
+     * const tests = await prisma.test.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const testWithIdOnly = await prisma.test.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends TestFindManyArgs>(args?: SelectSubset<T, TestFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TestPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Test.
+     * @param {TestCreateArgs} args - Arguments to create a Test.
+     * @example
+     * // Create one Test
+     * const Test = await prisma.test.create({
+     *   data: {
+     *     // ... data to create a Test
+     *   }
+     * })
+     * 
+     */
+    create<T extends TestCreateArgs>(args: SelectSubset<T, TestCreateArgs<ExtArgs>>): Prisma__TestClient<$Result.GetResult<Prisma.$TestPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Tests.
+     * @param {TestCreateManyArgs} args - Arguments to create many Tests.
+     * @example
+     * // Create many Tests
+     * const test = await prisma.test.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends TestCreateManyArgs>(args?: SelectSubset<T, TestCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Tests and returns the data saved in the database.
+     * @param {TestCreateManyAndReturnArgs} args - Arguments to create many Tests.
+     * @example
+     * // Create many Tests
+     * const test = await prisma.test.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Tests and only return the `id`
+     * const testWithIdOnly = await prisma.test.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends TestCreateManyAndReturnArgs>(args?: SelectSubset<T, TestCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TestPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Test.
+     * @param {TestDeleteArgs} args - Arguments to delete one Test.
+     * @example
+     * // Delete one Test
+     * const Test = await prisma.test.delete({
+     *   where: {
+     *     // ... filter to delete one Test
+     *   }
+     * })
+     * 
+     */
+    delete<T extends TestDeleteArgs>(args: SelectSubset<T, TestDeleteArgs<ExtArgs>>): Prisma__TestClient<$Result.GetResult<Prisma.$TestPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Test.
+     * @param {TestUpdateArgs} args - Arguments to update one Test.
+     * @example
+     * // Update one Test
+     * const test = await prisma.test.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends TestUpdateArgs>(args: SelectSubset<T, TestUpdateArgs<ExtArgs>>): Prisma__TestClient<$Result.GetResult<Prisma.$TestPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Tests.
+     * @param {TestDeleteManyArgs} args - Arguments to filter Tests to delete.
+     * @example
+     * // Delete a few Tests
+     * const { count } = await prisma.test.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends TestDeleteManyArgs>(args?: SelectSubset<T, TestDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Tests.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TestUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Tests
+     * const test = await prisma.test.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends TestUpdateManyArgs>(args: SelectSubset<T, TestUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Tests and returns the data updated in the database.
+     * @param {TestUpdateManyAndReturnArgs} args - Arguments to update many Tests.
+     * @example
+     * // Update many Tests
+     * const test = await prisma.test.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Tests and only return the `id`
+     * const testWithIdOnly = await prisma.test.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends TestUpdateManyAndReturnArgs>(args: SelectSubset<T, TestUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TestPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Test.
+     * @param {TestUpsertArgs} args - Arguments to update or create a Test.
+     * @example
+     * // Update or create a Test
+     * const test = await prisma.test.upsert({
+     *   create: {
+     *     // ... data to create a Test
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Test we want to update
+     *   }
+     * })
+     */
+    upsert<T extends TestUpsertArgs>(args: SelectSubset<T, TestUpsertArgs<ExtArgs>>): Prisma__TestClient<$Result.GetResult<Prisma.$TestPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Tests.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TestCountArgs} args - Arguments to filter Tests to count.
+     * @example
+     * // Count the number of Tests
+     * const count = await prisma.test.count({
+     *   where: {
+     *     // ... the filter for the Tests we want to count
+     *   }
+     * })
+    **/
+    count<T extends TestCountArgs>(
+      args?: Subset<T, TestCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], TestCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Test.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TestAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends TestAggregateArgs>(args: Subset<T, TestAggregateArgs>): Prisma.PrismaPromise<GetTestAggregateType<T>>
+
+    /**
+     * Group by Test.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TestGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends TestGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: TestGroupByArgs['orderBy'] }
+        : { orderBy?: TestGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, TestGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetTestGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Test model
+   */
+  readonly fields: TestFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Test.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__TestClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    job<T extends JobDefaultArgs<ExtArgs> = {}>(args?: Subset<T, JobDefaultArgs<ExtArgs>>): Prisma__JobClient<$Result.GetResult<Prisma.$JobPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Test model
+   */
+  interface TestFieldRefs {
+    readonly id: FieldRef<"Test", 'String'>
+    readonly jobId: FieldRef<"Test", 'String'>
+    readonly title: FieldRef<"Test", 'String'>
+    readonly description: FieldRef<"Test", 'String'>
+    readonly questions: FieldRef<"Test", 'Json'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Test findUnique
+   */
+  export type TestFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Test
+     */
+    select?: TestSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Test
+     */
+    omit?: TestOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TestInclude<ExtArgs> | null
+    /**
+     * Filter, which Test to fetch.
+     */
+    where: TestWhereUniqueInput
+  }
+
+  /**
+   * Test findUniqueOrThrow
+   */
+  export type TestFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Test
+     */
+    select?: TestSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Test
+     */
+    omit?: TestOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TestInclude<ExtArgs> | null
+    /**
+     * Filter, which Test to fetch.
+     */
+    where: TestWhereUniqueInput
+  }
+
+  /**
+   * Test findFirst
+   */
+  export type TestFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Test
+     */
+    select?: TestSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Test
+     */
+    omit?: TestOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TestInclude<ExtArgs> | null
+    /**
+     * Filter, which Test to fetch.
+     */
+    where?: TestWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Tests to fetch.
+     */
+    orderBy?: TestOrderByWithRelationInput | TestOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Tests.
+     */
+    cursor?: TestWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Tests from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Tests.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Tests.
+     */
+    distinct?: TestScalarFieldEnum | TestScalarFieldEnum[]
+  }
+
+  /**
+   * Test findFirstOrThrow
+   */
+  export type TestFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Test
+     */
+    select?: TestSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Test
+     */
+    omit?: TestOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TestInclude<ExtArgs> | null
+    /**
+     * Filter, which Test to fetch.
+     */
+    where?: TestWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Tests to fetch.
+     */
+    orderBy?: TestOrderByWithRelationInput | TestOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Tests.
+     */
+    cursor?: TestWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Tests from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Tests.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Tests.
+     */
+    distinct?: TestScalarFieldEnum | TestScalarFieldEnum[]
+  }
+
+  /**
+   * Test findMany
+   */
+  export type TestFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Test
+     */
+    select?: TestSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Test
+     */
+    omit?: TestOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TestInclude<ExtArgs> | null
+    /**
+     * Filter, which Tests to fetch.
+     */
+    where?: TestWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Tests to fetch.
+     */
+    orderBy?: TestOrderByWithRelationInput | TestOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Tests.
+     */
+    cursor?: TestWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Tests from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Tests.
+     */
+    skip?: number
+    distinct?: TestScalarFieldEnum | TestScalarFieldEnum[]
+  }
+
+  /**
+   * Test create
+   */
+  export type TestCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Test
+     */
+    select?: TestSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Test
+     */
+    omit?: TestOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TestInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Test.
+     */
+    data: XOR<TestCreateInput, TestUncheckedCreateInput>
+  }
+
+  /**
+   * Test createMany
+   */
+  export type TestCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Tests.
+     */
+    data: TestCreateManyInput | TestCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Test createManyAndReturn
+   */
+  export type TestCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Test
+     */
+    select?: TestSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Test
+     */
+    omit?: TestOmit<ExtArgs> | null
+    /**
+     * The data used to create many Tests.
+     */
+    data: TestCreateManyInput | TestCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TestIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Test update
+   */
+  export type TestUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Test
+     */
+    select?: TestSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Test
+     */
+    omit?: TestOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TestInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Test.
+     */
+    data: XOR<TestUpdateInput, TestUncheckedUpdateInput>
+    /**
+     * Choose, which Test to update.
+     */
+    where: TestWhereUniqueInput
+  }
+
+  /**
+   * Test updateMany
+   */
+  export type TestUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Tests.
+     */
+    data: XOR<TestUpdateManyMutationInput, TestUncheckedUpdateManyInput>
+    /**
+     * Filter which Tests to update
+     */
+    where?: TestWhereInput
+    /**
+     * Limit how many Tests to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Test updateManyAndReturn
+   */
+  export type TestUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Test
+     */
+    select?: TestSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Test
+     */
+    omit?: TestOmit<ExtArgs> | null
+    /**
+     * The data used to update Tests.
+     */
+    data: XOR<TestUpdateManyMutationInput, TestUncheckedUpdateManyInput>
+    /**
+     * Filter which Tests to update
+     */
+    where?: TestWhereInput
+    /**
+     * Limit how many Tests to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TestIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Test upsert
+   */
+  export type TestUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Test
+     */
+    select?: TestSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Test
+     */
+    omit?: TestOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TestInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Test to update in case it exists.
+     */
+    where: TestWhereUniqueInput
+    /**
+     * In case the Test found by the `where` argument doesn't exist, create a new Test with this data.
+     */
+    create: XOR<TestCreateInput, TestUncheckedCreateInput>
+    /**
+     * In case the Test was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<TestUpdateInput, TestUncheckedUpdateInput>
+  }
+
+  /**
+   * Test delete
+   */
+  export type TestDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Test
+     */
+    select?: TestSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Test
+     */
+    omit?: TestOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TestInclude<ExtArgs> | null
+    /**
+     * Filter which Test to delete.
+     */
+    where: TestWhereUniqueInput
+  }
+
+  /**
+   * Test deleteMany
+   */
+  export type TestDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Tests to delete
+     */
+    where?: TestWhereInput
+    /**
+     * Limit how many Tests to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Test without action
+   */
+  export type TestDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Test
+     */
+    select?: TestSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Test
+     */
+    omit?: TestOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TestInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model UserTest
+   */
+
+  export type AggregateUserTest = {
+    _count: UserTestCountAggregateOutputType | null
+    _avg: UserTestAvgAggregateOutputType | null
+    _sum: UserTestSumAggregateOutputType | null
+    _min: UserTestMinAggregateOutputType | null
+    _max: UserTestMaxAggregateOutputType | null
+  }
+
+  export type UserTestAvgAggregateOutputType = {
+    correctAnswers: number | null
+    totalQuestions: number | null
+    scorePercentage: number | null
+  }
+
+  export type UserTestSumAggregateOutputType = {
+    correctAnswers: number | null
+    totalQuestions: number | null
+    scorePercentage: number | null
+  }
+
+  export type UserTestMinAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    jobId: string | null
+    correctAnswers: number | null
+    totalQuestions: number | null
+    scorePercentage: number | null
+  }
+
+  export type UserTestMaxAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    jobId: string | null
+    correctAnswers: number | null
+    totalQuestions: number | null
+    scorePercentage: number | null
+  }
+
+  export type UserTestCountAggregateOutputType = {
+    id: number
+    userId: number
+    jobId: number
+    correctAnswers: number
+    totalQuestions: number
+    scorePercentage: number
+    _all: number
+  }
+
+
+  export type UserTestAvgAggregateInputType = {
+    correctAnswers?: true
+    totalQuestions?: true
+    scorePercentage?: true
+  }
+
+  export type UserTestSumAggregateInputType = {
+    correctAnswers?: true
+    totalQuestions?: true
+    scorePercentage?: true
+  }
+
+  export type UserTestMinAggregateInputType = {
+    id?: true
+    userId?: true
+    jobId?: true
+    correctAnswers?: true
+    totalQuestions?: true
+    scorePercentage?: true
+  }
+
+  export type UserTestMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    jobId?: true
+    correctAnswers?: true
+    totalQuestions?: true
+    scorePercentage?: true
+  }
+
+  export type UserTestCountAggregateInputType = {
+    id?: true
+    userId?: true
+    jobId?: true
+    correctAnswers?: true
+    totalQuestions?: true
+    scorePercentage?: true
+    _all?: true
+  }
+
+  export type UserTestAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which UserTest to aggregate.
+     */
+    where?: UserTestWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UserTests to fetch.
+     */
+    orderBy?: UserTestOrderByWithRelationInput | UserTestOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: UserTestWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UserTests from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UserTests.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned UserTests
+    **/
+    _count?: true | UserTestCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: UserTestAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: UserTestSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: UserTestMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: UserTestMaxAggregateInputType
+  }
+
+  export type GetUserTestAggregateType<T extends UserTestAggregateArgs> = {
+        [P in keyof T & keyof AggregateUserTest]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateUserTest[P]>
+      : GetScalarType<T[P], AggregateUserTest[P]>
+  }
+
+
+
+
+  export type UserTestGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UserTestWhereInput
+    orderBy?: UserTestOrderByWithAggregationInput | UserTestOrderByWithAggregationInput[]
+    by: UserTestScalarFieldEnum[] | UserTestScalarFieldEnum
+    having?: UserTestScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: UserTestCountAggregateInputType | true
+    _avg?: UserTestAvgAggregateInputType
+    _sum?: UserTestSumAggregateInputType
+    _min?: UserTestMinAggregateInputType
+    _max?: UserTestMaxAggregateInputType
+  }
+
+  export type UserTestGroupByOutputType = {
+    id: string
+    userId: string
+    jobId: string
+    correctAnswers: number
+    totalQuestions: number
+    scorePercentage: number
+    _count: UserTestCountAggregateOutputType | null
+    _avg: UserTestAvgAggregateOutputType | null
+    _sum: UserTestSumAggregateOutputType | null
+    _min: UserTestMinAggregateOutputType | null
+    _max: UserTestMaxAggregateOutputType | null
+  }
+
+  type GetUserTestGroupByPayload<T extends UserTestGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<UserTestGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof UserTestGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], UserTestGroupByOutputType[P]>
+            : GetScalarType<T[P], UserTestGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type UserTestSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    jobId?: boolean
+    correctAnswers?: boolean
+    totalQuestions?: boolean
+    scorePercentage?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["userTest"]>
+
+  export type UserTestSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    jobId?: boolean
+    correctAnswers?: boolean
+    totalQuestions?: boolean
+    scorePercentage?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["userTest"]>
+
+  export type UserTestSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    jobId?: boolean
+    correctAnswers?: boolean
+    totalQuestions?: boolean
+    scorePercentage?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["userTest"]>
+
+  export type UserTestSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    jobId?: boolean
+    correctAnswers?: boolean
+    totalQuestions?: boolean
+    scorePercentage?: boolean
+  }
+
+  export type UserTestOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "jobId" | "correctAnswers" | "totalQuestions" | "scorePercentage", ExtArgs["result"]["userTest"]>
+  export type UserTestInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type UserTestIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type UserTestIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $UserTestPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "UserTest"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      userId: string
+      jobId: string
+      correctAnswers: number
+      totalQuestions: number
+      scorePercentage: number
+    }, ExtArgs["result"]["userTest"]>
+    composites: {}
+  }
+
+  type UserTestGetPayload<S extends boolean | null | undefined | UserTestDefaultArgs> = $Result.GetResult<Prisma.$UserTestPayload, S>
+
+  type UserTestCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<UserTestFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: UserTestCountAggregateInputType | true
+    }
+
+  export interface UserTestDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['UserTest'], meta: { name: 'UserTest' } }
+    /**
+     * Find zero or one UserTest that matches the filter.
+     * @param {UserTestFindUniqueArgs} args - Arguments to find a UserTest
+     * @example
+     * // Get one UserTest
+     * const userTest = await prisma.userTest.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends UserTestFindUniqueArgs>(args: SelectSubset<T, UserTestFindUniqueArgs<ExtArgs>>): Prisma__UserTestClient<$Result.GetResult<Prisma.$UserTestPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one UserTest that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {UserTestFindUniqueOrThrowArgs} args - Arguments to find a UserTest
+     * @example
+     * // Get one UserTest
+     * const userTest = await prisma.userTest.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends UserTestFindUniqueOrThrowArgs>(args: SelectSubset<T, UserTestFindUniqueOrThrowArgs<ExtArgs>>): Prisma__UserTestClient<$Result.GetResult<Prisma.$UserTestPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first UserTest that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserTestFindFirstArgs} args - Arguments to find a UserTest
+     * @example
+     * // Get one UserTest
+     * const userTest = await prisma.userTest.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends UserTestFindFirstArgs>(args?: SelectSubset<T, UserTestFindFirstArgs<ExtArgs>>): Prisma__UserTestClient<$Result.GetResult<Prisma.$UserTestPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first UserTest that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserTestFindFirstOrThrowArgs} args - Arguments to find a UserTest
+     * @example
+     * // Get one UserTest
+     * const userTest = await prisma.userTest.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends UserTestFindFirstOrThrowArgs>(args?: SelectSubset<T, UserTestFindFirstOrThrowArgs<ExtArgs>>): Prisma__UserTestClient<$Result.GetResult<Prisma.$UserTestPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more UserTests that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserTestFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all UserTests
+     * const userTests = await prisma.userTest.findMany()
+     * 
+     * // Get first 10 UserTests
+     * const userTests = await prisma.userTest.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const userTestWithIdOnly = await prisma.userTest.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends UserTestFindManyArgs>(args?: SelectSubset<T, UserTestFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserTestPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a UserTest.
+     * @param {UserTestCreateArgs} args - Arguments to create a UserTest.
+     * @example
+     * // Create one UserTest
+     * const UserTest = await prisma.userTest.create({
+     *   data: {
+     *     // ... data to create a UserTest
+     *   }
+     * })
+     * 
+     */
+    create<T extends UserTestCreateArgs>(args: SelectSubset<T, UserTestCreateArgs<ExtArgs>>): Prisma__UserTestClient<$Result.GetResult<Prisma.$UserTestPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many UserTests.
+     * @param {UserTestCreateManyArgs} args - Arguments to create many UserTests.
+     * @example
+     * // Create many UserTests
+     * const userTest = await prisma.userTest.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends UserTestCreateManyArgs>(args?: SelectSubset<T, UserTestCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many UserTests and returns the data saved in the database.
+     * @param {UserTestCreateManyAndReturnArgs} args - Arguments to create many UserTests.
+     * @example
+     * // Create many UserTests
+     * const userTest = await prisma.userTest.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many UserTests and only return the `id`
+     * const userTestWithIdOnly = await prisma.userTest.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends UserTestCreateManyAndReturnArgs>(args?: SelectSubset<T, UserTestCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserTestPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a UserTest.
+     * @param {UserTestDeleteArgs} args - Arguments to delete one UserTest.
+     * @example
+     * // Delete one UserTest
+     * const UserTest = await prisma.userTest.delete({
+     *   where: {
+     *     // ... filter to delete one UserTest
+     *   }
+     * })
+     * 
+     */
+    delete<T extends UserTestDeleteArgs>(args: SelectSubset<T, UserTestDeleteArgs<ExtArgs>>): Prisma__UserTestClient<$Result.GetResult<Prisma.$UserTestPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one UserTest.
+     * @param {UserTestUpdateArgs} args - Arguments to update one UserTest.
+     * @example
+     * // Update one UserTest
+     * const userTest = await prisma.userTest.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends UserTestUpdateArgs>(args: SelectSubset<T, UserTestUpdateArgs<ExtArgs>>): Prisma__UserTestClient<$Result.GetResult<Prisma.$UserTestPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more UserTests.
+     * @param {UserTestDeleteManyArgs} args - Arguments to filter UserTests to delete.
+     * @example
+     * // Delete a few UserTests
+     * const { count } = await prisma.userTest.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends UserTestDeleteManyArgs>(args?: SelectSubset<T, UserTestDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more UserTests.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserTestUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many UserTests
+     * const userTest = await prisma.userTest.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends UserTestUpdateManyArgs>(args: SelectSubset<T, UserTestUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more UserTests and returns the data updated in the database.
+     * @param {UserTestUpdateManyAndReturnArgs} args - Arguments to update many UserTests.
+     * @example
+     * // Update many UserTests
+     * const userTest = await prisma.userTest.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more UserTests and only return the `id`
+     * const userTestWithIdOnly = await prisma.userTest.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends UserTestUpdateManyAndReturnArgs>(args: SelectSubset<T, UserTestUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserTestPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one UserTest.
+     * @param {UserTestUpsertArgs} args - Arguments to update or create a UserTest.
+     * @example
+     * // Update or create a UserTest
+     * const userTest = await prisma.userTest.upsert({
+     *   create: {
+     *     // ... data to create a UserTest
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the UserTest we want to update
+     *   }
+     * })
+     */
+    upsert<T extends UserTestUpsertArgs>(args: SelectSubset<T, UserTestUpsertArgs<ExtArgs>>): Prisma__UserTestClient<$Result.GetResult<Prisma.$UserTestPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of UserTests.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserTestCountArgs} args - Arguments to filter UserTests to count.
+     * @example
+     * // Count the number of UserTests
+     * const count = await prisma.userTest.count({
+     *   where: {
+     *     // ... the filter for the UserTests we want to count
+     *   }
+     * })
+    **/
+    count<T extends UserTestCountArgs>(
+      args?: Subset<T, UserTestCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], UserTestCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a UserTest.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserTestAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends UserTestAggregateArgs>(args: Subset<T, UserTestAggregateArgs>): Prisma.PrismaPromise<GetUserTestAggregateType<T>>
+
+    /**
+     * Group by UserTest.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserTestGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends UserTestGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: UserTestGroupByArgs['orderBy'] }
+        : { orderBy?: UserTestGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, UserTestGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetUserTestGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the UserTest model
+   */
+  readonly fields: UserTestFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for UserTest.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__UserTestClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the UserTest model
+   */
+  interface UserTestFieldRefs {
+    readonly id: FieldRef<"UserTest", 'String'>
+    readonly userId: FieldRef<"UserTest", 'String'>
+    readonly jobId: FieldRef<"UserTest", 'String'>
+    readonly correctAnswers: FieldRef<"UserTest", 'Int'>
+    readonly totalQuestions: FieldRef<"UserTest", 'Int'>
+    readonly scorePercentage: FieldRef<"UserTest", 'Float'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * UserTest findUnique
+   */
+  export type UserTestFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserTest
+     */
+    select?: UserTestSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserTest
+     */
+    omit?: UserTestOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserTestInclude<ExtArgs> | null
+    /**
+     * Filter, which UserTest to fetch.
+     */
+    where: UserTestWhereUniqueInput
+  }
+
+  /**
+   * UserTest findUniqueOrThrow
+   */
+  export type UserTestFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserTest
+     */
+    select?: UserTestSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserTest
+     */
+    omit?: UserTestOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserTestInclude<ExtArgs> | null
+    /**
+     * Filter, which UserTest to fetch.
+     */
+    where: UserTestWhereUniqueInput
+  }
+
+  /**
+   * UserTest findFirst
+   */
+  export type UserTestFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserTest
+     */
+    select?: UserTestSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserTest
+     */
+    omit?: UserTestOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserTestInclude<ExtArgs> | null
+    /**
+     * Filter, which UserTest to fetch.
+     */
+    where?: UserTestWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UserTests to fetch.
+     */
+    orderBy?: UserTestOrderByWithRelationInput | UserTestOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for UserTests.
+     */
+    cursor?: UserTestWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UserTests from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UserTests.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of UserTests.
+     */
+    distinct?: UserTestScalarFieldEnum | UserTestScalarFieldEnum[]
+  }
+
+  /**
+   * UserTest findFirstOrThrow
+   */
+  export type UserTestFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserTest
+     */
+    select?: UserTestSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserTest
+     */
+    omit?: UserTestOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserTestInclude<ExtArgs> | null
+    /**
+     * Filter, which UserTest to fetch.
+     */
+    where?: UserTestWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UserTests to fetch.
+     */
+    orderBy?: UserTestOrderByWithRelationInput | UserTestOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for UserTests.
+     */
+    cursor?: UserTestWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UserTests from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UserTests.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of UserTests.
+     */
+    distinct?: UserTestScalarFieldEnum | UserTestScalarFieldEnum[]
+  }
+
+  /**
+   * UserTest findMany
+   */
+  export type UserTestFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserTest
+     */
+    select?: UserTestSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserTest
+     */
+    omit?: UserTestOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserTestInclude<ExtArgs> | null
+    /**
+     * Filter, which UserTests to fetch.
+     */
+    where?: UserTestWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UserTests to fetch.
+     */
+    orderBy?: UserTestOrderByWithRelationInput | UserTestOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing UserTests.
+     */
+    cursor?: UserTestWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UserTests from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UserTests.
+     */
+    skip?: number
+    distinct?: UserTestScalarFieldEnum | UserTestScalarFieldEnum[]
+  }
+
+  /**
+   * UserTest create
+   */
+  export type UserTestCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserTest
+     */
+    select?: UserTestSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserTest
+     */
+    omit?: UserTestOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserTestInclude<ExtArgs> | null
+    /**
+     * The data needed to create a UserTest.
+     */
+    data: XOR<UserTestCreateInput, UserTestUncheckedCreateInput>
+  }
+
+  /**
+   * UserTest createMany
+   */
+  export type UserTestCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many UserTests.
+     */
+    data: UserTestCreateManyInput | UserTestCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * UserTest createManyAndReturn
+   */
+  export type UserTestCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserTest
+     */
+    select?: UserTestSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserTest
+     */
+    omit?: UserTestOmit<ExtArgs> | null
+    /**
+     * The data used to create many UserTests.
+     */
+    data: UserTestCreateManyInput | UserTestCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserTestIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * UserTest update
+   */
+  export type UserTestUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserTest
+     */
+    select?: UserTestSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserTest
+     */
+    omit?: UserTestOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserTestInclude<ExtArgs> | null
+    /**
+     * The data needed to update a UserTest.
+     */
+    data: XOR<UserTestUpdateInput, UserTestUncheckedUpdateInput>
+    /**
+     * Choose, which UserTest to update.
+     */
+    where: UserTestWhereUniqueInput
+  }
+
+  /**
+   * UserTest updateMany
+   */
+  export type UserTestUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update UserTests.
+     */
+    data: XOR<UserTestUpdateManyMutationInput, UserTestUncheckedUpdateManyInput>
+    /**
+     * Filter which UserTests to update
+     */
+    where?: UserTestWhereInput
+    /**
+     * Limit how many UserTests to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * UserTest updateManyAndReturn
+   */
+  export type UserTestUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserTest
+     */
+    select?: UserTestSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserTest
+     */
+    omit?: UserTestOmit<ExtArgs> | null
+    /**
+     * The data used to update UserTests.
+     */
+    data: XOR<UserTestUpdateManyMutationInput, UserTestUncheckedUpdateManyInput>
+    /**
+     * Filter which UserTests to update
+     */
+    where?: UserTestWhereInput
+    /**
+     * Limit how many UserTests to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserTestIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * UserTest upsert
+   */
+  export type UserTestUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserTest
+     */
+    select?: UserTestSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserTest
+     */
+    omit?: UserTestOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserTestInclude<ExtArgs> | null
+    /**
+     * The filter to search for the UserTest to update in case it exists.
+     */
+    where: UserTestWhereUniqueInput
+    /**
+     * In case the UserTest found by the `where` argument doesn't exist, create a new UserTest with this data.
+     */
+    create: XOR<UserTestCreateInput, UserTestUncheckedCreateInput>
+    /**
+     * In case the UserTest was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<UserTestUpdateInput, UserTestUncheckedUpdateInput>
+  }
+
+  /**
+   * UserTest delete
+   */
+  export type UserTestDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserTest
+     */
+    select?: UserTestSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserTest
+     */
+    omit?: UserTestOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserTestInclude<ExtArgs> | null
+    /**
+     * Filter which UserTest to delete.
+     */
+    where: UserTestWhereUniqueInput
+  }
+
+  /**
+   * UserTest deleteMany
+   */
+  export type UserTestDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which UserTests to delete
+     */
+    where?: UserTestWhereInput
+    /**
+     * Limit how many UserTests to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * UserTest without action
+   */
+  export type UserTestDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserTest
+     */
+    select?: UserTestSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserTest
+     */
+    omit?: UserTestOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserTestInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -10937,12 +13360,42 @@ export namespace Prisma {
   export type ReviewScalarFieldEnum = (typeof ReviewScalarFieldEnum)[keyof typeof ReviewScalarFieldEnum]
 
 
+  export const TestScalarFieldEnum: {
+    id: 'id',
+    jobId: 'jobId',
+    title: 'title',
+    description: 'description',
+    questions: 'questions'
+  };
+
+  export type TestScalarFieldEnum = (typeof TestScalarFieldEnum)[keyof typeof TestScalarFieldEnum]
+
+
+  export const UserTestScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    jobId: 'jobId',
+    correctAnswers: 'correctAnswers',
+    totalQuestions: 'totalQuestions',
+    scorePercentage: 'scorePercentage'
+  };
+
+  export type UserTestScalarFieldEnum = (typeof UserTestScalarFieldEnum)[keyof typeof UserTestScalarFieldEnum]
+
+
   export const SortOrder: {
     asc: 'asc',
     desc: 'desc'
   };
 
   export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
+
+
+  export const JsonNullValueInput: {
+    JsonNull: typeof JsonNull
+  };
+
+  export type JsonNullValueInput = (typeof JsonNullValueInput)[keyof typeof JsonNullValueInput]
 
 
   export const QueryMode: {
@@ -10959,6 +13412,15 @@ export namespace Prisma {
   };
 
   export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
+
+
+  export const JsonNullValueFilter: {
+    DbNull: typeof DbNull,
+    JsonNull: typeof JsonNull,
+    AnyNull: typeof AnyNull
+  };
+
+  export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
 
 
   /**
@@ -11044,6 +13506,20 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'Json'
+   */
+  export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>
+    
+
+
+  /**
+   * Reference to a field of type 'QueryMode'
+   */
+  export type EnumQueryModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QueryMode'>
+    
+
+
+  /**
    * Reference to a field of type 'Float'
    */
   export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
@@ -11087,6 +13563,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"User"> | Date | string
     Application?: ApplicationListRelationFilter
     Review?: ReviewListRelationFilter
+    userTest?: UserTestListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -11113,6 +13590,7 @@ export namespace Prisma {
     updatedAt?: SortOrder
     Application?: ApplicationOrderByRelationAggregateInput
     Review?: ReviewOrderByRelationAggregateInput
+    userTest?: UserTestOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -11142,6 +13620,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"User"> | Date | string
     Application?: ApplicationListRelationFilter
     Review?: ReviewListRelationFilter
+    userTest?: UserTestListRelationFilter
   }, "id" | "username" | "email">
 
   export type UserOrderByWithAggregationInput = {
@@ -11397,6 +13876,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Job"> | Date | string
     company?: XOR<CompanyScalarRelationFilter, CompanyWhereInput>
     Application?: ApplicationListRelationFilter
+    test?: TestListRelationFilter
   }
 
   export type JobOrderByWithRelationInput = {
@@ -11414,6 +13894,7 @@ export namespace Prisma {
     updatedAt?: SortOrder
     company?: CompanyOrderByWithRelationInput
     Application?: ApplicationOrderByRelationAggregateInput
+    test?: TestOrderByRelationAggregateInput
   }
 
   export type JobWhereUniqueInput = Prisma.AtLeast<{
@@ -11434,6 +13915,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Job"> | Date | string
     company?: XOR<CompanyScalarRelationFilter, CompanyWhereInput>
     Application?: ApplicationListRelationFilter
+    test?: TestListRelationFilter
   }, "id">
 
   export type JobOrderByWithAggregationInput = {
@@ -11740,6 +14222,123 @@ export namespace Prisma {
     updatedAt?: DateTimeWithAggregatesFilter<"Review"> | Date | string
   }
 
+  export type TestWhereInput = {
+    AND?: TestWhereInput | TestWhereInput[]
+    OR?: TestWhereInput[]
+    NOT?: TestWhereInput | TestWhereInput[]
+    id?: StringFilter<"Test"> | string
+    jobId?: StringFilter<"Test"> | string
+    title?: StringFilter<"Test"> | string
+    description?: StringFilter<"Test"> | string
+    questions?: JsonFilter<"Test">
+    job?: XOR<JobScalarRelationFilter, JobWhereInput>
+  }
+
+  export type TestOrderByWithRelationInput = {
+    id?: SortOrder
+    jobId?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    questions?: SortOrder
+    job?: JobOrderByWithRelationInput
+  }
+
+  export type TestWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: TestWhereInput | TestWhereInput[]
+    OR?: TestWhereInput[]
+    NOT?: TestWhereInput | TestWhereInput[]
+    jobId?: StringFilter<"Test"> | string
+    title?: StringFilter<"Test"> | string
+    description?: StringFilter<"Test"> | string
+    questions?: JsonFilter<"Test">
+    job?: XOR<JobScalarRelationFilter, JobWhereInput>
+  }, "id">
+
+  export type TestOrderByWithAggregationInput = {
+    id?: SortOrder
+    jobId?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    questions?: SortOrder
+    _count?: TestCountOrderByAggregateInput
+    _max?: TestMaxOrderByAggregateInput
+    _min?: TestMinOrderByAggregateInput
+  }
+
+  export type TestScalarWhereWithAggregatesInput = {
+    AND?: TestScalarWhereWithAggregatesInput | TestScalarWhereWithAggregatesInput[]
+    OR?: TestScalarWhereWithAggregatesInput[]
+    NOT?: TestScalarWhereWithAggregatesInput | TestScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Test"> | string
+    jobId?: StringWithAggregatesFilter<"Test"> | string
+    title?: StringWithAggregatesFilter<"Test"> | string
+    description?: StringWithAggregatesFilter<"Test"> | string
+    questions?: JsonWithAggregatesFilter<"Test">
+  }
+
+  export type UserTestWhereInput = {
+    AND?: UserTestWhereInput | UserTestWhereInput[]
+    OR?: UserTestWhereInput[]
+    NOT?: UserTestWhereInput | UserTestWhereInput[]
+    id?: StringFilter<"UserTest"> | string
+    userId?: StringFilter<"UserTest"> | string
+    jobId?: StringFilter<"UserTest"> | string
+    correctAnswers?: IntFilter<"UserTest"> | number
+    totalQuestions?: IntFilter<"UserTest"> | number
+    scorePercentage?: FloatFilter<"UserTest"> | number
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type UserTestOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    jobId?: SortOrder
+    correctAnswers?: SortOrder
+    totalQuestions?: SortOrder
+    scorePercentage?: SortOrder
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type UserTestWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: UserTestWhereInput | UserTestWhereInput[]
+    OR?: UserTestWhereInput[]
+    NOT?: UserTestWhereInput | UserTestWhereInput[]
+    userId?: StringFilter<"UserTest"> | string
+    jobId?: StringFilter<"UserTest"> | string
+    correctAnswers?: IntFilter<"UserTest"> | number
+    totalQuestions?: IntFilter<"UserTest"> | number
+    scorePercentage?: FloatFilter<"UserTest"> | number
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "id">
+
+  export type UserTestOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    jobId?: SortOrder
+    correctAnswers?: SortOrder
+    totalQuestions?: SortOrder
+    scorePercentage?: SortOrder
+    _count?: UserTestCountOrderByAggregateInput
+    _avg?: UserTestAvgOrderByAggregateInput
+    _max?: UserTestMaxOrderByAggregateInput
+    _min?: UserTestMinOrderByAggregateInput
+    _sum?: UserTestSumOrderByAggregateInput
+  }
+
+  export type UserTestScalarWhereWithAggregatesInput = {
+    AND?: UserTestScalarWhereWithAggregatesInput | UserTestScalarWhereWithAggregatesInput[]
+    OR?: UserTestScalarWhereWithAggregatesInput[]
+    NOT?: UserTestScalarWhereWithAggregatesInput | UserTestScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"UserTest"> | string
+    userId?: StringWithAggregatesFilter<"UserTest"> | string
+    jobId?: StringWithAggregatesFilter<"UserTest"> | string
+    correctAnswers?: IntWithAggregatesFilter<"UserTest"> | number
+    totalQuestions?: IntWithAggregatesFilter<"UserTest"> | number
+    scorePercentage?: FloatWithAggregatesFilter<"UserTest"> | number
+  }
+
   export type UserCreateInput = {
     id?: string
     username: string
@@ -11764,6 +14363,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     Application?: ApplicationCreateNestedManyWithoutUserInput
     Review?: ReviewCreateNestedManyWithoutUserInput
+    userTest?: UserTestCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -11790,6 +14390,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     Application?: ApplicationUncheckedCreateNestedManyWithoutUserInput
     Review?: ReviewUncheckedCreateNestedManyWithoutUserInput
+    userTest?: UserTestUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -11816,6 +14417,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     Application?: ApplicationUpdateManyWithoutUserNestedInput
     Review?: ReviewUpdateManyWithoutUserNestedInput
+    userTest?: UserTestUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -11842,6 +14444,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     Application?: ApplicationUncheckedUpdateManyWithoutUserNestedInput
     Review?: ReviewUncheckedUpdateManyWithoutUserNestedInput
+    userTest?: UserTestUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -12144,6 +14747,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     company: CompanyCreateNestedOneWithoutJobsInput
     Application?: ApplicationCreateNestedManyWithoutJobInput
+    test?: TestCreateNestedManyWithoutJobInput
   }
 
   export type JobUncheckedCreateInput = {
@@ -12160,6 +14764,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     Application?: ApplicationUncheckedCreateNestedManyWithoutJobInput
+    test?: TestUncheckedCreateNestedManyWithoutJobInput
   }
 
   export type JobUpdateInput = {
@@ -12176,6 +14781,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     company?: CompanyUpdateOneRequiredWithoutJobsNestedInput
     Application?: ApplicationUpdateManyWithoutJobNestedInput
+    test?: TestUpdateManyWithoutJobNestedInput
   }
 
   export type JobUncheckedUpdateInput = {
@@ -12192,6 +14798,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     Application?: ApplicationUncheckedUpdateManyWithoutJobNestedInput
+    test?: TestUncheckedUpdateManyWithoutJobNestedInput
   }
 
   export type JobCreateManyInput = {
@@ -12521,6 +15128,123 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type TestCreateInput = {
+    id?: string
+    title: string
+    description: string
+    questions: JsonNullValueInput | InputJsonValue
+    job: JobCreateNestedOneWithoutTestInput
+  }
+
+  export type TestUncheckedCreateInput = {
+    id?: string
+    jobId: string
+    title: string
+    description: string
+    questions: JsonNullValueInput | InputJsonValue
+  }
+
+  export type TestUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    questions?: JsonNullValueInput | InputJsonValue
+    job?: JobUpdateOneRequiredWithoutTestNestedInput
+  }
+
+  export type TestUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    jobId?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    questions?: JsonNullValueInput | InputJsonValue
+  }
+
+  export type TestCreateManyInput = {
+    id?: string
+    jobId: string
+    title: string
+    description: string
+    questions: JsonNullValueInput | InputJsonValue
+  }
+
+  export type TestUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    questions?: JsonNullValueInput | InputJsonValue
+  }
+
+  export type TestUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    jobId?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    questions?: JsonNullValueInput | InputJsonValue
+  }
+
+  export type UserTestCreateInput = {
+    id?: string
+    jobId: string
+    correctAnswers: number
+    totalQuestions: number
+    scorePercentage: number
+    user: UserCreateNestedOneWithoutUserTestInput
+  }
+
+  export type UserTestUncheckedCreateInput = {
+    id?: string
+    userId: string
+    jobId: string
+    correctAnswers: number
+    totalQuestions: number
+    scorePercentage: number
+  }
+
+  export type UserTestUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    jobId?: StringFieldUpdateOperationsInput | string
+    correctAnswers?: IntFieldUpdateOperationsInput | number
+    totalQuestions?: IntFieldUpdateOperationsInput | number
+    scorePercentage?: FloatFieldUpdateOperationsInput | number
+    user?: UserUpdateOneRequiredWithoutUserTestNestedInput
+  }
+
+  export type UserTestUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    jobId?: StringFieldUpdateOperationsInput | string
+    correctAnswers?: IntFieldUpdateOperationsInput | number
+    totalQuestions?: IntFieldUpdateOperationsInput | number
+    scorePercentage?: FloatFieldUpdateOperationsInput | number
+  }
+
+  export type UserTestCreateManyInput = {
+    id?: string
+    userId: string
+    jobId: string
+    correctAnswers: number
+    totalQuestions: number
+    scorePercentage: number
+  }
+
+  export type UserTestUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    jobId?: StringFieldUpdateOperationsInput | string
+    correctAnswers?: IntFieldUpdateOperationsInput | number
+    totalQuestions?: IntFieldUpdateOperationsInput | number
+    scorePercentage?: FloatFieldUpdateOperationsInput | number
+  }
+
+  export type UserTestUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    jobId?: StringFieldUpdateOperationsInput | string
+    correctAnswers?: IntFieldUpdateOperationsInput | number
+    totalQuestions?: IntFieldUpdateOperationsInput | number
+    scorePercentage?: FloatFieldUpdateOperationsInput | number
+  }
+
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -12586,6 +15310,12 @@ export namespace Prisma {
     none?: ReviewWhereInput
   }
 
+  export type UserTestListRelationFilter = {
+    every?: UserTestWhereInput
+    some?: UserTestWhereInput
+    none?: UserTestWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
@@ -12596,6 +15326,10 @@ export namespace Prisma {
   }
 
   export type ReviewOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type UserTestOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -12864,6 +15598,16 @@ export namespace Prisma {
     isNot?: CompanyWhereInput
   }
 
+  export type TestListRelationFilter = {
+    every?: TestWhereInput
+    some?: TestWhereInput
+    none?: TestWhereInput
+  }
+
+  export type TestOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
   export type JobCountOrderByAggregateInput = {
     id?: SortOrder
     title?: SortOrder
@@ -13096,6 +15840,143 @@ export namespace Prisma {
     _min?: NestedIntFilter<$PrismaModel>
     _max?: NestedIntFilter<$PrismaModel>
   }
+  export type JsonFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<JsonFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+  }
+
+  export type TestCountOrderByAggregateInput = {
+    id?: SortOrder
+    jobId?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    questions?: SortOrder
+  }
+
+  export type TestMaxOrderByAggregateInput = {
+    id?: SortOrder
+    jobId?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+  }
+
+  export type TestMinOrderByAggregateInput = {
+    id?: SortOrder
+    jobId?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+  }
+  export type JsonWithAggregatesFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<JsonWithAggregatesFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonWithAggregatesFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonWithAggregatesFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonWithAggregatesFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonWithAggregatesFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedJsonFilter<$PrismaModel>
+    _max?: NestedJsonFilter<$PrismaModel>
+  }
+
+  export type FloatFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatFilter<$PrismaModel> | number
+  }
+
+  export type UserTestCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    jobId?: SortOrder
+    correctAnswers?: SortOrder
+    totalQuestions?: SortOrder
+    scorePercentage?: SortOrder
+  }
+
+  export type UserTestAvgOrderByAggregateInput = {
+    correctAnswers?: SortOrder
+    totalQuestions?: SortOrder
+    scorePercentage?: SortOrder
+  }
+
+  export type UserTestMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    jobId?: SortOrder
+    correctAnswers?: SortOrder
+    totalQuestions?: SortOrder
+    scorePercentage?: SortOrder
+  }
+
+  export type UserTestMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    jobId?: SortOrder
+    correctAnswers?: SortOrder
+    totalQuestions?: SortOrder
+    scorePercentage?: SortOrder
+  }
+
+  export type UserTestSumOrderByAggregateInput = {
+    correctAnswers?: SortOrder
+    totalQuestions?: SortOrder
+    scorePercentage?: SortOrder
+  }
+
+  export type FloatWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedFloatFilter<$PrismaModel>
+    _min?: NestedFloatFilter<$PrismaModel>
+    _max?: NestedFloatFilter<$PrismaModel>
+  }
 
   export type ApplicationCreateNestedManyWithoutUserInput = {
     create?: XOR<ApplicationCreateWithoutUserInput, ApplicationUncheckedCreateWithoutUserInput> | ApplicationCreateWithoutUserInput[] | ApplicationUncheckedCreateWithoutUserInput[]
@@ -13111,6 +15992,13 @@ export namespace Prisma {
     connect?: ReviewWhereUniqueInput | ReviewWhereUniqueInput[]
   }
 
+  export type UserTestCreateNestedManyWithoutUserInput = {
+    create?: XOR<UserTestCreateWithoutUserInput, UserTestUncheckedCreateWithoutUserInput> | UserTestCreateWithoutUserInput[] | UserTestUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: UserTestCreateOrConnectWithoutUserInput | UserTestCreateOrConnectWithoutUserInput[]
+    createMany?: UserTestCreateManyUserInputEnvelope
+    connect?: UserTestWhereUniqueInput | UserTestWhereUniqueInput[]
+  }
+
   export type ApplicationUncheckedCreateNestedManyWithoutUserInput = {
     create?: XOR<ApplicationCreateWithoutUserInput, ApplicationUncheckedCreateWithoutUserInput> | ApplicationCreateWithoutUserInput[] | ApplicationUncheckedCreateWithoutUserInput[]
     connectOrCreate?: ApplicationCreateOrConnectWithoutUserInput | ApplicationCreateOrConnectWithoutUserInput[]
@@ -13123,6 +16011,13 @@ export namespace Prisma {
     connectOrCreate?: ReviewCreateOrConnectWithoutUserInput | ReviewCreateOrConnectWithoutUserInput[]
     createMany?: ReviewCreateManyUserInputEnvelope
     connect?: ReviewWhereUniqueInput | ReviewWhereUniqueInput[]
+  }
+
+  export type UserTestUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<UserTestCreateWithoutUserInput, UserTestUncheckedCreateWithoutUserInput> | UserTestCreateWithoutUserInput[] | UserTestUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: UserTestCreateOrConnectWithoutUserInput | UserTestCreateOrConnectWithoutUserInput[]
+    createMany?: UserTestCreateManyUserInputEnvelope
+    connect?: UserTestWhereUniqueInput | UserTestWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -13173,6 +16068,20 @@ export namespace Prisma {
     deleteMany?: ReviewScalarWhereInput | ReviewScalarWhereInput[]
   }
 
+  export type UserTestUpdateManyWithoutUserNestedInput = {
+    create?: XOR<UserTestCreateWithoutUserInput, UserTestUncheckedCreateWithoutUserInput> | UserTestCreateWithoutUserInput[] | UserTestUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: UserTestCreateOrConnectWithoutUserInput | UserTestCreateOrConnectWithoutUserInput[]
+    upsert?: UserTestUpsertWithWhereUniqueWithoutUserInput | UserTestUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: UserTestCreateManyUserInputEnvelope
+    set?: UserTestWhereUniqueInput | UserTestWhereUniqueInput[]
+    disconnect?: UserTestWhereUniqueInput | UserTestWhereUniqueInput[]
+    delete?: UserTestWhereUniqueInput | UserTestWhereUniqueInput[]
+    connect?: UserTestWhereUniqueInput | UserTestWhereUniqueInput[]
+    update?: UserTestUpdateWithWhereUniqueWithoutUserInput | UserTestUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: UserTestUpdateManyWithWhereWithoutUserInput | UserTestUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: UserTestScalarWhereInput | UserTestScalarWhereInput[]
+  }
+
   export type ApplicationUncheckedUpdateManyWithoutUserNestedInput = {
     create?: XOR<ApplicationCreateWithoutUserInput, ApplicationUncheckedCreateWithoutUserInput> | ApplicationCreateWithoutUserInput[] | ApplicationUncheckedCreateWithoutUserInput[]
     connectOrCreate?: ApplicationCreateOrConnectWithoutUserInput | ApplicationCreateOrConnectWithoutUserInput[]
@@ -13199,6 +16108,20 @@ export namespace Prisma {
     update?: ReviewUpdateWithWhereUniqueWithoutUserInput | ReviewUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: ReviewUpdateManyWithWhereWithoutUserInput | ReviewUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: ReviewScalarWhereInput | ReviewScalarWhereInput[]
+  }
+
+  export type UserTestUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<UserTestCreateWithoutUserInput, UserTestUncheckedCreateWithoutUserInput> | UserTestCreateWithoutUserInput[] | UserTestUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: UserTestCreateOrConnectWithoutUserInput | UserTestCreateOrConnectWithoutUserInput[]
+    upsert?: UserTestUpsertWithWhereUniqueWithoutUserInput | UserTestUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: UserTestCreateManyUserInputEnvelope
+    set?: UserTestWhereUniqueInput | UserTestWhereUniqueInput[]
+    disconnect?: UserTestWhereUniqueInput | UserTestWhereUniqueInput[]
+    delete?: UserTestWhereUniqueInput | UserTestWhereUniqueInput[]
+    connect?: UserTestWhereUniqueInput | UserTestWhereUniqueInput[]
+    update?: UserTestUpdateWithWhereUniqueWithoutUserInput | UserTestUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: UserTestUpdateManyWithWhereWithoutUserInput | UserTestUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: UserTestScalarWhereInput | UserTestScalarWhereInput[]
   }
 
   export type JobCreateNestedManyWithoutCompanyInput = {
@@ -13358,11 +16281,25 @@ export namespace Prisma {
     connect?: ApplicationWhereUniqueInput | ApplicationWhereUniqueInput[]
   }
 
+  export type TestCreateNestedManyWithoutJobInput = {
+    create?: XOR<TestCreateWithoutJobInput, TestUncheckedCreateWithoutJobInput> | TestCreateWithoutJobInput[] | TestUncheckedCreateWithoutJobInput[]
+    connectOrCreate?: TestCreateOrConnectWithoutJobInput | TestCreateOrConnectWithoutJobInput[]
+    createMany?: TestCreateManyJobInputEnvelope
+    connect?: TestWhereUniqueInput | TestWhereUniqueInput[]
+  }
+
   export type ApplicationUncheckedCreateNestedManyWithoutJobInput = {
     create?: XOR<ApplicationCreateWithoutJobInput, ApplicationUncheckedCreateWithoutJobInput> | ApplicationCreateWithoutJobInput[] | ApplicationUncheckedCreateWithoutJobInput[]
     connectOrCreate?: ApplicationCreateOrConnectWithoutJobInput | ApplicationCreateOrConnectWithoutJobInput[]
     createMany?: ApplicationCreateManyJobInputEnvelope
     connect?: ApplicationWhereUniqueInput | ApplicationWhereUniqueInput[]
+  }
+
+  export type TestUncheckedCreateNestedManyWithoutJobInput = {
+    create?: XOR<TestCreateWithoutJobInput, TestUncheckedCreateWithoutJobInput> | TestCreateWithoutJobInput[] | TestUncheckedCreateWithoutJobInput[]
+    connectOrCreate?: TestCreateOrConnectWithoutJobInput | TestCreateOrConnectWithoutJobInput[]
+    createMany?: TestCreateManyJobInputEnvelope
+    connect?: TestWhereUniqueInput | TestWhereUniqueInput[]
   }
 
   export type JobUpdatetagsInput = {
@@ -13392,6 +16329,20 @@ export namespace Prisma {
     deleteMany?: ApplicationScalarWhereInput | ApplicationScalarWhereInput[]
   }
 
+  export type TestUpdateManyWithoutJobNestedInput = {
+    create?: XOR<TestCreateWithoutJobInput, TestUncheckedCreateWithoutJobInput> | TestCreateWithoutJobInput[] | TestUncheckedCreateWithoutJobInput[]
+    connectOrCreate?: TestCreateOrConnectWithoutJobInput | TestCreateOrConnectWithoutJobInput[]
+    upsert?: TestUpsertWithWhereUniqueWithoutJobInput | TestUpsertWithWhereUniqueWithoutJobInput[]
+    createMany?: TestCreateManyJobInputEnvelope
+    set?: TestWhereUniqueInput | TestWhereUniqueInput[]
+    disconnect?: TestWhereUniqueInput | TestWhereUniqueInput[]
+    delete?: TestWhereUniqueInput | TestWhereUniqueInput[]
+    connect?: TestWhereUniqueInput | TestWhereUniqueInput[]
+    update?: TestUpdateWithWhereUniqueWithoutJobInput | TestUpdateWithWhereUniqueWithoutJobInput[]
+    updateMany?: TestUpdateManyWithWhereWithoutJobInput | TestUpdateManyWithWhereWithoutJobInput[]
+    deleteMany?: TestScalarWhereInput | TestScalarWhereInput[]
+  }
+
   export type ApplicationUncheckedUpdateManyWithoutJobNestedInput = {
     create?: XOR<ApplicationCreateWithoutJobInput, ApplicationUncheckedCreateWithoutJobInput> | ApplicationCreateWithoutJobInput[] | ApplicationUncheckedCreateWithoutJobInput[]
     connectOrCreate?: ApplicationCreateOrConnectWithoutJobInput | ApplicationCreateOrConnectWithoutJobInput[]
@@ -13404,6 +16355,20 @@ export namespace Prisma {
     update?: ApplicationUpdateWithWhereUniqueWithoutJobInput | ApplicationUpdateWithWhereUniqueWithoutJobInput[]
     updateMany?: ApplicationUpdateManyWithWhereWithoutJobInput | ApplicationUpdateManyWithWhereWithoutJobInput[]
     deleteMany?: ApplicationScalarWhereInput | ApplicationScalarWhereInput[]
+  }
+
+  export type TestUncheckedUpdateManyWithoutJobNestedInput = {
+    create?: XOR<TestCreateWithoutJobInput, TestUncheckedCreateWithoutJobInput> | TestCreateWithoutJobInput[] | TestUncheckedCreateWithoutJobInput[]
+    connectOrCreate?: TestCreateOrConnectWithoutJobInput | TestCreateOrConnectWithoutJobInput[]
+    upsert?: TestUpsertWithWhereUniqueWithoutJobInput | TestUpsertWithWhereUniqueWithoutJobInput[]
+    createMany?: TestCreateManyJobInputEnvelope
+    set?: TestWhereUniqueInput | TestWhereUniqueInput[]
+    disconnect?: TestWhereUniqueInput | TestWhereUniqueInput[]
+    delete?: TestWhereUniqueInput | TestWhereUniqueInput[]
+    connect?: TestWhereUniqueInput | TestWhereUniqueInput[]
+    update?: TestUpdateWithWhereUniqueWithoutJobInput | TestUpdateWithWhereUniqueWithoutJobInput[]
+    updateMany?: TestUpdateManyWithWhereWithoutJobInput | TestUpdateManyWithWhereWithoutJobInput[]
+    deleteMany?: TestScalarWhereInput | TestScalarWhereInput[]
   }
 
   export type UserCreateNestedOneWithoutApplicationInput = {
@@ -13472,6 +16437,42 @@ export namespace Prisma {
     upsert?: CompanyUpsertWithoutReviewInput
     connect?: CompanyWhereUniqueInput
     update?: XOR<XOR<CompanyUpdateToOneWithWhereWithoutReviewInput, CompanyUpdateWithoutReviewInput>, CompanyUncheckedUpdateWithoutReviewInput>
+  }
+
+  export type JobCreateNestedOneWithoutTestInput = {
+    create?: XOR<JobCreateWithoutTestInput, JobUncheckedCreateWithoutTestInput>
+    connectOrCreate?: JobCreateOrConnectWithoutTestInput
+    connect?: JobWhereUniqueInput
+  }
+
+  export type JobUpdateOneRequiredWithoutTestNestedInput = {
+    create?: XOR<JobCreateWithoutTestInput, JobUncheckedCreateWithoutTestInput>
+    connectOrCreate?: JobCreateOrConnectWithoutTestInput
+    upsert?: JobUpsertWithoutTestInput
+    connect?: JobWhereUniqueInput
+    update?: XOR<XOR<JobUpdateToOneWithWhereWithoutTestInput, JobUpdateWithoutTestInput>, JobUncheckedUpdateWithoutTestInput>
+  }
+
+  export type UserCreateNestedOneWithoutUserTestInput = {
+    create?: XOR<UserCreateWithoutUserTestInput, UserUncheckedCreateWithoutUserTestInput>
+    connectOrCreate?: UserCreateOrConnectWithoutUserTestInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type FloatFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
+  export type UserUpdateOneRequiredWithoutUserTestNestedInput = {
+    create?: XOR<UserCreateWithoutUserTestInput, UserUncheckedCreateWithoutUserTestInput>
+    connectOrCreate?: UserCreateOrConnectWithoutUserTestInput
+    upsert?: UserUpsertWithoutUserTestInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutUserTestInput, UserUpdateWithoutUserTestInput>, UserUncheckedUpdateWithoutUserTestInput>
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -13656,6 +16657,45 @@ export namespace Prisma {
     gte?: number | FloatFieldRefInput<$PrismaModel>
     not?: NestedFloatFilter<$PrismaModel> | number
   }
+  export type NestedJsonFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<NestedJsonFilterBase<$PrismaModel>>, Exclude<keyof Required<NestedJsonFilterBase<$PrismaModel>>, 'path'>>,
+        Required<NestedJsonFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<NestedJsonFilterBase<$PrismaModel>>, 'path'>>
+
+  export type NestedJsonFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+  }
+
+  export type NestedFloatWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedFloatFilter<$PrismaModel>
+    _min?: NestedFloatFilter<$PrismaModel>
+    _max?: NestedFloatFilter<$PrismaModel>
+  }
 
   export type ApplicationCreateWithoutUserInput = {
     id?: string
@@ -13727,6 +16767,32 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type UserTestCreateWithoutUserInput = {
+    id?: string
+    jobId: string
+    correctAnswers: number
+    totalQuestions: number
+    scorePercentage: number
+  }
+
+  export type UserTestUncheckedCreateWithoutUserInput = {
+    id?: string
+    jobId: string
+    correctAnswers: number
+    totalQuestions: number
+    scorePercentage: number
+  }
+
+  export type UserTestCreateOrConnectWithoutUserInput = {
+    where: UserTestWhereUniqueInput
+    create: XOR<UserTestCreateWithoutUserInput, UserTestUncheckedCreateWithoutUserInput>
+  }
+
+  export type UserTestCreateManyUserInputEnvelope = {
+    data: UserTestCreateManyUserInput | UserTestCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
   export type ApplicationUpsertWithWhereUniqueWithoutUserInput = {
     where: ApplicationWhereUniqueInput
     update: XOR<ApplicationUpdateWithoutUserInput, ApplicationUncheckedUpdateWithoutUserInput>
@@ -13792,6 +16858,34 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Review"> | Date | string
   }
 
+  export type UserTestUpsertWithWhereUniqueWithoutUserInput = {
+    where: UserTestWhereUniqueInput
+    update: XOR<UserTestUpdateWithoutUserInput, UserTestUncheckedUpdateWithoutUserInput>
+    create: XOR<UserTestCreateWithoutUserInput, UserTestUncheckedCreateWithoutUserInput>
+  }
+
+  export type UserTestUpdateWithWhereUniqueWithoutUserInput = {
+    where: UserTestWhereUniqueInput
+    data: XOR<UserTestUpdateWithoutUserInput, UserTestUncheckedUpdateWithoutUserInput>
+  }
+
+  export type UserTestUpdateManyWithWhereWithoutUserInput = {
+    where: UserTestScalarWhereInput
+    data: XOR<UserTestUpdateManyMutationInput, UserTestUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type UserTestScalarWhereInput = {
+    AND?: UserTestScalarWhereInput | UserTestScalarWhereInput[]
+    OR?: UserTestScalarWhereInput[]
+    NOT?: UserTestScalarWhereInput | UserTestScalarWhereInput[]
+    id?: StringFilter<"UserTest"> | string
+    userId?: StringFilter<"UserTest"> | string
+    jobId?: StringFilter<"UserTest"> | string
+    correctAnswers?: IntFilter<"UserTest"> | number
+    totalQuestions?: IntFilter<"UserTest"> | number
+    scorePercentage?: FloatFilter<"UserTest"> | number
+  }
+
   export type JobCreateWithoutCompanyInput = {
     id?: string
     title: string
@@ -13805,6 +16899,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     Application?: ApplicationCreateNestedManyWithoutJobInput
+    test?: TestCreateNestedManyWithoutJobInput
   }
 
   export type JobUncheckedCreateWithoutCompanyInput = {
@@ -13820,6 +16915,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     Application?: ApplicationUncheckedCreateNestedManyWithoutJobInput
+    test?: TestUncheckedCreateNestedManyWithoutJobInput
   }
 
   export type JobCreateOrConnectWithoutCompanyInput = {
@@ -14146,6 +17242,30 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type TestCreateWithoutJobInput = {
+    id?: string
+    title: string
+    description: string
+    questions: JsonNullValueInput | InputJsonValue
+  }
+
+  export type TestUncheckedCreateWithoutJobInput = {
+    id?: string
+    title: string
+    description: string
+    questions: JsonNullValueInput | InputJsonValue
+  }
+
+  export type TestCreateOrConnectWithoutJobInput = {
+    where: TestWhereUniqueInput
+    create: XOR<TestCreateWithoutJobInput, TestUncheckedCreateWithoutJobInput>
+  }
+
+  export type TestCreateManyJobInputEnvelope = {
+    data: TestCreateManyJobInput | TestCreateManyJobInput[]
+    skipDuplicates?: boolean
+  }
+
   export type CompanyUpsertWithoutJobsInput = {
     update: XOR<CompanyUpdateWithoutJobsInput, CompanyUncheckedUpdateWithoutJobsInput>
     create: XOR<CompanyCreateWithoutJobsInput, CompanyUncheckedCreateWithoutJobsInput>
@@ -14223,6 +17343,33 @@ export namespace Prisma {
     data: XOR<ApplicationUpdateManyMutationInput, ApplicationUncheckedUpdateManyWithoutJobInput>
   }
 
+  export type TestUpsertWithWhereUniqueWithoutJobInput = {
+    where: TestWhereUniqueInput
+    update: XOR<TestUpdateWithoutJobInput, TestUncheckedUpdateWithoutJobInput>
+    create: XOR<TestCreateWithoutJobInput, TestUncheckedCreateWithoutJobInput>
+  }
+
+  export type TestUpdateWithWhereUniqueWithoutJobInput = {
+    where: TestWhereUniqueInput
+    data: XOR<TestUpdateWithoutJobInput, TestUncheckedUpdateWithoutJobInput>
+  }
+
+  export type TestUpdateManyWithWhereWithoutJobInput = {
+    where: TestScalarWhereInput
+    data: XOR<TestUpdateManyMutationInput, TestUncheckedUpdateManyWithoutJobInput>
+  }
+
+  export type TestScalarWhereInput = {
+    AND?: TestScalarWhereInput | TestScalarWhereInput[]
+    OR?: TestScalarWhereInput[]
+    NOT?: TestScalarWhereInput | TestScalarWhereInput[]
+    id?: StringFilter<"Test"> | string
+    jobId?: StringFilter<"Test"> | string
+    title?: StringFilter<"Test"> | string
+    description?: StringFilter<"Test"> | string
+    questions?: JsonFilter<"Test">
+  }
+
   export type UserCreateWithoutApplicationInput = {
     id?: string
     username: string
@@ -14246,6 +17393,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     Review?: ReviewCreateNestedManyWithoutUserInput
+    userTest?: UserTestCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutApplicationInput = {
@@ -14271,6 +17419,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     Review?: ReviewUncheckedCreateNestedManyWithoutUserInput
+    userTest?: UserTestUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutApplicationInput = {
@@ -14291,6 +17440,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     company: CompanyCreateNestedOneWithoutJobsInput
+    test?: TestCreateNestedManyWithoutJobInput
   }
 
   export type JobUncheckedCreateWithoutApplicationInput = {
@@ -14306,6 +17456,7 @@ export namespace Prisma {
     companyId: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    test?: TestUncheckedCreateNestedManyWithoutJobInput
   }
 
   export type JobCreateOrConnectWithoutApplicationInput = {
@@ -14347,6 +17498,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     Review?: ReviewUpdateManyWithoutUserNestedInput
+    userTest?: UserTestUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutApplicationInput = {
@@ -14372,6 +17524,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     Review?: ReviewUncheckedUpdateManyWithoutUserNestedInput
+    userTest?: UserTestUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type JobUpsertWithoutApplicationInput = {
@@ -14398,6 +17551,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     company?: CompanyUpdateOneRequiredWithoutJobsNestedInput
+    test?: TestUpdateManyWithoutJobNestedInput
   }
 
   export type JobUncheckedUpdateWithoutApplicationInput = {
@@ -14413,6 +17567,7 @@ export namespace Prisma {
     companyId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    test?: TestUncheckedUpdateManyWithoutJobNestedInput
   }
 
   export type UserCreateWithoutReviewInput = {
@@ -14438,6 +17593,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     Application?: ApplicationCreateNestedManyWithoutUserInput
+    userTest?: UserTestCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutReviewInput = {
@@ -14463,6 +17619,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     Application?: ApplicationUncheckedCreateNestedManyWithoutUserInput
+    userTest?: UserTestUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutReviewInput = {
@@ -14559,6 +17716,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     Application?: ApplicationUpdateManyWithoutUserNestedInput
+    userTest?: UserTestUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutReviewInput = {
@@ -14584,6 +17742,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     Application?: ApplicationUncheckedUpdateManyWithoutUserNestedInput
+    userTest?: UserTestUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type CompanyUpsertWithoutReviewInput = {
@@ -14647,6 +17806,206 @@ export namespace Prisma {
     jobs?: JobUncheckedUpdateManyWithoutCompanyNestedInput
   }
 
+  export type JobCreateWithoutTestInput = {
+    id?: string
+    title: string
+    description: string
+    city: string
+    category: string
+    tags?: JobCreatetagsInput | string[]
+    salary?: string | null
+    deadline: string
+    isPublished?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    company: CompanyCreateNestedOneWithoutJobsInput
+    Application?: ApplicationCreateNestedManyWithoutJobInput
+  }
+
+  export type JobUncheckedCreateWithoutTestInput = {
+    id?: string
+    title: string
+    description: string
+    city: string
+    category: string
+    tags?: JobCreatetagsInput | string[]
+    salary?: string | null
+    deadline: string
+    isPublished?: boolean
+    companyId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    Application?: ApplicationUncheckedCreateNestedManyWithoutJobInput
+  }
+
+  export type JobCreateOrConnectWithoutTestInput = {
+    where: JobWhereUniqueInput
+    create: XOR<JobCreateWithoutTestInput, JobUncheckedCreateWithoutTestInput>
+  }
+
+  export type JobUpsertWithoutTestInput = {
+    update: XOR<JobUpdateWithoutTestInput, JobUncheckedUpdateWithoutTestInput>
+    create: XOR<JobCreateWithoutTestInput, JobUncheckedCreateWithoutTestInput>
+    where?: JobWhereInput
+  }
+
+  export type JobUpdateToOneWithWhereWithoutTestInput = {
+    where?: JobWhereInput
+    data: XOR<JobUpdateWithoutTestInput, JobUncheckedUpdateWithoutTestInput>
+  }
+
+  export type JobUpdateWithoutTestInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    city?: StringFieldUpdateOperationsInput | string
+    category?: StringFieldUpdateOperationsInput | string
+    tags?: JobUpdatetagsInput | string[]
+    salary?: NullableStringFieldUpdateOperationsInput | string | null
+    deadline?: StringFieldUpdateOperationsInput | string
+    isPublished?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    company?: CompanyUpdateOneRequiredWithoutJobsNestedInput
+    Application?: ApplicationUpdateManyWithoutJobNestedInput
+  }
+
+  export type JobUncheckedUpdateWithoutTestInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    city?: StringFieldUpdateOperationsInput | string
+    category?: StringFieldUpdateOperationsInput | string
+    tags?: JobUpdatetagsInput | string[]
+    salary?: NullableStringFieldUpdateOperationsInput | string | null
+    deadline?: StringFieldUpdateOperationsInput | string
+    isPublished?: BoolFieldUpdateOperationsInput | boolean
+    companyId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    Application?: ApplicationUncheckedUpdateManyWithoutJobNestedInput
+  }
+
+  export type UserCreateWithoutUserTestInput = {
+    id?: string
+    username: string
+    email: string
+    role?: string
+    password: string
+    firstName?: string | null
+    lastName?: string | null
+    gender?: $Enums.Gender | null
+    dob?: string | null
+    education?: string | null
+    country?: string | null
+    state?: string | null
+    city?: string | null
+    zipCode?: string | null
+    regionNumber?: string | null
+    phoneNumber?: string | null
+    avatar?: string | null
+    isVerify?: boolean
+    verificationSent?: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    Application?: ApplicationCreateNestedManyWithoutUserInput
+    Review?: ReviewCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutUserTestInput = {
+    id?: string
+    username: string
+    email: string
+    role?: string
+    password: string
+    firstName?: string | null
+    lastName?: string | null
+    gender?: $Enums.Gender | null
+    dob?: string | null
+    education?: string | null
+    country?: string | null
+    state?: string | null
+    city?: string | null
+    zipCode?: string | null
+    regionNumber?: string | null
+    phoneNumber?: string | null
+    avatar?: string | null
+    isVerify?: boolean
+    verificationSent?: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    Application?: ApplicationUncheckedCreateNestedManyWithoutUserInput
+    Review?: ReviewUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutUserTestInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutUserTestInput, UserUncheckedCreateWithoutUserTestInput>
+  }
+
+  export type UserUpsertWithoutUserTestInput = {
+    update: XOR<UserUpdateWithoutUserTestInput, UserUncheckedUpdateWithoutUserTestInput>
+    create: XOR<UserCreateWithoutUserTestInput, UserUncheckedCreateWithoutUserTestInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutUserTestInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutUserTestInput, UserUncheckedUpdateWithoutUserTestInput>
+  }
+
+  export type UserUpdateWithoutUserTestInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    role?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    gender?: NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
+    dob?: NullableStringFieldUpdateOperationsInput | string | null
+    education?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    zipCode?: NullableStringFieldUpdateOperationsInput | string | null
+    regionNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
+    isVerify?: BoolFieldUpdateOperationsInput | boolean
+    verificationSent?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    Application?: ApplicationUpdateManyWithoutUserNestedInput
+    Review?: ReviewUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutUserTestInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    role?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    gender?: NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
+    dob?: NullableStringFieldUpdateOperationsInput | string | null
+    education?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    zipCode?: NullableStringFieldUpdateOperationsInput | string | null
+    regionNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
+    isVerify?: BoolFieldUpdateOperationsInput | boolean
+    verificationSent?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    Application?: ApplicationUncheckedUpdateManyWithoutUserNestedInput
+    Review?: ReviewUncheckedUpdateManyWithoutUserNestedInput
+  }
+
   export type ApplicationCreateManyUserInput = {
     id?: string
     jobId: string
@@ -14670,6 +18029,14 @@ export namespace Prisma {
     advice: string
     createdAt?: Date | string
     updatedAt?: Date | string
+  }
+
+  export type UserTestCreateManyUserInput = {
+    id?: string
+    jobId: string
+    correctAnswers: number
+    totalQuestions: number
+    scorePercentage: number
   }
 
   export type ApplicationUpdateWithoutUserInput = {
@@ -14747,6 +18114,30 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type UserTestUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    jobId?: StringFieldUpdateOperationsInput | string
+    correctAnswers?: IntFieldUpdateOperationsInput | number
+    totalQuestions?: IntFieldUpdateOperationsInput | number
+    scorePercentage?: FloatFieldUpdateOperationsInput | number
+  }
+
+  export type UserTestUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    jobId?: StringFieldUpdateOperationsInput | string
+    correctAnswers?: IntFieldUpdateOperationsInput | number
+    totalQuestions?: IntFieldUpdateOperationsInput | number
+    scorePercentage?: FloatFieldUpdateOperationsInput | number
+  }
+
+  export type UserTestUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    jobId?: StringFieldUpdateOperationsInput | string
+    correctAnswers?: IntFieldUpdateOperationsInput | number
+    totalQuestions?: IntFieldUpdateOperationsInput | number
+    scorePercentage?: FloatFieldUpdateOperationsInput | number
+  }
+
   export type JobCreateManyCompanyInput = {
     id?: string
     title: string
@@ -14789,6 +18180,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     Application?: ApplicationUpdateManyWithoutJobNestedInput
+    test?: TestUpdateManyWithoutJobNestedInput
   }
 
   export type JobUncheckedUpdateWithoutCompanyInput = {
@@ -14804,6 +18196,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     Application?: ApplicationUncheckedUpdateManyWithoutJobNestedInput
+    test?: TestUncheckedUpdateManyWithoutJobNestedInput
   }
 
   export type JobUncheckedUpdateManyWithoutCompanyInput = {
@@ -14971,6 +18364,13 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
+  export type TestCreateManyJobInput = {
+    id?: string
+    title: string
+    description: string
+    questions: JsonNullValueInput | InputJsonValue
+  }
+
   export type ApplicationUpdateWithoutJobInput = {
     id?: StringFieldUpdateOperationsInput | string
     status?: EnumApplicationStatusFieldUpdateOperationsInput | $Enums.ApplicationStatus
@@ -14999,6 +18399,27 @@ export namespace Prisma {
     expectedSalary?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TestUpdateWithoutJobInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    questions?: JsonNullValueInput | InputJsonValue
+  }
+
+  export type TestUncheckedUpdateWithoutJobInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    questions?: JsonNullValueInput | InputJsonValue
+  }
+
+  export type TestUncheckedUpdateManyWithoutJobInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    questions?: JsonNullValueInput | InputJsonValue
   }
 
 

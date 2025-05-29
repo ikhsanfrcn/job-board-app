@@ -229,9 +229,30 @@ exports.Prisma.ReviewScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.TestScalarFieldEnum = {
+  id: 'id',
+  jobId: 'jobId',
+  title: 'title',
+  description: 'description',
+  questions: 'questions'
+};
+
+exports.Prisma.UserTestScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  jobId: 'jobId',
+  correctAnswers: 'correctAnswers',
+  totalQuestions: 'totalQuestions',
+  scorePercentage: 'scorePercentage'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
+};
+
+exports.Prisma.JsonNullValueInput = {
+  JsonNull: Prisma.JsonNull
 };
 
 exports.Prisma.QueryMode = {
@@ -242,6 +263,12 @@ exports.Prisma.QueryMode = {
 exports.Prisma.NullsOrder = {
   first: 'first',
   last: 'last'
+};
+
+exports.Prisma.JsonNullValueFilter = {
+  DbNull: Prisma.DbNull,
+  JsonNull: Prisma.JsonNull,
+  AnyNull: Prisma.AnyNull
 };
 exports.Gender = exports.$Enums.Gender = {
   PreferNotToSay: 'PreferNotToSay',
@@ -266,7 +293,9 @@ exports.Prisma.ModelName = {
   Jobdesc: 'Jobdesc',
   Developer: 'Developer',
   Application: 'Application',
-  Review: 'Review'
+  Review: 'Review',
+  Test: 'Test',
+  UserTest: 'UserTest'
 };
 
 /**
