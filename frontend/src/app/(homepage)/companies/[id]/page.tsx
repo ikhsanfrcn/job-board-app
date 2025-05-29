@@ -8,7 +8,7 @@ export default async function CompanyDetailPage({
 }) {
   const id = (await params).id;
   return (
-    <div className="w-full lg:px-32">
+    <div className="w-full lg:px-32 p-4">
       <div className="w-full flex flex-wrap">
         <div className="hidden lg:block lg:w-3/12">
           <Sidebar />
@@ -17,7 +17,7 @@ export default async function CompanyDetailPage({
           <Detail id={id} />
         </div>
         <div className="hidden lg:block lg:w-3/12">
-        <Sugestion/>
+          <Sugestion />
         </div>
       </div>
     </div>

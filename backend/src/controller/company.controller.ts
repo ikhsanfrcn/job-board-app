@@ -189,24 +189,29 @@ export class CompanyController {
       const { id } = req.params;
       const company = await prisma.company.findUnique({
         where: { id },
-        select: {
-          id: true,
-          name: true,
-          about: true,
-          country: true,
-          state: true,
-          city: true,
-          zipCode: true,
-          regionNumber: true,
-          phoneNumber: true,
-          address: true,
-          website: true,
-          logo: true,
+        include: {
+          Review: true,
         },
       });
-      res
-        .status(200)
-        .send({ message: "Company fetched successfully ✅", data: company });
+
+      if (!company) {
+        throw { message: "Company not found" };
+      }
+      const totalReviews = company.Review.length;
+      const totalRating = company.Review.reduce(
+        (sum, review) => sum + review.rating,
+        0
+      );
+      const averageRating = totalReviews > 0 ? totalRating / totalReviews : 0;
+      const { password, ...companyWithoutPassword } = company;
+
+      res.status(200).send({
+        message: "Company fetched successfully ✅",
+        data: {
+          ...companyWithoutPassword,
+          averageRating,
+        },
+      });
     } catch (err) {
       console.log(err);
       res.status(404).send(err);
