@@ -7,7 +7,7 @@ import { useState } from "react";
 import { CgCloseR, CgMenu, CgSearch } from "react-icons/cg";
 import MenuDesktop from "./menud";
 import MenuMobile from "./menum";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import MiddleMenu from "./middlemenu";
 import { IoLogInOutline } from "react-icons/io5";
 import MiddleMenuMobile from "./middlemenum";
@@ -17,14 +17,15 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [isOpenSearch, setIsOpenSearch] = useState(false);
   const toggleMenuSearch = () => setIsOpenSearch(!isOpenSearch);
-  const [searchQuery, setSearchQuery] = useState("");
+  const searchParams = useSearchParams();
+  const [searchQuery, setSearchQuery] = useState(searchParams.get("title") || "");
   const toggleMenu = () => setIsOpen(!isOpen);
   const { data: session } = useSession();
   const isLogin = !!session;
   const router = useRouter();
   const handleSearch = () => {
     if (searchQuery.trim()) {
-      router.push(`/jobs?title=${searchQuery}`);
+      router.push(`/job?title=${searchQuery}`);
     }
   };
 

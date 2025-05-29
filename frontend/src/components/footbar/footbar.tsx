@@ -17,7 +17,7 @@ export default function Footbar() {
             <ul className="mt-3 space-y-2">
               <li>
                 <Link
-                  href="/jobs"
+                  href="/job"
                   className="flex text-base text-black transition-all duration-200 hover:underline"
                 >
                   Jobs
@@ -25,7 +25,7 @@ export default function Footbar() {
               </li>
               <li>
                 <Link
-                  href="/companies"
+                  href="/company"
                   className="flex text-base text-black transition-all duration-200 hover:underline"
                 >
                   Companies
@@ -33,7 +33,7 @@ export default function Footbar() {
               </li>
               <li>
                 <Link
-                  href="/salaries"
+                  href="/salary"
                   className="flex text-base text-black transition-all duration-200 hover:underline"
                 >
                   Salaries

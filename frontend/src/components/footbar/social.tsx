@@ -1,10 +1,8 @@
 import Link from "next/link";
 import {
-  FaDiscord,
   FaFacebookF,
-  FaGithub,
-  FaInstagram,
-  FaYoutube,
+  FaLinkedin,
+  FaWhatsapp,
 } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
 
@@ -14,7 +12,7 @@ export default function SocialShare() {
       <ul className="flex items-center space-x-5 text-2xl">
         <li>
           <Link
-            href="/"
+            href="https://www.facebook.com/sharer/sharer.php?u=https://localhost:3000"
             className="flex items-center justify-center border transition-all duration-200 rounded-full w-10 h-10 hover:bg-blue-500 hover:text-white"
           >
             <FaFacebookF />
@@ -22,7 +20,7 @@ export default function SocialShare() {
         </li>
         <li>
           <Link
-            href="/"
+            href="https://www.twitter.com/intent/tweet?url=https://localhost:3000"
             className="flex items-center justify-center border transition-all duration-200 rounded-full w-10 h-10 hover:bg-blue-400 hover:text-white"
           >
             <FaXTwitter />
@@ -30,34 +28,18 @@ export default function SocialShare() {
         </li>
         <li>
           <Link
-            href="/"
-            className="flex items-center justify-center border transition-all duration-200 rounded-full w-10 h-10 hover:bg-red-500 hover:text-white"
+            href="https://wa.me/?text=https://localhost:3000"
+            className="flex items-center justify-center border transition-all duration-200 rounded-full w-10 h-10 hover:bg-green-600 hover:text-white"
           >
-            <FaYoutube />
+            <FaWhatsapp />
           </Link>
         </li>
         <li>
           <Link
-            href="/"
-            className="flex items-center justify-center border transition-all duration-200 rounded-full w-10 h-10 hover:bg-pink-400 hover:text-white"
+            href="https://www.linkedin.com/sharing/share-offsite/?url=https://localhost:3000"
+            className="flex items-center justify-center border transition-all duration-200 rounded-full w-10 h-10 hover:bg-blue-500 hover:text-white"
           >
-            <FaInstagram />
-          </Link>
-        </li>
-        <li>
-          <Link
-            href="/"
-            className="flex items-center justify-center border transition-all duration-200 rounded-full w-10 h-10 hover:bg-black hover:text-white"
-          >
-            <FaGithub />
-          </Link>
-        </li>
-        <li>
-          <Link
-            href="/"
-            className="flex items-center justify-center border transition-all duration-200 rounded-full w-10 h-10 hover:bg-blue-700 hover:text-white"
-          >
-            <FaDiscord />
+            <FaLinkedin />
           </Link>
         </li>
       </ul>

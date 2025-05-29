@@ -1,4 +1,13 @@
+"use client"
+
+import { useSearchParams } from "next/navigation";
+import { useState } from "react";
+
 export default function JobSearchHeader() {
+  const searchParams = useSearchParams();
+  const [title, setTitle] = useState(searchParams.get("title") || "");
+  const [city, setCity] = useState(searchParams.get("city") || "");
+
   return (
     <div className="w-full bg-white px-4 py-6 border-b">
       <div className="max-w-4xl mx-auto flex gap-2 mb-4">
@@ -7,6 +16,8 @@ export default function JobSearchHeader() {
           <input
             type="text"
             placeholder="Find your perfect job"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
             className="bg-transparent w-full outline-none"
           />
         </div>
@@ -15,6 +26,8 @@ export default function JobSearchHeader() {
           <input
             type="text"
             placeholder='City, state, zipcode, or "remote"'
+            value={city}
+            onChange={(e) => setCity(e.target.value)}
             className="bg-transparent w-full outline-none"
           />
         </div>
