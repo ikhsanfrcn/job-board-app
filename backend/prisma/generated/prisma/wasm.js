@@ -20,11 +20,11 @@ exports.Prisma = Prisma
 exports.$Enums = {}
 
 /**
- * Prisma Client JS version: 6.8.1
+ * Prisma Client JS version: 6.8.2
  * Query Engine version: 2060c79ba17c6bb9f5823312b6f6b7f4a845738e
  */
 Prisma.prismaVersion = {
-  client: "6.8.1",
+  client: "6.8.2",
   engine: "2060c79ba17c6bb9f5823312b6f6b7f4a845738e"
 }
 
@@ -213,6 +213,22 @@ exports.Prisma.ApplicationScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.ReviewScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  companyId: 'companyId',
+  rating: 'rating',
+  isCurrentEmployee: 'isCurrentEmployee',
+  employmentStatus: 'employmentStatus',
+  jobTitle: 'jobTitle',
+  headline: 'headline',
+  pros: 'pros',
+  cons: 'cons',
+  advice: 'advice',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -249,7 +265,8 @@ exports.Prisma.ModelName = {
   Job: 'Job',
   Jobdesc: 'Jobdesc',
   Developer: 'Developer',
-  Application: 'Application'
+  Application: 'Application',
+  Review: 'Review'
 };
 
 /**

@@ -1,3 +1,5 @@
+import { IReview } from "./review";
+
 export interface ICompanyRegisterForm {
   name: string;
   email: string;
@@ -37,4 +39,8 @@ export interface ICompanyProfile {
   industryId: string;
   latitude: string;
   longitude: string;
+  createdAt: Date;
+  updatedAt: Date;
+  averageRating: number;
+  Review: IReview[];
 }

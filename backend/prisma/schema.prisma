@@ -34,6 +34,7 @@ model User {
   createdAt   DateTime      @default(now())
   updatedAt   DateTime      @updatedAt
   Application Application[]
+  Review      Review[]
 }
 
 enum Gender {
@@ -69,6 +70,7 @@ model Company {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  Review    Review[]
 }
 
 model Industry {
@@ -128,4 +130,25 @@ enum ApplicationStatus {
   INTERVIEW
   OFFERED
   REJECTED
+}
+
+model Review {
+  id                String   @id @default(uuid())
+  userId            String
+  companyId         String
+  rating            Int
+  isCurrentEmployee Boolean
+  employmentStatus  String
+  jobTitle          String
+  headline          String
+  pros              String
+  cons              String
+  advice            String
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  user    User    @relation(fields: [userId], references: [id])
+  company Company @relation(fields: [companyId], references: [id])
+
+  @@unique([userId, companyId])
 }
