@@ -9,4 +9,7 @@ export interface IJob {
   deadline: string;
   isPublished: boolean;
   createdAt: string;
+  company: {
+    name: string
+  }
 }
