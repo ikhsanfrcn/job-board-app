@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import prisma from "../prisma";
+import { cloudinaryUpload } from "../helpers/cloudinary";
 
 export class UserController {
   async getUserProfile(req: Request, res: Response) {
@@ -20,6 +21,7 @@ export class UserController {
           zipCode: true,
           regionNumber: true,
           phoneNumber: true,
+          avatar: true,
         },
       });
       res.status(200).send({
@@ -93,6 +95,28 @@ export class UserController {
     } catch (err) {
       console.error(err);
       res.status(400).send(err);
+    }
+  }
+      
+  async updateAvatar(req: Request, res: Response) {
+    try {
+      const userId = req.user?.id;
+
+      if (!req.file) throw { message: "avatar is required" };
+      const { secure_url } = await cloudinaryUpload(req.file, "jobsdoors");
+
+      await prisma.user.update({
+        where: { id: userId },
+        data: {
+          avatar: secure_url,
+        },
+      });
+      res
+        .status(200)
+        .send({ message: "Avatar updated successfully ✅", secure_url });
+    } catch (err) {
+      console.log(err);
+      res.status(404).send(err);
     }
   }
 }

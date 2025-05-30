@@ -24,3 +24,74 @@ export const validateUpdateProfile = [
     next();
   },
 ];
+
+export const validateCreateReview = [
+  body("rating")
+    .notEmpty()
+    .withMessage("Rating is required")
+    .isInt({ min: 1, max: 5 })
+    .withMessage("Rating must be between 1 and 5"),
+
+  body("isCurrentEmployee")
+    .notEmpty()
+    .withMessage("isCurrentEmployee is required")
+    .isBoolean()
+    .withMessage("isCurrentEmployee must be a boolean"),
+
+  body("employmentStatus")
+    .notEmpty()
+    .withMessage("Employment status is required")
+    .isString()
+    .withMessage("Employment status must be a string"),
+
+  body("jobTitle")
+    .notEmpty()
+    .withMessage("Job title is required")
+    .isString()
+    .withMessage("Job title must be a string"),
+
+  body("headline")
+    .notEmpty()
+    .withMessage("Headline is required")
+    .isString()
+    .withMessage("Headline must be a string"),
+
+  body("pros")
+    .notEmpty()
+    .withMessage("Pros are required")
+    .isString()
+    .withMessage("Pros must be a string"),
+
+  body("cons")
+    .notEmpty()
+    .withMessage("Cons are required")
+    .isString()
+    .withMessage("Cons must be a string"),
+
+  body("advice")
+    .notEmpty()
+    .withMessage("Advice is required")
+    .isString()
+    .withMessage("Advice must be a string"),
+
+  (req: Request, res: Response, next: NextFunction) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      res.status(400).send({ errors: errors.array() });
+      return;
+    }
+    next();
+  },
+];
+
+export const validateUpdateAvatar = [
+  body("avatar").notEmpty().isString(),
+  (req: Request, res: Response, next: NextFunction) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      res.status(400).send({ errors: errors.array() });
+      return;
+    }
+    next();
+  },
+];

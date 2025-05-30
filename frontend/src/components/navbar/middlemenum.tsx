@@ -16,7 +16,7 @@ export default function MiddleMenuMobile() {
         Jobs
       </Link>
       <Link
-        href={"/company"}
+        href={"/companies"}
         className="block w-full px-4 py-2 mb-2 text-sm hover:bg-gray-200 transition duration-300"
       >
         Companies

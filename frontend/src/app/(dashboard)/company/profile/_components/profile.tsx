@@ -38,7 +38,7 @@ export default function Profile() {
   }, [fetchProfile]);
 
   if (loading) return <ProfileSkeleton />;
-  if (!profile) return <div>No profile data.</div>;
+  if (!profile) return <div className="p-6">No profile data.</div>;
 
   return (
     <div className="w-full">
