@@ -84,6 +84,20 @@ export class UserController {
     }
   }
 
+  async getUserByEmail(req: Request, res: Response) {
+    try {
+      const { email } = req.params;
+      const user = await prisma.user.findUnique({ where: { email } });
+
+      if (!user) throw { message: "User not found" };
+
+      res.status(200).send(user);
+    } catch (err) {
+      console.error(err);
+      res.status(400).send(err);
+    }
+  }
+      
   async updateAvatar(req: Request, res: Response) {
     try {
       const userId = req.user?.id;

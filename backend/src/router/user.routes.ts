@@ -33,6 +33,7 @@ export class UserRouter {
       this.userController.updateUser
     );
 
+    this.router.get("/user-email/:email", this.userController.getUserByEmail);
     this.router.patch(
       "/update-avatar",
       uploader("memoryStorage", "avatar-").single("image"),

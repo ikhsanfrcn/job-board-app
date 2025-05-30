@@ -54,7 +54,7 @@ export default function Page({
 
   return (
     <div className="max-w-lg mx-auto p-8 border border-gray-300 bg-white shadow-lg rounded-lg my-10 font-sans">
-      <h2 className="text-2xl font-semibold mb-6 text-center">Create Job Test</h2>
+      <h2 className="text-2xl font-semibold mb-6 text-center">Create Pre Selection Test</h2>
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
