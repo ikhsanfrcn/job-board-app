@@ -97,6 +97,7 @@ model Job {
 
   Application Application[]
   test        Test?
+  userTest    UserTest[]
 }
 
 model Jobdesc {
@@ -161,7 +162,7 @@ model Test {
   jobId       String @unique
   title       String
   description String
-  questions   String
+  questions   Json
 
   job Job @relation(fields: [jobId], references: [id])
 }
@@ -175,4 +176,5 @@ model UserTest {
   scorePercentage Float
 
   user User @relation(fields: [userId], references: [id])
+  job  Job  @relation(fields: [jobId], references: [id])
 }

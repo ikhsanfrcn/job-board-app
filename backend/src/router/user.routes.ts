@@ -28,6 +28,8 @@ export class UserRouter {
       this.authMiddleware.verifyToken,
       this.userController.updateUser
     );
+
+    this.router.get("/user-email/:email", this.userController.getUserByEmail);
   }
   getRouter(): Router {
     return this.router;

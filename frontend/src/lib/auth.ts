@@ -25,23 +25,36 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
       },
       async profile(profile) {
         console.log("Google Profile:", profile);
-        const userData = {
-          username: profile.given_name,
-          email: profile.email,
-          password: profile.at_hash,
-          avatar: profile.picture,
-        };
 
         try {
-          const res = await axios.post("/auth/google", userData);
-          const user = res.data.data;
-          const token = res.data.access_token;
+          const { data: existingUser } = await axios.get(
+            `/users/user-email/${profile.email}`
+          );
+
+          if (existingUser) {
+            return {
+              id: existingUser.id,
+              username: existingUser.username,
+              email: existingUser.email,
+              avatar: existingUser.avatar,
+            };
+          }
+
+          const userData = {
+            username: profile.given_name,
+            email: profile.email,
+            password: profile.at_hash,
+            avatar: profile.picture,
+          };
+
+          const {data: newUser} = await axios.post("/auth/google", userData);
+          const token = newUser.data.accessToken;
 
           return {
-            id: user.id,
-            username: user.username,
-            email: user.email,
-            avatar: user.avatar,
+            id: newUser.data.id,
+            username: newUser.data.username,
+            email: newUser.data.email,
+            avatar: newUser.data.avatar,
             accessToken: token,
             // ...user, // kalau mau bawa data lain ke JWT
           };
@@ -101,7 +114,7 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
         country: token.country as string,
         state: token.state as string,
         city: token.city as string,
-        zipCode: token.zipConde as string,
+        zipCode: token.zipCode as string,
         regionNumber: token.regionNumber as string,
         phoneNumber: token.phoneNumber as string,
         avatar: token.avatar as string,
