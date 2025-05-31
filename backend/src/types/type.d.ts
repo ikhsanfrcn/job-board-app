@@ -51,3 +51,9 @@ export interface GetApplicationsParams {
   page?: number;
   pageSize?: number;
 }
+
+export interface CreateInterviewParams {
+  applicationId: string;
+  date: string;
+  location: string;
+}
