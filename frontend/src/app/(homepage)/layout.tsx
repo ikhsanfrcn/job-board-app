@@ -14,7 +14,7 @@ export default function RootLayout({
 }>) {
   return (
     <main>
-      <div>
+      <div className="max-w-screen">
         <Navbar />
         {children}
       </div>

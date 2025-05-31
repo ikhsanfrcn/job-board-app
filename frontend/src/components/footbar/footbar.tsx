@@ -25,7 +25,7 @@ export default function Footbar() {
               </li>
               <li>
                 <Link
-                  href="/company"
+                  href="/companies"
                   className="flex text-base text-black transition-all duration-200 hover:underline"
                 >
                   Companies
@@ -79,7 +79,7 @@ export default function Footbar() {
               </li>
               <li>
                 <Link
-                  href="/company/login"
+                  href="/company/manage-jobs"
                   className="flex text-base text-black transition-all duration-200 hover:underline"
                 >
                   Employer Center

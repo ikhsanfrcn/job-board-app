@@ -1,23 +1,44 @@
+"use client"
+
 import { IDiscover } from "@/types/discoverJob";
 import axios from "@/lib/axios";
 import Image from "next/image";
 import Link from "next/link";
 import { FcMoneyTransfer } from "react-icons/fc";
+import { useEffect, useState } from "react";
 
-export default async function Discovery() {
-  const res = await axios.get("/jobs");
-  const jobs: IDiscover[] = res.data.data.jobs
-    .sort(
-      (a: IDiscover, b: IDiscover) =>
-        new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-    )
-    .slice(0, 6);
+export default function Discovery({city}: {city?: string}) {
+  const [jobs, setJobs] = useState<IDiscover[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchJobs = async () => {
+      try {
+        const res = await axios.get("/jobs", {
+          params: city ? { city } : {}, // ✅ Fetch jobs based on city
+        });
+
+        const sortedJobs = res.data.data.jobs
+          .sort((a: IDiscover, b: IDiscover) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
+          .slice(0, 6);
+
+        setJobs(sortedJobs);
+      } catch (error) {
+        console.error("Error fetching jobs:", error);
+      } finally {
+        setLoading(false); // ✅ Stop loading after data is fetched
+      }
+    };
+
+    fetchJobs();
+  }, [city]);
+
 
   return (
-    <div className="p-6 max-w-screen-lg mx-auto my-10 font-sans">
+    <div className="p-6 max-w-screen mx-auto my-10 font-sans">
       <div className="flex justify-between items-center">
         <div>
-          <h2 className="text-3xl font-bold text-gray-800">All Jobs</h2>
+          <h2 className="text-3xl font-bold text-gray-800">{city ? `Jobs in ${city}` : "All Jobs"}</h2>
           <p className="text-gray-600">Explore job opportunities</p>
         </div>
         <div>
@@ -31,7 +52,24 @@ export default async function Discovery() {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
-        {jobs.length > 0
+        {loading
+          ? // ✅ Skeleton Loader
+            Array.from({ length: 6 }).map((_, index) => (
+              <div
+                key={index}
+                className="border rounded-lg text-sm shadow-md bg-gray-50 p-6 animate-pulse"
+              >
+                <div className="flex items-center gap-2">
+                  <div className="w-10 h-10 bg-gray-200 rounded-full"></div>
+                  <div className="w-1/2 h-4 bg-gray-200 rounded-md"></div>
+                </div>
+                <div className="w-full h-4 bg-gray-200 rounded-md mt-4"></div>
+                <div className="w-3/4 h-4 bg-gray-200 rounded-md mt-2"></div>
+                <div className="w-full h-6 bg-gray-200 rounded-md mt-5"></div>
+                <div className="w-full h-10 bg-gray-200 rounded-md mt-4"></div>
+              </div>
+            ))
+          : jobs.length > 0
           ? jobs.map((job) => (
               <div
                 key={job.id}

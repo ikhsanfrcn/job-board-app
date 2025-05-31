@@ -33,7 +33,7 @@ function AnimatedCounter({
 
 export default function Hero() {
   return (
-    <div className="w-screen h-screen font-sans">
+    <div className="max-w-screen h-screen font-sans">
       <div
         className="absolute inset-0 z-0"
         style={{
