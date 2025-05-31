@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 
 export default function Discovery({city}: {city?: string}) {
   const [jobs, setJobs] = useState<IDiscover[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchJobs = async () => {
@@ -24,6 +25,8 @@ export default function Discovery({city}: {city?: string}) {
         setJobs(sortedJobs);
       } catch (error) {
         console.error("Error fetching jobs:", error);
+      } finally {
+        setLoading(false); // ✅ Stop loading after data is fetched
       }
     };
 
@@ -49,7 +52,24 @@ export default function Discovery({city}: {city?: string}) {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
-        {jobs.length > 0
+        {loading
+          ? // ✅ Skeleton Loader
+            Array.from({ length: 6 }).map((_, index) => (
+              <div
+                key={index}
+                className="border rounded-lg text-sm shadow-md bg-gray-50 p-6 animate-pulse"
+              >
+                <div className="flex items-center gap-2">
+                  <div className="w-10 h-10 bg-gray-200 rounded-full"></div>
+                  <div className="w-1/2 h-4 bg-gray-200 rounded-md"></div>
+                </div>
+                <div className="w-full h-4 bg-gray-200 rounded-md mt-4"></div>
+                <div className="w-3/4 h-4 bg-gray-200 rounded-md mt-2"></div>
+                <div className="w-full h-6 bg-gray-200 rounded-md mt-5"></div>
+                <div className="w-full h-10 bg-gray-200 rounded-md mt-4"></div>
+              </div>
+            ))
+          : jobs.length > 0
           ? jobs.map((job) => (
               <div
                 key={job.id}

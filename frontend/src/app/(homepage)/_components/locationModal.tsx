@@ -2,11 +2,13 @@
 
 import { useState } from "react";
 
-export default function LocationModal({ setJobType, setUserCity }: { setJobType: (type: "latest" | "nearby") => void; setUserCity: (city: string) => void }) {
+export default function LocationModal({ setJobType, setUserCity, onClose }: { setJobType: (type: "latest" | "nearby") => void; setUserCity: (city: string) => void; onClose: () => void }) {
   const [step, setStep] = useState<"choice" | "requesting">("choice");
 
   const handleShowLatest = () => {
     setJobType("latest"); // ✅ Load latest jobs
+    sessionStorage.setItem("jobPreference", "latest");
+    onClose();
   };
 
   const handleShowNearby = () => {
@@ -24,13 +26,21 @@ export default function LocationModal({ setJobType, setUserCity }: { setJobType:
 
           setUserCity(cityName); // ✅ Set city for location-based job search
           setJobType("nearby");
+          // Store the choice and city in sessionStorage
+          sessionStorage.setItem("jobPreference", "nearby");
+          sessionStorage.setItem("userCity", cityName);
+          onClose(); // Close the modal
         },
         () => {
           setJobType("latest"); // ✅ Default to latest jobs if denied
+          sessionStorage.setItem("jobPreference", "latest");
+          onClose(); // Close the modal
         }
       );
     } else {
       setJobType("latest"); // ✅ Handle geolocation unavailable case
+      sessionStorage.setItem("jobPreference", "latest");
+      onClose(); // Close the modal
     }
   };
 
