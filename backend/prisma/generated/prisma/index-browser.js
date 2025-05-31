@@ -20,11 +20,11 @@ exports.Prisma = Prisma
 exports.$Enums = {}
 
 /**
- * Prisma Client JS version: 6.8.2
+ * Prisma Client JS version: 6.8.1
  * Query Engine version: 2060c79ba17c6bb9f5823312b6f6b7f4a845738e
  */
 Prisma.prismaVersion = {
-  client: "6.8.2",
+  client: "6.8.1",
   engine: "2060c79ba17c6bb9f5823312b6f6b7f4a845738e"
 }
 
@@ -246,6 +246,13 @@ exports.Prisma.UserTestScalarFieldEnum = {
   scorePercentage: 'scorePercentage'
 };
 
+exports.Prisma.InterviewScalarFieldEnum = {
+  id: 'id',
+  applicationId: 'applicationId',
+  date: 'date',
+  location: 'location'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -295,7 +302,8 @@ exports.Prisma.ModelName = {
   Application: 'Application',
   Review: 'Review',
   Test: 'Test',
-  UserTest: 'UserTest'
+  UserTest: 'UserTest',
+  Interview: 'Interview'
 };
 
 /**
