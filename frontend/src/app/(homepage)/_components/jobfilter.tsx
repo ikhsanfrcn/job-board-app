@@ -25,7 +25,7 @@ export default function JobFilter() {
 
 
   return (
-    <div className="px-4 py-10 bg-gray-100 font-sans">
+    <div className="w-full px-4 py-10 bg-gray-100 font-sans">
       <div className="flex justify-center">
         <h3 className="text-3xl font-semibold tracking-tight">
           Start to find your dream job

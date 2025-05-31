@@ -1,23 +1,41 @@
+"use client"
+
 import { IDiscover } from "@/types/discoverJob";
 import axios from "@/lib/axios";
 import Image from "next/image";
 import Link from "next/link";
 import { FcMoneyTransfer } from "react-icons/fc";
+import { useEffect, useState } from "react";
 
-export default async function Discovery() {
-  const res = await axios.get("/jobs");
-  const jobs: IDiscover[] = res.data.data.jobs
-    .sort(
-      (a: IDiscover, b: IDiscover) =>
-        new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-    )
-    .slice(0, 6);
+export default function Discovery({city}: {city?: string}) {
+  const [jobs, setJobs] = useState<IDiscover[]>([]);
+
+  useEffect(() => {
+    const fetchJobs = async () => {
+      try {
+        const res = await axios.get("/jobs", {
+          params: city ? { city } : {}, // ✅ Fetch jobs based on city
+        });
+
+        const sortedJobs = res.data.data.jobs
+          .sort((a: IDiscover, b: IDiscover) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
+          .slice(0, 6);
+
+        setJobs(sortedJobs);
+      } catch (error) {
+        console.error("Error fetching jobs:", error);
+      }
+    };
+
+    fetchJobs();
+  }, [city]);
+
 
   return (
-    <div className="p-6 max-w-screen-lg mx-auto my-10 font-sans">
+    <div className="p-6 max-w-screen mx-auto my-10 font-sans">
       <div className="flex justify-between items-center">
         <div>
-          <h2 className="text-3xl font-bold text-gray-800">All Jobs</h2>
+          <h2 className="text-3xl font-bold text-gray-800">{city ? `Jobs in ${city}` : "All Jobs"}</h2>
           <p className="text-gray-600">Explore job opportunities</p>
         </div>
         <div>
