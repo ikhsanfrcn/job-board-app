@@ -81,20 +81,21 @@ model Industry {
 }
 
 model Job {
-  id          String   @id @default(uuid())
-  title       String
-  description String
-  city        String
-  category    String
-  tags        String[]
-  salary      String?
-  deadline    String
-  isPublished Boolean  @default(false)
-  companyId   String
-  company     Company  @relation(fields: [companyId], references: [id])
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id           String   @id @default(uuid())
+  title        String
+  description  String
+  city         String
+  category     String
+  tags         String[]
+  salary       String?
+  deadline     String
+  companyId    String
+  isPublished  Boolean  @default(false)
+  isTestActive Boolean  @default(false)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
 
+  company     Company       @relation(fields: [companyId], references: [id])
   Application Application[]
   test        Test?
   userTest    UserTest[]
@@ -159,22 +160,27 @@ model Review {
 }
 
 model Test {
-  id          String @id @default(uuid())
-  jobId       String @unique
+  id          String   @id @default(uuid())
+  jobId       String   @unique
   title       String
   description String
   questions   Json
+  isActive    Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 
   job Job @relation(fields: [jobId], references: [id])
 }
 
 model UserTest {
-  id              String @id @default(uuid())
-  userId          String
+  id              String   @id @default(uuid())
+  userId          String   @unique
   jobId           String
   correctAnswers  Int
   totalQuestions  Int
   scorePercentage Float
+  completedAt     DateTime @default(now())
+  updatedAt       DateTime @updatedAt
 
   user User @relation(fields: [userId], references: [id])
   job  Job  @relation(fields: [jobId], references: [id])
