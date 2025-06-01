@@ -1,4 +1,7 @@
 export interface IUserProfile {
+  id: number;
+  role: string;
+  avatar: string;
   email: string;
   username: string;
   firstName: string;

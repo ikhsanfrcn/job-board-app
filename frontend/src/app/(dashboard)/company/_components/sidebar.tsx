@@ -28,7 +28,9 @@ export default function SideBar() {
   ];
 
   const isActive = (path: string) =>
-    pathname === path ? "border-gray-300 font-semibold" : "border-white";
+    pathname.startsWith(path)
+      ? "border-gray-300 font-semibold"
+      : "border-white";
 
   const fetchLogo = useCallback(async () => {
     if (!token) return;

@@ -16,11 +16,31 @@ export class ApplicationRouter {
   }
 
   private initializeRoute() {
-    this.router.post("/", uploader("memoryStorage", "cv-").single("cvUrl"), this.authMiddleware.verifyToken, this.applicationController.createApplication)
-    this.router.get("/", this.authMiddleware.verifyToken, this.applicationController.getUserApplications)
+    this.router.post(
+      "/",
+      uploader("memoryStorage", "cv-").single("cvUrl"),
+      this.authMiddleware.verifyToken,
+      this.applicationController.createApplication
+    );
+    this.router.get(
+      "/",
+      this.authMiddleware.verifyToken,
+      this.applicationController.getUserApplications
+    );
+
+    this.router.get(
+      "/company/:id",
+      this.authMiddleware.verifyToken,
+      this.applicationController.getCompanyApplications
+    );
+    this.router.patch(
+      "/:id/status",
+      this.authMiddleware.verifyToken,
+      this.applicationController.updateStatus
+    );
   }
 
   getRouter(): Router {
-    return this.router
+    return this.router;
   }
 }

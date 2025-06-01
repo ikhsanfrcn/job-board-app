@@ -28,3 +28,20 @@ export const getUserApplications = async ({
     currentPage: page,
   };
 };
+
+export async function getCompanyApplicationsService(
+  jobId: string,
+  companyId: string
+) {
+  return prisma.application.findMany({
+    where: {
+      jobId,
+      job: {
+        companyId: companyId,
+      },
+    },
+    include: {
+      user: true,
+    },
+  });
+}

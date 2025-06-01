@@ -97,13 +97,17 @@ export class UserController {
       res.status(400).send(err);
     }
   }
-      
+
   async updateAvatar(req: Request, res: Response) {
     try {
       const userId = req.user?.id;
 
       if (!req.file) throw { message: "avatar is required" };
-      const { secure_url } = await cloudinaryUpload(req.file, "jobsdoors");
+      const { secure_url } = await cloudinaryUpload(
+        req.file,
+        "jobsdoors",
+        "image"
+      );
 
       await prisma.user.update({
         where: { id: userId },
