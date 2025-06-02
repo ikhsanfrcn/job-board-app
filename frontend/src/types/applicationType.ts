@@ -9,7 +9,8 @@ export interface Application {
   job: {
     title: string;
     city: string;
-    salary: string | null;
+    salaryStart: string | null;
+    salaryEnd: string | null;
   };
 }
 export interface IApplication {
@@ -21,7 +22,8 @@ export interface IApplication {
   job: {
     title: string;
     city: string;
-    salary: string | null;
+    salaryStart: string | null;
+    salaryEnd: string | null;
   };
   user: IUserProfile;
 }

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import { IMJob } from "@/types/job";
@@ -75,7 +76,8 @@ export default function ModalEditJob({
             city: editJob.city,
             category: editJob.category,
             tags: editJob.tags.join(", "),
-            salary: editJob.salary,
+            salaryStart: editJob.salaryStart,
+            salaryEnd: editJob.salaryEnd,
             deadline: editJob.deadline,
             isPublished: editJob.isPublished,
           }}
@@ -91,7 +93,8 @@ export default function ModalEditJob({
                 .split(",")
                 .map((tag) => tag.trim())
                 .filter(Boolean),
-              salary: values.salary,
+              salaryStart: values.salaryStart,
+              salaryEnd: values.salaryEnd,
               deadline: values.deadline,
               isPublished: values.isPublished,
             };
@@ -210,13 +213,27 @@ export default function ModalEditJob({
 
               <div>
                 <Field
-                  name="salary"
+                  name="salaryStart"
                   type="number"
                   className="w-full border px-3 py-2 rounded"
-                  placeholder="Salary"
+                  placeholder="Salary Start"
                 />
                 <ErrorMessage
-                  name="salary"
+                  name="salaryStart"
+                  component="div"
+                  className="text-red-500 text-sm"
+                />
+              </div>
+
+              <div>
+                <Field
+                  name="salaryEnd"
+                  type="number"
+                  className="w-full border px-3 py-2 rounded"
+                  placeholder="Salary End"
+                />
+                <ErrorMessage
+                  name="salaryEnd"
                   component="div"
                   className="text-red-500 text-sm"
                 />

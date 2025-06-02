@@ -21,9 +21,9 @@ export const ApplicationCard = ({ application }: Props) => {
       </div>
       <p className="text-sm text-gray-600">{job.city}</p>
       <p className="text-sm text-gray-600 mb-1">
-        Gaji: {job.salary || "Tidak disebutkan"}
+        Salary: {job.salaryStart || "-"} - {job.salaryEnd}
       </p>
-      <p className="text-sm text-gray-400">Tanggal Lamar: {createdDate}</p>
+      <p className="text-sm text-gray-400">Application Date: {createdDate}</p>
       <div className="mt-2">
         <a
           href={application.cvUrl}
@@ -31,7 +31,7 @@ export const ApplicationCard = ({ application }: Props) => {
           rel="noopener noreferrer"
           className="text-blue-600 hover:underline text-sm"
         >
-          Lihat CV
+          View CV
         </a>
       </div>
     </div>

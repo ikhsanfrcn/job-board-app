@@ -3629,8 +3629,8 @@ export namespace Prisma {
     longitude?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    jobs?: boolean | Company$jobsArgs<ExtArgs>
     industry?: boolean | IndustryDefaultArgs<ExtArgs>
+    jobs?: boolean | Company$jobsArgs<ExtArgs>
     Review?: boolean | Company$ReviewArgs<ExtArgs>
     _count?: boolean | CompanyCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["company"]>
@@ -3711,8 +3711,8 @@ export namespace Prisma {
 
   export type CompanyOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "role" | "password" | "about" | "country" | "state" | "city" | "zipCode" | "regionNumber" | "phoneNumber" | "address" | "website" | "logo" | "isVerify" | "industryId" | "latitude" | "longitude" | "createdAt" | "updatedAt", ExtArgs["result"]["company"]>
   export type CompanyInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    jobs?: boolean | Company$jobsArgs<ExtArgs>
     industry?: boolean | IndustryDefaultArgs<ExtArgs>
+    jobs?: boolean | Company$jobsArgs<ExtArgs>
     Review?: boolean | Company$ReviewArgs<ExtArgs>
     _count?: boolean | CompanyCountOutputTypeDefaultArgs<ExtArgs>
   }
@@ -3726,8 +3726,8 @@ export namespace Prisma {
   export type $CompanyPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Company"
     objects: {
-      jobs: Prisma.$JobPayload<ExtArgs>[]
       industry: Prisma.$IndustryPayload<ExtArgs>
+      jobs: Prisma.$JobPayload<ExtArgs>[]
       Review: Prisma.$ReviewPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
@@ -4146,8 +4146,8 @@ export namespace Prisma {
    */
   export interface Prisma__CompanyClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    jobs<T extends Company$jobsArgs<ExtArgs> = {}>(args?: Subset<T, Company$jobsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$JobPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     industry<T extends IndustryDefaultArgs<ExtArgs> = {}>(args?: Subset<T, IndustryDefaultArgs<ExtArgs>>): Prisma__IndustryClient<$Result.GetResult<Prisma.$IndustryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    jobs<T extends Company$jobsArgs<ExtArgs> = {}>(args?: Subset<T, Company$jobsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$JobPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     Review<T extends Company$ReviewArgs<ExtArgs> = {}>(args?: Subset<T, Company$ReviewArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ReviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -5708,7 +5708,8 @@ export namespace Prisma {
     description: string | null
     city: string | null
     category: string | null
-    salary: string | null
+    salaryStart: string | null
+    salaryEnd: string | null
     deadline: string | null
     companyId: string | null
     isPublished: boolean | null
@@ -5723,7 +5724,8 @@ export namespace Prisma {
     description: string | null
     city: string | null
     category: string | null
-    salary: string | null
+    salaryStart: string | null
+    salaryEnd: string | null
     deadline: string | null
     companyId: string | null
     isPublished: boolean | null
@@ -5739,7 +5741,8 @@ export namespace Prisma {
     city: number
     category: number
     tags: number
-    salary: number
+    salaryStart: number
+    salaryEnd: number
     deadline: number
     companyId: number
     isPublished: number
@@ -5756,7 +5759,8 @@ export namespace Prisma {
     description?: true
     city?: true
     category?: true
-    salary?: true
+    salaryStart?: true
+    salaryEnd?: true
     deadline?: true
     companyId?: true
     isPublished?: true
@@ -5771,7 +5775,8 @@ export namespace Prisma {
     description?: true
     city?: true
     category?: true
-    salary?: true
+    salaryStart?: true
+    salaryEnd?: true
     deadline?: true
     companyId?: true
     isPublished?: true
@@ -5787,7 +5792,8 @@ export namespace Prisma {
     city?: true
     category?: true
     tags?: true
-    salary?: true
+    salaryStart?: true
+    salaryEnd?: true
     deadline?: true
     companyId?: true
     isPublished?: true
@@ -5876,7 +5882,8 @@ export namespace Prisma {
     city: string
     category: string
     tags: string[]
-    salary: string | null
+    salaryStart: string | null
+    salaryEnd: string | null
     deadline: string
     companyId: string
     isPublished: boolean
@@ -5909,7 +5916,8 @@ export namespace Prisma {
     city?: boolean
     category?: boolean
     tags?: boolean
-    salary?: boolean
+    salaryStart?: boolean
+    salaryEnd?: boolean
     deadline?: boolean
     companyId?: boolean
     isPublished?: boolean
@@ -5930,7 +5938,8 @@ export namespace Prisma {
     city?: boolean
     category?: boolean
     tags?: boolean
-    salary?: boolean
+    salaryStart?: boolean
+    salaryEnd?: boolean
     deadline?: boolean
     companyId?: boolean
     isPublished?: boolean
@@ -5947,7 +5956,8 @@ export namespace Prisma {
     city?: boolean
     category?: boolean
     tags?: boolean
-    salary?: boolean
+    salaryStart?: boolean
+    salaryEnd?: boolean
     deadline?: boolean
     companyId?: boolean
     isPublished?: boolean
@@ -5964,7 +5974,8 @@ export namespace Prisma {
     city?: boolean
     category?: boolean
     tags?: boolean
-    salary?: boolean
+    salaryStart?: boolean
+    salaryEnd?: boolean
     deadline?: boolean
     companyId?: boolean
     isPublished?: boolean
@@ -5973,7 +5984,7 @@ export namespace Prisma {
     updatedAt?: boolean
   }
 
-  export type JobOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "city" | "category" | "tags" | "salary" | "deadline" | "companyId" | "isPublished" | "isTestActive" | "createdAt" | "updatedAt", ExtArgs["result"]["job"]>
+  export type JobOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "city" | "category" | "tags" | "salaryStart" | "salaryEnd" | "deadline" | "companyId" | "isPublished" | "isTestActive" | "createdAt" | "updatedAt", ExtArgs["result"]["job"]>
   export type JobInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     company?: boolean | CompanyDefaultArgs<ExtArgs>
     Application?: boolean | Job$ApplicationArgs<ExtArgs>
@@ -6003,7 +6014,8 @@ export namespace Prisma {
       city: string
       category: string
       tags: string[]
-      salary: string | null
+      salaryStart: string | null
+      salaryEnd: string | null
       deadline: string
       companyId: string
       isPublished: boolean
@@ -6443,7 +6455,8 @@ export namespace Prisma {
     readonly city: FieldRef<"Job", 'String'>
     readonly category: FieldRef<"Job", 'String'>
     readonly tags: FieldRef<"Job", 'String[]'>
-    readonly salary: FieldRef<"Job", 'String'>
+    readonly salaryStart: FieldRef<"Job", 'String'>
+    readonly salaryEnd: FieldRef<"Job", 'String'>
     readonly deadline: FieldRef<"Job", 'String'>
     readonly companyId: FieldRef<"Job", 'String'>
     readonly isPublished: FieldRef<"Job", 'Boolean'>
@@ -14602,7 +14615,8 @@ export namespace Prisma {
     city: 'city',
     category: 'category',
     tags: 'tags',
-    salary: 'salary',
+    salaryStart: 'salaryStart',
+    salaryEnd: 'salaryEnd',
     deadline: 'deadline',
     companyId: 'companyId',
     isPublished: 'isPublished',
@@ -15024,8 +15038,8 @@ export namespace Prisma {
     longitude?: StringNullableFilter<"Company"> | string | null
     createdAt?: DateTimeFilter<"Company"> | Date | string
     updatedAt?: DateTimeFilter<"Company"> | Date | string
-    jobs?: JobListRelationFilter
     industry?: XOR<IndustryScalarRelationFilter, IndustryWhereInput>
+    jobs?: JobListRelationFilter
     Review?: ReviewListRelationFilter
   }
 
@@ -15051,8 +15065,8 @@ export namespace Prisma {
     longitude?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    jobs?: JobOrderByRelationAggregateInput
     industry?: IndustryOrderByWithRelationInput
+    jobs?: JobOrderByRelationAggregateInput
     Review?: ReviewOrderByRelationAggregateInput
   }
 
@@ -15081,8 +15095,8 @@ export namespace Prisma {
     longitude?: StringNullableFilter<"Company"> | string | null
     createdAt?: DateTimeFilter<"Company"> | Date | string
     updatedAt?: DateTimeFilter<"Company"> | Date | string
-    jobs?: JobListRelationFilter
     industry?: XOR<IndustryScalarRelationFilter, IndustryWhereInput>
+    jobs?: JobListRelationFilter
     Review?: ReviewListRelationFilter
   }, "id" | "email" | "website">
 
@@ -15190,7 +15204,8 @@ export namespace Prisma {
     city?: StringFilter<"Job"> | string
     category?: StringFilter<"Job"> | string
     tags?: StringNullableListFilter<"Job">
-    salary?: StringNullableFilter<"Job"> | string | null
+    salaryStart?: StringNullableFilter<"Job"> | string | null
+    salaryEnd?: StringNullableFilter<"Job"> | string | null
     deadline?: StringFilter<"Job"> | string
     companyId?: StringFilter<"Job"> | string
     isPublished?: BoolFilter<"Job"> | boolean
@@ -15210,7 +15225,8 @@ export namespace Prisma {
     city?: SortOrder
     category?: SortOrder
     tags?: SortOrder
-    salary?: SortOrderInput | SortOrder
+    salaryStart?: SortOrderInput | SortOrder
+    salaryEnd?: SortOrderInput | SortOrder
     deadline?: SortOrder
     companyId?: SortOrder
     isPublished?: SortOrder
@@ -15233,7 +15249,8 @@ export namespace Prisma {
     city?: StringFilter<"Job"> | string
     category?: StringFilter<"Job"> | string
     tags?: StringNullableListFilter<"Job">
-    salary?: StringNullableFilter<"Job"> | string | null
+    salaryStart?: StringNullableFilter<"Job"> | string | null
+    salaryEnd?: StringNullableFilter<"Job"> | string | null
     deadline?: StringFilter<"Job"> | string
     companyId?: StringFilter<"Job"> | string
     isPublished?: BoolFilter<"Job"> | boolean
@@ -15253,7 +15270,8 @@ export namespace Prisma {
     city?: SortOrder
     category?: SortOrder
     tags?: SortOrder
-    salary?: SortOrderInput | SortOrder
+    salaryStart?: SortOrderInput | SortOrder
+    salaryEnd?: SortOrderInput | SortOrder
     deadline?: SortOrder
     companyId?: SortOrder
     isPublished?: SortOrder
@@ -15275,7 +15293,8 @@ export namespace Prisma {
     city?: StringWithAggregatesFilter<"Job"> | string
     category?: StringWithAggregatesFilter<"Job"> | string
     tags?: StringNullableListFilter<"Job">
-    salary?: StringNullableWithAggregatesFilter<"Job"> | string | null
+    salaryStart?: StringNullableWithAggregatesFilter<"Job"> | string | null
+    salaryEnd?: StringNullableWithAggregatesFilter<"Job"> | string | null
     deadline?: StringWithAggregatesFilter<"Job"> | string
     companyId?: StringWithAggregatesFilter<"Job"> | string
     isPublished?: BoolWithAggregatesFilter<"Job"> | boolean
@@ -15951,8 +15970,8 @@ export namespace Prisma {
     longitude?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    jobs?: JobCreateNestedManyWithoutCompanyInput
     industry: IndustryCreateNestedOneWithoutCompanyInput
+    jobs?: JobCreateNestedManyWithoutCompanyInput
     Review?: ReviewCreateNestedManyWithoutCompanyInput
   }
 
@@ -16003,8 +16022,8 @@ export namespace Prisma {
     longitude?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    jobs?: JobUpdateManyWithoutCompanyNestedInput
     industry?: IndustryUpdateOneRequiredWithoutCompanyNestedInput
+    jobs?: JobUpdateManyWithoutCompanyNestedInput
     Review?: ReviewUpdateManyWithoutCompanyNestedInput
   }
 
@@ -16151,7 +16170,8 @@ export namespace Prisma {
     city: string
     category: string
     tags?: JobCreatetagsInput | string[]
-    salary?: string | null
+    salaryStart?: string | null
+    salaryEnd?: string | null
     deadline: string
     isPublished?: boolean
     isTestActive?: boolean
@@ -16170,7 +16190,8 @@ export namespace Prisma {
     city: string
     category: string
     tags?: JobCreatetagsInput | string[]
-    salary?: string | null
+    salaryStart?: string | null
+    salaryEnd?: string | null
     deadline: string
     companyId: string
     isPublished?: boolean
@@ -16189,7 +16210,8 @@ export namespace Prisma {
     city?: StringFieldUpdateOperationsInput | string
     category?: StringFieldUpdateOperationsInput | string
     tags?: JobUpdatetagsInput | string[]
-    salary?: NullableStringFieldUpdateOperationsInput | string | null
+    salaryStart?: NullableStringFieldUpdateOperationsInput | string | null
+    salaryEnd?: NullableStringFieldUpdateOperationsInput | string | null
     deadline?: StringFieldUpdateOperationsInput | string
     isPublished?: BoolFieldUpdateOperationsInput | boolean
     isTestActive?: BoolFieldUpdateOperationsInput | boolean
@@ -16208,7 +16230,8 @@ export namespace Prisma {
     city?: StringFieldUpdateOperationsInput | string
     category?: StringFieldUpdateOperationsInput | string
     tags?: JobUpdatetagsInput | string[]
-    salary?: NullableStringFieldUpdateOperationsInput | string | null
+    salaryStart?: NullableStringFieldUpdateOperationsInput | string | null
+    salaryEnd?: NullableStringFieldUpdateOperationsInput | string | null
     deadline?: StringFieldUpdateOperationsInput | string
     companyId?: StringFieldUpdateOperationsInput | string
     isPublished?: BoolFieldUpdateOperationsInput | boolean
@@ -16227,7 +16250,8 @@ export namespace Prisma {
     city: string
     category: string
     tags?: JobCreatetagsInput | string[]
-    salary?: string | null
+    salaryStart?: string | null
+    salaryEnd?: string | null
     deadline: string
     companyId: string
     isPublished?: boolean
@@ -16243,7 +16267,8 @@ export namespace Prisma {
     city?: StringFieldUpdateOperationsInput | string
     category?: StringFieldUpdateOperationsInput | string
     tags?: JobUpdatetagsInput | string[]
-    salary?: NullableStringFieldUpdateOperationsInput | string | null
+    salaryStart?: NullableStringFieldUpdateOperationsInput | string | null
+    salaryEnd?: NullableStringFieldUpdateOperationsInput | string | null
     deadline?: StringFieldUpdateOperationsInput | string
     isPublished?: BoolFieldUpdateOperationsInput | boolean
     isTestActive?: BoolFieldUpdateOperationsInput | boolean
@@ -16258,7 +16283,8 @@ export namespace Prisma {
     city?: StringFieldUpdateOperationsInput | string
     category?: StringFieldUpdateOperationsInput | string
     tags?: JobUpdatetagsInput | string[]
-    salary?: NullableStringFieldUpdateOperationsInput | string | null
+    salaryStart?: NullableStringFieldUpdateOperationsInput | string | null
+    salaryEnd?: NullableStringFieldUpdateOperationsInput | string | null
     deadline?: StringFieldUpdateOperationsInput | string
     companyId?: StringFieldUpdateOperationsInput | string
     isPublished?: BoolFieldUpdateOperationsInput | boolean
@@ -16981,15 +17007,15 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
+  export type IndustryScalarRelationFilter = {
+    is?: IndustryWhereInput
+    isNot?: IndustryWhereInput
+  }
+
   export type JobListRelationFilter = {
     every?: JobWhereInput
     some?: JobWhereInput
     none?: JobWhereInput
-  }
-
-  export type IndustryScalarRelationFilter = {
-    is?: IndustryWhereInput
-    isNot?: IndustryWhereInput
   }
 
   export type JobOrderByRelationAggregateInput = {
@@ -17118,7 +17144,8 @@ export namespace Prisma {
     city?: SortOrder
     category?: SortOrder
     tags?: SortOrder
-    salary?: SortOrder
+    salaryStart?: SortOrder
+    salaryEnd?: SortOrder
     deadline?: SortOrder
     companyId?: SortOrder
     isPublished?: SortOrder
@@ -17133,7 +17160,8 @@ export namespace Prisma {
     description?: SortOrder
     city?: SortOrder
     category?: SortOrder
-    salary?: SortOrder
+    salaryStart?: SortOrder
+    salaryEnd?: SortOrder
     deadline?: SortOrder
     companyId?: SortOrder
     isPublished?: SortOrder
@@ -17148,7 +17176,8 @@ export namespace Prisma {
     description?: SortOrder
     city?: SortOrder
     category?: SortOrder
-    salary?: SortOrder
+    salaryStart?: SortOrder
+    salaryEnd?: SortOrder
     deadline?: SortOrder
     companyId?: SortOrder
     isPublished?: SortOrder
@@ -17681,17 +17710,17 @@ export namespace Prisma {
     deleteMany?: UserTestScalarWhereInput | UserTestScalarWhereInput[]
   }
 
+  export type IndustryCreateNestedOneWithoutCompanyInput = {
+    create?: XOR<IndustryCreateWithoutCompanyInput, IndustryUncheckedCreateWithoutCompanyInput>
+    connectOrCreate?: IndustryCreateOrConnectWithoutCompanyInput
+    connect?: IndustryWhereUniqueInput
+  }
+
   export type JobCreateNestedManyWithoutCompanyInput = {
     create?: XOR<JobCreateWithoutCompanyInput, JobUncheckedCreateWithoutCompanyInput> | JobCreateWithoutCompanyInput[] | JobUncheckedCreateWithoutCompanyInput[]
     connectOrCreate?: JobCreateOrConnectWithoutCompanyInput | JobCreateOrConnectWithoutCompanyInput[]
     createMany?: JobCreateManyCompanyInputEnvelope
     connect?: JobWhereUniqueInput | JobWhereUniqueInput[]
-  }
-
-  export type IndustryCreateNestedOneWithoutCompanyInput = {
-    create?: XOR<IndustryCreateWithoutCompanyInput, IndustryUncheckedCreateWithoutCompanyInput>
-    connectOrCreate?: IndustryCreateOrConnectWithoutCompanyInput
-    connect?: IndustryWhereUniqueInput
   }
 
   export type ReviewCreateNestedManyWithoutCompanyInput = {
@@ -17715,6 +17744,14 @@ export namespace Prisma {
     connect?: ReviewWhereUniqueInput | ReviewWhereUniqueInput[]
   }
 
+  export type IndustryUpdateOneRequiredWithoutCompanyNestedInput = {
+    create?: XOR<IndustryCreateWithoutCompanyInput, IndustryUncheckedCreateWithoutCompanyInput>
+    connectOrCreate?: IndustryCreateOrConnectWithoutCompanyInput
+    upsert?: IndustryUpsertWithoutCompanyInput
+    connect?: IndustryWhereUniqueInput
+    update?: XOR<XOR<IndustryUpdateToOneWithWhereWithoutCompanyInput, IndustryUpdateWithoutCompanyInput>, IndustryUncheckedUpdateWithoutCompanyInput>
+  }
+
   export type JobUpdateManyWithoutCompanyNestedInput = {
     create?: XOR<JobCreateWithoutCompanyInput, JobUncheckedCreateWithoutCompanyInput> | JobCreateWithoutCompanyInput[] | JobUncheckedCreateWithoutCompanyInput[]
     connectOrCreate?: JobCreateOrConnectWithoutCompanyInput | JobCreateOrConnectWithoutCompanyInput[]
@@ -17727,14 +17764,6 @@ export namespace Prisma {
     update?: JobUpdateWithWhereUniqueWithoutCompanyInput | JobUpdateWithWhereUniqueWithoutCompanyInput[]
     updateMany?: JobUpdateManyWithWhereWithoutCompanyInput | JobUpdateManyWithWhereWithoutCompanyInput[]
     deleteMany?: JobScalarWhereInput | JobScalarWhereInput[]
-  }
-
-  export type IndustryUpdateOneRequiredWithoutCompanyNestedInput = {
-    create?: XOR<IndustryCreateWithoutCompanyInput, IndustryUncheckedCreateWithoutCompanyInput>
-    connectOrCreate?: IndustryCreateOrConnectWithoutCompanyInput
-    upsert?: IndustryUpsertWithoutCompanyInput
-    connect?: IndustryWhereUniqueInput
-    update?: XOR<XOR<IndustryUpdateToOneWithWhereWithoutCompanyInput, IndustryUpdateWithoutCompanyInput>, IndustryUncheckedUpdateWithoutCompanyInput>
   }
 
   export type ReviewUpdateManyWithoutCompanyNestedInput = {
@@ -18553,6 +18582,21 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"UserTest"> | Date | string
   }
 
+  export type IndustryCreateWithoutCompanyInput = {
+    id?: string
+    name: string
+  }
+
+  export type IndustryUncheckedCreateWithoutCompanyInput = {
+    id?: string
+    name: string
+  }
+
+  export type IndustryCreateOrConnectWithoutCompanyInput = {
+    where: IndustryWhereUniqueInput
+    create: XOR<IndustryCreateWithoutCompanyInput, IndustryUncheckedCreateWithoutCompanyInput>
+  }
+
   export type JobCreateWithoutCompanyInput = {
     id?: string
     title: string
@@ -18560,7 +18604,8 @@ export namespace Prisma {
     city: string
     category: string
     tags?: JobCreatetagsInput | string[]
-    salary?: string | null
+    salaryStart?: string | null
+    salaryEnd?: string | null
     deadline: string
     isPublished?: boolean
     isTestActive?: boolean
@@ -18578,7 +18623,8 @@ export namespace Prisma {
     city: string
     category: string
     tags?: JobCreatetagsInput | string[]
-    salary?: string | null
+    salaryStart?: string | null
+    salaryEnd?: string | null
     deadline: string
     isPublished?: boolean
     isTestActive?: boolean
@@ -18597,21 +18643,6 @@ export namespace Prisma {
   export type JobCreateManyCompanyInputEnvelope = {
     data: JobCreateManyCompanyInput | JobCreateManyCompanyInput[]
     skipDuplicates?: boolean
-  }
-
-  export type IndustryCreateWithoutCompanyInput = {
-    id?: string
-    name: string
-  }
-
-  export type IndustryUncheckedCreateWithoutCompanyInput = {
-    id?: string
-    name: string
-  }
-
-  export type IndustryCreateOrConnectWithoutCompanyInput = {
-    where: IndustryWhereUniqueInput
-    create: XOR<IndustryCreateWithoutCompanyInput, IndustryUncheckedCreateWithoutCompanyInput>
   }
 
   export type ReviewCreateWithoutCompanyInput = {
@@ -18654,6 +18685,27 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type IndustryUpsertWithoutCompanyInput = {
+    update: XOR<IndustryUpdateWithoutCompanyInput, IndustryUncheckedUpdateWithoutCompanyInput>
+    create: XOR<IndustryCreateWithoutCompanyInput, IndustryUncheckedCreateWithoutCompanyInput>
+    where?: IndustryWhereInput
+  }
+
+  export type IndustryUpdateToOneWithWhereWithoutCompanyInput = {
+    where?: IndustryWhereInput
+    data: XOR<IndustryUpdateWithoutCompanyInput, IndustryUncheckedUpdateWithoutCompanyInput>
+  }
+
+  export type IndustryUpdateWithoutCompanyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type IndustryUncheckedUpdateWithoutCompanyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+  }
+
   export type JobUpsertWithWhereUniqueWithoutCompanyInput = {
     where: JobWhereUniqueInput
     update: XOR<JobUpdateWithoutCompanyInput, JobUncheckedUpdateWithoutCompanyInput>
@@ -18680,34 +18732,14 @@ export namespace Prisma {
     city?: StringFilter<"Job"> | string
     category?: StringFilter<"Job"> | string
     tags?: StringNullableListFilter<"Job">
-    salary?: StringNullableFilter<"Job"> | string | null
+    salaryStart?: StringNullableFilter<"Job"> | string | null
+    salaryEnd?: StringNullableFilter<"Job"> | string | null
     deadline?: StringFilter<"Job"> | string
     companyId?: StringFilter<"Job"> | string
     isPublished?: BoolFilter<"Job"> | boolean
     isTestActive?: BoolFilter<"Job"> | boolean
     createdAt?: DateTimeFilter<"Job"> | Date | string
     updatedAt?: DateTimeFilter<"Job"> | Date | string
-  }
-
-  export type IndustryUpsertWithoutCompanyInput = {
-    update: XOR<IndustryUpdateWithoutCompanyInput, IndustryUncheckedUpdateWithoutCompanyInput>
-    create: XOR<IndustryCreateWithoutCompanyInput, IndustryUncheckedCreateWithoutCompanyInput>
-    where?: IndustryWhereInput
-  }
-
-  export type IndustryUpdateToOneWithWhereWithoutCompanyInput = {
-    where?: IndustryWhereInput
-    data: XOR<IndustryUpdateWithoutCompanyInput, IndustryUncheckedUpdateWithoutCompanyInput>
-  }
-
-  export type IndustryUpdateWithoutCompanyInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-  }
-
-  export type IndustryUncheckedUpdateWithoutCompanyInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
   }
 
   export type ReviewUpsertWithWhereUniqueWithoutCompanyInput = {
@@ -19159,7 +19191,8 @@ export namespace Prisma {
     city: string
     category: string
     tags?: JobCreatetagsInput | string[]
-    salary?: string | null
+    salaryStart?: string | null
+    salaryEnd?: string | null
     deadline: string
     isPublished?: boolean
     isTestActive?: boolean
@@ -19177,7 +19210,8 @@ export namespace Prisma {
     city: string
     category: string
     tags?: JobCreatetagsInput | string[]
-    salary?: string | null
+    salaryStart?: string | null
+    salaryEnd?: string | null
     deadline: string
     companyId: string
     isPublished?: boolean
@@ -19296,7 +19330,8 @@ export namespace Prisma {
     city?: StringFieldUpdateOperationsInput | string
     category?: StringFieldUpdateOperationsInput | string
     tags?: JobUpdatetagsInput | string[]
-    salary?: NullableStringFieldUpdateOperationsInput | string | null
+    salaryStart?: NullableStringFieldUpdateOperationsInput | string | null
+    salaryEnd?: NullableStringFieldUpdateOperationsInput | string | null
     deadline?: StringFieldUpdateOperationsInput | string
     isPublished?: BoolFieldUpdateOperationsInput | boolean
     isTestActive?: BoolFieldUpdateOperationsInput | boolean
@@ -19314,7 +19349,8 @@ export namespace Prisma {
     city?: StringFieldUpdateOperationsInput | string
     category?: StringFieldUpdateOperationsInput | string
     tags?: JobUpdatetagsInput | string[]
-    salary?: NullableStringFieldUpdateOperationsInput | string | null
+    salaryStart?: NullableStringFieldUpdateOperationsInput | string | null
+    salaryEnd?: NullableStringFieldUpdateOperationsInput | string | null
     deadline?: StringFieldUpdateOperationsInput | string
     companyId?: StringFieldUpdateOperationsInput | string
     isPublished?: BoolFieldUpdateOperationsInput | boolean
@@ -19429,8 +19465,8 @@ export namespace Prisma {
     longitude?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    jobs?: JobCreateNestedManyWithoutCompanyInput
     industry: IndustryCreateNestedOneWithoutCompanyInput
+    jobs?: JobCreateNestedManyWithoutCompanyInput
   }
 
   export type CompanyUncheckedCreateWithoutReviewInput = {
@@ -19558,8 +19594,8 @@ export namespace Prisma {
     longitude?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    jobs?: JobUpdateManyWithoutCompanyNestedInput
     industry?: IndustryUpdateOneRequiredWithoutCompanyNestedInput
+    jobs?: JobUpdateManyWithoutCompanyNestedInput
   }
 
   export type CompanyUncheckedUpdateWithoutReviewInput = {
@@ -19594,7 +19630,8 @@ export namespace Prisma {
     city: string
     category: string
     tags?: JobCreatetagsInput | string[]
-    salary?: string | null
+    salaryStart?: string | null
+    salaryEnd?: string | null
     deadline: string
     isPublished?: boolean
     isTestActive?: boolean
@@ -19612,7 +19649,8 @@ export namespace Prisma {
     city: string
     category: string
     tags?: JobCreatetagsInput | string[]
-    salary?: string | null
+    salaryStart?: string | null
+    salaryEnd?: string | null
     deadline: string
     companyId: string
     isPublished?: boolean
@@ -19646,7 +19684,8 @@ export namespace Prisma {
     city?: StringFieldUpdateOperationsInput | string
     category?: StringFieldUpdateOperationsInput | string
     tags?: JobUpdatetagsInput | string[]
-    salary?: NullableStringFieldUpdateOperationsInput | string | null
+    salaryStart?: NullableStringFieldUpdateOperationsInput | string | null
+    salaryEnd?: NullableStringFieldUpdateOperationsInput | string | null
     deadline?: StringFieldUpdateOperationsInput | string
     isPublished?: BoolFieldUpdateOperationsInput | boolean
     isTestActive?: BoolFieldUpdateOperationsInput | boolean
@@ -19664,7 +19703,8 @@ export namespace Prisma {
     city?: StringFieldUpdateOperationsInput | string
     category?: StringFieldUpdateOperationsInput | string
     tags?: JobUpdatetagsInput | string[]
-    salary?: NullableStringFieldUpdateOperationsInput | string | null
+    salaryStart?: NullableStringFieldUpdateOperationsInput | string | null
+    salaryEnd?: NullableStringFieldUpdateOperationsInput | string | null
     deadline?: StringFieldUpdateOperationsInput | string
     companyId?: StringFieldUpdateOperationsInput | string
     isPublished?: BoolFieldUpdateOperationsInput | boolean
@@ -19739,7 +19779,8 @@ export namespace Prisma {
     city: string
     category: string
     tags?: JobCreatetagsInput | string[]
-    salary?: string | null
+    salaryStart?: string | null
+    salaryEnd?: string | null
     deadline: string
     isPublished?: boolean
     isTestActive?: boolean
@@ -19757,7 +19798,8 @@ export namespace Prisma {
     city: string
     category: string
     tags?: JobCreatetagsInput | string[]
-    salary?: string | null
+    salaryStart?: string | null
+    salaryEnd?: string | null
     deadline: string
     companyId: string
     isPublished?: boolean
@@ -19854,7 +19896,8 @@ export namespace Prisma {
     city?: StringFieldUpdateOperationsInput | string
     category?: StringFieldUpdateOperationsInput | string
     tags?: JobUpdatetagsInput | string[]
-    salary?: NullableStringFieldUpdateOperationsInput | string | null
+    salaryStart?: NullableStringFieldUpdateOperationsInput | string | null
+    salaryEnd?: NullableStringFieldUpdateOperationsInput | string | null
     deadline?: StringFieldUpdateOperationsInput | string
     isPublished?: BoolFieldUpdateOperationsInput | boolean
     isTestActive?: BoolFieldUpdateOperationsInput | boolean
@@ -19872,7 +19915,8 @@ export namespace Prisma {
     city?: StringFieldUpdateOperationsInput | string
     category?: StringFieldUpdateOperationsInput | string
     tags?: JobUpdatetagsInput | string[]
-    salary?: NullableStringFieldUpdateOperationsInput | string | null
+    salaryStart?: NullableStringFieldUpdateOperationsInput | string | null
+    salaryEnd?: NullableStringFieldUpdateOperationsInput | string | null
     deadline?: StringFieldUpdateOperationsInput | string
     companyId?: StringFieldUpdateOperationsInput | string
     isPublished?: BoolFieldUpdateOperationsInput | boolean
@@ -20092,7 +20136,8 @@ export namespace Prisma {
     city: string
     category: string
     tags?: JobCreatetagsInput | string[]
-    salary?: string | null
+    salaryStart?: string | null
+    salaryEnd?: string | null
     deadline: string
     isPublished?: boolean
     isTestActive?: boolean
@@ -20122,7 +20167,8 @@ export namespace Prisma {
     city?: StringFieldUpdateOperationsInput | string
     category?: StringFieldUpdateOperationsInput | string
     tags?: JobUpdatetagsInput | string[]
-    salary?: NullableStringFieldUpdateOperationsInput | string | null
+    salaryStart?: NullableStringFieldUpdateOperationsInput | string | null
+    salaryEnd?: NullableStringFieldUpdateOperationsInput | string | null
     deadline?: StringFieldUpdateOperationsInput | string
     isPublished?: BoolFieldUpdateOperationsInput | boolean
     isTestActive?: BoolFieldUpdateOperationsInput | boolean
@@ -20140,7 +20186,8 @@ export namespace Prisma {
     city?: StringFieldUpdateOperationsInput | string
     category?: StringFieldUpdateOperationsInput | string
     tags?: JobUpdatetagsInput | string[]
-    salary?: NullableStringFieldUpdateOperationsInput | string | null
+    salaryStart?: NullableStringFieldUpdateOperationsInput | string | null
+    salaryEnd?: NullableStringFieldUpdateOperationsInput | string | null
     deadline?: StringFieldUpdateOperationsInput | string
     isPublished?: BoolFieldUpdateOperationsInput | boolean
     isTestActive?: BoolFieldUpdateOperationsInput | boolean
@@ -20158,7 +20205,8 @@ export namespace Prisma {
     city?: StringFieldUpdateOperationsInput | string
     category?: StringFieldUpdateOperationsInput | string
     tags?: JobUpdatetagsInput | string[]
-    salary?: NullableStringFieldUpdateOperationsInput | string | null
+    salaryStart?: NullableStringFieldUpdateOperationsInput | string | null
+    salaryEnd?: NullableStringFieldUpdateOperationsInput | string | null
     deadline?: StringFieldUpdateOperationsInput | string
     isPublished?: BoolFieldUpdateOperationsInput | boolean
     isTestActive?: BoolFieldUpdateOperationsInput | boolean

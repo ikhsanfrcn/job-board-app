@@ -5,7 +5,8 @@ export interface IDiscover{
     city: string;
     category: string;
     tags: string[];
-    salary: string;
+    salaryStart: string;
+    salaryEnd: string;
     deadline: string;
     createdAt: string;
     isTestActive: string;

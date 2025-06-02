@@ -6,7 +6,8 @@ export interface IJob {
   city: string;
   category: string;
   tags: string[];
-  salary?: string;
+  salaryStart?: string;
+  salaryEnd?: string;
   deadline: string;
   isPublished: boolean;
   isTestActive: boolean;
@@ -23,7 +24,8 @@ export interface IMJob {
   city: string;
   category: string;
   tags: string[];
-  salary?: string;
+  salaryStart?: string;
+  salaryEnd?: string;
   deadline: string;
   isPublished: boolean;
   isTestActive: boolean;

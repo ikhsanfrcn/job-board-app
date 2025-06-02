@@ -1,6 +1,6 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Dialog } from "@headlessui/react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import * as Yup from "yup";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { createJobSchema } from "@/schema/jobSchema";
@@ -72,7 +72,8 @@ export default function ModalCreateJob({
             city: "",
             category: "",
             tags: "",
-            salary: "",
+            salaryStart: "",
+            salaryEnd: "",
             deadline: "",
             isPublished: false,
           }}
@@ -88,7 +89,8 @@ export default function ModalCreateJob({
                 .split(",")
                 .map((tag) => tag.trim())
                 .filter((tag) => tag !== ""),
-              salary: values.salary,
+              salaryStart: values.salaryStart,
+              salaryEnd: values.salaryEnd,
               deadline: values.deadline,
               isPublished: values.isPublished,
               createdAt: new Date().toISOString(),
@@ -99,7 +101,7 @@ export default function ModalCreateJob({
             onClose();
           }}
         >
-          {({ isSubmitting, setFieldValue, values }) => (
+          {({ isSubmitting, setFieldValue }) => (
             <Form className="space-y-4">
               <div>
                 <Field
@@ -208,13 +210,27 @@ export default function ModalCreateJob({
 
               <div>
                 <Field
-                  name="salary"
+                  name="salaryStart"
                   type="number"
                   className="w-full border px-3 py-2 rounded"
-                  placeholder="Salary"
+                  placeholder="Salary Start"
                 />
                 <ErrorMessage
-                  name="salary"
+                  name="salaryStart"
+                  component="div"
+                  className="text-red-500 text-sm"
+                />
+              </div>
+
+              <div>
+                <Field
+                  name="salaryEnd"
+                  type="number"
+                  className="w-full border px-3 py-2 rounded"
+                  placeholder="Salary End"
+                />
+                <ErrorMessage
+                  name="salaryEnd"
                   component="div"
                   className="text-red-500 text-sm"
                 />

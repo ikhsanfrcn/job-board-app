@@ -45,10 +45,10 @@ enum Gender {
 }
 
 model Company {
-  id           String  @id @default(uuid())
+  id           String   @id @default(uuid())
   name         String
-  email        String  @unique
-  role         String  @default("company")
+  email        String   @unique
+  role         String   @default("company")
   password     String
   about        String?
   country      String?
@@ -58,18 +58,18 @@ model Company {
   regionNumber String?
   phoneNumber  String?
   address      String?
-  website      String? @unique
-  logo         String? @default("https://res.cloudinary.com/dbq88i6pk/image/upload/v1744257650/profile-default-icon-512x511-v4sw4m29_cyf3m5.png")
-  isVerify     Boolean @default(false)
-  industryId String
-  latitude  String?
-  longitude String?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  website      String?  @unique
+  logo         String?  @default("https://res.cloudinary.com/dbq88i6pk/image/upload/v1744257650/profile-default-icon-512x511-v4sw4m29_cyf3m5.png")
+  isVerify     Boolean  @default(false)
+  industryId   String
+  latitude     String?
+  longitude    String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
 
-  industry   Industry @relation(fields: [industryId], references: [id])
-  jobs      Job[]
-  Review    Review[]
+  industry Industry @relation(fields: [industryId], references: [id])
+  jobs     Job[]
+  Review   Review[]
 }
 
 model Industry {
@@ -85,7 +85,8 @@ model Job {
   city         String
   category     String
   tags         String[]
-  salary       String?
+  salaryStart  String?
+  salaryEnd    String?
   deadline     String
   companyId    String
   isPublished  Boolean  @default(false)
@@ -93,7 +94,7 @@ model Job {
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
 
-  company     Company       @relation(fields: [companyId], references: [id])
+  company Company @relation(fields: [companyId], references: [id])
 
   Application Application[]
   test        Test?

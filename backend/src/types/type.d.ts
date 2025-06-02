@@ -18,7 +18,8 @@ export interface CreateJobParams {
   city: string;
   category: string;
   tags: string[];
-  salary?: string | null | undefined;
+  salaryStart?: string | null | undefined;
+  salaryEnd?: string | null | undefined;
   deadline: string;
   companyId: string;
   isPublished?: boolean;

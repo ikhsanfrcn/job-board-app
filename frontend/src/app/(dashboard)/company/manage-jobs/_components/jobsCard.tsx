@@ -1,5 +1,4 @@
 import { IMJob } from "@/types/job";
-import { ITest } from "@/types/test";
 import Link from "next/link";
 import { BiPencil } from "react-icons/bi";
 import { BsPeople, BsTrash2 } from "react-icons/bs";
@@ -61,10 +60,10 @@ export default function JobsCard({
                   })}
                 </span>
               </div>
-              {job.salary && (
+              {job.salaryStart && (
                 <div className="flex items-center gap-2">
                   <HiOutlineCurrencyDollar className="text-gray-400" />
-                  <span>Rp. {job.salary}</span>
+                  <span>Rp. {job.salaryStart}</span>
                 </div>
               )}
             </div>
