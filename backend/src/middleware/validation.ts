@@ -84,14 +84,3 @@ export const validateCreateReview = [
   },
 ];
 
-export const validateUpdateAvatar = [
-  body("avatar").notEmpty().isString(),
-  (req: Request, res: Response, next: NextFunction) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      res.status(400).send({ errors: errors.array() });
-      return;
-    }
-    next();
-  },
-];

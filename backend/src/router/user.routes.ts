@@ -1,10 +1,7 @@
 import { Router } from "express";
 import { UserController } from "../controller/user.controller";
 import { AuthMiddleware } from "../middleware/auth.middleware";
-import {
-  validateUpdateAvatar,
-  validateUpdateProfile,
-} from "../middleware/validation";
+import { validateUpdateProfile } from "../middleware/validation";
 import { uploader } from "../helpers/uploader";
 
 export class UserRouter {
@@ -37,7 +34,6 @@ export class UserRouter {
     this.router.patch(
       "/update-avatar",
       uploader("memoryStorage", "avatar-").single("image"),
-      validateUpdateAvatar,
       this.authMiddleware.verifyToken,
       this.userController.updateAvatar
     );
