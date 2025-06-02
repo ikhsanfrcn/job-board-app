@@ -20,11 +20,11 @@ exports.Prisma = Prisma
 exports.$Enums = {}
 
 /**
- * Prisma Client JS version: 6.8.1
+ * Prisma Client JS version: 6.8.2
  * Query Engine version: 2060c79ba17c6bb9f5823312b6f6b7f4a845738e
  */
 Prisma.prismaVersion = {
-  client: "6.8.1",
+  client: "6.8.2",
   engine: "2060c79ba17c6bb9f5823312b6f6b7f4a845738e"
 }
 
@@ -182,8 +182,9 @@ exports.Prisma.JobScalarFieldEnum = {
   tags: 'tags',
   salary: 'salary',
   deadline: 'deadline',
-  isPublished: 'isPublished',
   companyId: 'companyId',
+  isPublished: 'isPublished',
+  isTestActive: 'isTestActive',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -234,7 +235,10 @@ exports.Prisma.TestScalarFieldEnum = {
   jobId: 'jobId',
   title: 'title',
   description: 'description',
-  questions: 'questions'
+  questions: 'questions',
+  isActive: 'isActive',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 };
 
 exports.Prisma.UserTestScalarFieldEnum = {
@@ -243,7 +247,9 @@ exports.Prisma.UserTestScalarFieldEnum = {
   jobId: 'jobId',
   correctAnswers: 'correctAnswers',
   totalQuestions: 'totalQuestions',
-  scorePercentage: 'scorePercentage'
+  scorePercentage: 'scorePercentage',
+  completedAt: 'completedAt',
+  updatedAt: 'updatedAt'
 };
 
 exports.Prisma.InterviewScalarFieldEnum = {

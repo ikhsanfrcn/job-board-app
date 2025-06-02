@@ -395,7 +395,7 @@ export namespace Prisma {
   export import Exact = $Public.Exact
 
   /**
-   * Prisma Client JS version: 6.8.1
+   * Prisma Client JS version: 6.8.2
    * Query Engine version: 2060c79ba17c6bb9f5823312b6f6b7f4a845738e
    */
   export type PrismaVersion = {
@@ -5710,8 +5710,9 @@ export namespace Prisma {
     category: string | null
     salary: string | null
     deadline: string | null
-    isPublished: boolean | null
     companyId: string | null
+    isPublished: boolean | null
+    isTestActive: boolean | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -5724,8 +5725,9 @@ export namespace Prisma {
     category: string | null
     salary: string | null
     deadline: string | null
-    isPublished: boolean | null
     companyId: string | null
+    isPublished: boolean | null
+    isTestActive: boolean | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -5739,8 +5741,9 @@ export namespace Prisma {
     tags: number
     salary: number
     deadline: number
-    isPublished: number
     companyId: number
+    isPublished: number
+    isTestActive: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -5755,8 +5758,9 @@ export namespace Prisma {
     category?: true
     salary?: true
     deadline?: true
-    isPublished?: true
     companyId?: true
+    isPublished?: true
+    isTestActive?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -5769,8 +5773,9 @@ export namespace Prisma {
     category?: true
     salary?: true
     deadline?: true
-    isPublished?: true
     companyId?: true
+    isPublished?: true
+    isTestActive?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -5784,8 +5789,9 @@ export namespace Prisma {
     tags?: true
     salary?: true
     deadline?: true
-    isPublished?: true
     companyId?: true
+    isPublished?: true
+    isTestActive?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -5872,8 +5878,9 @@ export namespace Prisma {
     tags: string[]
     salary: string | null
     deadline: string
-    isPublished: boolean
     companyId: string
+    isPublished: boolean
+    isTestActive: boolean
     createdAt: Date
     updatedAt: Date
     _count: JobCountAggregateOutputType | null
@@ -5904,8 +5911,9 @@ export namespace Prisma {
     tags?: boolean
     salary?: boolean
     deadline?: boolean
-    isPublished?: boolean
     companyId?: boolean
+    isPublished?: boolean
+    isTestActive?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     company?: boolean | CompanyDefaultArgs<ExtArgs>
@@ -5924,8 +5932,9 @@ export namespace Prisma {
     tags?: boolean
     salary?: boolean
     deadline?: boolean
-    isPublished?: boolean
     companyId?: boolean
+    isPublished?: boolean
+    isTestActive?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     company?: boolean | CompanyDefaultArgs<ExtArgs>
@@ -5940,8 +5949,9 @@ export namespace Prisma {
     tags?: boolean
     salary?: boolean
     deadline?: boolean
-    isPublished?: boolean
     companyId?: boolean
+    isPublished?: boolean
+    isTestActive?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     company?: boolean | CompanyDefaultArgs<ExtArgs>
@@ -5956,13 +5966,14 @@ export namespace Prisma {
     tags?: boolean
     salary?: boolean
     deadline?: boolean
-    isPublished?: boolean
     companyId?: boolean
+    isPublished?: boolean
+    isTestActive?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type JobOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "city" | "category" | "tags" | "salary" | "deadline" | "isPublished" | "companyId" | "createdAt" | "updatedAt", ExtArgs["result"]["job"]>
+  export type JobOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "city" | "category" | "tags" | "salary" | "deadline" | "companyId" | "isPublished" | "isTestActive" | "createdAt" | "updatedAt", ExtArgs["result"]["job"]>
   export type JobInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     company?: boolean | CompanyDefaultArgs<ExtArgs>
     Application?: boolean | Job$ApplicationArgs<ExtArgs>
@@ -5994,8 +6005,9 @@ export namespace Prisma {
       tags: string[]
       salary: string | null
       deadline: string
-      isPublished: boolean
       companyId: string
+      isPublished: boolean
+      isTestActive: boolean
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["job"]>
@@ -6433,8 +6445,9 @@ export namespace Prisma {
     readonly tags: FieldRef<"Job", 'String[]'>
     readonly salary: FieldRef<"Job", 'String'>
     readonly deadline: FieldRef<"Job", 'String'>
-    readonly isPublished: FieldRef<"Job", 'Boolean'>
     readonly companyId: FieldRef<"Job", 'String'>
+    readonly isPublished: FieldRef<"Job", 'Boolean'>
+    readonly isTestActive: FieldRef<"Job", 'Boolean'>
     readonly createdAt: FieldRef<"Job", 'DateTime'>
     readonly updatedAt: FieldRef<"Job", 'DateTime'>
   }
@@ -11236,6 +11249,9 @@ export namespace Prisma {
     jobId: string | null
     title: string | null
     description: string | null
+    isActive: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
   }
 
   export type TestMaxAggregateOutputType = {
@@ -11243,6 +11259,9 @@ export namespace Prisma {
     jobId: string | null
     title: string | null
     description: string | null
+    isActive: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
   }
 
   export type TestCountAggregateOutputType = {
@@ -11251,6 +11270,9 @@ export namespace Prisma {
     title: number
     description: number
     questions: number
+    isActive: number
+    createdAt: number
+    updatedAt: number
     _all: number
   }
 
@@ -11260,6 +11282,9 @@ export namespace Prisma {
     jobId?: true
     title?: true
     description?: true
+    isActive?: true
+    createdAt?: true
+    updatedAt?: true
   }
 
   export type TestMaxAggregateInputType = {
@@ -11267,6 +11292,9 @@ export namespace Prisma {
     jobId?: true
     title?: true
     description?: true
+    isActive?: true
+    createdAt?: true
+    updatedAt?: true
   }
 
   export type TestCountAggregateInputType = {
@@ -11275,6 +11303,9 @@ export namespace Prisma {
     title?: true
     description?: true
     questions?: true
+    isActive?: true
+    createdAt?: true
+    updatedAt?: true
     _all?: true
   }
 
@@ -11356,6 +11387,9 @@ export namespace Prisma {
     title: string
     description: string
     questions: JsonValue
+    isActive: boolean
+    createdAt: Date
+    updatedAt: Date
     _count: TestCountAggregateOutputType | null
     _min: TestMinAggregateOutputType | null
     _max: TestMaxAggregateOutputType | null
@@ -11381,6 +11415,9 @@ export namespace Prisma {
     title?: boolean
     description?: boolean
     questions?: boolean
+    isActive?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
     job?: boolean | JobDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["test"]>
 
@@ -11390,6 +11427,9 @@ export namespace Prisma {
     title?: boolean
     description?: boolean
     questions?: boolean
+    isActive?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
     job?: boolean | JobDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["test"]>
 
@@ -11399,6 +11439,9 @@ export namespace Prisma {
     title?: boolean
     description?: boolean
     questions?: boolean
+    isActive?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
     job?: boolean | JobDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["test"]>
 
@@ -11408,9 +11451,12 @@ export namespace Prisma {
     title?: boolean
     description?: boolean
     questions?: boolean
+    isActive?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
   }
 
-  export type TestOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "jobId" | "title" | "description" | "questions", ExtArgs["result"]["test"]>
+  export type TestOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "jobId" | "title" | "description" | "questions" | "isActive" | "createdAt" | "updatedAt", ExtArgs["result"]["test"]>
   export type TestInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     job?: boolean | JobDefaultArgs<ExtArgs>
   }
@@ -11432,6 +11478,9 @@ export namespace Prisma {
       title: string
       description: string
       questions: Prisma.JsonValue
+      isActive: boolean
+      createdAt: Date
+      updatedAt: Date
     }, ExtArgs["result"]["test"]>
     composites: {}
   }
@@ -11861,6 +11910,9 @@ export namespace Prisma {
     readonly title: FieldRef<"Test", 'String'>
     readonly description: FieldRef<"Test", 'String'>
     readonly questions: FieldRef<"Test", 'Json'>
+    readonly isActive: FieldRef<"Test", 'Boolean'>
+    readonly createdAt: FieldRef<"Test", 'DateTime'>
+    readonly updatedAt: FieldRef<"Test", 'DateTime'>
   }
     
 
@@ -12306,6 +12358,8 @@ export namespace Prisma {
     correctAnswers: number | null
     totalQuestions: number | null
     scorePercentage: number | null
+    completedAt: Date | null
+    updatedAt: Date | null
   }
 
   export type UserTestMaxAggregateOutputType = {
@@ -12315,6 +12369,8 @@ export namespace Prisma {
     correctAnswers: number | null
     totalQuestions: number | null
     scorePercentage: number | null
+    completedAt: Date | null
+    updatedAt: Date | null
   }
 
   export type UserTestCountAggregateOutputType = {
@@ -12324,6 +12380,8 @@ export namespace Prisma {
     correctAnswers: number
     totalQuestions: number
     scorePercentage: number
+    completedAt: number
+    updatedAt: number
     _all: number
   }
 
@@ -12347,6 +12405,8 @@ export namespace Prisma {
     correctAnswers?: true
     totalQuestions?: true
     scorePercentage?: true
+    completedAt?: true
+    updatedAt?: true
   }
 
   export type UserTestMaxAggregateInputType = {
@@ -12356,6 +12416,8 @@ export namespace Prisma {
     correctAnswers?: true
     totalQuestions?: true
     scorePercentage?: true
+    completedAt?: true
+    updatedAt?: true
   }
 
   export type UserTestCountAggregateInputType = {
@@ -12365,6 +12427,8 @@ export namespace Prisma {
     correctAnswers?: true
     totalQuestions?: true
     scorePercentage?: true
+    completedAt?: true
+    updatedAt?: true
     _all?: true
   }
 
@@ -12461,6 +12525,8 @@ export namespace Prisma {
     correctAnswers: number
     totalQuestions: number
     scorePercentage: number
+    completedAt: Date
+    updatedAt: Date
     _count: UserTestCountAggregateOutputType | null
     _avg: UserTestAvgAggregateOutputType | null
     _sum: UserTestSumAggregateOutputType | null
@@ -12489,6 +12555,8 @@ export namespace Prisma {
     correctAnswers?: boolean
     totalQuestions?: boolean
     scorePercentage?: boolean
+    completedAt?: boolean
+    updatedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
     job?: boolean | JobDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["userTest"]>
@@ -12500,6 +12568,8 @@ export namespace Prisma {
     correctAnswers?: boolean
     totalQuestions?: boolean
     scorePercentage?: boolean
+    completedAt?: boolean
+    updatedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
     job?: boolean | JobDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["userTest"]>
@@ -12511,6 +12581,8 @@ export namespace Prisma {
     correctAnswers?: boolean
     totalQuestions?: boolean
     scorePercentage?: boolean
+    completedAt?: boolean
+    updatedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
     job?: boolean | JobDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["userTest"]>
@@ -12522,9 +12594,11 @@ export namespace Prisma {
     correctAnswers?: boolean
     totalQuestions?: boolean
     scorePercentage?: boolean
+    completedAt?: boolean
+    updatedAt?: boolean
   }
 
-  export type UserTestOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "jobId" | "correctAnswers" | "totalQuestions" | "scorePercentage", ExtArgs["result"]["userTest"]>
+  export type UserTestOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "jobId" | "correctAnswers" | "totalQuestions" | "scorePercentage" | "completedAt" | "updatedAt", ExtArgs["result"]["userTest"]>
   export type UserTestInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
     job?: boolean | JobDefaultArgs<ExtArgs>
@@ -12551,6 +12625,8 @@ export namespace Prisma {
       correctAnswers: number
       totalQuestions: number
       scorePercentage: number
+      completedAt: Date
+      updatedAt: Date
     }, ExtArgs["result"]["userTest"]>
     composites: {}
   }
@@ -12982,6 +13058,8 @@ export namespace Prisma {
     readonly correctAnswers: FieldRef<"UserTest", 'Int'>
     readonly totalQuestions: FieldRef<"UserTest", 'Int'>
     readonly scorePercentage: FieldRef<"UserTest", 'Float'>
+    readonly completedAt: FieldRef<"UserTest", 'DateTime'>
+    readonly updatedAt: FieldRef<"UserTest", 'DateTime'>
   }
     
 
@@ -14526,8 +14604,9 @@ export namespace Prisma {
     tags: 'tags',
     salary: 'salary',
     deadline: 'deadline',
-    isPublished: 'isPublished',
     companyId: 'companyId',
+    isPublished: 'isPublished',
+    isTestActive: 'isTestActive',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -14593,7 +14672,10 @@ export namespace Prisma {
     jobId: 'jobId',
     title: 'title',
     description: 'description',
-    questions: 'questions'
+    questions: 'questions',
+    isActive: 'isActive',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
   };
 
   export type TestScalarFieldEnum = (typeof TestScalarFieldEnum)[keyof typeof TestScalarFieldEnum]
@@ -14605,7 +14687,9 @@ export namespace Prisma {
     jobId: 'jobId',
     correctAnswers: 'correctAnswers',
     totalQuestions: 'totalQuestions',
-    scorePercentage: 'scorePercentage'
+    scorePercentage: 'scorePercentage',
+    completedAt: 'completedAt',
+    updatedAt: 'updatedAt'
   };
 
   export type UserTestScalarFieldEnum = (typeof UserTestScalarFieldEnum)[keyof typeof UserTestScalarFieldEnum]
@@ -15108,8 +15192,9 @@ export namespace Prisma {
     tags?: StringNullableListFilter<"Job">
     salary?: StringNullableFilter<"Job"> | string | null
     deadline?: StringFilter<"Job"> | string
-    isPublished?: BoolFilter<"Job"> | boolean
     companyId?: StringFilter<"Job"> | string
+    isPublished?: BoolFilter<"Job"> | boolean
+    isTestActive?: BoolFilter<"Job"> | boolean
     createdAt?: DateTimeFilter<"Job"> | Date | string
     updatedAt?: DateTimeFilter<"Job"> | Date | string
     company?: XOR<CompanyScalarRelationFilter, CompanyWhereInput>
@@ -15127,8 +15212,9 @@ export namespace Prisma {
     tags?: SortOrder
     salary?: SortOrderInput | SortOrder
     deadline?: SortOrder
-    isPublished?: SortOrder
     companyId?: SortOrder
+    isPublished?: SortOrder
+    isTestActive?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     company?: CompanyOrderByWithRelationInput
@@ -15149,8 +15235,9 @@ export namespace Prisma {
     tags?: StringNullableListFilter<"Job">
     salary?: StringNullableFilter<"Job"> | string | null
     deadline?: StringFilter<"Job"> | string
-    isPublished?: BoolFilter<"Job"> | boolean
     companyId?: StringFilter<"Job"> | string
+    isPublished?: BoolFilter<"Job"> | boolean
+    isTestActive?: BoolFilter<"Job"> | boolean
     createdAt?: DateTimeFilter<"Job"> | Date | string
     updatedAt?: DateTimeFilter<"Job"> | Date | string
     company?: XOR<CompanyScalarRelationFilter, CompanyWhereInput>
@@ -15168,8 +15255,9 @@ export namespace Prisma {
     tags?: SortOrder
     salary?: SortOrderInput | SortOrder
     deadline?: SortOrder
-    isPublished?: SortOrder
     companyId?: SortOrder
+    isPublished?: SortOrder
+    isTestActive?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: JobCountOrderByAggregateInput
@@ -15189,8 +15277,9 @@ export namespace Prisma {
     tags?: StringNullableListFilter<"Job">
     salary?: StringNullableWithAggregatesFilter<"Job"> | string | null
     deadline?: StringWithAggregatesFilter<"Job"> | string
-    isPublished?: BoolWithAggregatesFilter<"Job"> | boolean
     companyId?: StringWithAggregatesFilter<"Job"> | string
+    isPublished?: BoolWithAggregatesFilter<"Job"> | boolean
+    isTestActive?: BoolWithAggregatesFilter<"Job"> | boolean
     createdAt?: DateTimeWithAggregatesFilter<"Job"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Job"> | Date | string
   }
@@ -15475,6 +15564,9 @@ export namespace Prisma {
     title?: StringFilter<"Test"> | string
     description?: StringFilter<"Test"> | string
     questions?: JsonFilter<"Test">
+    isActive?: BoolFilter<"Test"> | boolean
+    createdAt?: DateTimeFilter<"Test"> | Date | string
+    updatedAt?: DateTimeFilter<"Test"> | Date | string
     job?: XOR<JobScalarRelationFilter, JobWhereInput>
   }
 
@@ -15484,6 +15576,9 @@ export namespace Prisma {
     title?: SortOrder
     description?: SortOrder
     questions?: SortOrder
+    isActive?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
     job?: JobOrderByWithRelationInput
   }
 
@@ -15496,6 +15591,9 @@ export namespace Prisma {
     title?: StringFilter<"Test"> | string
     description?: StringFilter<"Test"> | string
     questions?: JsonFilter<"Test">
+    isActive?: BoolFilter<"Test"> | boolean
+    createdAt?: DateTimeFilter<"Test"> | Date | string
+    updatedAt?: DateTimeFilter<"Test"> | Date | string
     job?: XOR<JobScalarRelationFilter, JobWhereInput>
   }, "id" | "jobId">
 
@@ -15505,6 +15603,9 @@ export namespace Prisma {
     title?: SortOrder
     description?: SortOrder
     questions?: SortOrder
+    isActive?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
     _count?: TestCountOrderByAggregateInput
     _max?: TestMaxOrderByAggregateInput
     _min?: TestMinOrderByAggregateInput
@@ -15519,6 +15620,9 @@ export namespace Prisma {
     title?: StringWithAggregatesFilter<"Test"> | string
     description?: StringWithAggregatesFilter<"Test"> | string
     questions?: JsonWithAggregatesFilter<"Test">
+    isActive?: BoolWithAggregatesFilter<"Test"> | boolean
+    createdAt?: DateTimeWithAggregatesFilter<"Test"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Test"> | Date | string
   }
 
   export type UserTestWhereInput = {
@@ -15531,6 +15635,8 @@ export namespace Prisma {
     correctAnswers?: IntFilter<"UserTest"> | number
     totalQuestions?: IntFilter<"UserTest"> | number
     scorePercentage?: FloatFilter<"UserTest"> | number
+    completedAt?: DateTimeFilter<"UserTest"> | Date | string
+    updatedAt?: DateTimeFilter<"UserTest"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
     job?: XOR<JobScalarRelationFilter, JobWhereInput>
   }
@@ -15542,23 +15648,27 @@ export namespace Prisma {
     correctAnswers?: SortOrder
     totalQuestions?: SortOrder
     scorePercentage?: SortOrder
+    completedAt?: SortOrder
+    updatedAt?: SortOrder
     user?: UserOrderByWithRelationInput
     job?: JobOrderByWithRelationInput
   }
 
   export type UserTestWhereUniqueInput = Prisma.AtLeast<{
     id?: string
+    userId?: string
     AND?: UserTestWhereInput | UserTestWhereInput[]
     OR?: UserTestWhereInput[]
     NOT?: UserTestWhereInput | UserTestWhereInput[]
-    userId?: StringFilter<"UserTest"> | string
     jobId?: StringFilter<"UserTest"> | string
     correctAnswers?: IntFilter<"UserTest"> | number
     totalQuestions?: IntFilter<"UserTest"> | number
     scorePercentage?: FloatFilter<"UserTest"> | number
+    completedAt?: DateTimeFilter<"UserTest"> | Date | string
+    updatedAt?: DateTimeFilter<"UserTest"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
     job?: XOR<JobScalarRelationFilter, JobWhereInput>
-  }, "id">
+  }, "id" | "userId">
 
   export type UserTestOrderByWithAggregationInput = {
     id?: SortOrder
@@ -15567,6 +15677,8 @@ export namespace Prisma {
     correctAnswers?: SortOrder
     totalQuestions?: SortOrder
     scorePercentage?: SortOrder
+    completedAt?: SortOrder
+    updatedAt?: SortOrder
     _count?: UserTestCountOrderByAggregateInput
     _avg?: UserTestAvgOrderByAggregateInput
     _max?: UserTestMaxOrderByAggregateInput
@@ -15584,6 +15696,8 @@ export namespace Prisma {
     correctAnswers?: IntWithAggregatesFilter<"UserTest"> | number
     totalQuestions?: IntWithAggregatesFilter<"UserTest"> | number
     scorePercentage?: FloatWithAggregatesFilter<"UserTest"> | number
+    completedAt?: DateTimeWithAggregatesFilter<"UserTest"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"UserTest"> | Date | string
   }
 
   export type InterviewWhereInput = {
@@ -16040,6 +16154,7 @@ export namespace Prisma {
     salary?: string | null
     deadline: string
     isPublished?: boolean
+    isTestActive?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     company: CompanyCreateNestedOneWithoutJobsInput
@@ -16057,8 +16172,9 @@ export namespace Prisma {
     tags?: JobCreatetagsInput | string[]
     salary?: string | null
     deadline: string
-    isPublished?: boolean
     companyId: string
+    isPublished?: boolean
+    isTestActive?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     Application?: ApplicationUncheckedCreateNestedManyWithoutJobInput
@@ -16076,6 +16192,7 @@ export namespace Prisma {
     salary?: NullableStringFieldUpdateOperationsInput | string | null
     deadline?: StringFieldUpdateOperationsInput | string
     isPublished?: BoolFieldUpdateOperationsInput | boolean
+    isTestActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     company?: CompanyUpdateOneRequiredWithoutJobsNestedInput
@@ -16093,8 +16210,9 @@ export namespace Prisma {
     tags?: JobUpdatetagsInput | string[]
     salary?: NullableStringFieldUpdateOperationsInput | string | null
     deadline?: StringFieldUpdateOperationsInput | string
-    isPublished?: BoolFieldUpdateOperationsInput | boolean
     companyId?: StringFieldUpdateOperationsInput | string
+    isPublished?: BoolFieldUpdateOperationsInput | boolean
+    isTestActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     Application?: ApplicationUncheckedUpdateManyWithoutJobNestedInput
@@ -16111,8 +16229,9 @@ export namespace Prisma {
     tags?: JobCreatetagsInput | string[]
     salary?: string | null
     deadline: string
-    isPublished?: boolean
     companyId: string
+    isPublished?: boolean
+    isTestActive?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -16127,6 +16246,7 @@ export namespace Prisma {
     salary?: NullableStringFieldUpdateOperationsInput | string | null
     deadline?: StringFieldUpdateOperationsInput | string
     isPublished?: BoolFieldUpdateOperationsInput | boolean
+    isTestActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -16140,8 +16260,9 @@ export namespace Prisma {
     tags?: JobUpdatetagsInput | string[]
     salary?: NullableStringFieldUpdateOperationsInput | string | null
     deadline?: StringFieldUpdateOperationsInput | string
-    isPublished?: BoolFieldUpdateOperationsInput | boolean
     companyId?: StringFieldUpdateOperationsInput | string
+    isPublished?: BoolFieldUpdateOperationsInput | boolean
+    isTestActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -16438,6 +16559,9 @@ export namespace Prisma {
     title: string
     description: string
     questions: JsonNullValueInput | InputJsonValue
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
     job: JobCreateNestedOneWithoutTestInput
   }
 
@@ -16447,6 +16571,9 @@ export namespace Prisma {
     title: string
     description: string
     questions: JsonNullValueInput | InputJsonValue
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type TestUpdateInput = {
@@ -16454,6 +16581,9 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     questions?: JsonNullValueInput | InputJsonValue
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     job?: JobUpdateOneRequiredWithoutTestNestedInput
   }
 
@@ -16463,6 +16593,9 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     questions?: JsonNullValueInput | InputJsonValue
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type TestCreateManyInput = {
@@ -16471,6 +16604,9 @@ export namespace Prisma {
     title: string
     description: string
     questions: JsonNullValueInput | InputJsonValue
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type TestUpdateManyMutationInput = {
@@ -16478,6 +16614,9 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     questions?: JsonNullValueInput | InputJsonValue
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type TestUncheckedUpdateManyInput = {
@@ -16486,6 +16625,9 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     questions?: JsonNullValueInput | InputJsonValue
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type UserTestCreateInput = {
@@ -16493,6 +16635,8 @@ export namespace Prisma {
     correctAnswers: number
     totalQuestions: number
     scorePercentage: number
+    completedAt?: Date | string
+    updatedAt?: Date | string
     user: UserCreateNestedOneWithoutUserTestInput
     job: JobCreateNestedOneWithoutUserTestInput
   }
@@ -16504,6 +16648,8 @@ export namespace Prisma {
     correctAnswers: number
     totalQuestions: number
     scorePercentage: number
+    completedAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type UserTestUpdateInput = {
@@ -16511,6 +16657,8 @@ export namespace Prisma {
     correctAnswers?: IntFieldUpdateOperationsInput | number
     totalQuestions?: IntFieldUpdateOperationsInput | number
     scorePercentage?: FloatFieldUpdateOperationsInput | number
+    completedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutUserTestNestedInput
     job?: JobUpdateOneRequiredWithoutUserTestNestedInput
   }
@@ -16522,6 +16670,8 @@ export namespace Prisma {
     correctAnswers?: IntFieldUpdateOperationsInput | number
     totalQuestions?: IntFieldUpdateOperationsInput | number
     scorePercentage?: FloatFieldUpdateOperationsInput | number
+    completedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type UserTestCreateManyInput = {
@@ -16531,6 +16681,8 @@ export namespace Prisma {
     correctAnswers: number
     totalQuestions: number
     scorePercentage: number
+    completedAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type UserTestUpdateManyMutationInput = {
@@ -16538,6 +16690,8 @@ export namespace Prisma {
     correctAnswers?: IntFieldUpdateOperationsInput | number
     totalQuestions?: IntFieldUpdateOperationsInput | number
     scorePercentage?: FloatFieldUpdateOperationsInput | number
+    completedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type UserTestUncheckedUpdateManyInput = {
@@ -16547,6 +16701,8 @@ export namespace Prisma {
     correctAnswers?: IntFieldUpdateOperationsInput | number
     totalQuestions?: IntFieldUpdateOperationsInput | number
     scorePercentage?: FloatFieldUpdateOperationsInput | number
+    completedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type InterviewCreateInput = {
@@ -16964,8 +17120,9 @@ export namespace Prisma {
     tags?: SortOrder
     salary?: SortOrder
     deadline?: SortOrder
-    isPublished?: SortOrder
     companyId?: SortOrder
+    isPublished?: SortOrder
+    isTestActive?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -16978,8 +17135,9 @@ export namespace Prisma {
     category?: SortOrder
     salary?: SortOrder
     deadline?: SortOrder
-    isPublished?: SortOrder
     companyId?: SortOrder
+    isPublished?: SortOrder
+    isTestActive?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -16992,8 +17150,9 @@ export namespace Prisma {
     category?: SortOrder
     salary?: SortOrder
     deadline?: SortOrder
-    isPublished?: SortOrder
     companyId?: SortOrder
+    isPublished?: SortOrder
+    isTestActive?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -17227,6 +17386,9 @@ export namespace Prisma {
     title?: SortOrder
     description?: SortOrder
     questions?: SortOrder
+    isActive?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
   }
 
   export type TestMaxOrderByAggregateInput = {
@@ -17234,6 +17396,9 @@ export namespace Prisma {
     jobId?: SortOrder
     title?: SortOrder
     description?: SortOrder
+    isActive?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
   }
 
   export type TestMinOrderByAggregateInput = {
@@ -17241,6 +17406,9 @@ export namespace Prisma {
     jobId?: SortOrder
     title?: SortOrder
     description?: SortOrder
+    isActive?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
   }
   export type JsonWithAggregatesFilter<$PrismaModel = never> =
     | PatchUndefined<
@@ -17287,6 +17455,8 @@ export namespace Prisma {
     correctAnswers?: SortOrder
     totalQuestions?: SortOrder
     scorePercentage?: SortOrder
+    completedAt?: SortOrder
+    updatedAt?: SortOrder
   }
 
   export type UserTestAvgOrderByAggregateInput = {
@@ -17302,6 +17472,8 @@ export namespace Prisma {
     correctAnswers?: SortOrder
     totalQuestions?: SortOrder
     scorePercentage?: SortOrder
+    completedAt?: SortOrder
+    updatedAt?: SortOrder
   }
 
   export type UserTestMinOrderByAggregateInput = {
@@ -17311,6 +17483,8 @@ export namespace Prisma {
     correctAnswers?: SortOrder
     totalQuestions?: SortOrder
     scorePercentage?: SortOrder
+    completedAt?: SortOrder
+    updatedAt?: SortOrder
   }
 
   export type UserTestSumOrderByAggregateInput = {
@@ -18259,6 +18433,8 @@ export namespace Prisma {
     correctAnswers: number
     totalQuestions: number
     scorePercentage: number
+    completedAt?: Date | string
+    updatedAt?: Date | string
     job: JobCreateNestedOneWithoutUserTestInput
   }
 
@@ -18268,6 +18444,8 @@ export namespace Prisma {
     correctAnswers: number
     totalQuestions: number
     scorePercentage: number
+    completedAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type UserTestCreateOrConnectWithoutUserInput = {
@@ -18371,6 +18549,8 @@ export namespace Prisma {
     correctAnswers?: IntFilter<"UserTest"> | number
     totalQuestions?: IntFilter<"UserTest"> | number
     scorePercentage?: FloatFilter<"UserTest"> | number
+    completedAt?: DateTimeFilter<"UserTest"> | Date | string
+    updatedAt?: DateTimeFilter<"UserTest"> | Date | string
   }
 
   export type JobCreateWithoutCompanyInput = {
@@ -18383,6 +18563,7 @@ export namespace Prisma {
     salary?: string | null
     deadline: string
     isPublished?: boolean
+    isTestActive?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     Application?: ApplicationCreateNestedManyWithoutJobInput
@@ -18400,6 +18581,7 @@ export namespace Prisma {
     salary?: string | null
     deadline: string
     isPublished?: boolean
+    isTestActive?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     Application?: ApplicationUncheckedCreateNestedManyWithoutJobInput
@@ -18500,8 +18682,9 @@ export namespace Prisma {
     tags?: StringNullableListFilter<"Job">
     salary?: StringNullableFilter<"Job"> | string | null
     deadline?: StringFilter<"Job"> | string
-    isPublished?: BoolFilter<"Job"> | boolean
     companyId?: StringFilter<"Job"> | string
+    isPublished?: BoolFilter<"Job"> | boolean
+    isTestActive?: BoolFilter<"Job"> | boolean
     createdAt?: DateTimeFilter<"Job"> | Date | string
     updatedAt?: DateTimeFilter<"Job"> | Date | string
   }
@@ -18738,6 +18921,9 @@ export namespace Prisma {
     title: string
     description: string
     questions: JsonNullValueInput | InputJsonValue
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type TestUncheckedCreateWithoutJobInput = {
@@ -18745,6 +18931,9 @@ export namespace Prisma {
     title: string
     description: string
     questions: JsonNullValueInput | InputJsonValue
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type TestCreateOrConnectWithoutJobInput = {
@@ -18757,6 +18946,8 @@ export namespace Prisma {
     correctAnswers: number
     totalQuestions: number
     scorePercentage: number
+    completedAt?: Date | string
+    updatedAt?: Date | string
     user: UserCreateNestedOneWithoutUserTestInput
   }
 
@@ -18766,6 +18957,8 @@ export namespace Prisma {
     correctAnswers: number
     totalQuestions: number
     scorePercentage: number
+    completedAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type UserTestCreateOrConnectWithoutJobInput = {
@@ -18871,6 +19064,9 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     questions?: JsonNullValueInput | InputJsonValue
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type TestUncheckedUpdateWithoutJobInput = {
@@ -18878,6 +19074,9 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     questions?: JsonNullValueInput | InputJsonValue
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type UserTestUpsertWithWhereUniqueWithoutJobInput = {
@@ -18963,6 +19162,7 @@ export namespace Prisma {
     salary?: string | null
     deadline: string
     isPublished?: boolean
+    isTestActive?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     company: CompanyCreateNestedOneWithoutJobsInput
@@ -18979,8 +19179,9 @@ export namespace Prisma {
     tags?: JobCreatetagsInput | string[]
     salary?: string | null
     deadline: string
-    isPublished?: boolean
     companyId: string
+    isPublished?: boolean
+    isTestActive?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     test?: TestUncheckedCreateNestedOneWithoutJobInput
@@ -19098,6 +19299,7 @@ export namespace Prisma {
     salary?: NullableStringFieldUpdateOperationsInput | string | null
     deadline?: StringFieldUpdateOperationsInput | string
     isPublished?: BoolFieldUpdateOperationsInput | boolean
+    isTestActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     company?: CompanyUpdateOneRequiredWithoutJobsNestedInput
@@ -19114,8 +19316,9 @@ export namespace Prisma {
     tags?: JobUpdatetagsInput | string[]
     salary?: NullableStringFieldUpdateOperationsInput | string | null
     deadline?: StringFieldUpdateOperationsInput | string
-    isPublished?: BoolFieldUpdateOperationsInput | boolean
     companyId?: StringFieldUpdateOperationsInput | string
+    isPublished?: BoolFieldUpdateOperationsInput | boolean
+    isTestActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     test?: TestUncheckedUpdateOneWithoutJobNestedInput
@@ -19394,6 +19597,7 @@ export namespace Prisma {
     salary?: string | null
     deadline: string
     isPublished?: boolean
+    isTestActive?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     company: CompanyCreateNestedOneWithoutJobsInput
@@ -19410,8 +19614,9 @@ export namespace Prisma {
     tags?: JobCreatetagsInput | string[]
     salary?: string | null
     deadline: string
-    isPublished?: boolean
     companyId: string
+    isPublished?: boolean
+    isTestActive?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     Application?: ApplicationUncheckedCreateNestedManyWithoutJobInput
@@ -19444,6 +19649,7 @@ export namespace Prisma {
     salary?: NullableStringFieldUpdateOperationsInput | string | null
     deadline?: StringFieldUpdateOperationsInput | string
     isPublished?: BoolFieldUpdateOperationsInput | boolean
+    isTestActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     company?: CompanyUpdateOneRequiredWithoutJobsNestedInput
@@ -19460,8 +19666,9 @@ export namespace Prisma {
     tags?: JobUpdatetagsInput | string[]
     salary?: NullableStringFieldUpdateOperationsInput | string | null
     deadline?: StringFieldUpdateOperationsInput | string
-    isPublished?: BoolFieldUpdateOperationsInput | boolean
     companyId?: StringFieldUpdateOperationsInput | string
+    isPublished?: BoolFieldUpdateOperationsInput | boolean
+    isTestActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     Application?: ApplicationUncheckedUpdateManyWithoutJobNestedInput
@@ -19535,6 +19742,7 @@ export namespace Prisma {
     salary?: string | null
     deadline: string
     isPublished?: boolean
+    isTestActive?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     company: CompanyCreateNestedOneWithoutJobsInput
@@ -19551,8 +19759,9 @@ export namespace Prisma {
     tags?: JobCreatetagsInput | string[]
     salary?: string | null
     deadline: string
-    isPublished?: boolean
     companyId: string
+    isPublished?: boolean
+    isTestActive?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     Application?: ApplicationUncheckedCreateNestedManyWithoutJobInput
@@ -19648,6 +19857,7 @@ export namespace Prisma {
     salary?: NullableStringFieldUpdateOperationsInput | string | null
     deadline?: StringFieldUpdateOperationsInput | string
     isPublished?: BoolFieldUpdateOperationsInput | boolean
+    isTestActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     company?: CompanyUpdateOneRequiredWithoutJobsNestedInput
@@ -19664,8 +19874,9 @@ export namespace Prisma {
     tags?: JobUpdatetagsInput | string[]
     salary?: NullableStringFieldUpdateOperationsInput | string | null
     deadline?: StringFieldUpdateOperationsInput | string
-    isPublished?: BoolFieldUpdateOperationsInput | boolean
     companyId?: StringFieldUpdateOperationsInput | string
+    isPublished?: BoolFieldUpdateOperationsInput | boolean
+    isTestActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     Application?: ApplicationUncheckedUpdateManyWithoutJobNestedInput
@@ -19763,6 +19974,8 @@ export namespace Prisma {
     correctAnswers: number
     totalQuestions: number
     scorePercentage: number
+    completedAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type ApplicationUpdateWithoutUserInput = {
@@ -19847,6 +20060,8 @@ export namespace Prisma {
     correctAnswers?: IntFieldUpdateOperationsInput | number
     totalQuestions?: IntFieldUpdateOperationsInput | number
     scorePercentage?: FloatFieldUpdateOperationsInput | number
+    completedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     job?: JobUpdateOneRequiredWithoutUserTestNestedInput
   }
 
@@ -19856,6 +20071,8 @@ export namespace Prisma {
     correctAnswers?: IntFieldUpdateOperationsInput | number
     totalQuestions?: IntFieldUpdateOperationsInput | number
     scorePercentage?: FloatFieldUpdateOperationsInput | number
+    completedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type UserTestUncheckedUpdateManyWithoutUserInput = {
@@ -19864,6 +20081,8 @@ export namespace Prisma {
     correctAnswers?: IntFieldUpdateOperationsInput | number
     totalQuestions?: IntFieldUpdateOperationsInput | number
     scorePercentage?: FloatFieldUpdateOperationsInput | number
+    completedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type JobCreateManyCompanyInput = {
@@ -19876,6 +20095,7 @@ export namespace Prisma {
     salary?: string | null
     deadline: string
     isPublished?: boolean
+    isTestActive?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -19905,6 +20125,7 @@ export namespace Prisma {
     salary?: NullableStringFieldUpdateOperationsInput | string | null
     deadline?: StringFieldUpdateOperationsInput | string
     isPublished?: BoolFieldUpdateOperationsInput | boolean
+    isTestActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     Application?: ApplicationUpdateManyWithoutJobNestedInput
@@ -19922,6 +20143,7 @@ export namespace Prisma {
     salary?: NullableStringFieldUpdateOperationsInput | string | null
     deadline?: StringFieldUpdateOperationsInput | string
     isPublished?: BoolFieldUpdateOperationsInput | boolean
+    isTestActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     Application?: ApplicationUncheckedUpdateManyWithoutJobNestedInput
@@ -19939,6 +20161,7 @@ export namespace Prisma {
     salary?: NullableStringFieldUpdateOperationsInput | string | null
     deadline?: StringFieldUpdateOperationsInput | string
     isPublished?: BoolFieldUpdateOperationsInput | boolean
+    isTestActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -20100,6 +20323,8 @@ export namespace Prisma {
     correctAnswers: number
     totalQuestions: number
     scorePercentage: number
+    completedAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type ApplicationUpdateWithoutJobInput = {
@@ -20139,6 +20364,8 @@ export namespace Prisma {
     correctAnswers?: IntFieldUpdateOperationsInput | number
     totalQuestions?: IntFieldUpdateOperationsInput | number
     scorePercentage?: FloatFieldUpdateOperationsInput | number
+    completedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutUserTestNestedInput
   }
 
@@ -20148,6 +20375,8 @@ export namespace Prisma {
     correctAnswers?: IntFieldUpdateOperationsInput | number
     totalQuestions?: IntFieldUpdateOperationsInput | number
     scorePercentage?: FloatFieldUpdateOperationsInput | number
+    completedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type UserTestUncheckedUpdateManyWithoutJobInput = {
@@ -20156,6 +20385,8 @@ export namespace Prisma {
     correctAnswers?: IntFieldUpdateOperationsInput | number
     totalQuestions?: IntFieldUpdateOperationsInput | number
     scorePercentage?: FloatFieldUpdateOperationsInput | number
+    completedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type InterviewCreateManyApplicationInput = {
