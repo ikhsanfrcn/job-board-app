@@ -1,8 +1,8 @@
 'use client';
-import { Job } from '@/types/job';
+import { IJob } from '@/types/job';
 
 interface Props {
-  job: Job;
+  job: IJob;
   onClick: () => void;
   isSelected: boolean;
 }

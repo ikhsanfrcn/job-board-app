@@ -8,16 +8,24 @@ interface Question {
 }
 
 export class TestController {
+  async getAllTest(req: Request, res: Response) {
+    try {
+      const tests = await prisma.test.findMany();
+      res.status(200).send({ tests })
+    } catch (err) {
+      console.log(err);
+      res.status(400).send(err);
+    }
+  }
+
   async getTest(req: Request, res: Response) {
     try {
       const { jobId } = req.params;
       const test = await prisma.test.findUnique({ where: { jobId } });
       if (!test) throw { message: "No test found!" };
 
-      // ✅ Ensure questions are parsed correctly
       let questions: Question[] = [];
       if (typeof test.questions === "string") {
-        // If stored as a formatted string, parse accordingly
         questions = test.questions
           .split("||")
           .filter(Boolean)
@@ -45,16 +53,29 @@ export class TestController {
     try {
       const { jobId, title, description, questions } = req.body;
 
-      // Ensure jobId is unique
       const existingTest = await prisma.test.findUnique({ where: { jobId } });
       if (existingTest) throw { message: "Test already exists for this job!" };
 
-      // ✅ Store questions as a proper JSON object
-      const test = await prisma.test.create({
-        data: { jobId, title, description, questions },
+      const result = await prisma.$transaction(async (tx) => {
+      const test = await tx.test.create({
+        data: { 
+          jobId, 
+          title, 
+          description, 
+          questions,
+          isActive: true
+        },
       });
 
-      res.status(201).json({ message: "Test created ✅", test });
+      await tx.job.update({
+        where: { id: jobId },
+        data: { isTestActive: true }
+      });
+
+      return test;
+    });
+
+      res.status(201).json({ message: "Test created ✅", test: result });
     } catch (err) {
       console.log(err);
       res.status(400).send(err);
@@ -70,7 +91,6 @@ export class TestController {
         throw { message: "Invalid request body" };
       }
 
-      // Fetch the original test questions from DB
       const test = await prisma.test.findUnique({
         where: { jobId },
       });
@@ -86,7 +106,6 @@ export class TestController {
 
       let correctAnswers = 0;
 
-      // Compare answers with correct ones
       answers.forEach(({ question, selected }) => {
         const original = parsedQuestions.find(
           (q: any) => q.question === question
@@ -103,7 +122,6 @@ export class TestController {
         ((correctAnswers / totalQuestions) * 100).toFixed(2)
       );
 
-      // Save to UserTest
       const savedResult = await prisma.userTest.create({
         data: {
           userId,
@@ -121,6 +139,67 @@ export class TestController {
     } catch (err) {
       console.error(err);
       return res.status(400).json(err);
+    }
+  }
+
+  async activateTest(req: Request, res: Response) {
+    try {
+      const { jobId } = req.params;
+      const companyId = req.user?.id;
+
+      const job = await prisma.job.findFirst({
+        where: { id: jobId, companyId: companyId },
+        include: { test: true },
+      });
+
+      if (!job) throw { message: "Job not found!" };
+      if (job.test?.isActive) throw { message: "Test already active" };
+
+      await prisma.test.update({
+        where: { jobId: jobId },
+        data: { isActive: true },
+      });
+
+      await prisma.job.update({
+        where: { id: jobId },
+        data: { isTestActive: true },
+      });
+
+      return res.status(200).send({ message: "Test activated successfully" });
+    } catch (err) {
+      console.log(err);
+      res.status(400).send(err);
+    }
+  }
+
+  async deactivateTest(req: Request, res: Response) {
+    try {
+      const { jobId } = req.params;
+      const companyId = req.user?.id;
+
+      const job = await prisma.job.findFirst({
+        where: { id: jobId, companyId: companyId },
+        include: { test: true },
+      });
+
+      if (!job) throw { message: "Job not found!" };
+      if (!job.test) throw { message: "No test found for this job!" };
+      if (!job.test.isActive) throw { message: "Test is already inactive" };
+
+      await prisma.test.update({
+        where: { jobId: jobId },
+        data: { isActive: false },
+      });
+
+      await prisma.job.update({
+        where: { id: jobId },
+        data: { isTestActive: false },
+      });
+
+      return res.status(200).send({ message: "Test deactivate successfully" });
+    } catch (err) {
+      console.log(err);
+      res.status(400).send(err);
     }
   }
 }

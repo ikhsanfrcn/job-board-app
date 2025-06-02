@@ -1,9 +1,9 @@
-import { IJob } from "@/types/job";
+import { IMJob } from "@/types/job";
 import { Dialog } from "@headlessui/react";
 
 interface IProps {
-  deleteJob: IJob | null;
-  setDeleteJob: React.Dispatch<React.SetStateAction<IJob | null>>;
+  deleteJob: IMJob | null;
+  setDeleteJob: React.Dispatch<React.SetStateAction<IMJob | null>>;
   handleDelete: () => void;
 }
 

@@ -40,7 +40,7 @@ export default function Page({
     try {
       const { data } = await axios.post("/test", { jobId, ...values });
       toast.success(data.message);
-      router.push("/company/manage-job");
+      router.push("/company/manage-jobs");
     } catch (err) {
       if (err instanceof AxiosError) {
         toast.error(err.response?.data.message);
