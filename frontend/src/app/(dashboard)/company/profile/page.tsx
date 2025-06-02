@@ -1,11 +1,11 @@
-import Hero from "./_components/hero";
+import Hero from "../_components/hero";
 import Profile from "./_components/profile";
 
 export default function ProfilePage() {
   return (
     <div className="w-full md:px-14">
       <div className="bg-white border border-gray-200 rounded-xl shadow-sm">
-        <Hero />
+        <Hero title="Profile" />
         <Profile />
       </div>
     </div>

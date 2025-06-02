@@ -1,7 +1,8 @@
 import { IMJob } from "@/types/job";
 import { ITest } from "@/types/test";
+import Link from "next/link";
 import { BiPencil } from "react-icons/bi";
-import { BsTrash2 } from "react-icons/bs";
+import { BsPeople, BsTrash2 } from "react-icons/bs";
 import { HiOutlineCurrencyDollar, HiOutlineTag } from "react-icons/hi";
 import { HiOutlineCalendarDays, HiOutlineMapPin } from "react-icons/hi2";
 
@@ -24,7 +25,7 @@ export default function JobsCard({
         {jobs.map((job) => (
           <div
             key={job.id}
-            className="border border-gray-200 rounded-xl shadow-sm p-5 bg-white hover:shadow-md transition"
+            className="border border-gray-200 rounded-xl shadow-sm p-5 bg-white hover:shadow-md transition duration-300 hover:scale-105"
           >
             <div className="flex justify-between items-center mb-2">
               <h3 className="text-lg font-semibold">{job.title}</h3>
@@ -89,9 +90,20 @@ export default function JobsCard({
                 {job.isTestActive ? "Test Active" : "Test Inactive"}
               </button>
               <div className="relative group/tooltip">
+                <Link href={`/company/manage-jobs/${job.id}`}>
+                  <button className="text-sm text-gray-600 p-1 rounded-full hover:text-green-500 hover:bg-gray-200 transition duration-300 hover:scale-110 cursor-pointer">
+                    <BsPeople className="text-xl" />
+                  </button>
+                </Link>
+                <div className="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 bg-black/50 backdrop-blur-md text-white text-xs rounded px-2 py-1 opacity-0 group-hover/tooltip:opacity-100 transition-opacity pointer-events-none">
+                  See Applicants
+                </div>
+              </div>
+
+              <div className="relative group/tooltip">
                 <button
                   onClick={() => setEditJob(job)}
-                  className="text-sm text-gray-600 p-1 rounded-full hover:text-blue-500 hover:bg-gray-200 transition duration-300 hover:scale-110"
+                  className="text-sm text-gray-600 p-1 rounded-full hover:text-blue-500 hover:bg-gray-200 transition duration-300 hover:scale-110 cursor-pointer"
                 >
                   <BiPencil className="text-xl" />
                 </button>
@@ -99,10 +111,11 @@ export default function JobsCard({
                   Edit
                 </div>
               </div>
+
               <div className="relative group/tooltip">
                 <button
                   onClick={() => setDeleteJob(job)}
-                  className="text-sm text-gray-600 p-1 rounded-full hover:text-red-500 hover:bg-gray-200 transition duration-300 hover:scale-110"
+                  className="text-sm text-gray-600 p-1 rounded-full hover:text-red-500 hover:bg-gray-200 transition duration-300 hover:scale-110 cursor-pointer"
                 >
                   <BsTrash2 className="text-xl" />
                 </button>

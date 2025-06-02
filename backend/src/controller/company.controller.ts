@@ -223,7 +223,11 @@ export class CompanyController {
       const companyId = req.company?.id;
 
       if (!req.file) throw { message: "Logo is required" };
-      const { secure_url } = await cloudinaryUpload(req.file, "jobsdoors");
+      const { secure_url } = await cloudinaryUpload(
+        req.file,
+        "jobsdoors",
+        "image"
+      );
 
       await prisma.company.update({
         where: { id: companyId },

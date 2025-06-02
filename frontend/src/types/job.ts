@@ -2,6 +2,7 @@ export interface IJob {
   id: string;
   title: string;
   description: string;
+  province: string;
   city: string;
   category: string;
   tags: string[];
@@ -11,8 +12,8 @@ export interface IJob {
   isTestActive: boolean;
   createdAt: string;
   company: {
-    name: string
-  }
+    name: string;
+  };
 }
 
 export interface IMJob {
