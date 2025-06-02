@@ -1,15 +1,15 @@
-import { IJob } from "@/types/job";
 import { Dialog } from "@headlessui/react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { createJobSchema } from "@/schema/jobSchema";
+import { IMJob } from "@/types/job";
 
 interface IProps {
   isOpen: boolean;
   onClose: () => void;
-  handleCreate: (newJob: IJob) => void;
+  handleCreate: (newJob: IMJob) => void;
 }
 
 export default function ModalCreateJob({
@@ -78,7 +78,7 @@ export default function ModalCreateJob({
           }}
           validationSchema={createJobSchema}
           onSubmit={(values, { resetForm }) => {
-            const newJob: IJob = {
+            const newJob: IMJob = {
               id: crypto.randomUUID(),
               title: values.title,
               description: values.description,
@@ -92,6 +92,7 @@ export default function ModalCreateJob({
               deadline: values.deadline,
               isPublished: values.isPublished,
               createdAt: new Date().toISOString(),
+              isTestActive: false,
             };
             handleCreate(newJob);
             resetForm();

@@ -1,6 +1,6 @@
 "use client";
 
-import { IJob } from "@/types/job";
+import { IMJob } from "@/types/job";
 import { Dialog } from "@headlessui/react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { useEffect, useState } from "react";
@@ -8,9 +8,9 @@ import axios from "axios";
 import { createJobSchema } from "@/schema/jobSchema";
 
 interface IProps {
-  editJob: IJob | null;
-  setEditJob: React.Dispatch<React.SetStateAction<IJob | null>>;
-  handleEditSave: (updatedJob: IJob) => void;
+  editJob: IMJob | null;
+  setEditJob: React.Dispatch<React.SetStateAction<IMJob | null>>;
+  handleEditSave: (updatedJob: IMJob) => void;
 }
 
 export default function ModalEditJob({
@@ -81,7 +81,7 @@ export default function ModalEditJob({
           }}
           validationSchema={createJobSchema}
           onSubmit={(values) => {
-            const updatedJob: IJob = {
+            const updatedJob: IMJob = {
               ...editJob,
               title: values.title,
               description: values.description,

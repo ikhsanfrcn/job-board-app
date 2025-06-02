@@ -1,15 +1,23 @@
-import { IJob } from "@/types/job";
+import { IMJob } from "@/types/job";
+import { ITest } from "@/types/test";
 import { BiPencil } from "react-icons/bi";
 import { BsTrash2 } from "react-icons/bs";
 import { HiOutlineCurrencyDollar, HiOutlineTag } from "react-icons/hi";
 import { HiOutlineCalendarDays, HiOutlineMapPin } from "react-icons/hi2";
 
 interface IProps {
-  jobs: IJob[];
-  setEditJob: (job: IJob) => void;
-  setDeleteJob: (job: IJob) => void;
+  jobs: IMJob[];
+  setEditJob: (job: IMJob) => void;
+  setDeleteJob: (job: IMJob) => void;
+  onTestToggle: (job: IMJob) => void;
 }
-export default function JobsCard({ jobs, setEditJob, setDeleteJob }: IProps) {
+export default function JobsCard({
+  jobs,
+  setEditJob,
+  setDeleteJob,
+  onTestToggle,
+}: IProps) {
+
   return (
     <div>
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
@@ -69,7 +77,17 @@ export default function JobsCard({ jobs, setEditJob, setDeleteJob }: IProps) {
                 </span>
               ))}
             </div>
-            <div className="flex justify-end gap-2">
+            <div className="flex items-center justify-end gap-2">
+              <button
+                onClick={() => onTestToggle(job)}
+                className={`w-full py-2 px-4 rounded-lg text-sm font-medium transition duration-300 ${
+                  job.isTestActive
+                    ? "bg-green-500 text-white hover:bg-green-600"
+                    : "bg-gray-200 text-gray-700 hover:bg-gray-300"
+                }`}
+              >
+                {job.isTestActive ? "Test Active" : "Test Inactive"}
+              </button>
               <div className="relative group/tooltip">
                 <button
                   onClick={() => setEditJob(job)}

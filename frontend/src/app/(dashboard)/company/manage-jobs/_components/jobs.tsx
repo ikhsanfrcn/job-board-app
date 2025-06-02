@@ -4,21 +4,29 @@ import ModalDeleteJob from "./modalDeleteJob";
 import ModalEditJob from "./modalEditJob";
 import ModalCreateJob from "./modalCreateJob";
 import JobCardSkeleton from "./skeletonJob";
-import { IJob } from "@/types/job";
+import { IMJob } from "@/types/job";
 import { AxiosError } from "axios";
 import { toast } from "react-toastify";
 import axios from "@/lib/axios";
 import { useSession } from "next-auth/react";
 import JobsCard from "./jobsCard";
+import { useRouter } from "next/navigation";
+import { ITest } from "@/types/test";
+import ModalCreateTest from "./modalCreateTest";
 
 export default function Jobs() {
   const { data: company } = useSession();
   const token = company?.accessToken;
-
-  const [jobs, setJobs] = useState<IJob[]>([]);
-  const [editJob, setEditJob] = useState<IJob | null>(null);
-  const [deleteJob, setDeleteJob] = useState<IJob | null>(null);
+  const router = useRouter();
+  const [jobs, setJobs] = useState<IMJob[]>([]);
+  const [tests, setTests] = useState<ITest[]>([]);
+  const [editJob, setEditJob] = useState<IMJob | null>(null);
+  const [deleteJob, setDeleteJob] = useState<IMJob | null>(null);
   const [isCreateOpen, setIsCreateOpen] = useState(false);
+  const [isCreateTestOpen, setIsCreateTestOpen] = useState(false);
+  const [selectedJobForTest, setSelectedJobForTest] = useState<IMJob | null>(
+    null
+  );
   const [loading, setLoading] = useState(false);
 
   const fetchJobs = useCallback(async () => {
@@ -31,6 +39,8 @@ export default function Jobs() {
         },
       });
       setJobs(data.data.jobs);
+      const response = await axios.get(`/test`);
+      setTests(response.data.tests);
     } catch (err) {
       console.error("Failed to fetch jobs", err);
     } finally {
@@ -60,7 +70,7 @@ export default function Jobs() {
     }
   };
 
-  const handleEditSave = async (updatedJob: IJob) => {
+  const handleEditSave = async (updatedJob: IMJob) => {
     if (!token) return;
     try {
       await axios.patch(`/jobs/${updatedJob.id}`, updatedJob, {
@@ -81,7 +91,7 @@ export default function Jobs() {
     }
   };
 
-  const handleCreate = async (newJob: IJob) => {
+  const handleCreate = async (newJob: IMJob) => {
     try {
       await axios.post("/jobs", newJob, {
         headers: {
@@ -98,6 +108,58 @@ export default function Jobs() {
       }
     }
   };
+
+  const handleTestToggle = async (job: IMJob) => {
+    if (!token) return;
+    try {
+      const existingTest = tests.find((test) => test.jobId === job.id);
+      if (existingTest) {
+        const newActiveState = !existingTest.isActive;
+        const endPoint = newActiveState
+          ? `/test/${job.id}/activate`
+          : `/test/${job.id}/deactivate`;
+        await axios.patch(endPoint);
+        setTests((prev) =>
+          prev.map((test) =>
+            test.id === existingTest.id
+              ? { ...test, isActive: newActiveState }
+              : test
+          )
+        );
+        setJobs((prev) =>
+          prev.map((j) =>
+            j.id === job.id ? { ...j, isTestActive: newActiveState } : j
+          )
+        );
+        toast.info(
+          `Test ${newActiveState ? "enabled" : "disabled"} successfully.`
+        );
+        return;
+      } else {
+        setSelectedJobForTest(job);
+        setIsCreateTestOpen(true);
+      }
+    } catch (err) {
+      if (err instanceof AxiosError) {
+        toast.error(err.response?.data?.message || "Failed to toggle test!");
+      }
+    }
+  };
+
+  // ✅ Handle test creation confirmation
+  const handleCreateTestConfirm = () => {
+    if (selectedJobForTest) {
+      router.push(`/company/test/${selectedJobForTest.id}`);
+    }
+    setIsCreateTestOpen(false);
+    setSelectedJobForTest(null);
+  };
+
+  const handleCreateTestCancel = () => {
+    setIsCreateTestOpen(false);
+    setSelectedJobForTest(null);
+  };
+
   if (loading) {
     return <JobCardSkeleton />;
   }
@@ -111,13 +173,12 @@ export default function Jobs() {
           Add Job
         </button>
       </div>
-
       <JobsCard
         jobs={jobs}
         setEditJob={setEditJob}
         setDeleteJob={setDeleteJob}
+        onTestToggle={handleTestToggle}
       />
-
       <ModalEditJob
         editJob={editJob}
         setEditJob={setEditJob}
@@ -132,6 +193,12 @@ export default function Jobs() {
         isOpen={isCreateOpen}
         onClose={() => setIsCreateOpen(false)}
         handleCreate={handleCreate}
+      />
+      <ModalCreateTest
+        isOpen={isCreateTestOpen}
+        onClose={handleCreateTestCancel}
+        onConfirm={handleCreateTestConfirm}
+        jobTitle={selectedJobForTest?.title || ""}
       />
     </div>
   );
