@@ -73,8 +73,13 @@ export default function Discovery({city}: {city?: string}) {
           ? jobs.map((job) => (
               <div
                 key={job.id}
-                className="border rounded-lg text-sm shadow-md bg-white p-6 hover:shadow-lg transition duration-100"
+                className="border rounded-lg text-sm shadow-md bg-white p-6 hover:shadow-lg transition duration-100 relative"
               >
+                  {job.isTestActive && 
+                <div className="absolute right-0 top-0 rounded-bl-lg rounded-tr-lg bg-green-600 text-white px-3 py-2">
+                  T<br/>E<br/>S<br/>T
+                </div>
+                }
                 <div className="flex items-center gap-2">
                   {/* Company Logo */}
                   <Image

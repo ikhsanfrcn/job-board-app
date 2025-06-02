@@ -8,6 +8,7 @@ export interface IDiscover{
     salary: string;
     deadline: string;
     createdAt: string;
+    isTestActive: string;
     company: {
         id: string;
         name: string;
