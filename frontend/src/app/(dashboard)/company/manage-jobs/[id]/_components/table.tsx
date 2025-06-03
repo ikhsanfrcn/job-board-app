@@ -1,4 +1,4 @@
-import { IApplication } from "@/types/applicationType";
+import { IApplication, ITestResult } from "@/types/applicationType";
 import Image from "next/image";
 import { BiPlus } from "react-icons/bi";
 
@@ -6,12 +6,26 @@ interface IProps {
   applicants: IApplication[];
   setPreviewUrl: (url: string | null) => void;
   onUpdateStatus: (id: string, status: string) => void;
+  onViewTestResult?: (testResult: ITestResult, userFullName: string) => void;
 }
 export default function Table({
   applicants,
   setPreviewUrl,
   onUpdateStatus,
+  onViewTestResult
 }: IProps) {
+   const handleTestResultClick = (app: IApplication) => {
+    const testData = app.user.userTest?.[0];
+    if (testData && onViewTestResult) {
+      const fullName = `${app.user.firstName || ''} ${app.user.lastName || ''}`.trim();
+      onViewTestResult(testData, fullName);
+    }
+  };
+
+  const hasTestResult = (app: IApplication): boolean => {
+    return !!(app.user.userTest && app.user.userTest.length > 0);
+  };
+
   return (
     <table className="w-full text-sm text-left border-collapse">
       <thead className="bg-gray-100 text-gray-700 uppercase text-xs">
@@ -22,6 +36,7 @@ export default function Table({
           <th className="p-3 border-b">Expected Salary</th>
           <th className="p-3 border-b">Applied At</th>
           <th className="p-3 border-b">CV</th>
+          <th className="p-3 border-b">Test</th>
           <th className="p-3 border-b">Status</th>
           <th className="p-3 border-b">Action</th>
         </tr>
@@ -37,7 +52,7 @@ export default function Table({
                 src={app.user.avatar}
                 width={40}
                 height={40}
-                alt={app.user.firstName}
+                alt={app.user.firstName || "applicant-photo"}
                 className="w-10 h-10 rounded-full object-cover border"
               />
             </td>
@@ -71,6 +86,18 @@ export default function Table({
                 </button>
               ) : (
                 <span className="text-gray-400 italic">No CV</span>
+              )}
+            </td>
+            <td className="p-3 border-b">
+              {hasTestResult(app) ? (
+                <button
+                  onClick={() => handleTestResultClick(app)}
+                  className="text-sky-500 hover:underline hover:text-sky-700 transition"
+                >
+                  View Result
+                </button>
+              ) : (
+                <span className="text-gray-400 italic">No Test</span>
               )}
             </td>
             <td className="p-3 border-b capitalize text-gray-700">

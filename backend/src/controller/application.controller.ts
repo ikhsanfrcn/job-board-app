@@ -64,7 +64,22 @@ export class ApplicationController {
           },
         },
         include: {
-          user: true,
+          user: {
+            include: {
+              userTest: {
+                where: {
+                  jobId: jobId,
+                },
+                select: {
+                  id: true,
+                  correctAnswers: true,
+                  totalQuestions: true,
+                  scorePercentage: true,
+                  completedAt: true,
+                },
+              },
+            },
+          },
         },
         orderBy: {
           createdAt: "desc",

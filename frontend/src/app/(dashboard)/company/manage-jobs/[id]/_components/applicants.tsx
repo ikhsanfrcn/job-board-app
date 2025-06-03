@@ -1,12 +1,13 @@
 "use client";
 import axios from "@/lib/axios";
-import { IApplication } from "@/types/applicationType";
+import { IApplication, ITestResult } from "@/types/applicationType";
 import { useSession } from "next-auth/react";
 import React, { useCallback, useEffect, useState } from "react";
 import CvPreviewModal from "./cvPreviewModal";
 import Table from "./table";
 import { useRouter, useSearchParams } from "next/navigation";
 import { toast } from "react-toastify";
+import TestResultModal from "./testResultModal";
 
 interface IProps {
   jobId: string;
@@ -31,6 +32,8 @@ export default function Applicants({ jobId }: IProps) {
   const [loading, setLoading] = useState(false);
   const [applicants, setApplicants] = useState<IApplication[]>([]);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+  const [testResult, setTestResult] = useState<ITestResult | null>(null);
+  const [testFullName, setTestFullName] = useState<string>("");
   const [statusFilter, setStatusFilter] = useState<string>("");
 
   useEffect(() => {
@@ -80,6 +83,16 @@ export default function Applicants({ jobId }: IProps) {
     }
   };
 
+  const handleViewTestResult = (testResult: ITestResult, userFullName: string) => {
+    setTestResult(testResult);
+    setTestFullName(userFullName);
+  };
+
+  const closeTestResultModal = () => {
+    setTestResult(null);
+    setTestFullName("");
+  };
+
   const filter = (status: string) => {
     setStatusFilter(status);
     const query = status ? `?status=${status}` : "";
@@ -113,10 +126,19 @@ export default function Applicants({ jobId }: IProps) {
         applicants={applicants}
         setPreviewUrl={setPreviewUrl}
         onUpdateStatus={handleUpdateStatus}
+        onViewTestResult={handleViewTestResult}
       />
 
       {previewUrl && (
         <CvPreviewModal url={previewUrl} onClose={() => setPreviewUrl(null)} />
+      )}
+
+      {testResult && (
+        <TestResultModal 
+          testResult={testResult}
+          userFullName={testFullName}
+          onClose={closeTestResultModal}
+        />
       )}
     </div>
   );
