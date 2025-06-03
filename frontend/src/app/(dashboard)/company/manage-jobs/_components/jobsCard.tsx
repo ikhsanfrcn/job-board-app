@@ -60,10 +60,10 @@ export default function JobsCard({
                   })}
                 </span>
               </div>
-              {job.salaryStart && (
+              {job.salaryMin && (
                 <div className="flex items-center gap-2">
                   <HiOutlineCurrencyDollar className="text-gray-400" />
-                  <span>Rp. {job.salaryStart}</span>
+                  <span>Rp. {job.salaryMin}</span>
                 </div>
               )}
             </div>

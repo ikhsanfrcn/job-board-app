@@ -13,8 +13,8 @@ export default function JobCard({ job, onClick, isSelected }: Props) {
       <p className="text-sm text-gray-600">{job.company.name}</p>
       <h3 className="font-semibold">{job.title}</h3>
       <p className="text-sm text-gray-500">{job.city} • {job.deadline}</p>
-      {job.salaryStart && (
-        <p className="text-xs text-black">IDR {job.salaryStart} {job.salaryEnd && ` - ${job.salaryEnd}`}</p>
+      {job.salaryMin && (
+        <p className="text-xs text-black">IDR {job.salaryMin} {job.salaryMax && ` - ${job.salaryMax}`}</p>
       )}
     </div>
   );

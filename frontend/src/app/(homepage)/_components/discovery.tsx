@@ -106,7 +106,7 @@ export default function Discovery({city}: {city?: string}) {
                 <div className="flex gap-2 items-center">
                   <FcMoneyTransfer className="text-sm" />
                   <span className="my-5">
-                    IDR {job.salaryStart} - {job.salaryEnd}
+                    IDR {job.salaryMin} - {job.salaryMax}
                   </span>
                 </div>
 

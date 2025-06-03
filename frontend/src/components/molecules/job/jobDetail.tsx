@@ -59,7 +59,7 @@ export default function JobDetail({ job }: {job: IJob}) {
           <p className="text-black">{job.company.name}</p>
           <h2 className="text-xl font-bold">{job.title}</h2>
           <p className="text-gray-700">
-            {job.city} {job.salaryStart && `• IDR ${job.salaryStart}`} {job.salaryEnd && ` - ${job.salaryEnd}`}
+            {job.city} {job.salaryMin && `• IDR ${job.salaryMin}`} {job.salaryMax && ` - ${job.salaryMax}`}
           </p>
         </div>
         <div>
@@ -76,9 +76,9 @@ export default function JobDetail({ job }: {job: IJob}) {
         <p>
           <strong>Category:</strong> {job.category}
         </p>
-        {job.salaryStart && (
+        {job.salaryMin && (
           <p>
-            <strong>Salary:</strong> {job.salaryStart} {job.salaryEnd && ` - ${job.salaryEnd}`}
+            <strong>Salary:</strong> {job.salaryMin} {job.salaryMax && ` - ${job.salaryMax}`}
           </p>
         )}
         <p>

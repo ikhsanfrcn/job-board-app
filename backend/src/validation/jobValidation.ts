@@ -10,8 +10,8 @@ export const createJobSchema = yup.object({
     .of(yup.string().required("Each tag must be a string"))
     .min(1, "At least one tag is required")
     .required("Tags are required"),
-  salaryStart: yup.string().nullable(),
-  salaryEnd: yup.string().nullable(),
+  salaryMin: yup.number().nullable(),
+  salaryMax: yup.number().nullable(),
   deadline: yup
     .string()
     .required("Deadline is required")
@@ -29,8 +29,8 @@ export const updateJobSchema = yup.object({
     .of(yup.string().required("Each tag must be a string"))
     .min(1, "At least one tag is required")
     .required("Tags are required"),
-  salaryStart: yup.string().nullable(),
-  salaryEnd: yup.string().nullable(),
+  salaryMin: yup.number().nullable(),
+  salaryMax: yup.number().nullable(),
   deadline: yup
     .string()
     .required("Deadline is required")

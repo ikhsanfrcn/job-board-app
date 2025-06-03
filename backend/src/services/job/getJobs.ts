@@ -8,6 +8,8 @@ export const getJobs = async ({
   isPublished = true,
   page = 1,
   size = 10,
+  minSalary,
+  maxSalary,
 }: GetJobsParams) => {
   const skip = (page - 1) * size;
   const take = size;
@@ -18,6 +20,12 @@ export const getJobs = async ({
   if (category) where.category = category;
   if (tags && tags.length > 0) {
     where.tags = { hasEvery: tags };
+  }
+   if (minSalary) {
+    where.salaryMin = { gte: minSalary };
+  }
+  if (maxSalary) {
+    where.salaryMax = { lte: maxSalary };
   }
 
   const [jobs, total] = await Promise.all([

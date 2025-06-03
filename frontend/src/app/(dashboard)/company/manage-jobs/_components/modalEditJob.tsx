@@ -76,8 +76,8 @@ export default function ModalEditJob({
             city: editJob.city,
             category: editJob.category,
             tags: editJob.tags.join(", "),
-            salaryStart: editJob.salaryStart,
-            salaryEnd: editJob.salaryEnd,
+            salaryMin: editJob.salaryMin,
+            salaryMax: editJob.salaryMax,
             deadline: editJob.deadline,
             isPublished: editJob.isPublished,
           }}
@@ -93,8 +93,8 @@ export default function ModalEditJob({
                 .split(",")
                 .map((tag) => tag.trim())
                 .filter(Boolean),
-              salaryStart: values.salaryStart,
-              salaryEnd: values.salaryEnd,
+              salaryMin: values.salaryMin,
+              salaryMax: values.salaryMax,
               deadline: values.deadline,
               isPublished: values.isPublished,
             };
@@ -213,13 +213,13 @@ export default function ModalEditJob({
 
               <div>
                 <Field
-                  name="salaryStart"
+                  name="salaryMin"
                   type="number"
                   className="w-full border px-3 py-2 rounded"
                   placeholder="Salary Start"
                 />
                 <ErrorMessage
-                  name="salaryStart"
+                  name="salaryMin"
                   component="div"
                   className="text-red-500 text-sm"
                 />
@@ -227,13 +227,13 @@ export default function ModalEditJob({
 
               <div>
                 <Field
-                  name="salaryEnd"
+                  name="salaryMax"
                   type="number"
                   className="w-full border px-3 py-2 rounded"
                   placeholder="Salary End"
                 />
                 <ErrorMessage
-                  name="salaryEnd"
+                  name="salaryMax"
                   component="div"
                   className="text-red-500 text-sm"
                 />

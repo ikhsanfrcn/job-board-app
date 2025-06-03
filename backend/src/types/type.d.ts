@@ -18,8 +18,8 @@ export interface CreateJobParams {
   city: string;
   category: string;
   tags: string[];
-  salaryStart?: string | null | undefined;
-  salaryEnd?: string | null | undefined;
+  salaryMin?: number | null | undefined;
+  salaryMax?: number | null | undefined;
   deadline: string;
   companyId: string;
   isPublished?: boolean;
@@ -38,6 +38,8 @@ export interface GetJobsParams {
   isPublished?: boolean;
   page?: number;
   size?: number;
+  minSalary?: number;
+  maxSalary?: number;
 }
 
 export interface CreateApplicationParams {
