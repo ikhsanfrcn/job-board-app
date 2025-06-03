@@ -85,8 +85,8 @@ model Job {
   city         String
   category     String
   tags         String[]
-  salaryStart  String?
-  salaryEnd    String?
+  salaryMin    Int?
+  salaryMax    Int?
   deadline     String
   companyId    String
   isPublished  Boolean  @default(false)

@@ -21,7 +21,7 @@ export const ApplicationCard = ({ application }: Props) => {
       </div>
       <p className="text-sm text-gray-600">{job.city}</p>
       <p className="text-sm text-gray-600 mb-1">
-        Salary: {job.salaryStart || "-"} - {job.salaryEnd}
+        Salary: {job.salaryMin || "-"} - {job.salaryMax}
       </p>
       <p className="text-sm text-gray-400">Application Date: {createdDate}</p>
       <div className="mt-2">

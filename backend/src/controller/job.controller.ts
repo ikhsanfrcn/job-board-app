@@ -41,6 +41,8 @@ export class JobController {
         isPublished,
         page = "1",
         size = "10",
+        minSalary,
+        maxSalary,
       } = req.query;
 
       const parsedTags = typeof tags === "string" ? tags.split(",") : [];
@@ -52,6 +54,8 @@ export class JobController {
         isPublished: isPublished === "false" ? false : true,
         page: parseInt(page as string),
         size: parseInt(size as string),
+        minSalary: minSalary ? parseInt(minSalary as string) : undefined,
+        maxSalary: maxSalary ? parseInt(maxSalary as string) : undefined,
       });
 
       res.status(200).json(jobsResult);

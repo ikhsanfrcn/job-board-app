@@ -72,8 +72,8 @@ export default function ModalCreateJob({
             city: "",
             category: "",
             tags: "",
-            salaryStart: "",
-            salaryEnd: "",
+            salaryMin: "",
+            salaryMax: "",
             deadline: "",
             isPublished: false,
           }}
@@ -89,8 +89,10 @@ export default function ModalCreateJob({
                 .split(",")
                 .map((tag) => tag.trim())
                 .filter((tag) => tag !== ""),
-              salaryStart: values.salaryStart,
-              salaryEnd: values.salaryEnd,
+              salaryMin:
+                values.salaryMin === "" ? null : Number(values.salaryMin),
+              salaryMax:
+                values.salaryMax === "" ? null : Number(values.salaryMax),
               deadline: values.deadline,
               isPublished: values.isPublished,
               createdAt: new Date().toISOString(),
@@ -210,13 +212,13 @@ export default function ModalCreateJob({
 
               <div>
                 <Field
-                  name="salaryStart"
+                  name="salaryMin"
                   type="number"
                   className="w-full border px-3 py-2 rounded"
                   placeholder="Salary Start"
                 />
                 <ErrorMessage
-                  name="salaryStart"
+                  name="salaryMin"
                   component="div"
                   className="text-red-500 text-sm"
                 />
@@ -224,13 +226,13 @@ export default function ModalCreateJob({
 
               <div>
                 <Field
-                  name="salaryEnd"
+                  name="salaryMax"
                   type="number"
                   className="w-full border px-3 py-2 rounded"
                   placeholder="Salary End"
                 />
                 <ErrorMessage
-                  name="salaryEnd"
+                  name="salaryMax"
                   component="div"
                   className="text-red-500 text-sm"
                 />

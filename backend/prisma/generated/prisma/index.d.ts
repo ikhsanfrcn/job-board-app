@@ -395,7 +395,7 @@ export namespace Prisma {
   export import Exact = $Public.Exact
 
   /**
-   * Prisma Client JS version: 6.8.2
+   * Prisma Client JS version: 6.8.1
    * Query Engine version: 2060c79ba17c6bb9f5823312b6f6b7f4a845738e
    */
   export type PrismaVersion = {
@@ -5698,8 +5698,20 @@ export namespace Prisma {
 
   export type AggregateJob = {
     _count: JobCountAggregateOutputType | null
+    _avg: JobAvgAggregateOutputType | null
+    _sum: JobSumAggregateOutputType | null
     _min: JobMinAggregateOutputType | null
     _max: JobMaxAggregateOutputType | null
+  }
+
+  export type JobAvgAggregateOutputType = {
+    salaryMin: number | null
+    salaryMax: number | null
+  }
+
+  export type JobSumAggregateOutputType = {
+    salaryMin: number | null
+    salaryMax: number | null
   }
 
   export type JobMinAggregateOutputType = {
@@ -5708,8 +5720,8 @@ export namespace Prisma {
     description: string | null
     city: string | null
     category: string | null
-    salaryStart: string | null
-    salaryEnd: string | null
+    salaryMin: number | null
+    salaryMax: number | null
     deadline: string | null
     companyId: string | null
     isPublished: boolean | null
@@ -5724,8 +5736,8 @@ export namespace Prisma {
     description: string | null
     city: string | null
     category: string | null
-    salaryStart: string | null
-    salaryEnd: string | null
+    salaryMin: number | null
+    salaryMax: number | null
     deadline: string | null
     companyId: string | null
     isPublished: boolean | null
@@ -5741,8 +5753,8 @@ export namespace Prisma {
     city: number
     category: number
     tags: number
-    salaryStart: number
-    salaryEnd: number
+    salaryMin: number
+    salaryMax: number
     deadline: number
     companyId: number
     isPublished: number
@@ -5753,14 +5765,24 @@ export namespace Prisma {
   }
 
 
+  export type JobAvgAggregateInputType = {
+    salaryMin?: true
+    salaryMax?: true
+  }
+
+  export type JobSumAggregateInputType = {
+    salaryMin?: true
+    salaryMax?: true
+  }
+
   export type JobMinAggregateInputType = {
     id?: true
     title?: true
     description?: true
     city?: true
     category?: true
-    salaryStart?: true
-    salaryEnd?: true
+    salaryMin?: true
+    salaryMax?: true
     deadline?: true
     companyId?: true
     isPublished?: true
@@ -5775,8 +5797,8 @@ export namespace Prisma {
     description?: true
     city?: true
     category?: true
-    salaryStart?: true
-    salaryEnd?: true
+    salaryMin?: true
+    salaryMax?: true
     deadline?: true
     companyId?: true
     isPublished?: true
@@ -5792,8 +5814,8 @@ export namespace Prisma {
     city?: true
     category?: true
     tags?: true
-    salaryStart?: true
-    salaryEnd?: true
+    salaryMin?: true
+    salaryMax?: true
     deadline?: true
     companyId?: true
     isPublished?: true
@@ -5841,6 +5863,18 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
+     * Select which fields to average
+    **/
+    _avg?: JobAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: JobSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: JobMinAggregateInputType
@@ -5871,6 +5905,8 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: JobCountAggregateInputType | true
+    _avg?: JobAvgAggregateInputType
+    _sum?: JobSumAggregateInputType
     _min?: JobMinAggregateInputType
     _max?: JobMaxAggregateInputType
   }
@@ -5882,8 +5918,8 @@ export namespace Prisma {
     city: string
     category: string
     tags: string[]
-    salaryStart: string | null
-    salaryEnd: string | null
+    salaryMin: number | null
+    salaryMax: number | null
     deadline: string
     companyId: string
     isPublished: boolean
@@ -5891,6 +5927,8 @@ export namespace Prisma {
     createdAt: Date
     updatedAt: Date
     _count: JobCountAggregateOutputType | null
+    _avg: JobAvgAggregateOutputType | null
+    _sum: JobSumAggregateOutputType | null
     _min: JobMinAggregateOutputType | null
     _max: JobMaxAggregateOutputType | null
   }
@@ -5916,8 +5954,8 @@ export namespace Prisma {
     city?: boolean
     category?: boolean
     tags?: boolean
-    salaryStart?: boolean
-    salaryEnd?: boolean
+    salaryMin?: boolean
+    salaryMax?: boolean
     deadline?: boolean
     companyId?: boolean
     isPublished?: boolean
@@ -5938,8 +5976,8 @@ export namespace Prisma {
     city?: boolean
     category?: boolean
     tags?: boolean
-    salaryStart?: boolean
-    salaryEnd?: boolean
+    salaryMin?: boolean
+    salaryMax?: boolean
     deadline?: boolean
     companyId?: boolean
     isPublished?: boolean
@@ -5956,8 +5994,8 @@ export namespace Prisma {
     city?: boolean
     category?: boolean
     tags?: boolean
-    salaryStart?: boolean
-    salaryEnd?: boolean
+    salaryMin?: boolean
+    salaryMax?: boolean
     deadline?: boolean
     companyId?: boolean
     isPublished?: boolean
@@ -5974,8 +6012,8 @@ export namespace Prisma {
     city?: boolean
     category?: boolean
     tags?: boolean
-    salaryStart?: boolean
-    salaryEnd?: boolean
+    salaryMin?: boolean
+    salaryMax?: boolean
     deadline?: boolean
     companyId?: boolean
     isPublished?: boolean
@@ -5984,7 +6022,7 @@ export namespace Prisma {
     updatedAt?: boolean
   }
 
-  export type JobOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "city" | "category" | "tags" | "salaryStart" | "salaryEnd" | "deadline" | "companyId" | "isPublished" | "isTestActive" | "createdAt" | "updatedAt", ExtArgs["result"]["job"]>
+  export type JobOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "city" | "category" | "tags" | "salaryMin" | "salaryMax" | "deadline" | "companyId" | "isPublished" | "isTestActive" | "createdAt" | "updatedAt", ExtArgs["result"]["job"]>
   export type JobInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     company?: boolean | CompanyDefaultArgs<ExtArgs>
     Application?: boolean | Job$ApplicationArgs<ExtArgs>
@@ -6014,8 +6052,8 @@ export namespace Prisma {
       city: string
       category: string
       tags: string[]
-      salaryStart: string | null
-      salaryEnd: string | null
+      salaryMin: number | null
+      salaryMax: number | null
       deadline: string
       companyId: string
       isPublished: boolean
@@ -6455,8 +6493,8 @@ export namespace Prisma {
     readonly city: FieldRef<"Job", 'String'>
     readonly category: FieldRef<"Job", 'String'>
     readonly tags: FieldRef<"Job", 'String[]'>
-    readonly salaryStart: FieldRef<"Job", 'String'>
-    readonly salaryEnd: FieldRef<"Job", 'String'>
+    readonly salaryMin: FieldRef<"Job", 'Int'>
+    readonly salaryMax: FieldRef<"Job", 'Int'>
     readonly deadline: FieldRef<"Job", 'String'>
     readonly companyId: FieldRef<"Job", 'String'>
     readonly isPublished: FieldRef<"Job", 'Boolean'>
@@ -14615,8 +14653,8 @@ export namespace Prisma {
     city: 'city',
     category: 'category',
     tags: 'tags',
-    salaryStart: 'salaryStart',
-    salaryEnd: 'salaryEnd',
+    salaryMin: 'salaryMin',
+    salaryMax: 'salaryMax',
     deadline: 'deadline',
     companyId: 'companyId',
     isPublished: 'isPublished',
@@ -14814,20 +14852,6 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'ApplicationStatus'
-   */
-  export type EnumApplicationStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ApplicationStatus'>
-    
-
-
-  /**
-   * Reference to a field of type 'ApplicationStatus[]'
-   */
-  export type ListEnumApplicationStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ApplicationStatus[]'>
-    
-
-
-  /**
    * Reference to a field of type 'Int'
    */
   export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
@@ -14838,6 +14862,20 @@ export namespace Prisma {
    * Reference to a field of type 'Int[]'
    */
   export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'ApplicationStatus'
+   */
+  export type EnumApplicationStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ApplicationStatus'>
+    
+
+
+  /**
+   * Reference to a field of type 'ApplicationStatus[]'
+   */
+  export type ListEnumApplicationStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ApplicationStatus[]'>
     
 
 
@@ -15204,8 +15242,8 @@ export namespace Prisma {
     city?: StringFilter<"Job"> | string
     category?: StringFilter<"Job"> | string
     tags?: StringNullableListFilter<"Job">
-    salaryStart?: StringNullableFilter<"Job"> | string | null
-    salaryEnd?: StringNullableFilter<"Job"> | string | null
+    salaryMin?: IntNullableFilter<"Job"> | number | null
+    salaryMax?: IntNullableFilter<"Job"> | number | null
     deadline?: StringFilter<"Job"> | string
     companyId?: StringFilter<"Job"> | string
     isPublished?: BoolFilter<"Job"> | boolean
@@ -15225,8 +15263,8 @@ export namespace Prisma {
     city?: SortOrder
     category?: SortOrder
     tags?: SortOrder
-    salaryStart?: SortOrderInput | SortOrder
-    salaryEnd?: SortOrderInput | SortOrder
+    salaryMin?: SortOrderInput | SortOrder
+    salaryMax?: SortOrderInput | SortOrder
     deadline?: SortOrder
     companyId?: SortOrder
     isPublished?: SortOrder
@@ -15249,8 +15287,8 @@ export namespace Prisma {
     city?: StringFilter<"Job"> | string
     category?: StringFilter<"Job"> | string
     tags?: StringNullableListFilter<"Job">
-    salaryStart?: StringNullableFilter<"Job"> | string | null
-    salaryEnd?: StringNullableFilter<"Job"> | string | null
+    salaryMin?: IntNullableFilter<"Job"> | number | null
+    salaryMax?: IntNullableFilter<"Job"> | number | null
     deadline?: StringFilter<"Job"> | string
     companyId?: StringFilter<"Job"> | string
     isPublished?: BoolFilter<"Job"> | boolean
@@ -15270,8 +15308,8 @@ export namespace Prisma {
     city?: SortOrder
     category?: SortOrder
     tags?: SortOrder
-    salaryStart?: SortOrderInput | SortOrder
-    salaryEnd?: SortOrderInput | SortOrder
+    salaryMin?: SortOrderInput | SortOrder
+    salaryMax?: SortOrderInput | SortOrder
     deadline?: SortOrder
     companyId?: SortOrder
     isPublished?: SortOrder
@@ -15279,8 +15317,10 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: JobCountOrderByAggregateInput
+    _avg?: JobAvgOrderByAggregateInput
     _max?: JobMaxOrderByAggregateInput
     _min?: JobMinOrderByAggregateInput
+    _sum?: JobSumOrderByAggregateInput
   }
 
   export type JobScalarWhereWithAggregatesInput = {
@@ -15293,8 +15333,8 @@ export namespace Prisma {
     city?: StringWithAggregatesFilter<"Job"> | string
     category?: StringWithAggregatesFilter<"Job"> | string
     tags?: StringNullableListFilter<"Job">
-    salaryStart?: StringNullableWithAggregatesFilter<"Job"> | string | null
-    salaryEnd?: StringNullableWithAggregatesFilter<"Job"> | string | null
+    salaryMin?: IntNullableWithAggregatesFilter<"Job"> | number | null
+    salaryMax?: IntNullableWithAggregatesFilter<"Job"> | number | null
     deadline?: StringWithAggregatesFilter<"Job"> | string
     companyId?: StringWithAggregatesFilter<"Job"> | string
     isPublished?: BoolWithAggregatesFilter<"Job"> | boolean
@@ -16170,8 +16210,8 @@ export namespace Prisma {
     city: string
     category: string
     tags?: JobCreatetagsInput | string[]
-    salaryStart?: string | null
-    salaryEnd?: string | null
+    salaryMin?: number | null
+    salaryMax?: number | null
     deadline: string
     isPublished?: boolean
     isTestActive?: boolean
@@ -16190,8 +16230,8 @@ export namespace Prisma {
     city: string
     category: string
     tags?: JobCreatetagsInput | string[]
-    salaryStart?: string | null
-    salaryEnd?: string | null
+    salaryMin?: number | null
+    salaryMax?: number | null
     deadline: string
     companyId: string
     isPublished?: boolean
@@ -16210,8 +16250,8 @@ export namespace Prisma {
     city?: StringFieldUpdateOperationsInput | string
     category?: StringFieldUpdateOperationsInput | string
     tags?: JobUpdatetagsInput | string[]
-    salaryStart?: NullableStringFieldUpdateOperationsInput | string | null
-    salaryEnd?: NullableStringFieldUpdateOperationsInput | string | null
+    salaryMin?: NullableIntFieldUpdateOperationsInput | number | null
+    salaryMax?: NullableIntFieldUpdateOperationsInput | number | null
     deadline?: StringFieldUpdateOperationsInput | string
     isPublished?: BoolFieldUpdateOperationsInput | boolean
     isTestActive?: BoolFieldUpdateOperationsInput | boolean
@@ -16230,8 +16270,8 @@ export namespace Prisma {
     city?: StringFieldUpdateOperationsInput | string
     category?: StringFieldUpdateOperationsInput | string
     tags?: JobUpdatetagsInput | string[]
-    salaryStart?: NullableStringFieldUpdateOperationsInput | string | null
-    salaryEnd?: NullableStringFieldUpdateOperationsInput | string | null
+    salaryMin?: NullableIntFieldUpdateOperationsInput | number | null
+    salaryMax?: NullableIntFieldUpdateOperationsInput | number | null
     deadline?: StringFieldUpdateOperationsInput | string
     companyId?: StringFieldUpdateOperationsInput | string
     isPublished?: BoolFieldUpdateOperationsInput | boolean
@@ -16250,8 +16290,8 @@ export namespace Prisma {
     city: string
     category: string
     tags?: JobCreatetagsInput | string[]
-    salaryStart?: string | null
-    salaryEnd?: string | null
+    salaryMin?: number | null
+    salaryMax?: number | null
     deadline: string
     companyId: string
     isPublished?: boolean
@@ -16267,8 +16307,8 @@ export namespace Prisma {
     city?: StringFieldUpdateOperationsInput | string
     category?: StringFieldUpdateOperationsInput | string
     tags?: JobUpdatetagsInput | string[]
-    salaryStart?: NullableStringFieldUpdateOperationsInput | string | null
-    salaryEnd?: NullableStringFieldUpdateOperationsInput | string | null
+    salaryMin?: NullableIntFieldUpdateOperationsInput | number | null
+    salaryMax?: NullableIntFieldUpdateOperationsInput | number | null
     deadline?: StringFieldUpdateOperationsInput | string
     isPublished?: BoolFieldUpdateOperationsInput | boolean
     isTestActive?: BoolFieldUpdateOperationsInput | boolean
@@ -16283,8 +16323,8 @@ export namespace Prisma {
     city?: StringFieldUpdateOperationsInput | string
     category?: StringFieldUpdateOperationsInput | string
     tags?: JobUpdatetagsInput | string[]
-    salaryStart?: NullableStringFieldUpdateOperationsInput | string | null
-    salaryEnd?: NullableStringFieldUpdateOperationsInput | string | null
+    salaryMin?: NullableIntFieldUpdateOperationsInput | number | null
+    salaryMax?: NullableIntFieldUpdateOperationsInput | number | null
     deadline?: StringFieldUpdateOperationsInput | string
     companyId?: StringFieldUpdateOperationsInput | string
     isPublished?: BoolFieldUpdateOperationsInput | boolean
@@ -17127,6 +17167,17 @@ export namespace Prisma {
     isEmpty?: boolean
   }
 
+  export type IntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+
   export type CompanyScalarRelationFilter = {
     is?: CompanyWhereInput
     isNot?: CompanyWhereInput
@@ -17144,8 +17195,8 @@ export namespace Prisma {
     city?: SortOrder
     category?: SortOrder
     tags?: SortOrder
-    salaryStart?: SortOrder
-    salaryEnd?: SortOrder
+    salaryMin?: SortOrder
+    salaryMax?: SortOrder
     deadline?: SortOrder
     companyId?: SortOrder
     isPublished?: SortOrder
@@ -17154,14 +17205,19 @@ export namespace Prisma {
     updatedAt?: SortOrder
   }
 
+  export type JobAvgOrderByAggregateInput = {
+    salaryMin?: SortOrder
+    salaryMax?: SortOrder
+  }
+
   export type JobMaxOrderByAggregateInput = {
     id?: SortOrder
     title?: SortOrder
     description?: SortOrder
     city?: SortOrder
     category?: SortOrder
-    salaryStart?: SortOrder
-    salaryEnd?: SortOrder
+    salaryMin?: SortOrder
+    salaryMax?: SortOrder
     deadline?: SortOrder
     companyId?: SortOrder
     isPublished?: SortOrder
@@ -17176,14 +17232,35 @@ export namespace Prisma {
     description?: SortOrder
     city?: SortOrder
     category?: SortOrder
-    salaryStart?: SortOrder
-    salaryEnd?: SortOrder
+    salaryMin?: SortOrder
+    salaryMax?: SortOrder
     deadline?: SortOrder
     companyId?: SortOrder
     isPublished?: SortOrder
     isTestActive?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+  }
+
+  export type JobSumOrderByAggregateInput = {
+    salaryMin?: SortOrder
+    salaryMax?: SortOrder
+  }
+
+  export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
   }
 
   export type JobdescCountOrderByAggregateInput = {
@@ -17905,6 +17982,14 @@ export namespace Prisma {
     push?: string | string[]
   }
 
+  export type NullableIntFieldUpdateOperationsInput = {
+    set?: number | null
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
   export type CompanyUpdateOneRequiredWithoutJobsNestedInput = {
     create?: XOR<CompanyCreateWithoutJobsInput, CompanyUncheckedCreateWithoutJobsInput>
     connectOrCreate?: CompanyCreateOrConnectWithoutJobsInput
@@ -18302,6 +18387,33 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
+  export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
+  }
+
+  export type NestedFloatNullableFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
+  }
+
   export type NestedEnumApplicationStatusFilter<$PrismaModel = never> = {
     equals?: $Enums.ApplicationStatus | EnumApplicationStatusFieldRefInput<$PrismaModel>
     in?: $Enums.ApplicationStatus[] | ListEnumApplicationStatusFieldRefInput<$PrismaModel>
@@ -18604,8 +18716,8 @@ export namespace Prisma {
     city: string
     category: string
     tags?: JobCreatetagsInput | string[]
-    salaryStart?: string | null
-    salaryEnd?: string | null
+    salaryMin?: number | null
+    salaryMax?: number | null
     deadline: string
     isPublished?: boolean
     isTestActive?: boolean
@@ -18623,8 +18735,8 @@ export namespace Prisma {
     city: string
     category: string
     tags?: JobCreatetagsInput | string[]
-    salaryStart?: string | null
-    salaryEnd?: string | null
+    salaryMin?: number | null
+    salaryMax?: number | null
     deadline: string
     isPublished?: boolean
     isTestActive?: boolean
@@ -18732,8 +18844,8 @@ export namespace Prisma {
     city?: StringFilter<"Job"> | string
     category?: StringFilter<"Job"> | string
     tags?: StringNullableListFilter<"Job">
-    salaryStart?: StringNullableFilter<"Job"> | string | null
-    salaryEnd?: StringNullableFilter<"Job"> | string | null
+    salaryMin?: IntNullableFilter<"Job"> | number | null
+    salaryMax?: IntNullableFilter<"Job"> | number | null
     deadline?: StringFilter<"Job"> | string
     companyId?: StringFilter<"Job"> | string
     isPublished?: BoolFilter<"Job"> | boolean
@@ -19191,8 +19303,8 @@ export namespace Prisma {
     city: string
     category: string
     tags?: JobCreatetagsInput | string[]
-    salaryStart?: string | null
-    salaryEnd?: string | null
+    salaryMin?: number | null
+    salaryMax?: number | null
     deadline: string
     isPublished?: boolean
     isTestActive?: boolean
@@ -19210,8 +19322,8 @@ export namespace Prisma {
     city: string
     category: string
     tags?: JobCreatetagsInput | string[]
-    salaryStart?: string | null
-    salaryEnd?: string | null
+    salaryMin?: number | null
+    salaryMax?: number | null
     deadline: string
     companyId: string
     isPublished?: boolean
@@ -19330,8 +19442,8 @@ export namespace Prisma {
     city?: StringFieldUpdateOperationsInput | string
     category?: StringFieldUpdateOperationsInput | string
     tags?: JobUpdatetagsInput | string[]
-    salaryStart?: NullableStringFieldUpdateOperationsInput | string | null
-    salaryEnd?: NullableStringFieldUpdateOperationsInput | string | null
+    salaryMin?: NullableIntFieldUpdateOperationsInput | number | null
+    salaryMax?: NullableIntFieldUpdateOperationsInput | number | null
     deadline?: StringFieldUpdateOperationsInput | string
     isPublished?: BoolFieldUpdateOperationsInput | boolean
     isTestActive?: BoolFieldUpdateOperationsInput | boolean
@@ -19349,8 +19461,8 @@ export namespace Prisma {
     city?: StringFieldUpdateOperationsInput | string
     category?: StringFieldUpdateOperationsInput | string
     tags?: JobUpdatetagsInput | string[]
-    salaryStart?: NullableStringFieldUpdateOperationsInput | string | null
-    salaryEnd?: NullableStringFieldUpdateOperationsInput | string | null
+    salaryMin?: NullableIntFieldUpdateOperationsInput | number | null
+    salaryMax?: NullableIntFieldUpdateOperationsInput | number | null
     deadline?: StringFieldUpdateOperationsInput | string
     companyId?: StringFieldUpdateOperationsInput | string
     isPublished?: BoolFieldUpdateOperationsInput | boolean
@@ -19630,8 +19742,8 @@ export namespace Prisma {
     city: string
     category: string
     tags?: JobCreatetagsInput | string[]
-    salaryStart?: string | null
-    salaryEnd?: string | null
+    salaryMin?: number | null
+    salaryMax?: number | null
     deadline: string
     isPublished?: boolean
     isTestActive?: boolean
@@ -19649,8 +19761,8 @@ export namespace Prisma {
     city: string
     category: string
     tags?: JobCreatetagsInput | string[]
-    salaryStart?: string | null
-    salaryEnd?: string | null
+    salaryMin?: number | null
+    salaryMax?: number | null
     deadline: string
     companyId: string
     isPublished?: boolean
@@ -19684,8 +19796,8 @@ export namespace Prisma {
     city?: StringFieldUpdateOperationsInput | string
     category?: StringFieldUpdateOperationsInput | string
     tags?: JobUpdatetagsInput | string[]
-    salaryStart?: NullableStringFieldUpdateOperationsInput | string | null
-    salaryEnd?: NullableStringFieldUpdateOperationsInput | string | null
+    salaryMin?: NullableIntFieldUpdateOperationsInput | number | null
+    salaryMax?: NullableIntFieldUpdateOperationsInput | number | null
     deadline?: StringFieldUpdateOperationsInput | string
     isPublished?: BoolFieldUpdateOperationsInput | boolean
     isTestActive?: BoolFieldUpdateOperationsInput | boolean
@@ -19703,8 +19815,8 @@ export namespace Prisma {
     city?: StringFieldUpdateOperationsInput | string
     category?: StringFieldUpdateOperationsInput | string
     tags?: JobUpdatetagsInput | string[]
-    salaryStart?: NullableStringFieldUpdateOperationsInput | string | null
-    salaryEnd?: NullableStringFieldUpdateOperationsInput | string | null
+    salaryMin?: NullableIntFieldUpdateOperationsInput | number | null
+    salaryMax?: NullableIntFieldUpdateOperationsInput | number | null
     deadline?: StringFieldUpdateOperationsInput | string
     companyId?: StringFieldUpdateOperationsInput | string
     isPublished?: BoolFieldUpdateOperationsInput | boolean
@@ -19779,8 +19891,8 @@ export namespace Prisma {
     city: string
     category: string
     tags?: JobCreatetagsInput | string[]
-    salaryStart?: string | null
-    salaryEnd?: string | null
+    salaryMin?: number | null
+    salaryMax?: number | null
     deadline: string
     isPublished?: boolean
     isTestActive?: boolean
@@ -19798,8 +19910,8 @@ export namespace Prisma {
     city: string
     category: string
     tags?: JobCreatetagsInput | string[]
-    salaryStart?: string | null
-    salaryEnd?: string | null
+    salaryMin?: number | null
+    salaryMax?: number | null
     deadline: string
     companyId: string
     isPublished?: boolean
@@ -19896,8 +20008,8 @@ export namespace Prisma {
     city?: StringFieldUpdateOperationsInput | string
     category?: StringFieldUpdateOperationsInput | string
     tags?: JobUpdatetagsInput | string[]
-    salaryStart?: NullableStringFieldUpdateOperationsInput | string | null
-    salaryEnd?: NullableStringFieldUpdateOperationsInput | string | null
+    salaryMin?: NullableIntFieldUpdateOperationsInput | number | null
+    salaryMax?: NullableIntFieldUpdateOperationsInput | number | null
     deadline?: StringFieldUpdateOperationsInput | string
     isPublished?: BoolFieldUpdateOperationsInput | boolean
     isTestActive?: BoolFieldUpdateOperationsInput | boolean
@@ -19915,8 +20027,8 @@ export namespace Prisma {
     city?: StringFieldUpdateOperationsInput | string
     category?: StringFieldUpdateOperationsInput | string
     tags?: JobUpdatetagsInput | string[]
-    salaryStart?: NullableStringFieldUpdateOperationsInput | string | null
-    salaryEnd?: NullableStringFieldUpdateOperationsInput | string | null
+    salaryMin?: NullableIntFieldUpdateOperationsInput | number | null
+    salaryMax?: NullableIntFieldUpdateOperationsInput | number | null
     deadline?: StringFieldUpdateOperationsInput | string
     companyId?: StringFieldUpdateOperationsInput | string
     isPublished?: BoolFieldUpdateOperationsInput | boolean
@@ -20136,8 +20248,8 @@ export namespace Prisma {
     city: string
     category: string
     tags?: JobCreatetagsInput | string[]
-    salaryStart?: string | null
-    salaryEnd?: string | null
+    salaryMin?: number | null
+    salaryMax?: number | null
     deadline: string
     isPublished?: boolean
     isTestActive?: boolean
@@ -20167,8 +20279,8 @@ export namespace Prisma {
     city?: StringFieldUpdateOperationsInput | string
     category?: StringFieldUpdateOperationsInput | string
     tags?: JobUpdatetagsInput | string[]
-    salaryStart?: NullableStringFieldUpdateOperationsInput | string | null
-    salaryEnd?: NullableStringFieldUpdateOperationsInput | string | null
+    salaryMin?: NullableIntFieldUpdateOperationsInput | number | null
+    salaryMax?: NullableIntFieldUpdateOperationsInput | number | null
     deadline?: StringFieldUpdateOperationsInput | string
     isPublished?: BoolFieldUpdateOperationsInput | boolean
     isTestActive?: BoolFieldUpdateOperationsInput | boolean
@@ -20186,8 +20298,8 @@ export namespace Prisma {
     city?: StringFieldUpdateOperationsInput | string
     category?: StringFieldUpdateOperationsInput | string
     tags?: JobUpdatetagsInput | string[]
-    salaryStart?: NullableStringFieldUpdateOperationsInput | string | null
-    salaryEnd?: NullableStringFieldUpdateOperationsInput | string | null
+    salaryMin?: NullableIntFieldUpdateOperationsInput | number | null
+    salaryMax?: NullableIntFieldUpdateOperationsInput | number | null
     deadline?: StringFieldUpdateOperationsInput | string
     isPublished?: BoolFieldUpdateOperationsInput | boolean
     isTestActive?: BoolFieldUpdateOperationsInput | boolean
@@ -20205,8 +20317,8 @@ export namespace Prisma {
     city?: StringFieldUpdateOperationsInput | string
     category?: StringFieldUpdateOperationsInput | string
     tags?: JobUpdatetagsInput | string[]
-    salaryStart?: NullableStringFieldUpdateOperationsInput | string | null
-    salaryEnd?: NullableStringFieldUpdateOperationsInput | string | null
+    salaryMin?: NullableIntFieldUpdateOperationsInput | number | null
+    salaryMax?: NullableIntFieldUpdateOperationsInput | number | null
     deadline?: StringFieldUpdateOperationsInput | string
     isPublished?: BoolFieldUpdateOperationsInput | boolean
     isTestActive?: BoolFieldUpdateOperationsInput | boolean

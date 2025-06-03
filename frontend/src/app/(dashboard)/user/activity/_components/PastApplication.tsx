@@ -74,7 +74,7 @@ export default function PastApplications() {
               </div>
               <p className="text-sm text-gray-600">{app.job.city}</p>
               <p className="text-sm">
-                Salary: {app.job.salaryStart || "Not mentioned"} {app.job.salaryEnd || "-"} | Expected: {app.expectedSalary || "-"}
+                Salary: {app.job.salaryMin || "Not mentioned"} {app.job.salaryMax || "-"} | Expected: {app.expectedSalary || "-"}
               </p>
               <p className="text-sm text-gray-400">
                 Application Date: {app.createdAt.split("T")[0]}

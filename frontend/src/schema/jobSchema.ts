@@ -17,19 +17,19 @@ export const createJobSchema = yup.object().shape({
           .filter(Boolean).length > 0
       );
     }),
-  salaryStart: yup
+  salaryMin: yup
     .number()
     .typeError("Salary must be a number")
     .min(0, "Salary cannot be negative")
     .nullable(),
-  salaryEnd: yup
+  salaryMax: yup
     .number()
     .typeError("Salary must be a number")
     .min(0, "Salary cannot be negative")
     .nullable()
-    .when('salaryStart', ([salaryStart], schema) => {
-      if (salaryStart != null) {
-        return schema.min(salaryStart + 1, "Salary end must be greater than salary start");
+    .when('salaryMin', ([salaryMin], schema) => {
+      if (salaryMin != null) {
+        return schema.min(salaryMin + 1, "Salary end must be greater than salary start");
       }
       return schema;
     }),
