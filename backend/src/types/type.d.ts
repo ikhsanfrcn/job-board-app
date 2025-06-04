@@ -32,6 +32,7 @@ export interface GetCompanyJobsParams {
 }
 
 export interface GetJobsParams {
+  title?: string;
   city?: string;
   category?: string;
   tags?: string[];

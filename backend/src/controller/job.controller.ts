@@ -35,6 +35,7 @@ export class JobController {
   async getJobs(req: Request, res: Response) {
     try {
       const {
+        title,
         city,
         category,
         tags,
@@ -48,6 +49,7 @@ export class JobController {
       const parsedTags = typeof tags === "string" ? tags.split(",") : [];
 
       const jobsResult = await getJobs({
+        title: title as string,
         city: city as string,
         category: category as string,
         tags: parsedTags as string[],
