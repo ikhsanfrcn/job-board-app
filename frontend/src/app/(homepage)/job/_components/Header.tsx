@@ -1,12 +1,24 @@
-"use client"
+"use client";
 
-import { useSearchParams } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 
 export default function JobSearchHeader() {
   const searchParams = useSearchParams();
+  const router = useRouter();
+  const pathname = usePathname();
   const [title, setTitle] = useState(searchParams.get("title") || "");
   const [city, setCity] = useState(searchParams.get("city") || "");
+
+  const handleSearch = () => {
+    const params = new URLSearchParams();
+
+    if (title) params.set("title", title);
+    if (city) params.set("city", city);
+    params.set("page", "1");
+
+    router.push(`${pathname}?${params.toString()}`);
+  };
 
   return (
     <div className="w-full bg-white px-4 py-6 border-b">
@@ -18,6 +30,9 @@ export default function JobSearchHeader() {
             placeholder="Find your perfect job"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") handleSearch();
+            }}
             className="bg-transparent w-full outline-none"
           />
         </div>
@@ -28,6 +43,9 @@ export default function JobSearchHeader() {
             placeholder='City, state, zipcode, or "remote"'
             value={city}
             onChange={(e) => setCity(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") handleSearch();
+            }}
             className="bg-transparent w-full outline-none"
           />
         </div>
@@ -38,7 +56,9 @@ export default function JobSearchHeader() {
       </div>
 
       <div className="max-w-xs mx-auto flex justify-between text-sm font-medium border-b border-gray-200">
-        <button className="flex-1 text-gray-700 border-b-2 border-green-600 py-2 hover:text-black">Search</button>
+        <button className="flex-1 text-gray-700 border-b-2 border-green-600 py-2 hover:text-black">
+          Search
+        </button>
       </div>
     </div>
   );

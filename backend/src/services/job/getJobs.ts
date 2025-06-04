@@ -2,6 +2,7 @@ import prisma from "../../prisma";
 import { GetJobsParams } from "../../types/type";
 
 export const getJobs = async ({
+  title,
   city,
   category,
   tags,
@@ -16,6 +17,7 @@ export const getJobs = async ({
 
   const where: any = { isPublished };
 
+  if (title) where.title = title;
   if (city) where.city = city;
   if (category) where.category = category;
   if (tags && tags.length > 0) {
