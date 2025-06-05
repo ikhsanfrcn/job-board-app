@@ -33,7 +33,7 @@ export default function Page() {
       await signIn("credentials", {
         redirectTo: "/",
         id: user.id,
-        name: user.name,
+        name: user.username,
         email: user.email,
         role: user.role,
         avatar: user.avatar || "",

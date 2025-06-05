@@ -4,7 +4,6 @@ import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import axios from "@/lib/axios";
 import { useSession } from "next-auth/react";
-import { data } from "motion/react-client";
 
 export default function Page({
   params,
@@ -31,6 +30,14 @@ export default function Page({
   const [completed, setCompleted] = useState(false);
   const [score, setScore] = useState({ correct: 0, total: 0, percentage: 0 });
 
+  // Initialize current question index from sessionStorage
+  useEffect(() => {
+    const savedQuestionIndex = sessionStorage.getItem(`test-${jobId}-currentQuestion`);
+    if (savedQuestionIndex) {
+      setCurrentQuestionIndex(parseInt(savedQuestionIndex));
+    }
+  }, [jobId]);
+
   useEffect(() => {
     const fetchTest = async () => {
       try {
@@ -47,6 +54,12 @@ export default function Page({
           description: data.description,
           parsedQuestions,
         });
+
+        // Load saved user answers if they exist
+        const savedAnswers = sessionStorage.getItem(`test-${jobId}-answers`);
+        if (savedAnswers) {
+          setUserAnswers(JSON.parse(savedAnswers));
+        }
       } catch (err) {
         console.error("Error fetching test:", err);
         setError("Failed to load test");
@@ -59,22 +72,69 @@ export default function Page({
   }, [jobId]);
 
   useEffect(() => {
-    if (!completed && timeLeft > 0) {
-      const timer = setTimeout(() => setTimeLeft(timeLeft - 1), 1000);
-      return () => clearTimeout(timer);
-    } else if (!completed && timeLeft === 0) {
-      handleNextAuto();
+    if (completed || !test) return;
+
+    const startTimeKey = `test-${jobId}-question-${currentQuestionIndex}-start`;
+    const savedStartTime = sessionStorage.getItem(startTimeKey);
+
+    if (!savedStartTime) {
+      // First time on this question - set start time
+      const now = Date.now();
+      sessionStorage.setItem(startTimeKey, now.toString());
+      setTimeLeft(30);
+    } else {
+      // Calculate remaining time based on elapsed time
+      const elapsed = Math.floor(
+        (Date.now() - parseInt(savedStartTime)) / 1000
+      );
+      const remaining = Math.max(0, 30 - elapsed);
+      setTimeLeft(remaining);
+
+      // If time already expired, auto-advance
+      if (remaining === 0) {
+        handleNextAuto();
+        return;
+      }
     }
-  }, [timeLeft, completed]);
+
+    // Set up timer to update every second
+    const timer = setInterval(() => {
+      const currentStartTime = sessionStorage.getItem(startTimeKey);
+      if (currentStartTime) {
+        const elapsed = Math.floor(
+          (Date.now() - parseInt(currentStartTime)) / 1000
+        );
+        const remaining = Math.max(0, 30 - elapsed);
+        setTimeLeft(remaining);
+
+        if (remaining === 0) {
+          handleNextAuto();
+        }
+      }
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, [currentQuestionIndex, jobId, completed, test]);
 
   const handleOptionSelect = (index: number, option: string) => {
-    setUserAnswers((prev) => ({ ...prev, [index]: option }));
+    const updatedAnswers = { ...userAnswers, [index]: option };
+    setUserAnswers(updatedAnswers);
+    
+    // Persist answers to sessionStorage
+    sessionStorage.setItem(`test-${jobId}-answers`, JSON.stringify(updatedAnswers));
   };
 
   const handleNext = () => {
+    // Clear current question's timer from sessionStorage
+    const currentKey = `test-${jobId}-question-${currentQuestionIndex}-start`;
+    sessionStorage.removeItem(currentKey);
+
     if (currentQuestionIndex + 1 < (test?.parsedQuestions.length || 0)) {
-      setCurrentQuestionIndex(currentQuestionIndex + 1);
-      setTimeLeft(30);
+      const nextQuestionIndex = currentQuestionIndex + 1;
+      setCurrentQuestionIndex(nextQuestionIndex);
+      
+      // Persist current question index
+      sessionStorage.setItem(`test-${jobId}-currentQuestion`, nextQuestionIndex.toString());
     } else {
       submitTest();
     }
@@ -83,13 +143,26 @@ export default function Page({
   const handleNextAuto = () => {
     // mark unanswered as incorrect
     if (!userAnswers[currentQuestionIndex]) {
-      setUserAnswers((prev) => ({ ...prev, [currentQuestionIndex]: "" }));
+      const updatedAnswers = { ...userAnswers, [currentQuestionIndex]: "" };
+      setUserAnswers(updatedAnswers);
+      sessionStorage.setItem(`test-${jobId}-answers`, JSON.stringify(updatedAnswers));
     }
     handleNext();
   };
 
   const submitTest = async () => {
     if (!test) return;
+
+    // Clear all sessionStorage data for this test
+    sessionStorage.removeItem(`test-${jobId}-currentQuestion`);
+    sessionStorage.removeItem(`test-${jobId}-answers`);
+
+    // Clear all remaining timer data from sessionStorage
+    for (let i = 0; i < test.parsedQuestions.length; i++) {
+      const key = `test-${jobId}-question-${i}-start`;
+      sessionStorage.removeItem(key);
+    }
+
     const results = test.parsedQuestions.map((q, index) => {
       const selected = userAnswers[index] || "";
       const correct = q.answer === selected;
@@ -101,7 +174,9 @@ export default function Page({
     const percentage = Math.round((correctCount / total) * 100);
 
     //make sure that userId is the same as database since google sign-in always use another userId
-    const { data } = await axios.get(`/users/user-email/${session?.user.email}`)
+    const { data } = await axios.get(
+      `/users/user-email/${session?.user.email}`
+    );
 
     await axios.post("/test/user-test", {
       userId: data.id,
