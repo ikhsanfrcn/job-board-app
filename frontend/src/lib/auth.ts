@@ -25,13 +25,17 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
       },
       async profile(profile) {
         console.log("Google Profile:", profile);
+        console.log("Google Profile Sub (Google's ID):", profile.sub);
 
         try {
+          console.log("Checking for existing user with email:", profile.email);
           const { data: existingUser } = await axios.get(
             `/users/user-email/${profile.email}`
           );
 
           if (existingUser) {
+            console.log("Found existing user:", existingUser);
+            console.log("Existing user ID:", existingUser.id);
             return {
               id: existingUser.id,
               username: existingUser.username,
@@ -40,6 +44,7 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
             };
           }
 
+          console.log("Creating new user...");
           const userData = {
             username: profile.given_name,
             email: profile.email,
@@ -47,25 +52,26 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
             avatar: profile.picture,
           };
 
-          const {data: newUser} = await axios.post("/auth/google", userData);
-          const token = newUser.data.accessToken;
+          console.log("Sending user data to API:", userData);
+          const {data: response} = await axios.post("/auth/google", userData);
+          console.log("API Response:", response);
+
+          const createUser = response.data;
+          console.log("Created user:", createUser);
+          console.log("Created user ID:", createUser.id);
+          const token = createUser.access_token;
 
           return {
-            id: newUser.data.id,
-            username: newUser.data.username,
-            email: newUser.data.email,
-            avatar: newUser.data.avatar,
+            id: createUser.id,
+            username: createUser.username,
+            email: createUser.email,
+            avatar: createUser.avatar,
             accessToken: token,
             // ...user, // kalau mau bawa data lain ke JWT
           };
         } catch (err) {
           console.error("Error during Google auth:", err);
-          return {
-            id: profile.sub,
-            username: profile.username || profile.given_name || "No Name",
-            email: profile.email,
-            avatar: profile.picture,
-          };
+          throw new Error("Authentication failed!")
         }
       },
     }),
@@ -102,7 +108,7 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
     },
     async session({ token, session }: { token: JWT; session: Session }) {
       session.user = {
-        id: token.id as number,
+        id: token.id as string,
         username: token.username as string,
         email: token.email as string,
         role: token.role as string,
