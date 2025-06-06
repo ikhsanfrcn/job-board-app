@@ -42,7 +42,6 @@ export default function RootLayout({
         />
         <SessionProvider>
           {children}
-          <Footbar />
         </SessionProvider>
       </body>
     </html>

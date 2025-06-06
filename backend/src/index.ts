@@ -9,6 +9,7 @@ import { ApplicationRouter } from "./router/application.routes";
 import { ReviewRouter } from "./router/review.routes";
 import { TestRouter } from "./router/test.router";
 import { InterviewRouter } from "./router/interview.routes";
+import { DeveloperRouter } from "./router/developer.routes";
 
 const PORT: number = 8000;
 
@@ -22,6 +23,9 @@ app.get("/api", (req: Request, res: Response) => {
 
 const authRouter = new AuthRouter();
 app.use("/api/auth", authRouter.getRouter());
+
+const developerRouter = new DeveloperRouter();
+app.use("/api/dev", developerRouter.getRouter());
 
 const companyRouter = new CompanyRouter();
 app.use("/api/company", companyRouter.getRouter());
