@@ -16,3 +16,8 @@ export interface IRegForm {
   email: string;
   password: string;
 }
+
+export interface ILoginDev {
+  email: string;
+  password: string;
+}

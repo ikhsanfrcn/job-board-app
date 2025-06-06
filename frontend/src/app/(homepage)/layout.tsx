@@ -1,4 +1,5 @@
 
+import Footbar from "@/components/footbar/footbar";
 import Navbar from "@/components/navbar/navbar";
 import type { Metadata } from "next";
 
@@ -17,6 +18,7 @@ export default function RootLayout({
       <div className="max-w-screen">
         <Navbar />
         {children}
+        <Footbar />
       </div>
     </main>
   );

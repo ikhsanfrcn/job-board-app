@@ -48,3 +48,13 @@ export const ResetSchema = yup.object().shape({
     .required("Password is required!"),
 });
 
+export const LoginDevSchema = yup.object().shape({
+  email: yup
+    .string()
+    .email("Invalid email format")
+    .required("Email is required!"),
+  password: yup
+    .string()
+    .min(6, "Min 6 character")
+    .required("Password is required!"),
+});

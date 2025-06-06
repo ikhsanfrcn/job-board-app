@@ -1,42 +1,39 @@
 "use client";
 
 import axios from "@/lib/axios";
-import { LoginSchema } from "@/schema/authSchema";
-import { ILoginForm } from "@/types/authType";
+import { LoginDevSchema } from "@/schema/authSchema";
+import { ILoginDev } from "@/types/authType";
 import { AxiosError } from "axios";
 import { Field, Form, Formik, FormikHelpers, FormikProps } from "formik";
 import { signIn } from "next-auth/react";
-import Link from "next/link";
 import { useState } from "react";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
-import { FcGoogle } from "react-icons/fc";
 import { toast } from "react-toastify";
 
 export default function Page() {
   const [showPassword, setShowPassword] = useState(false);
 
-  const initialValues: ILoginForm = {
-    username: "",
+  const initialValues: ILoginDev = {
+    email: "",
     password: "",
   };
 
   const onLogin = async (
-    value: ILoginForm,
-    action: FormikHelpers<ILoginForm>
+    value: ILoginDev,
+    action: FormikHelpers<ILoginDev>
   ) => {
     try {
-      const { data } = await axios.post("/auth/login", value);
-      const user = data.data;
+      const { data } = await axios.post("/dev/login", value);
+      const dev = data.data;
       toast.success("Login Success !");
       action.resetForm();
 
       await signIn("credentials", {
-        redirectTo: "/",
-        id: user.id,
-        name: user.username,
-        email: user.email,
-        role: user.role,
-        avatar: user.avatar || "",
+        redirectTo: "/dev/dashboard",
+        id: dev.id,
+        name: dev.devname,
+        email: dev.email,
+        role: dev.role,
         accessToken: data.access_token,
       });
     } catch (err) {
@@ -52,30 +49,24 @@ export default function Page() {
   };
 
   return (
-    <div className="relative flex-row md:flex items-center justify-center h-screen w-screen">
+    <div className="relative h-screen max-w-screen">
       <div
         className="absolute inset-0 z-0"
         style={{
-          backgroundImage: "url('/authlogo.svg')",
+          backgroundImage: "url('/screen.svg')",
           backgroundRepeat: "no-repeat",
           backgroundSize: "cover",
           backgroundPosition: "center",
-          opacity: 0.05,
+          opacity: 0.1,
         }}
       />
-      <div className="relative flex flex-col justify-center items-center w-full md:w-[60%] mt-20 md:mt-0 p-4 h-fit md:h-full text-center text-shadow-md z-10">
-        <h2 className="text-5xl font-bold my-3">
-          Your Next Big Move Starts Here
-        </h2>
-        <p className="text-xl">Where Talent Meets Destiny</p>
-      </div>
-      <div className="relative flex flex-col items-center justify-center w-[480px] rounded-sm mx-auto pb-8 h-fit md:h-full z-10">
+      <div className="relative flex flex-col items-center w-[480px] rounded-sm mx-auto pb-8 h-full z-10">
         <Formik
           initialValues={initialValues}
-          validationSchema={LoginSchema}
+          validationSchema={LoginDevSchema}
           onSubmit={onLogin}
         >
-          {(props: FormikProps<ILoginForm>) => {
+          {(props: FormikProps<ILoginDev>) => {
             const { touched, errors, isSubmitting } = props;
             return (
               <Form
@@ -83,21 +74,20 @@ export default function Page() {
                 autoComplete="off"
               >
                 <div>
-                  <h2 className="text-3xl text-shadow-sm font-bold">
-                    Welcome Back
+                  <h2 className="text-3xl text-shadow-sm font-bold mb-7 mt-40">
+                    Welcome Back Developer
                   </h2>
-                  <p className="text-sm mb-3">Login to access your account</p>
                   <div>
-                    <label htmlFor="username" className="text-xs tracking-wide">
-                      Username
+                    <label htmlFor="email" className="text-xs tracking-wide">
+                      Email
                     </label>
                     <Field
-                      name="username"
+                      name="email"
                       className="mb-1 px-2 py-2 border border-gray-400 rounded-md w-full focus:outline-none focus:ring-0 focus:border-sky-400 shadow-sm"
                     />
-                    {touched.username && errors.username ? (
+                    {touched.email && errors.email ? (
                       <div className="text-red-500 text-[12px]">
-                        {errors.username}
+                        {errors.email}
                       </div>
                     ) : null}
                   </div>
@@ -130,12 +120,6 @@ export default function Page() {
                     </div>
                   ) : null}
                 </div>
-                <Link
-                  href={"/password/forgot"}
-                  className="text-xs text-red-600 hover:text-red-500 tracking-wide"
-                >
-                  Forgot password?
-                </Link>
                 <div className="mt-4 w-full">
                   <button
                     className="font-bold py-2 px-2 rounded-sm bg-black-500 disabled:bg-gray-300 disabled:cursor-not-allowed text-md border w-full cursor-pointer hover:bg-green-600 hover:text-white transition duration-300 text-shadow-sm"
@@ -149,31 +133,6 @@ export default function Page() {
             );
           }}
         </Formik>
-        <div className="relative w-[77%] md:w-[80%] mt-5">
-          <hr className="text-gray-400 w-full" />
-          <label
-            htmlFor="or"
-            className="absolute -top-2.5 left-[47%] bg-white px-2 text-sm"
-          >
-            or
-          </label>
-        </div>
-        <button
-          onClick={() => signIn("google", {redirectTo: "/"})}
-          className="flex justify-between items-center border w-[77%] md:w-[80%] my-5 py-2 px-3 font-semibold text-md text-shadow-sm rounded-sm cursor-pointer hover:border-green-600"
-        >
-          <FcGoogle className="text-2xl" />
-          Continue with Google<span>&nbsp;</span>
-        </button>
-        <div className="text-xs">
-          Don&apos;t have an account?&nbsp;
-          <Link
-            href="/register"
-            className="font-bold text-shadow-sm transition duration-150 hover:text-green-600"
-          >
-            Register
-          </Link>
-        </div>
       </div>
     </div>
   );

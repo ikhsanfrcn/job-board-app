@@ -12,6 +12,11 @@ export interface AuthParams {
   avatar?: string;
 }
 
+export interface AuthDeveloperParams {
+  email: string;
+  password: string;
+}
+
 export interface CreateJobParams {
   title: string;
   description: string;
