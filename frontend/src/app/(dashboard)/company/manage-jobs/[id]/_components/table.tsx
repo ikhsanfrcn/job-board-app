@@ -7,17 +7,21 @@ interface IProps {
   setPreviewUrl: (url: string | null) => void;
   onUpdateStatus: (id: string, status: string) => void;
   onViewTestResult?: (testResult: ITestResult, userFullName: string) => void;
+  onInterviewClick: (applicationId: string) => void;
 }
 export default function Table({
   applicants,
   setPreviewUrl,
   onUpdateStatus,
-  onViewTestResult
+  onViewTestResult,
+  onInterviewClick,
 }: IProps) {
-   const handleTestResultClick = (app: IApplication) => {
+  const handleTestResultClick = (app: IApplication) => {
     const testData = app.user.userTest?.[0];
     if (testData && onViewTestResult) {
-      const fullName = `${app.user.firstName || ''} ${app.user.lastName || ''}`.trim();
+      const fullName = `${app.user.firstName || ""} ${
+        app.user.lastName || ""
+      }`.trim();
       onViewTestResult(testData, fullName);
     }
   };
@@ -116,7 +120,7 @@ export default function Table({
 
               {app.status === "SHORTLISTED" && (
                 <button
-                  onClick={() => onUpdateStatus(app.id, "INTERVIEW")}
+                  onClick={() => onInterviewClick(app.id)}
                   className="flex items-center gap-2 mx-auto bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium px-4 py-1.5 rounded-full shadow transition duration-200"
                 >
                   <BiPlus className="w-4 h-4" />

@@ -15,11 +15,14 @@ export class InterviewRouter {
   }
 
   private initializeRoute() {
-    this.router.post("/", this.interviewController.createInterview)
-    this.router.post("/send-reminder", this.interviewController.sendInterviewReminders)
+    this.router.post("/", this.interviewController.createInterview);
+    this.router.post(
+      "/send-reminder",
+      this.interviewController.sendInterviewReminders
+    );
   }
 
   getRouter(): Router {
-    return this.router
+    return this.router;
   }
 }
