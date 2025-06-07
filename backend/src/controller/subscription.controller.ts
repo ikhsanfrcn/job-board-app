@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { createSubscription } from "../services/subscription/createSubscription";
 import { handleInvoiceStatusUpdate } from "../services/subscription/invoiceUpdate";
 import { getSubscriptionById } from "../services/subscription/getSubsById";
+import { getSubscriptionByUser } from "../services/subscription/getSubsByUser";
 
 export class SubscriptionController {
   async createSubscription(req: Request, res: Response) {
@@ -58,6 +59,18 @@ export class SubscriptionController {
       res.json(subscription);
     } catch (error: any) {
       res.status(error.status || 500).json({ message: error.message });
+    }
+  }
+
+  async getSubscriptionByUser(req: Request, res: Response) {
+    try {
+      const userId = req.user?.id
+      if (!userId) throw { status: 400, message: "Unauthorized"}
+
+      const subscription = await getSubscriptionByUser(userId)
+      res.status(200).json(subscription)
+    } catch (error: any) {
+      res.status(error.status || 500).json({ message: error.message})
     }
   }
 }
