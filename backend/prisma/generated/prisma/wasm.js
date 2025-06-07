@@ -20,11 +20,11 @@ exports.Prisma = Prisma
 exports.$Enums = {}
 
 /**
- * Prisma Client JS version: 6.8.2
+ * Prisma Client JS version: 6.8.1
  * Query Engine version: 2060c79ba17c6bb9f5823312b6f6b7f4a845738e
  */
 Prisma.prismaVersion = {
-  client: "6.8.2",
+  client: "6.8.1",
   engine: "2060c79ba17c6bb9f5823312b6f6b7f4a845738e"
 }
 
@@ -306,6 +306,19 @@ exports.Prisma.AdditionalScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
+exports.Prisma.SubscriptionScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  type: 'type',
+  startDate: 'startDate',
+  endDate: 'endDate',
+  status: 'status',
+  invoiceUrl: 'invoiceUrl',
+  createdAt: 'createdAt',
+  expiredAt: 'expiredAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -360,6 +373,13 @@ exports.AdditionalCategory = exports.$Enums.AdditionalCategory = {
   INTERPERSONAL: 'INTERPERSONAL'
 };
 
+exports.PaymentStatus = exports.$Enums.PaymentStatus = {
+  PENDING: 'PENDING',
+  PAID: 'PAID',
+  EXPIRED: 'EXPIRED',
+  CANCELED: 'CANCELED'
+};
+
 exports.Prisma.ModelName = {
   User: 'User',
   Company: 'Company',
@@ -376,7 +396,8 @@ exports.Prisma.ModelName = {
   WorkExperience: 'WorkExperience',
   Education: 'Education',
   Leadership: 'Leadership',
-  Additional: 'Additional'
+  Additional: 'Additional',
+  Subscription: 'Subscription'
 };
 
 /**

@@ -31,12 +31,13 @@ model User {
   isVerify         Boolean  @default(false)
   verificationSent DateTime @default(now())
 
-  createdAt   DateTime      @default(now())
-  updatedAt   DateTime      @updatedAt
-  Application Application[]
-  Review      Review[]
-  userTest    UserTest[]
-  userResume  UserResume[]
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+  Application  Application[]
+  Review       Review[]
+  userTest     UserTest[]
+  userResume   UserResume[]
+  Subscription Subscription[]
 }
 
 enum Gender {
@@ -274,4 +275,25 @@ enum AdditionalCategory {
   TECHNICAL
   LANGUAGE
   INTERPERSONAL
+}
+
+model Subscription {
+  id         String        @id @default(uuid())
+  userId     String
+  user       User          @relation(fields: [userId], references: [id])
+  type       String
+  startDate  DateTime?
+  endDate    DateTime?
+  status     PaymentStatus @default(PENDING)
+  invoiceUrl String?
+  createdAt  DateTime      @default(now())
+  expiredAt  DateTime
+  updatedAt  DateTime      @updatedAt
+}
+
+enum PaymentStatus {
+  PENDING
+  PAID
+  EXPIRED
+  CANCELED
 }
