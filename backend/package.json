@@ -39,6 +39,7 @@
     "nodemailer": "^7.0.3",
     "prisma": "^6.8.1",
     "streamifier": "^0.1.1",
+    "xendit-node": "^7.0.0",
     "yup": "^1.6.1"
   }
 }

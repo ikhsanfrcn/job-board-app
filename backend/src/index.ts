@@ -10,6 +10,7 @@ import { ReviewRouter } from "./router/review.routes";
 import { TestRouter } from "./router/test.router";
 import { InterviewRouter } from "./router/interview.routes";
 import { DeveloperRouter } from "./router/developer.routes";
+import { SubscriptionRouter } from "./router/subscription.routes";
 
 const PORT: number = 8000;
 
@@ -49,7 +50,10 @@ const testRouter = new TestRouter();
 app.use("/api/test", testRouter.getRouter());
 
 const interviewRouter = new InterviewRouter();
-app.use("/api/interviews", interviewRouter.getRouter())
+app.use("/api/interviews", interviewRouter.getRouter());
+
+const subscriptionRouter = new SubscriptionRouter();
+app.use("/api/subscriptions", subscriptionRouter.getRouter());
 
 app.listen(PORT, () => {
   console.log(`Server running http://localhost:${PORT}/api`);
