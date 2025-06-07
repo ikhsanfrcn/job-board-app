@@ -1,14 +1,14 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import axios from "@/lib/axios";
 import { Modal } from "@/components/atoms/Modal";
 
 type TransactionData = {
   id: string;
   type: string;
-  status: "Paid" | "Unpaid";
+  status: "PAID" | "PENDING" | "EXPIRED";
   price: number;
   createdAt: string;
   updatedAt: string;
@@ -26,40 +26,68 @@ export default function TransactionDetailPage() {
   const [countdown, setCountdown] = useState<string>("");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [invoiceUrl, setInvoiceUrl] = useState<string | null>(null);
+  const router = useRouter();
 
   useEffect(() => {
+    let countdownInterval: NodeJS.Timeout;
+    let statusInterval: NodeJS.Timeout;
+
     async function fetchTransaction() {
-      const { data } = await axios.get(`/subscriptions/${id}`);
-      setTransaction(data);
+      try {
+        const { data } = await axios.get(`/subscriptions/${id}`);
+        setTransaction(data);
 
-      const interval = setInterval(() => {
-        const now = new Date().getTime();
-        const deadline = new Date(data.expiredAt).getTime();
-        const distance = deadline - now;
-        if (distance <= 0) {
-          clearInterval(interval);
-          setCountdown("Expired");
-        } else {
-          const hours = Math.floor(
-            (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
-          );
-          const minutes = Math.floor(
-            (distance % (1000 * 60 * 60)) / (1000 * 60)
-          );
-          const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-          setCountdown(
-            `${String(hours).padStart(2, "0")} : ${String(minutes).padStart(
-              2,
-              "0"
-            )} : ${String(seconds).padStart(2, "0")}`
-          );
+        countdownInterval = setInterval(() => {
+          const now = new Date().getTime();
+          const deadline = new Date(data.expiredAt).getTime();
+          const distance = deadline - now;
+
+          if (distance <= 0) {
+            clearInterval(countdownInterval);
+            setCountdown("Expired");
+          } else {
+            const hours = Math.floor(
+              (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+            );
+            const minutes = Math.floor(
+              (distance % (1000 * 60 * 60)) / (1000 * 60)
+            );
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+            setCountdown(
+              `${String(hours).padStart(2, "0")} : ${String(minutes).padStart(
+                2,
+                "0"
+              )} : ${String(seconds).padStart(2, "0")}`
+            );
+          }
+        }, 1000);
+
+        if (data.status === "PENDING") {
+          statusInterval = setInterval(async () => {
+            try {
+              const { data: updatedData } = await axios.get(
+                `/subscriptions/${id}`
+              );
+              if (updatedData.status !== "PENDING") {
+                clearInterval(statusInterval);
+                setTransaction(updatedData); // update state with new status
+              }
+            } catch (err) {
+              console.error("Failed to poll payment status", err);
+            }
+          }, 10000);
         }
-      }, 1000);
-
-      return () => clearInterval(interval);
+      } catch (err) {
+        console.error("Failed to fetch transaction", err);
+      }
     }
 
     fetchTransaction();
+
+    return () => {
+      clearInterval(countdownInterval);
+      clearInterval(statusInterval);
+    };
   }, [id]);
 
   if (!transaction) return <div>Loading...</div>;
@@ -75,17 +103,6 @@ export default function TransactionDetailPage() {
     setIsModalOpen(true);
   };
 
-  function getPriceByPlanType(planType: string): number {
-  switch (planType.toUpperCase()) {
-    case 'STANDART':
-      return 25000;
-    case 'PROFESSIONAL':
-      return 100000;
-    default:
-      return 0;
-  }
-}
-
   return (
     <div className="min-h-screen flex items-center justify-center p-6 bg-gray-100">
       <div className="bg-white shadow-lg rounded-lg p-6 w-full max-w-md">
@@ -99,30 +116,71 @@ export default function TransactionDetailPage() {
           <Info
             label="Status"
             value={
-              <span className="text-yellow-600 font-bold">
+              <span
+                className={
+                  transaction.status === "PAID"
+                    ? "text-green-600 font-bold"
+                    : transaction.status === "EXPIRED"
+                    ? "text-red-600 font-bold"
+                    : "text-yellow-600 font-bold"
+                }
+              >
                 {transaction.status}
               </span>
             }
           />
-          <Info label="Price" value={`IDR ${getPriceByPlanType(transaction.type)}`} />
+          <Info
+            label="Price"
+            value={`IDR ${getPriceByPlanType(transaction.type)
+              .toString()
+              .replace(/\B(?=(\d{3})+(?!\d))/g, ".")}`}
+          />
           <Info label="Created At" value={formatDate(transaction.createdAt)} />
         </div>
-        <div className="text-red-600 mt-4 text-sm">
-          Please make payment before {formatDate(transaction.expiredAt)}
-        </div>
-        <div className="text-center font-bold text-pink-600 text-xl mt-1">
-          Expires in {countdown}
-        </div>
-        <button
-          onClick={handleOpenPayment}
-          className="mt-6 w-full bg-pink-600 text-white py-2 rounded-md hover:bg-pink-700 transition"
-        >
-          Pay Subscription
-        </button>
+
+        {transaction.status === "PENDING" && (
+          <div>
+            <div className="text-red-600 mt-4 text-sm">
+              Please make payment before {formatDate(transaction.expiredAt)}
+            </div>
+            <div className="text-center font-bold text-pink-600 text-xl mt-1">
+              Expires in {countdown}
+            </div>
+          </div>
+        )}
+
+        {transaction.status === "PAID" ? (
+          <button
+            onClick={() => router.push("/")}
+            className="mt-6 w-full bg-green-600 text-white py-2 rounded-md hover:bg-green-700 cursor-pointer transition"
+          >
+            Back to home
+          </button>
+        ) : transaction.status === "EXPIRED" ? (
+          <button
+            onClick={handleOpenPayment}
+            className="mt-6 w-full bg-red-600 text-white py-2 rounded-md hover:bg-red-700 cursor-pointer transition"
+          >
+            Back to Home
+          </button>
+        ) : (
+          <button
+            onClick={handleOpenPayment}
+            className="mt-6 w-full bg-pink-600 text-white py-2 rounded-md hover:bg-pink-700 cursor-pointer transition"
+          >
+            Pay Subscription
+          </button>
+        )}
       </div>
+
       {/* Modal */}
       {isModalOpen && invoiceUrl && (
-        <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} title="Complete Your Payment" size="lg">
+        <Modal
+          isOpen={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+          title="Complete Your Payment"
+          size="lg"
+        >
           <iframe
             src={invoiceUrl}
             width="100%"
@@ -153,4 +211,15 @@ function formatDate(date: string) {
     hour: "2-digit",
     minute: "2-digit",
   });
+}
+
+function getPriceByPlanType(planType: string): number {
+  switch (planType.toUpperCase()) {
+    case "STANDART":
+      return 25000;
+    case "PROFESSIONAL":
+      return 100000;
+    default:
+      return 0;
+  }
 }

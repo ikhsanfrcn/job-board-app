@@ -1,10 +1,12 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import axios from "@/lib/axios";
 import { useSession } from "next-auth/react";
+import SubscriptionCard from "./_components/subscriptionCard";
 
 const plans = [
   {
@@ -27,45 +29,75 @@ const plans = [
 
 export default function SubscriptionPage() {
   const { data: session } = useSession();
-  const [loading, setLoading] = useState(false);
   const router = useRouter();
 
-  const handleSubscribe = async (planType: "REGULAR" | "PREMIUM") => {
-    try {
-      setLoading(true);
-      const token = session?.accessToken;
+  const [loadingPlan, setLoadingPlan] = useState<"STANDART" | "PROFESSIONAL" | null>(null);
+  const [isSubscribed, setIsSubscribed] = useState<boolean | null>(null);
 
-      const response = await axios.post(
-        "/subscriptions",
-        { type: planType },
-        {
+  useEffect(() => {
+    const fetchSubscriptionStatus = async () => {
+      try {
+        const token = session?.accessToken;
+        if (!token) return; // kalau belum login, jangan fetch
+
+        const response = await axios.get("/subscriptions", {
           headers: {
             Authorization: `Bearer ${token}`,
           },
+        });
+
+        const subscription = response.data;
+
+        if (!subscription) {
+          setIsSubscribed(false);
+          return;
         }
-      );
 
-      
-      
-      const transactionId = response.data.result.data.id;
+        if (subscription.status === "PENDING") {
+          router.push(`/subscription/${subscription.id}`);
+          return;
+        }
 
-      console.log(transactionId);
+        const isActive = subscription.status === "PAID";
+        const isNotExpired =
+          new Date(subscription.expiredAt).getTime() > new Date().getTime();
 
-      toast.success("Subscription successful!");
-      router.push(`/subscription/${transactionId}`);
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    } catch (err: any) {
-      toast.error(err.response?.data?.message || "Subscription failed");
-    } finally {
-      setLoading(false);
+        setIsSubscribed(isActive && isNotExpired);
+      } catch (error) {
+        console.error("Failed to fetch subscription status:", error);
+        setIsSubscribed(false);
+      }
+    };
+
+    if (session?.accessToken) {
+      fetchSubscriptionStatus();
     }
-  };
+  }, [session?.accessToken, router]);
 
+  // Loading hanya tampil kalau sudah login & status belum diketahui
+  if (session?.accessToken && isSubscribed === null) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <p className="text-gray-600 text-lg">Loading...</p>
+      </div>
+    );
+  }
+
+  // Kalau sudah langganan aktif
+  if (isSubscribed) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <p className="text-green-700 text-xl font-semibold">
+          Kamu sudah memiliki langganan aktif. 🎉
+        </p>
+      </div>
+    );
+  }
+
+  // Halaman subscription terbuka untuk semua
   return (
     <div className="min-h-screen bg-white flex flex-col items-center justify-center px-4">
-      <h1 className="text-3xl font-bold text-blue-900 mb-2">
-        Subscription Plan
-      </h1>
+      <h1 className="text-3xl font-bold text-blue-900 mb-2">Subscription Plan</h1>
       <p className="text-center text-gray-600 mb-8">
         Take your career to the next level with the right plan!
         <br />
@@ -78,34 +110,48 @@ export default function SubscriptionPage() {
 
       <div className="flex flex-col md:flex-row gap-6">
         {plans.map((plan) => (
-          <div
+          <SubscriptionCard
             key={plan.name}
-            className="border rounded-xl shadow-md p-6 w-full md:w-80"
-          >
-            <h2 className="text-xl font-bold text-pink-600 mb-2">
-              {plan.name}
-            </h2>
-            <p className="text-2xl font-semibold text-blue-900 mb-2">
-              IDR {`${plan.price}`.replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
-            </p>
-            <p className="text-gray-600 mb-4">for 30 days</p>
-            <ul className="list-disc list-inside mb-6 text-sm text-gray-700">
-              {plan.features.map((feature) => (
-                <li key={feature}>{feature}</li>
-              ))}
-            </ul>
-            <button
-              onClick={() =>
-                handleSubscribe(plan.type as "REGULAR" | "PREMIUM")
+            name={plan.name}
+            price={plan.price}
+            features={plan.features}
+            loading={loadingPlan === plan.type}
+            onSubscribe={() => {
+              if (!session) {
+                toast.info("Silakan login terlebih dahulu untuk berlangganan.");
+                router.push("/auth/login");
+                return;
               }
-              disabled={loading}
-              className="bg-pink-600 text-white w-full py-2 rounded-md hover:bg-pink-700 transition"
-            >
-              {loading ? "Processing..." : "Subscribe"}
-            </button>
-          </div>
+              handleSubscribe(plan.type as "STANDART" | "PROFESSIONAL");
+            }}
+          />
         ))}
       </div>
     </div>
   );
+
+  async function handleSubscribe(planType: "STANDART" | "PROFESSIONAL") {
+    try {
+      setLoadingPlan(planType);
+      const token = session?.accessToken;
+
+      const response = await axios.post(
+        "/subscriptions",
+        { type: planType },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      const transactionId = response.data.result.data.id;
+      toast.success("Subscription successful!");
+      router.push(`/subscription/${transactionId}`);
+    } catch (err: any) {
+      toast.error(err.response?.data?.message || "Subscription failed");
+    } finally {
+      setLoadingPlan(null);
+    }
+  }
 }

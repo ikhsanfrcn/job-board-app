@@ -17,6 +17,7 @@ export class SubscriptionRouter {
   private initializeRoute() {
     this.router.post("/", this.authMiddleware.verifyToken, this.subscriptionController.createSubscription);
     this.router.post("/webhook", this.subscriptionController.handleWebhook);
+    this.router.get("/", this.authMiddleware.verifyToken, this.subscriptionController.getSubscriptionByUser)
     this.router.get("/:id", this.subscriptionController.getSubscriptionById);
   }
   getRouter(): Router {
