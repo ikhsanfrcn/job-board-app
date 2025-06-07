@@ -98,6 +98,21 @@ export type Additional = $Result.DefaultSelection<Prisma.$AdditionalPayload>
  * 
  */
 export type Subscription = $Result.DefaultSelection<Prisma.$SubscriptionPayload>
+/**
+ * Model SelfAssessmentTemplate
+ * 
+ */
+export type SelfAssessmentTemplate = $Result.DefaultSelection<Prisma.$SelfAssessmentTemplatePayload>
+/**
+ * Model SelfAssessment
+ * 
+ */
+export type SelfAssessment = $Result.DefaultSelection<Prisma.$SelfAssessmentPayload>
+/**
+ * Model AssessmentSession
+ * 
+ */
+export type AssessmentSession = $Result.DefaultSelection<Prisma.$AssessmentSessionPayload>
 
 /**
  * Enums
@@ -470,6 +485,36 @@ export class PrismaClient<
     * ```
     */
   get subscription(): Prisma.SubscriptionDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.selfAssessmentTemplate`: Exposes CRUD operations for the **SelfAssessmentTemplate** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more SelfAssessmentTemplates
+    * const selfAssessmentTemplates = await prisma.selfAssessmentTemplate.findMany()
+    * ```
+    */
+  get selfAssessmentTemplate(): Prisma.SelfAssessmentTemplateDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.selfAssessment`: Exposes CRUD operations for the **SelfAssessment** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more SelfAssessments
+    * const selfAssessments = await prisma.selfAssessment.findMany()
+    * ```
+    */
+  get selfAssessment(): Prisma.SelfAssessmentDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.assessmentSession`: Exposes CRUD operations for the **AssessmentSession** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more AssessmentSessions
+    * const assessmentSessions = await prisma.assessmentSession.findMany()
+    * ```
+    */
+  get assessmentSession(): Prisma.AssessmentSessionDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -528,7 +573,7 @@ export namespace Prisma {
   export import Exact = $Public.Exact
 
   /**
-   * Prisma Client JS version: 6.8.1
+   * Prisma Client JS version: 6.8.2
    * Query Engine version: 2060c79ba17c6bb9f5823312b6f6b7f4a845738e
    */
   export type PrismaVersion = {
@@ -926,7 +971,10 @@ export namespace Prisma {
     Education: 'Education',
     Leadership: 'Leadership',
     Additional: 'Additional',
-    Subscription: 'Subscription'
+    Subscription: 'Subscription',
+    SelfAssessmentTemplate: 'SelfAssessmentTemplate',
+    SelfAssessment: 'SelfAssessment',
+    AssessmentSession: 'AssessmentSession'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -945,7 +993,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "company" | "industry" | "job" | "jobdesc" | "developer" | "application" | "review" | "test" | "userTest" | "interview" | "userResume" | "workExperience" | "education" | "leadership" | "additional" | "subscription"
+      modelProps: "user" | "company" | "industry" | "job" | "jobdesc" | "developer" | "application" | "review" | "test" | "userTest" | "interview" | "userResume" | "workExperience" | "education" | "leadership" | "additional" | "subscription" | "selfAssessmentTemplate" | "selfAssessment" | "assessmentSession"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -2207,6 +2255,228 @@ export namespace Prisma {
           }
         }
       }
+      SelfAssessmentTemplate: {
+        payload: Prisma.$SelfAssessmentTemplatePayload<ExtArgs>
+        fields: Prisma.SelfAssessmentTemplateFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.SelfAssessmentTemplateFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SelfAssessmentTemplatePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.SelfAssessmentTemplateFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SelfAssessmentTemplatePayload>
+          }
+          findFirst: {
+            args: Prisma.SelfAssessmentTemplateFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SelfAssessmentTemplatePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.SelfAssessmentTemplateFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SelfAssessmentTemplatePayload>
+          }
+          findMany: {
+            args: Prisma.SelfAssessmentTemplateFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SelfAssessmentTemplatePayload>[]
+          }
+          create: {
+            args: Prisma.SelfAssessmentTemplateCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SelfAssessmentTemplatePayload>
+          }
+          createMany: {
+            args: Prisma.SelfAssessmentTemplateCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.SelfAssessmentTemplateCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SelfAssessmentTemplatePayload>[]
+          }
+          delete: {
+            args: Prisma.SelfAssessmentTemplateDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SelfAssessmentTemplatePayload>
+          }
+          update: {
+            args: Prisma.SelfAssessmentTemplateUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SelfAssessmentTemplatePayload>
+          }
+          deleteMany: {
+            args: Prisma.SelfAssessmentTemplateDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.SelfAssessmentTemplateUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.SelfAssessmentTemplateUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SelfAssessmentTemplatePayload>[]
+          }
+          upsert: {
+            args: Prisma.SelfAssessmentTemplateUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SelfAssessmentTemplatePayload>
+          }
+          aggregate: {
+            args: Prisma.SelfAssessmentTemplateAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateSelfAssessmentTemplate>
+          }
+          groupBy: {
+            args: Prisma.SelfAssessmentTemplateGroupByArgs<ExtArgs>
+            result: $Utils.Optional<SelfAssessmentTemplateGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.SelfAssessmentTemplateCountArgs<ExtArgs>
+            result: $Utils.Optional<SelfAssessmentTemplateCountAggregateOutputType> | number
+          }
+        }
+      }
+      SelfAssessment: {
+        payload: Prisma.$SelfAssessmentPayload<ExtArgs>
+        fields: Prisma.SelfAssessmentFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.SelfAssessmentFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SelfAssessmentPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.SelfAssessmentFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SelfAssessmentPayload>
+          }
+          findFirst: {
+            args: Prisma.SelfAssessmentFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SelfAssessmentPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.SelfAssessmentFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SelfAssessmentPayload>
+          }
+          findMany: {
+            args: Prisma.SelfAssessmentFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SelfAssessmentPayload>[]
+          }
+          create: {
+            args: Prisma.SelfAssessmentCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SelfAssessmentPayload>
+          }
+          createMany: {
+            args: Prisma.SelfAssessmentCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.SelfAssessmentCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SelfAssessmentPayload>[]
+          }
+          delete: {
+            args: Prisma.SelfAssessmentDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SelfAssessmentPayload>
+          }
+          update: {
+            args: Prisma.SelfAssessmentUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SelfAssessmentPayload>
+          }
+          deleteMany: {
+            args: Prisma.SelfAssessmentDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.SelfAssessmentUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.SelfAssessmentUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SelfAssessmentPayload>[]
+          }
+          upsert: {
+            args: Prisma.SelfAssessmentUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SelfAssessmentPayload>
+          }
+          aggregate: {
+            args: Prisma.SelfAssessmentAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateSelfAssessment>
+          }
+          groupBy: {
+            args: Prisma.SelfAssessmentGroupByArgs<ExtArgs>
+            result: $Utils.Optional<SelfAssessmentGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.SelfAssessmentCountArgs<ExtArgs>
+            result: $Utils.Optional<SelfAssessmentCountAggregateOutputType> | number
+          }
+        }
+      }
+      AssessmentSession: {
+        payload: Prisma.$AssessmentSessionPayload<ExtArgs>
+        fields: Prisma.AssessmentSessionFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.AssessmentSessionFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AssessmentSessionPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.AssessmentSessionFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AssessmentSessionPayload>
+          }
+          findFirst: {
+            args: Prisma.AssessmentSessionFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AssessmentSessionPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.AssessmentSessionFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AssessmentSessionPayload>
+          }
+          findMany: {
+            args: Prisma.AssessmentSessionFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AssessmentSessionPayload>[]
+          }
+          create: {
+            args: Prisma.AssessmentSessionCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AssessmentSessionPayload>
+          }
+          createMany: {
+            args: Prisma.AssessmentSessionCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.AssessmentSessionCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AssessmentSessionPayload>[]
+          }
+          delete: {
+            args: Prisma.AssessmentSessionDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AssessmentSessionPayload>
+          }
+          update: {
+            args: Prisma.AssessmentSessionUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AssessmentSessionPayload>
+          }
+          deleteMany: {
+            args: Prisma.AssessmentSessionDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.AssessmentSessionUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.AssessmentSessionUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AssessmentSessionPayload>[]
+          }
+          upsert: {
+            args: Prisma.AssessmentSessionUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AssessmentSessionPayload>
+          }
+          aggregate: {
+            args: Prisma.AssessmentSessionAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateAssessmentSession>
+          }
+          groupBy: {
+            args: Prisma.AssessmentSessionGroupByArgs<ExtArgs>
+            result: $Utils.Optional<AssessmentSessionGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.AssessmentSessionCountArgs<ExtArgs>
+            result: $Utils.Optional<AssessmentSessionCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -2308,6 +2578,9 @@ export namespace Prisma {
     leadership?: LeadershipOmit
     additional?: AdditionalOmit
     subscription?: SubscriptionOmit
+    selfAssessmentTemplate?: SelfAssessmentTemplateOmit
+    selfAssessment?: SelfAssessmentOmit
+    assessmentSession?: AssessmentSessionOmit
   }
 
   /* Types for Logging */
@@ -2407,6 +2680,8 @@ export namespace Prisma {
     userTest: number
     userResume: number
     Subscription: number
+    selfAssessments: number
+    assessmentSessions: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2415,6 +2690,8 @@ export namespace Prisma {
     userTest?: boolean | UserCountOutputTypeCountUserTestArgs
     userResume?: boolean | UserCountOutputTypeCountUserResumeArgs
     Subscription?: boolean | UserCountOutputTypeCountSubscriptionArgs
+    selfAssessments?: boolean | UserCountOutputTypeCountSelfAssessmentsArgs
+    assessmentSessions?: boolean | UserCountOutputTypeCountAssessmentSessionsArgs
   }
 
   // Custom InputTypes
@@ -2461,6 +2738,20 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountSubscriptionArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: SubscriptionWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountSelfAssessmentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SelfAssessmentWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountAssessmentSessionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AssessmentSessionWhereInput
   }
 
 
@@ -2692,6 +2983,37 @@ export namespace Prisma {
    */
   export type UserResumeCountOutputTypeCountAddtionalArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: AdditionalWhereInput
+  }
+
+
+  /**
+   * Count Type SelfAssessmentTemplateCountOutputType
+   */
+
+  export type SelfAssessmentTemplateCountOutputType = {
+    selfAssessments: number
+  }
+
+  export type SelfAssessmentTemplateCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    selfAssessments?: boolean | SelfAssessmentTemplateCountOutputTypeCountSelfAssessmentsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * SelfAssessmentTemplateCountOutputType without action
+   */
+  export type SelfAssessmentTemplateCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SelfAssessmentTemplateCountOutputType
+     */
+    select?: SelfAssessmentTemplateCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * SelfAssessmentTemplateCountOutputType without action
+   */
+  export type SelfAssessmentTemplateCountOutputTypeCountSelfAssessmentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SelfAssessmentWhereInput
   }
 
 
@@ -2996,6 +3318,8 @@ export namespace Prisma {
     userTest?: boolean | User$userTestArgs<ExtArgs>
     userResume?: boolean | User$userResumeArgs<ExtArgs>
     Subscription?: boolean | User$SubscriptionArgs<ExtArgs>
+    selfAssessments?: boolean | User$selfAssessmentsArgs<ExtArgs>
+    assessmentSessions?: boolean | User$assessmentSessionsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -3078,6 +3402,8 @@ export namespace Prisma {
     userTest?: boolean | User$userTestArgs<ExtArgs>
     userResume?: boolean | User$userResumeArgs<ExtArgs>
     Subscription?: boolean | User$SubscriptionArgs<ExtArgs>
+    selfAssessments?: boolean | User$selfAssessmentsArgs<ExtArgs>
+    assessmentSessions?: boolean | User$assessmentSessionsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -3091,6 +3417,8 @@ export namespace Prisma {
       userTest: Prisma.$UserTestPayload<ExtArgs>[]
       userResume: Prisma.$UserResumePayload<ExtArgs>[]
       Subscription: Prisma.$SubscriptionPayload<ExtArgs>[]
+      selfAssessments: Prisma.$SelfAssessmentPayload<ExtArgs>[]
+      assessmentSessions: Prisma.$AssessmentSessionPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -3513,6 +3841,8 @@ export namespace Prisma {
     userTest<T extends User$userTestArgs<ExtArgs> = {}>(args?: Subset<T, User$userTestArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserTestPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     userResume<T extends User$userResumeArgs<ExtArgs> = {}>(args?: Subset<T, User$userResumeArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserResumePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     Subscription<T extends User$SubscriptionArgs<ExtArgs> = {}>(args?: Subset<T, User$SubscriptionArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SubscriptionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    selfAssessments<T extends User$selfAssessmentsArgs<ExtArgs> = {}>(args?: Subset<T, User$selfAssessmentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SelfAssessmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    assessmentSessions<T extends User$assessmentSessionsArgs<ExtArgs> = {}>(args?: Subset<T, User$assessmentSessionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AssessmentSessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -4068,6 +4398,54 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: SubscriptionScalarFieldEnum | SubscriptionScalarFieldEnum[]
+  }
+
+  /**
+   * User.selfAssessments
+   */
+  export type User$selfAssessmentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SelfAssessment
+     */
+    select?: SelfAssessmentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SelfAssessment
+     */
+    omit?: SelfAssessmentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SelfAssessmentInclude<ExtArgs> | null
+    where?: SelfAssessmentWhereInput
+    orderBy?: SelfAssessmentOrderByWithRelationInput | SelfAssessmentOrderByWithRelationInput[]
+    cursor?: SelfAssessmentWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: SelfAssessmentScalarFieldEnum | SelfAssessmentScalarFieldEnum[]
+  }
+
+  /**
+   * User.assessmentSessions
+   */
+  export type User$assessmentSessionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AssessmentSession
+     */
+    select?: AssessmentSessionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AssessmentSession
+     */
+    omit?: AssessmentSessionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AssessmentSessionInclude<ExtArgs> | null
+    where?: AssessmentSessionWhereInput
+    orderBy?: AssessmentSessionOrderByWithRelationInput | AssessmentSessionOrderByWithRelationInput[]
+    cursor?: AssessmentSessionWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: AssessmentSessionScalarFieldEnum | AssessmentSessionScalarFieldEnum[]
   }
 
   /**
@@ -22007,6 +22385,3557 @@ export namespace Prisma {
 
 
   /**
+   * Model SelfAssessmentTemplate
+   */
+
+  export type AggregateSelfAssessmentTemplate = {
+    _count: SelfAssessmentTemplateCountAggregateOutputType | null
+    _avg: SelfAssessmentTemplateAvgAggregateOutputType | null
+    _sum: SelfAssessmentTemplateSumAggregateOutputType | null
+    _min: SelfAssessmentTemplateMinAggregateOutputType | null
+    _max: SelfAssessmentTemplateMaxAggregateOutputType | null
+  }
+
+  export type SelfAssessmentTemplateAvgAggregateOutputType = {
+    passingScore: number | null
+    totalPoints: number | null
+    timeLimit: number | null
+  }
+
+  export type SelfAssessmentTemplateSumAggregateOutputType = {
+    passingScore: number | null
+    totalPoints: number | null
+    timeLimit: number | null
+  }
+
+  export type SelfAssessmentTemplateMinAggregateOutputType = {
+    id: string | null
+    title: string | null
+    description: string | null
+    category: string | null
+    passingScore: number | null
+    totalPoints: number | null
+    timeLimit: number | null
+    isActive: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type SelfAssessmentTemplateMaxAggregateOutputType = {
+    id: string | null
+    title: string | null
+    description: string | null
+    category: string | null
+    passingScore: number | null
+    totalPoints: number | null
+    timeLimit: number | null
+    isActive: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type SelfAssessmentTemplateCountAggregateOutputType = {
+    id: number
+    title: number
+    description: number
+    category: number
+    questions: number
+    passingScore: number
+    totalPoints: number
+    timeLimit: number
+    isActive: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type SelfAssessmentTemplateAvgAggregateInputType = {
+    passingScore?: true
+    totalPoints?: true
+    timeLimit?: true
+  }
+
+  export type SelfAssessmentTemplateSumAggregateInputType = {
+    passingScore?: true
+    totalPoints?: true
+    timeLimit?: true
+  }
+
+  export type SelfAssessmentTemplateMinAggregateInputType = {
+    id?: true
+    title?: true
+    description?: true
+    category?: true
+    passingScore?: true
+    totalPoints?: true
+    timeLimit?: true
+    isActive?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type SelfAssessmentTemplateMaxAggregateInputType = {
+    id?: true
+    title?: true
+    description?: true
+    category?: true
+    passingScore?: true
+    totalPoints?: true
+    timeLimit?: true
+    isActive?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type SelfAssessmentTemplateCountAggregateInputType = {
+    id?: true
+    title?: true
+    description?: true
+    category?: true
+    questions?: true
+    passingScore?: true
+    totalPoints?: true
+    timeLimit?: true
+    isActive?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type SelfAssessmentTemplateAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SelfAssessmentTemplate to aggregate.
+     */
+    where?: SelfAssessmentTemplateWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SelfAssessmentTemplates to fetch.
+     */
+    orderBy?: SelfAssessmentTemplateOrderByWithRelationInput | SelfAssessmentTemplateOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: SelfAssessmentTemplateWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SelfAssessmentTemplates from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SelfAssessmentTemplates.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned SelfAssessmentTemplates
+    **/
+    _count?: true | SelfAssessmentTemplateCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: SelfAssessmentTemplateAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: SelfAssessmentTemplateSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: SelfAssessmentTemplateMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: SelfAssessmentTemplateMaxAggregateInputType
+  }
+
+  export type GetSelfAssessmentTemplateAggregateType<T extends SelfAssessmentTemplateAggregateArgs> = {
+        [P in keyof T & keyof AggregateSelfAssessmentTemplate]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateSelfAssessmentTemplate[P]>
+      : GetScalarType<T[P], AggregateSelfAssessmentTemplate[P]>
+  }
+
+
+
+
+  export type SelfAssessmentTemplateGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SelfAssessmentTemplateWhereInput
+    orderBy?: SelfAssessmentTemplateOrderByWithAggregationInput | SelfAssessmentTemplateOrderByWithAggregationInput[]
+    by: SelfAssessmentTemplateScalarFieldEnum[] | SelfAssessmentTemplateScalarFieldEnum
+    having?: SelfAssessmentTemplateScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: SelfAssessmentTemplateCountAggregateInputType | true
+    _avg?: SelfAssessmentTemplateAvgAggregateInputType
+    _sum?: SelfAssessmentTemplateSumAggregateInputType
+    _min?: SelfAssessmentTemplateMinAggregateInputType
+    _max?: SelfAssessmentTemplateMaxAggregateInputType
+  }
+
+  export type SelfAssessmentTemplateGroupByOutputType = {
+    id: string
+    title: string
+    description: string
+    category: string
+    questions: JsonValue
+    passingScore: number
+    totalPoints: number
+    timeLimit: number
+    isActive: boolean
+    createdAt: Date
+    updatedAt: Date
+    _count: SelfAssessmentTemplateCountAggregateOutputType | null
+    _avg: SelfAssessmentTemplateAvgAggregateOutputType | null
+    _sum: SelfAssessmentTemplateSumAggregateOutputType | null
+    _min: SelfAssessmentTemplateMinAggregateOutputType | null
+    _max: SelfAssessmentTemplateMaxAggregateOutputType | null
+  }
+
+  type GetSelfAssessmentTemplateGroupByPayload<T extends SelfAssessmentTemplateGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<SelfAssessmentTemplateGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof SelfAssessmentTemplateGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], SelfAssessmentTemplateGroupByOutputType[P]>
+            : GetScalarType<T[P], SelfAssessmentTemplateGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type SelfAssessmentTemplateSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    title?: boolean
+    description?: boolean
+    category?: boolean
+    questions?: boolean
+    passingScore?: boolean
+    totalPoints?: boolean
+    timeLimit?: boolean
+    isActive?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    selfAssessments?: boolean | SelfAssessmentTemplate$selfAssessmentsArgs<ExtArgs>
+    _count?: boolean | SelfAssessmentTemplateCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["selfAssessmentTemplate"]>
+
+  export type SelfAssessmentTemplateSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    title?: boolean
+    description?: boolean
+    category?: boolean
+    questions?: boolean
+    passingScore?: boolean
+    totalPoints?: boolean
+    timeLimit?: boolean
+    isActive?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["selfAssessmentTemplate"]>
+
+  export type SelfAssessmentTemplateSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    title?: boolean
+    description?: boolean
+    category?: boolean
+    questions?: boolean
+    passingScore?: boolean
+    totalPoints?: boolean
+    timeLimit?: boolean
+    isActive?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["selfAssessmentTemplate"]>
+
+  export type SelfAssessmentTemplateSelectScalar = {
+    id?: boolean
+    title?: boolean
+    description?: boolean
+    category?: boolean
+    questions?: boolean
+    passingScore?: boolean
+    totalPoints?: boolean
+    timeLimit?: boolean
+    isActive?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type SelfAssessmentTemplateOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "category" | "questions" | "passingScore" | "totalPoints" | "timeLimit" | "isActive" | "createdAt" | "updatedAt", ExtArgs["result"]["selfAssessmentTemplate"]>
+  export type SelfAssessmentTemplateInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    selfAssessments?: boolean | SelfAssessmentTemplate$selfAssessmentsArgs<ExtArgs>
+    _count?: boolean | SelfAssessmentTemplateCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type SelfAssessmentTemplateIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type SelfAssessmentTemplateIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+
+  export type $SelfAssessmentTemplatePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "SelfAssessmentTemplate"
+    objects: {
+      selfAssessments: Prisma.$SelfAssessmentPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      title: string
+      description: string
+      category: string
+      questions: Prisma.JsonValue
+      passingScore: number
+      totalPoints: number
+      timeLimit: number
+      isActive: boolean
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["selfAssessmentTemplate"]>
+    composites: {}
+  }
+
+  type SelfAssessmentTemplateGetPayload<S extends boolean | null | undefined | SelfAssessmentTemplateDefaultArgs> = $Result.GetResult<Prisma.$SelfAssessmentTemplatePayload, S>
+
+  type SelfAssessmentTemplateCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<SelfAssessmentTemplateFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: SelfAssessmentTemplateCountAggregateInputType | true
+    }
+
+  export interface SelfAssessmentTemplateDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['SelfAssessmentTemplate'], meta: { name: 'SelfAssessmentTemplate' } }
+    /**
+     * Find zero or one SelfAssessmentTemplate that matches the filter.
+     * @param {SelfAssessmentTemplateFindUniqueArgs} args - Arguments to find a SelfAssessmentTemplate
+     * @example
+     * // Get one SelfAssessmentTemplate
+     * const selfAssessmentTemplate = await prisma.selfAssessmentTemplate.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends SelfAssessmentTemplateFindUniqueArgs>(args: SelectSubset<T, SelfAssessmentTemplateFindUniqueArgs<ExtArgs>>): Prisma__SelfAssessmentTemplateClient<$Result.GetResult<Prisma.$SelfAssessmentTemplatePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one SelfAssessmentTemplate that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {SelfAssessmentTemplateFindUniqueOrThrowArgs} args - Arguments to find a SelfAssessmentTemplate
+     * @example
+     * // Get one SelfAssessmentTemplate
+     * const selfAssessmentTemplate = await prisma.selfAssessmentTemplate.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends SelfAssessmentTemplateFindUniqueOrThrowArgs>(args: SelectSubset<T, SelfAssessmentTemplateFindUniqueOrThrowArgs<ExtArgs>>): Prisma__SelfAssessmentTemplateClient<$Result.GetResult<Prisma.$SelfAssessmentTemplatePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first SelfAssessmentTemplate that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SelfAssessmentTemplateFindFirstArgs} args - Arguments to find a SelfAssessmentTemplate
+     * @example
+     * // Get one SelfAssessmentTemplate
+     * const selfAssessmentTemplate = await prisma.selfAssessmentTemplate.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends SelfAssessmentTemplateFindFirstArgs>(args?: SelectSubset<T, SelfAssessmentTemplateFindFirstArgs<ExtArgs>>): Prisma__SelfAssessmentTemplateClient<$Result.GetResult<Prisma.$SelfAssessmentTemplatePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first SelfAssessmentTemplate that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SelfAssessmentTemplateFindFirstOrThrowArgs} args - Arguments to find a SelfAssessmentTemplate
+     * @example
+     * // Get one SelfAssessmentTemplate
+     * const selfAssessmentTemplate = await prisma.selfAssessmentTemplate.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends SelfAssessmentTemplateFindFirstOrThrowArgs>(args?: SelectSubset<T, SelfAssessmentTemplateFindFirstOrThrowArgs<ExtArgs>>): Prisma__SelfAssessmentTemplateClient<$Result.GetResult<Prisma.$SelfAssessmentTemplatePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more SelfAssessmentTemplates that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SelfAssessmentTemplateFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all SelfAssessmentTemplates
+     * const selfAssessmentTemplates = await prisma.selfAssessmentTemplate.findMany()
+     * 
+     * // Get first 10 SelfAssessmentTemplates
+     * const selfAssessmentTemplates = await prisma.selfAssessmentTemplate.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const selfAssessmentTemplateWithIdOnly = await prisma.selfAssessmentTemplate.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends SelfAssessmentTemplateFindManyArgs>(args?: SelectSubset<T, SelfAssessmentTemplateFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SelfAssessmentTemplatePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a SelfAssessmentTemplate.
+     * @param {SelfAssessmentTemplateCreateArgs} args - Arguments to create a SelfAssessmentTemplate.
+     * @example
+     * // Create one SelfAssessmentTemplate
+     * const SelfAssessmentTemplate = await prisma.selfAssessmentTemplate.create({
+     *   data: {
+     *     // ... data to create a SelfAssessmentTemplate
+     *   }
+     * })
+     * 
+     */
+    create<T extends SelfAssessmentTemplateCreateArgs>(args: SelectSubset<T, SelfAssessmentTemplateCreateArgs<ExtArgs>>): Prisma__SelfAssessmentTemplateClient<$Result.GetResult<Prisma.$SelfAssessmentTemplatePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many SelfAssessmentTemplates.
+     * @param {SelfAssessmentTemplateCreateManyArgs} args - Arguments to create many SelfAssessmentTemplates.
+     * @example
+     * // Create many SelfAssessmentTemplates
+     * const selfAssessmentTemplate = await prisma.selfAssessmentTemplate.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends SelfAssessmentTemplateCreateManyArgs>(args?: SelectSubset<T, SelfAssessmentTemplateCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many SelfAssessmentTemplates and returns the data saved in the database.
+     * @param {SelfAssessmentTemplateCreateManyAndReturnArgs} args - Arguments to create many SelfAssessmentTemplates.
+     * @example
+     * // Create many SelfAssessmentTemplates
+     * const selfAssessmentTemplate = await prisma.selfAssessmentTemplate.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many SelfAssessmentTemplates and only return the `id`
+     * const selfAssessmentTemplateWithIdOnly = await prisma.selfAssessmentTemplate.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends SelfAssessmentTemplateCreateManyAndReturnArgs>(args?: SelectSubset<T, SelfAssessmentTemplateCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SelfAssessmentTemplatePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a SelfAssessmentTemplate.
+     * @param {SelfAssessmentTemplateDeleteArgs} args - Arguments to delete one SelfAssessmentTemplate.
+     * @example
+     * // Delete one SelfAssessmentTemplate
+     * const SelfAssessmentTemplate = await prisma.selfAssessmentTemplate.delete({
+     *   where: {
+     *     // ... filter to delete one SelfAssessmentTemplate
+     *   }
+     * })
+     * 
+     */
+    delete<T extends SelfAssessmentTemplateDeleteArgs>(args: SelectSubset<T, SelfAssessmentTemplateDeleteArgs<ExtArgs>>): Prisma__SelfAssessmentTemplateClient<$Result.GetResult<Prisma.$SelfAssessmentTemplatePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one SelfAssessmentTemplate.
+     * @param {SelfAssessmentTemplateUpdateArgs} args - Arguments to update one SelfAssessmentTemplate.
+     * @example
+     * // Update one SelfAssessmentTemplate
+     * const selfAssessmentTemplate = await prisma.selfAssessmentTemplate.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends SelfAssessmentTemplateUpdateArgs>(args: SelectSubset<T, SelfAssessmentTemplateUpdateArgs<ExtArgs>>): Prisma__SelfAssessmentTemplateClient<$Result.GetResult<Prisma.$SelfAssessmentTemplatePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more SelfAssessmentTemplates.
+     * @param {SelfAssessmentTemplateDeleteManyArgs} args - Arguments to filter SelfAssessmentTemplates to delete.
+     * @example
+     * // Delete a few SelfAssessmentTemplates
+     * const { count } = await prisma.selfAssessmentTemplate.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends SelfAssessmentTemplateDeleteManyArgs>(args?: SelectSubset<T, SelfAssessmentTemplateDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more SelfAssessmentTemplates.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SelfAssessmentTemplateUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many SelfAssessmentTemplates
+     * const selfAssessmentTemplate = await prisma.selfAssessmentTemplate.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends SelfAssessmentTemplateUpdateManyArgs>(args: SelectSubset<T, SelfAssessmentTemplateUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more SelfAssessmentTemplates and returns the data updated in the database.
+     * @param {SelfAssessmentTemplateUpdateManyAndReturnArgs} args - Arguments to update many SelfAssessmentTemplates.
+     * @example
+     * // Update many SelfAssessmentTemplates
+     * const selfAssessmentTemplate = await prisma.selfAssessmentTemplate.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more SelfAssessmentTemplates and only return the `id`
+     * const selfAssessmentTemplateWithIdOnly = await prisma.selfAssessmentTemplate.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends SelfAssessmentTemplateUpdateManyAndReturnArgs>(args: SelectSubset<T, SelfAssessmentTemplateUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SelfAssessmentTemplatePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one SelfAssessmentTemplate.
+     * @param {SelfAssessmentTemplateUpsertArgs} args - Arguments to update or create a SelfAssessmentTemplate.
+     * @example
+     * // Update or create a SelfAssessmentTemplate
+     * const selfAssessmentTemplate = await prisma.selfAssessmentTemplate.upsert({
+     *   create: {
+     *     // ... data to create a SelfAssessmentTemplate
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the SelfAssessmentTemplate we want to update
+     *   }
+     * })
+     */
+    upsert<T extends SelfAssessmentTemplateUpsertArgs>(args: SelectSubset<T, SelfAssessmentTemplateUpsertArgs<ExtArgs>>): Prisma__SelfAssessmentTemplateClient<$Result.GetResult<Prisma.$SelfAssessmentTemplatePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of SelfAssessmentTemplates.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SelfAssessmentTemplateCountArgs} args - Arguments to filter SelfAssessmentTemplates to count.
+     * @example
+     * // Count the number of SelfAssessmentTemplates
+     * const count = await prisma.selfAssessmentTemplate.count({
+     *   where: {
+     *     // ... the filter for the SelfAssessmentTemplates we want to count
+     *   }
+     * })
+    **/
+    count<T extends SelfAssessmentTemplateCountArgs>(
+      args?: Subset<T, SelfAssessmentTemplateCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], SelfAssessmentTemplateCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a SelfAssessmentTemplate.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SelfAssessmentTemplateAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends SelfAssessmentTemplateAggregateArgs>(args: Subset<T, SelfAssessmentTemplateAggregateArgs>): Prisma.PrismaPromise<GetSelfAssessmentTemplateAggregateType<T>>
+
+    /**
+     * Group by SelfAssessmentTemplate.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SelfAssessmentTemplateGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends SelfAssessmentTemplateGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: SelfAssessmentTemplateGroupByArgs['orderBy'] }
+        : { orderBy?: SelfAssessmentTemplateGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, SelfAssessmentTemplateGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSelfAssessmentTemplateGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the SelfAssessmentTemplate model
+   */
+  readonly fields: SelfAssessmentTemplateFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for SelfAssessmentTemplate.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__SelfAssessmentTemplateClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    selfAssessments<T extends SelfAssessmentTemplate$selfAssessmentsArgs<ExtArgs> = {}>(args?: Subset<T, SelfAssessmentTemplate$selfAssessmentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SelfAssessmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the SelfAssessmentTemplate model
+   */
+  interface SelfAssessmentTemplateFieldRefs {
+    readonly id: FieldRef<"SelfAssessmentTemplate", 'String'>
+    readonly title: FieldRef<"SelfAssessmentTemplate", 'String'>
+    readonly description: FieldRef<"SelfAssessmentTemplate", 'String'>
+    readonly category: FieldRef<"SelfAssessmentTemplate", 'String'>
+    readonly questions: FieldRef<"SelfAssessmentTemplate", 'Json'>
+    readonly passingScore: FieldRef<"SelfAssessmentTemplate", 'Int'>
+    readonly totalPoints: FieldRef<"SelfAssessmentTemplate", 'Int'>
+    readonly timeLimit: FieldRef<"SelfAssessmentTemplate", 'Int'>
+    readonly isActive: FieldRef<"SelfAssessmentTemplate", 'Boolean'>
+    readonly createdAt: FieldRef<"SelfAssessmentTemplate", 'DateTime'>
+    readonly updatedAt: FieldRef<"SelfAssessmentTemplate", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * SelfAssessmentTemplate findUnique
+   */
+  export type SelfAssessmentTemplateFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SelfAssessmentTemplate
+     */
+    select?: SelfAssessmentTemplateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SelfAssessmentTemplate
+     */
+    omit?: SelfAssessmentTemplateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SelfAssessmentTemplateInclude<ExtArgs> | null
+    /**
+     * Filter, which SelfAssessmentTemplate to fetch.
+     */
+    where: SelfAssessmentTemplateWhereUniqueInput
+  }
+
+  /**
+   * SelfAssessmentTemplate findUniqueOrThrow
+   */
+  export type SelfAssessmentTemplateFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SelfAssessmentTemplate
+     */
+    select?: SelfAssessmentTemplateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SelfAssessmentTemplate
+     */
+    omit?: SelfAssessmentTemplateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SelfAssessmentTemplateInclude<ExtArgs> | null
+    /**
+     * Filter, which SelfAssessmentTemplate to fetch.
+     */
+    where: SelfAssessmentTemplateWhereUniqueInput
+  }
+
+  /**
+   * SelfAssessmentTemplate findFirst
+   */
+  export type SelfAssessmentTemplateFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SelfAssessmentTemplate
+     */
+    select?: SelfAssessmentTemplateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SelfAssessmentTemplate
+     */
+    omit?: SelfAssessmentTemplateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SelfAssessmentTemplateInclude<ExtArgs> | null
+    /**
+     * Filter, which SelfAssessmentTemplate to fetch.
+     */
+    where?: SelfAssessmentTemplateWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SelfAssessmentTemplates to fetch.
+     */
+    orderBy?: SelfAssessmentTemplateOrderByWithRelationInput | SelfAssessmentTemplateOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SelfAssessmentTemplates.
+     */
+    cursor?: SelfAssessmentTemplateWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SelfAssessmentTemplates from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SelfAssessmentTemplates.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SelfAssessmentTemplates.
+     */
+    distinct?: SelfAssessmentTemplateScalarFieldEnum | SelfAssessmentTemplateScalarFieldEnum[]
+  }
+
+  /**
+   * SelfAssessmentTemplate findFirstOrThrow
+   */
+  export type SelfAssessmentTemplateFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SelfAssessmentTemplate
+     */
+    select?: SelfAssessmentTemplateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SelfAssessmentTemplate
+     */
+    omit?: SelfAssessmentTemplateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SelfAssessmentTemplateInclude<ExtArgs> | null
+    /**
+     * Filter, which SelfAssessmentTemplate to fetch.
+     */
+    where?: SelfAssessmentTemplateWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SelfAssessmentTemplates to fetch.
+     */
+    orderBy?: SelfAssessmentTemplateOrderByWithRelationInput | SelfAssessmentTemplateOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SelfAssessmentTemplates.
+     */
+    cursor?: SelfAssessmentTemplateWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SelfAssessmentTemplates from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SelfAssessmentTemplates.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SelfAssessmentTemplates.
+     */
+    distinct?: SelfAssessmentTemplateScalarFieldEnum | SelfAssessmentTemplateScalarFieldEnum[]
+  }
+
+  /**
+   * SelfAssessmentTemplate findMany
+   */
+  export type SelfAssessmentTemplateFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SelfAssessmentTemplate
+     */
+    select?: SelfAssessmentTemplateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SelfAssessmentTemplate
+     */
+    omit?: SelfAssessmentTemplateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SelfAssessmentTemplateInclude<ExtArgs> | null
+    /**
+     * Filter, which SelfAssessmentTemplates to fetch.
+     */
+    where?: SelfAssessmentTemplateWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SelfAssessmentTemplates to fetch.
+     */
+    orderBy?: SelfAssessmentTemplateOrderByWithRelationInput | SelfAssessmentTemplateOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing SelfAssessmentTemplates.
+     */
+    cursor?: SelfAssessmentTemplateWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SelfAssessmentTemplates from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SelfAssessmentTemplates.
+     */
+    skip?: number
+    distinct?: SelfAssessmentTemplateScalarFieldEnum | SelfAssessmentTemplateScalarFieldEnum[]
+  }
+
+  /**
+   * SelfAssessmentTemplate create
+   */
+  export type SelfAssessmentTemplateCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SelfAssessmentTemplate
+     */
+    select?: SelfAssessmentTemplateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SelfAssessmentTemplate
+     */
+    omit?: SelfAssessmentTemplateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SelfAssessmentTemplateInclude<ExtArgs> | null
+    /**
+     * The data needed to create a SelfAssessmentTemplate.
+     */
+    data: XOR<SelfAssessmentTemplateCreateInput, SelfAssessmentTemplateUncheckedCreateInput>
+  }
+
+  /**
+   * SelfAssessmentTemplate createMany
+   */
+  export type SelfAssessmentTemplateCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many SelfAssessmentTemplates.
+     */
+    data: SelfAssessmentTemplateCreateManyInput | SelfAssessmentTemplateCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * SelfAssessmentTemplate createManyAndReturn
+   */
+  export type SelfAssessmentTemplateCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SelfAssessmentTemplate
+     */
+    select?: SelfAssessmentTemplateSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the SelfAssessmentTemplate
+     */
+    omit?: SelfAssessmentTemplateOmit<ExtArgs> | null
+    /**
+     * The data used to create many SelfAssessmentTemplates.
+     */
+    data: SelfAssessmentTemplateCreateManyInput | SelfAssessmentTemplateCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * SelfAssessmentTemplate update
+   */
+  export type SelfAssessmentTemplateUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SelfAssessmentTemplate
+     */
+    select?: SelfAssessmentTemplateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SelfAssessmentTemplate
+     */
+    omit?: SelfAssessmentTemplateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SelfAssessmentTemplateInclude<ExtArgs> | null
+    /**
+     * The data needed to update a SelfAssessmentTemplate.
+     */
+    data: XOR<SelfAssessmentTemplateUpdateInput, SelfAssessmentTemplateUncheckedUpdateInput>
+    /**
+     * Choose, which SelfAssessmentTemplate to update.
+     */
+    where: SelfAssessmentTemplateWhereUniqueInput
+  }
+
+  /**
+   * SelfAssessmentTemplate updateMany
+   */
+  export type SelfAssessmentTemplateUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update SelfAssessmentTemplates.
+     */
+    data: XOR<SelfAssessmentTemplateUpdateManyMutationInput, SelfAssessmentTemplateUncheckedUpdateManyInput>
+    /**
+     * Filter which SelfAssessmentTemplates to update
+     */
+    where?: SelfAssessmentTemplateWhereInput
+    /**
+     * Limit how many SelfAssessmentTemplates to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * SelfAssessmentTemplate updateManyAndReturn
+   */
+  export type SelfAssessmentTemplateUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SelfAssessmentTemplate
+     */
+    select?: SelfAssessmentTemplateSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the SelfAssessmentTemplate
+     */
+    omit?: SelfAssessmentTemplateOmit<ExtArgs> | null
+    /**
+     * The data used to update SelfAssessmentTemplates.
+     */
+    data: XOR<SelfAssessmentTemplateUpdateManyMutationInput, SelfAssessmentTemplateUncheckedUpdateManyInput>
+    /**
+     * Filter which SelfAssessmentTemplates to update
+     */
+    where?: SelfAssessmentTemplateWhereInput
+    /**
+     * Limit how many SelfAssessmentTemplates to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * SelfAssessmentTemplate upsert
+   */
+  export type SelfAssessmentTemplateUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SelfAssessmentTemplate
+     */
+    select?: SelfAssessmentTemplateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SelfAssessmentTemplate
+     */
+    omit?: SelfAssessmentTemplateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SelfAssessmentTemplateInclude<ExtArgs> | null
+    /**
+     * The filter to search for the SelfAssessmentTemplate to update in case it exists.
+     */
+    where: SelfAssessmentTemplateWhereUniqueInput
+    /**
+     * In case the SelfAssessmentTemplate found by the `where` argument doesn't exist, create a new SelfAssessmentTemplate with this data.
+     */
+    create: XOR<SelfAssessmentTemplateCreateInput, SelfAssessmentTemplateUncheckedCreateInput>
+    /**
+     * In case the SelfAssessmentTemplate was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<SelfAssessmentTemplateUpdateInput, SelfAssessmentTemplateUncheckedUpdateInput>
+  }
+
+  /**
+   * SelfAssessmentTemplate delete
+   */
+  export type SelfAssessmentTemplateDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SelfAssessmentTemplate
+     */
+    select?: SelfAssessmentTemplateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SelfAssessmentTemplate
+     */
+    omit?: SelfAssessmentTemplateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SelfAssessmentTemplateInclude<ExtArgs> | null
+    /**
+     * Filter which SelfAssessmentTemplate to delete.
+     */
+    where: SelfAssessmentTemplateWhereUniqueInput
+  }
+
+  /**
+   * SelfAssessmentTemplate deleteMany
+   */
+  export type SelfAssessmentTemplateDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SelfAssessmentTemplates to delete
+     */
+    where?: SelfAssessmentTemplateWhereInput
+    /**
+     * Limit how many SelfAssessmentTemplates to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * SelfAssessmentTemplate.selfAssessments
+   */
+  export type SelfAssessmentTemplate$selfAssessmentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SelfAssessment
+     */
+    select?: SelfAssessmentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SelfAssessment
+     */
+    omit?: SelfAssessmentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SelfAssessmentInclude<ExtArgs> | null
+    where?: SelfAssessmentWhereInput
+    orderBy?: SelfAssessmentOrderByWithRelationInput | SelfAssessmentOrderByWithRelationInput[]
+    cursor?: SelfAssessmentWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: SelfAssessmentScalarFieldEnum | SelfAssessmentScalarFieldEnum[]
+  }
+
+  /**
+   * SelfAssessmentTemplate without action
+   */
+  export type SelfAssessmentTemplateDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SelfAssessmentTemplate
+     */
+    select?: SelfAssessmentTemplateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SelfAssessmentTemplate
+     */
+    omit?: SelfAssessmentTemplateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SelfAssessmentTemplateInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model SelfAssessment
+   */
+
+  export type AggregateSelfAssessment = {
+    _count: SelfAssessmentCountAggregateOutputType | null
+    _avg: SelfAssessmentAvgAggregateOutputType | null
+    _sum: SelfAssessmentSumAggregateOutputType | null
+    _min: SelfAssessmentMinAggregateOutputType | null
+    _max: SelfAssessmentMaxAggregateOutputType | null
+  }
+
+  export type SelfAssessmentAvgAggregateOutputType = {
+    score: number | null
+    totalPoints: number | null
+    timeSpent: number | null
+  }
+
+  export type SelfAssessmentSumAggregateOutputType = {
+    score: number | null
+    totalPoints: number | null
+    timeSpent: number | null
+  }
+
+  export type SelfAssessmentMinAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    templateId: string | null
+    score: number | null
+    totalPoints: number | null
+    isPassed: boolean | null
+    timeSpent: number | null
+    startedAt: Date | null
+    completedAt: Date | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type SelfAssessmentMaxAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    templateId: string | null
+    score: number | null
+    totalPoints: number | null
+    isPassed: boolean | null
+    timeSpent: number | null
+    startedAt: Date | null
+    completedAt: Date | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type SelfAssessmentCountAggregateOutputType = {
+    id: number
+    userId: number
+    templateId: number
+    score: number
+    totalPoints: number
+    isPassed: number
+    timeSpent: number
+    answers: number
+    startedAt: number
+    completedAt: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type SelfAssessmentAvgAggregateInputType = {
+    score?: true
+    totalPoints?: true
+    timeSpent?: true
+  }
+
+  export type SelfAssessmentSumAggregateInputType = {
+    score?: true
+    totalPoints?: true
+    timeSpent?: true
+  }
+
+  export type SelfAssessmentMinAggregateInputType = {
+    id?: true
+    userId?: true
+    templateId?: true
+    score?: true
+    totalPoints?: true
+    isPassed?: true
+    timeSpent?: true
+    startedAt?: true
+    completedAt?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type SelfAssessmentMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    templateId?: true
+    score?: true
+    totalPoints?: true
+    isPassed?: true
+    timeSpent?: true
+    startedAt?: true
+    completedAt?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type SelfAssessmentCountAggregateInputType = {
+    id?: true
+    userId?: true
+    templateId?: true
+    score?: true
+    totalPoints?: true
+    isPassed?: true
+    timeSpent?: true
+    answers?: true
+    startedAt?: true
+    completedAt?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type SelfAssessmentAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SelfAssessment to aggregate.
+     */
+    where?: SelfAssessmentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SelfAssessments to fetch.
+     */
+    orderBy?: SelfAssessmentOrderByWithRelationInput | SelfAssessmentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: SelfAssessmentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SelfAssessments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SelfAssessments.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned SelfAssessments
+    **/
+    _count?: true | SelfAssessmentCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: SelfAssessmentAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: SelfAssessmentSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: SelfAssessmentMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: SelfAssessmentMaxAggregateInputType
+  }
+
+  export type GetSelfAssessmentAggregateType<T extends SelfAssessmentAggregateArgs> = {
+        [P in keyof T & keyof AggregateSelfAssessment]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateSelfAssessment[P]>
+      : GetScalarType<T[P], AggregateSelfAssessment[P]>
+  }
+
+
+
+
+  export type SelfAssessmentGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SelfAssessmentWhereInput
+    orderBy?: SelfAssessmentOrderByWithAggregationInput | SelfAssessmentOrderByWithAggregationInput[]
+    by: SelfAssessmentScalarFieldEnum[] | SelfAssessmentScalarFieldEnum
+    having?: SelfAssessmentScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: SelfAssessmentCountAggregateInputType | true
+    _avg?: SelfAssessmentAvgAggregateInputType
+    _sum?: SelfAssessmentSumAggregateInputType
+    _min?: SelfAssessmentMinAggregateInputType
+    _max?: SelfAssessmentMaxAggregateInputType
+  }
+
+  export type SelfAssessmentGroupByOutputType = {
+    id: string
+    userId: string
+    templateId: string
+    score: number
+    totalPoints: number
+    isPassed: boolean
+    timeSpent: number
+    answers: JsonValue
+    startedAt: Date
+    completedAt: Date | null
+    createdAt: Date
+    updatedAt: Date
+    _count: SelfAssessmentCountAggregateOutputType | null
+    _avg: SelfAssessmentAvgAggregateOutputType | null
+    _sum: SelfAssessmentSumAggregateOutputType | null
+    _min: SelfAssessmentMinAggregateOutputType | null
+    _max: SelfAssessmentMaxAggregateOutputType | null
+  }
+
+  type GetSelfAssessmentGroupByPayload<T extends SelfAssessmentGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<SelfAssessmentGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof SelfAssessmentGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], SelfAssessmentGroupByOutputType[P]>
+            : GetScalarType<T[P], SelfAssessmentGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type SelfAssessmentSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    templateId?: boolean
+    score?: boolean
+    totalPoints?: boolean
+    isPassed?: boolean
+    timeSpent?: boolean
+    answers?: boolean
+    startedAt?: boolean
+    completedAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    template?: boolean | SelfAssessmentTemplateDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["selfAssessment"]>
+
+  export type SelfAssessmentSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    templateId?: boolean
+    score?: boolean
+    totalPoints?: boolean
+    isPassed?: boolean
+    timeSpent?: boolean
+    answers?: boolean
+    startedAt?: boolean
+    completedAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    template?: boolean | SelfAssessmentTemplateDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["selfAssessment"]>
+
+  export type SelfAssessmentSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    templateId?: boolean
+    score?: boolean
+    totalPoints?: boolean
+    isPassed?: boolean
+    timeSpent?: boolean
+    answers?: boolean
+    startedAt?: boolean
+    completedAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    template?: boolean | SelfAssessmentTemplateDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["selfAssessment"]>
+
+  export type SelfAssessmentSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    templateId?: boolean
+    score?: boolean
+    totalPoints?: boolean
+    isPassed?: boolean
+    timeSpent?: boolean
+    answers?: boolean
+    startedAt?: boolean
+    completedAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type SelfAssessmentOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "templateId" | "score" | "totalPoints" | "isPassed" | "timeSpent" | "answers" | "startedAt" | "completedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["selfAssessment"]>
+  export type SelfAssessmentInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    template?: boolean | SelfAssessmentTemplateDefaultArgs<ExtArgs>
+  }
+  export type SelfAssessmentIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    template?: boolean | SelfAssessmentTemplateDefaultArgs<ExtArgs>
+  }
+  export type SelfAssessmentIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    template?: boolean | SelfAssessmentTemplateDefaultArgs<ExtArgs>
+  }
+
+  export type $SelfAssessmentPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "SelfAssessment"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+      template: Prisma.$SelfAssessmentTemplatePayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      userId: string
+      templateId: string
+      score: number
+      totalPoints: number
+      isPassed: boolean
+      timeSpent: number
+      answers: Prisma.JsonValue
+      startedAt: Date
+      completedAt: Date | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["selfAssessment"]>
+    composites: {}
+  }
+
+  type SelfAssessmentGetPayload<S extends boolean | null | undefined | SelfAssessmentDefaultArgs> = $Result.GetResult<Prisma.$SelfAssessmentPayload, S>
+
+  type SelfAssessmentCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<SelfAssessmentFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: SelfAssessmentCountAggregateInputType | true
+    }
+
+  export interface SelfAssessmentDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['SelfAssessment'], meta: { name: 'SelfAssessment' } }
+    /**
+     * Find zero or one SelfAssessment that matches the filter.
+     * @param {SelfAssessmentFindUniqueArgs} args - Arguments to find a SelfAssessment
+     * @example
+     * // Get one SelfAssessment
+     * const selfAssessment = await prisma.selfAssessment.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends SelfAssessmentFindUniqueArgs>(args: SelectSubset<T, SelfAssessmentFindUniqueArgs<ExtArgs>>): Prisma__SelfAssessmentClient<$Result.GetResult<Prisma.$SelfAssessmentPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one SelfAssessment that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {SelfAssessmentFindUniqueOrThrowArgs} args - Arguments to find a SelfAssessment
+     * @example
+     * // Get one SelfAssessment
+     * const selfAssessment = await prisma.selfAssessment.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends SelfAssessmentFindUniqueOrThrowArgs>(args: SelectSubset<T, SelfAssessmentFindUniqueOrThrowArgs<ExtArgs>>): Prisma__SelfAssessmentClient<$Result.GetResult<Prisma.$SelfAssessmentPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first SelfAssessment that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SelfAssessmentFindFirstArgs} args - Arguments to find a SelfAssessment
+     * @example
+     * // Get one SelfAssessment
+     * const selfAssessment = await prisma.selfAssessment.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends SelfAssessmentFindFirstArgs>(args?: SelectSubset<T, SelfAssessmentFindFirstArgs<ExtArgs>>): Prisma__SelfAssessmentClient<$Result.GetResult<Prisma.$SelfAssessmentPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first SelfAssessment that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SelfAssessmentFindFirstOrThrowArgs} args - Arguments to find a SelfAssessment
+     * @example
+     * // Get one SelfAssessment
+     * const selfAssessment = await prisma.selfAssessment.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends SelfAssessmentFindFirstOrThrowArgs>(args?: SelectSubset<T, SelfAssessmentFindFirstOrThrowArgs<ExtArgs>>): Prisma__SelfAssessmentClient<$Result.GetResult<Prisma.$SelfAssessmentPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more SelfAssessments that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SelfAssessmentFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all SelfAssessments
+     * const selfAssessments = await prisma.selfAssessment.findMany()
+     * 
+     * // Get first 10 SelfAssessments
+     * const selfAssessments = await prisma.selfAssessment.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const selfAssessmentWithIdOnly = await prisma.selfAssessment.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends SelfAssessmentFindManyArgs>(args?: SelectSubset<T, SelfAssessmentFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SelfAssessmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a SelfAssessment.
+     * @param {SelfAssessmentCreateArgs} args - Arguments to create a SelfAssessment.
+     * @example
+     * // Create one SelfAssessment
+     * const SelfAssessment = await prisma.selfAssessment.create({
+     *   data: {
+     *     // ... data to create a SelfAssessment
+     *   }
+     * })
+     * 
+     */
+    create<T extends SelfAssessmentCreateArgs>(args: SelectSubset<T, SelfAssessmentCreateArgs<ExtArgs>>): Prisma__SelfAssessmentClient<$Result.GetResult<Prisma.$SelfAssessmentPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many SelfAssessments.
+     * @param {SelfAssessmentCreateManyArgs} args - Arguments to create many SelfAssessments.
+     * @example
+     * // Create many SelfAssessments
+     * const selfAssessment = await prisma.selfAssessment.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends SelfAssessmentCreateManyArgs>(args?: SelectSubset<T, SelfAssessmentCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many SelfAssessments and returns the data saved in the database.
+     * @param {SelfAssessmentCreateManyAndReturnArgs} args - Arguments to create many SelfAssessments.
+     * @example
+     * // Create many SelfAssessments
+     * const selfAssessment = await prisma.selfAssessment.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many SelfAssessments and only return the `id`
+     * const selfAssessmentWithIdOnly = await prisma.selfAssessment.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends SelfAssessmentCreateManyAndReturnArgs>(args?: SelectSubset<T, SelfAssessmentCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SelfAssessmentPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a SelfAssessment.
+     * @param {SelfAssessmentDeleteArgs} args - Arguments to delete one SelfAssessment.
+     * @example
+     * // Delete one SelfAssessment
+     * const SelfAssessment = await prisma.selfAssessment.delete({
+     *   where: {
+     *     // ... filter to delete one SelfAssessment
+     *   }
+     * })
+     * 
+     */
+    delete<T extends SelfAssessmentDeleteArgs>(args: SelectSubset<T, SelfAssessmentDeleteArgs<ExtArgs>>): Prisma__SelfAssessmentClient<$Result.GetResult<Prisma.$SelfAssessmentPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one SelfAssessment.
+     * @param {SelfAssessmentUpdateArgs} args - Arguments to update one SelfAssessment.
+     * @example
+     * // Update one SelfAssessment
+     * const selfAssessment = await prisma.selfAssessment.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends SelfAssessmentUpdateArgs>(args: SelectSubset<T, SelfAssessmentUpdateArgs<ExtArgs>>): Prisma__SelfAssessmentClient<$Result.GetResult<Prisma.$SelfAssessmentPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more SelfAssessments.
+     * @param {SelfAssessmentDeleteManyArgs} args - Arguments to filter SelfAssessments to delete.
+     * @example
+     * // Delete a few SelfAssessments
+     * const { count } = await prisma.selfAssessment.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends SelfAssessmentDeleteManyArgs>(args?: SelectSubset<T, SelfAssessmentDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more SelfAssessments.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SelfAssessmentUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many SelfAssessments
+     * const selfAssessment = await prisma.selfAssessment.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends SelfAssessmentUpdateManyArgs>(args: SelectSubset<T, SelfAssessmentUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more SelfAssessments and returns the data updated in the database.
+     * @param {SelfAssessmentUpdateManyAndReturnArgs} args - Arguments to update many SelfAssessments.
+     * @example
+     * // Update many SelfAssessments
+     * const selfAssessment = await prisma.selfAssessment.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more SelfAssessments and only return the `id`
+     * const selfAssessmentWithIdOnly = await prisma.selfAssessment.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends SelfAssessmentUpdateManyAndReturnArgs>(args: SelectSubset<T, SelfAssessmentUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SelfAssessmentPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one SelfAssessment.
+     * @param {SelfAssessmentUpsertArgs} args - Arguments to update or create a SelfAssessment.
+     * @example
+     * // Update or create a SelfAssessment
+     * const selfAssessment = await prisma.selfAssessment.upsert({
+     *   create: {
+     *     // ... data to create a SelfAssessment
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the SelfAssessment we want to update
+     *   }
+     * })
+     */
+    upsert<T extends SelfAssessmentUpsertArgs>(args: SelectSubset<T, SelfAssessmentUpsertArgs<ExtArgs>>): Prisma__SelfAssessmentClient<$Result.GetResult<Prisma.$SelfAssessmentPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of SelfAssessments.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SelfAssessmentCountArgs} args - Arguments to filter SelfAssessments to count.
+     * @example
+     * // Count the number of SelfAssessments
+     * const count = await prisma.selfAssessment.count({
+     *   where: {
+     *     // ... the filter for the SelfAssessments we want to count
+     *   }
+     * })
+    **/
+    count<T extends SelfAssessmentCountArgs>(
+      args?: Subset<T, SelfAssessmentCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], SelfAssessmentCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a SelfAssessment.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SelfAssessmentAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends SelfAssessmentAggregateArgs>(args: Subset<T, SelfAssessmentAggregateArgs>): Prisma.PrismaPromise<GetSelfAssessmentAggregateType<T>>
+
+    /**
+     * Group by SelfAssessment.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SelfAssessmentGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends SelfAssessmentGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: SelfAssessmentGroupByArgs['orderBy'] }
+        : { orderBy?: SelfAssessmentGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, SelfAssessmentGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSelfAssessmentGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the SelfAssessment model
+   */
+  readonly fields: SelfAssessmentFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for SelfAssessment.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__SelfAssessmentClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    template<T extends SelfAssessmentTemplateDefaultArgs<ExtArgs> = {}>(args?: Subset<T, SelfAssessmentTemplateDefaultArgs<ExtArgs>>): Prisma__SelfAssessmentTemplateClient<$Result.GetResult<Prisma.$SelfAssessmentTemplatePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the SelfAssessment model
+   */
+  interface SelfAssessmentFieldRefs {
+    readonly id: FieldRef<"SelfAssessment", 'String'>
+    readonly userId: FieldRef<"SelfAssessment", 'String'>
+    readonly templateId: FieldRef<"SelfAssessment", 'String'>
+    readonly score: FieldRef<"SelfAssessment", 'Int'>
+    readonly totalPoints: FieldRef<"SelfAssessment", 'Int'>
+    readonly isPassed: FieldRef<"SelfAssessment", 'Boolean'>
+    readonly timeSpent: FieldRef<"SelfAssessment", 'Int'>
+    readonly answers: FieldRef<"SelfAssessment", 'Json'>
+    readonly startedAt: FieldRef<"SelfAssessment", 'DateTime'>
+    readonly completedAt: FieldRef<"SelfAssessment", 'DateTime'>
+    readonly createdAt: FieldRef<"SelfAssessment", 'DateTime'>
+    readonly updatedAt: FieldRef<"SelfAssessment", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * SelfAssessment findUnique
+   */
+  export type SelfAssessmentFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SelfAssessment
+     */
+    select?: SelfAssessmentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SelfAssessment
+     */
+    omit?: SelfAssessmentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SelfAssessmentInclude<ExtArgs> | null
+    /**
+     * Filter, which SelfAssessment to fetch.
+     */
+    where: SelfAssessmentWhereUniqueInput
+  }
+
+  /**
+   * SelfAssessment findUniqueOrThrow
+   */
+  export type SelfAssessmentFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SelfAssessment
+     */
+    select?: SelfAssessmentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SelfAssessment
+     */
+    omit?: SelfAssessmentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SelfAssessmentInclude<ExtArgs> | null
+    /**
+     * Filter, which SelfAssessment to fetch.
+     */
+    where: SelfAssessmentWhereUniqueInput
+  }
+
+  /**
+   * SelfAssessment findFirst
+   */
+  export type SelfAssessmentFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SelfAssessment
+     */
+    select?: SelfAssessmentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SelfAssessment
+     */
+    omit?: SelfAssessmentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SelfAssessmentInclude<ExtArgs> | null
+    /**
+     * Filter, which SelfAssessment to fetch.
+     */
+    where?: SelfAssessmentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SelfAssessments to fetch.
+     */
+    orderBy?: SelfAssessmentOrderByWithRelationInput | SelfAssessmentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SelfAssessments.
+     */
+    cursor?: SelfAssessmentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SelfAssessments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SelfAssessments.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SelfAssessments.
+     */
+    distinct?: SelfAssessmentScalarFieldEnum | SelfAssessmentScalarFieldEnum[]
+  }
+
+  /**
+   * SelfAssessment findFirstOrThrow
+   */
+  export type SelfAssessmentFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SelfAssessment
+     */
+    select?: SelfAssessmentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SelfAssessment
+     */
+    omit?: SelfAssessmentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SelfAssessmentInclude<ExtArgs> | null
+    /**
+     * Filter, which SelfAssessment to fetch.
+     */
+    where?: SelfAssessmentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SelfAssessments to fetch.
+     */
+    orderBy?: SelfAssessmentOrderByWithRelationInput | SelfAssessmentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SelfAssessments.
+     */
+    cursor?: SelfAssessmentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SelfAssessments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SelfAssessments.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SelfAssessments.
+     */
+    distinct?: SelfAssessmentScalarFieldEnum | SelfAssessmentScalarFieldEnum[]
+  }
+
+  /**
+   * SelfAssessment findMany
+   */
+  export type SelfAssessmentFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SelfAssessment
+     */
+    select?: SelfAssessmentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SelfAssessment
+     */
+    omit?: SelfAssessmentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SelfAssessmentInclude<ExtArgs> | null
+    /**
+     * Filter, which SelfAssessments to fetch.
+     */
+    where?: SelfAssessmentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SelfAssessments to fetch.
+     */
+    orderBy?: SelfAssessmentOrderByWithRelationInput | SelfAssessmentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing SelfAssessments.
+     */
+    cursor?: SelfAssessmentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SelfAssessments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SelfAssessments.
+     */
+    skip?: number
+    distinct?: SelfAssessmentScalarFieldEnum | SelfAssessmentScalarFieldEnum[]
+  }
+
+  /**
+   * SelfAssessment create
+   */
+  export type SelfAssessmentCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SelfAssessment
+     */
+    select?: SelfAssessmentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SelfAssessment
+     */
+    omit?: SelfAssessmentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SelfAssessmentInclude<ExtArgs> | null
+    /**
+     * The data needed to create a SelfAssessment.
+     */
+    data: XOR<SelfAssessmentCreateInput, SelfAssessmentUncheckedCreateInput>
+  }
+
+  /**
+   * SelfAssessment createMany
+   */
+  export type SelfAssessmentCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many SelfAssessments.
+     */
+    data: SelfAssessmentCreateManyInput | SelfAssessmentCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * SelfAssessment createManyAndReturn
+   */
+  export type SelfAssessmentCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SelfAssessment
+     */
+    select?: SelfAssessmentSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the SelfAssessment
+     */
+    omit?: SelfAssessmentOmit<ExtArgs> | null
+    /**
+     * The data used to create many SelfAssessments.
+     */
+    data: SelfAssessmentCreateManyInput | SelfAssessmentCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SelfAssessmentIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * SelfAssessment update
+   */
+  export type SelfAssessmentUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SelfAssessment
+     */
+    select?: SelfAssessmentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SelfAssessment
+     */
+    omit?: SelfAssessmentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SelfAssessmentInclude<ExtArgs> | null
+    /**
+     * The data needed to update a SelfAssessment.
+     */
+    data: XOR<SelfAssessmentUpdateInput, SelfAssessmentUncheckedUpdateInput>
+    /**
+     * Choose, which SelfAssessment to update.
+     */
+    where: SelfAssessmentWhereUniqueInput
+  }
+
+  /**
+   * SelfAssessment updateMany
+   */
+  export type SelfAssessmentUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update SelfAssessments.
+     */
+    data: XOR<SelfAssessmentUpdateManyMutationInput, SelfAssessmentUncheckedUpdateManyInput>
+    /**
+     * Filter which SelfAssessments to update
+     */
+    where?: SelfAssessmentWhereInput
+    /**
+     * Limit how many SelfAssessments to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * SelfAssessment updateManyAndReturn
+   */
+  export type SelfAssessmentUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SelfAssessment
+     */
+    select?: SelfAssessmentSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the SelfAssessment
+     */
+    omit?: SelfAssessmentOmit<ExtArgs> | null
+    /**
+     * The data used to update SelfAssessments.
+     */
+    data: XOR<SelfAssessmentUpdateManyMutationInput, SelfAssessmentUncheckedUpdateManyInput>
+    /**
+     * Filter which SelfAssessments to update
+     */
+    where?: SelfAssessmentWhereInput
+    /**
+     * Limit how many SelfAssessments to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SelfAssessmentIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * SelfAssessment upsert
+   */
+  export type SelfAssessmentUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SelfAssessment
+     */
+    select?: SelfAssessmentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SelfAssessment
+     */
+    omit?: SelfAssessmentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SelfAssessmentInclude<ExtArgs> | null
+    /**
+     * The filter to search for the SelfAssessment to update in case it exists.
+     */
+    where: SelfAssessmentWhereUniqueInput
+    /**
+     * In case the SelfAssessment found by the `where` argument doesn't exist, create a new SelfAssessment with this data.
+     */
+    create: XOR<SelfAssessmentCreateInput, SelfAssessmentUncheckedCreateInput>
+    /**
+     * In case the SelfAssessment was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<SelfAssessmentUpdateInput, SelfAssessmentUncheckedUpdateInput>
+  }
+
+  /**
+   * SelfAssessment delete
+   */
+  export type SelfAssessmentDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SelfAssessment
+     */
+    select?: SelfAssessmentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SelfAssessment
+     */
+    omit?: SelfAssessmentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SelfAssessmentInclude<ExtArgs> | null
+    /**
+     * Filter which SelfAssessment to delete.
+     */
+    where: SelfAssessmentWhereUniqueInput
+  }
+
+  /**
+   * SelfAssessment deleteMany
+   */
+  export type SelfAssessmentDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SelfAssessments to delete
+     */
+    where?: SelfAssessmentWhereInput
+    /**
+     * Limit how many SelfAssessments to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * SelfAssessment without action
+   */
+  export type SelfAssessmentDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SelfAssessment
+     */
+    select?: SelfAssessmentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SelfAssessment
+     */
+    omit?: SelfAssessmentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SelfAssessmentInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model AssessmentSession
+   */
+
+  export type AggregateAssessmentSession = {
+    _count: AssessmentSessionCountAggregateOutputType | null
+    _avg: AssessmentSessionAvgAggregateOutputType | null
+    _sum: AssessmentSessionSumAggregateOutputType | null
+    _min: AssessmentSessionMinAggregateOutputType | null
+    _max: AssessmentSessionMaxAggregateOutputType | null
+  }
+
+  export type AssessmentSessionAvgAggregateOutputType = {
+    timeRemaining: number | null
+    currentQuestionIndex: number | null
+  }
+
+  export type AssessmentSessionSumAggregateOutputType = {
+    timeRemaining: number | null
+    currentQuestionIndex: number | null
+  }
+
+  export type AssessmentSessionMinAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    templateId: string | null
+    sessionToken: string | null
+    timeRemaining: number | null
+    currentQuestionIndex: number | null
+    isActive: boolean | null
+    expiresAt: Date | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type AssessmentSessionMaxAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    templateId: string | null
+    sessionToken: string | null
+    timeRemaining: number | null
+    currentQuestionIndex: number | null
+    isActive: boolean | null
+    expiresAt: Date | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type AssessmentSessionCountAggregateOutputType = {
+    id: number
+    userId: number
+    templateId: number
+    sessionToken: number
+    timeRemaining: number
+    currentQuestionIndex: number
+    answers: number
+    isActive: number
+    expiresAt: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type AssessmentSessionAvgAggregateInputType = {
+    timeRemaining?: true
+    currentQuestionIndex?: true
+  }
+
+  export type AssessmentSessionSumAggregateInputType = {
+    timeRemaining?: true
+    currentQuestionIndex?: true
+  }
+
+  export type AssessmentSessionMinAggregateInputType = {
+    id?: true
+    userId?: true
+    templateId?: true
+    sessionToken?: true
+    timeRemaining?: true
+    currentQuestionIndex?: true
+    isActive?: true
+    expiresAt?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type AssessmentSessionMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    templateId?: true
+    sessionToken?: true
+    timeRemaining?: true
+    currentQuestionIndex?: true
+    isActive?: true
+    expiresAt?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type AssessmentSessionCountAggregateInputType = {
+    id?: true
+    userId?: true
+    templateId?: true
+    sessionToken?: true
+    timeRemaining?: true
+    currentQuestionIndex?: true
+    answers?: true
+    isActive?: true
+    expiresAt?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type AssessmentSessionAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which AssessmentSession to aggregate.
+     */
+    where?: AssessmentSessionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AssessmentSessions to fetch.
+     */
+    orderBy?: AssessmentSessionOrderByWithRelationInput | AssessmentSessionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: AssessmentSessionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AssessmentSessions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AssessmentSessions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned AssessmentSessions
+    **/
+    _count?: true | AssessmentSessionCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: AssessmentSessionAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: AssessmentSessionSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: AssessmentSessionMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: AssessmentSessionMaxAggregateInputType
+  }
+
+  export type GetAssessmentSessionAggregateType<T extends AssessmentSessionAggregateArgs> = {
+        [P in keyof T & keyof AggregateAssessmentSession]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateAssessmentSession[P]>
+      : GetScalarType<T[P], AggregateAssessmentSession[P]>
+  }
+
+
+
+
+  export type AssessmentSessionGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AssessmentSessionWhereInput
+    orderBy?: AssessmentSessionOrderByWithAggregationInput | AssessmentSessionOrderByWithAggregationInput[]
+    by: AssessmentSessionScalarFieldEnum[] | AssessmentSessionScalarFieldEnum
+    having?: AssessmentSessionScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: AssessmentSessionCountAggregateInputType | true
+    _avg?: AssessmentSessionAvgAggregateInputType
+    _sum?: AssessmentSessionSumAggregateInputType
+    _min?: AssessmentSessionMinAggregateInputType
+    _max?: AssessmentSessionMaxAggregateInputType
+  }
+
+  export type AssessmentSessionGroupByOutputType = {
+    id: string
+    userId: string
+    templateId: string
+    sessionToken: string
+    timeRemaining: number
+    currentQuestionIndex: number
+    answers: JsonValue
+    isActive: boolean
+    expiresAt: Date
+    createdAt: Date
+    updatedAt: Date
+    _count: AssessmentSessionCountAggregateOutputType | null
+    _avg: AssessmentSessionAvgAggregateOutputType | null
+    _sum: AssessmentSessionSumAggregateOutputType | null
+    _min: AssessmentSessionMinAggregateOutputType | null
+    _max: AssessmentSessionMaxAggregateOutputType | null
+  }
+
+  type GetAssessmentSessionGroupByPayload<T extends AssessmentSessionGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<AssessmentSessionGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof AssessmentSessionGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], AssessmentSessionGroupByOutputType[P]>
+            : GetScalarType<T[P], AssessmentSessionGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type AssessmentSessionSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    templateId?: boolean
+    sessionToken?: boolean
+    timeRemaining?: boolean
+    currentQuestionIndex?: boolean
+    answers?: boolean
+    isActive?: boolean
+    expiresAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["assessmentSession"]>
+
+  export type AssessmentSessionSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    templateId?: boolean
+    sessionToken?: boolean
+    timeRemaining?: boolean
+    currentQuestionIndex?: boolean
+    answers?: boolean
+    isActive?: boolean
+    expiresAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["assessmentSession"]>
+
+  export type AssessmentSessionSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    templateId?: boolean
+    sessionToken?: boolean
+    timeRemaining?: boolean
+    currentQuestionIndex?: boolean
+    answers?: boolean
+    isActive?: boolean
+    expiresAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["assessmentSession"]>
+
+  export type AssessmentSessionSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    templateId?: boolean
+    sessionToken?: boolean
+    timeRemaining?: boolean
+    currentQuestionIndex?: boolean
+    answers?: boolean
+    isActive?: boolean
+    expiresAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type AssessmentSessionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "templateId" | "sessionToken" | "timeRemaining" | "currentQuestionIndex" | "answers" | "isActive" | "expiresAt" | "createdAt" | "updatedAt", ExtArgs["result"]["assessmentSession"]>
+  export type AssessmentSessionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type AssessmentSessionIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type AssessmentSessionIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $AssessmentSessionPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "AssessmentSession"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      userId: string
+      templateId: string
+      sessionToken: string
+      timeRemaining: number
+      currentQuestionIndex: number
+      answers: Prisma.JsonValue
+      isActive: boolean
+      expiresAt: Date
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["assessmentSession"]>
+    composites: {}
+  }
+
+  type AssessmentSessionGetPayload<S extends boolean | null | undefined | AssessmentSessionDefaultArgs> = $Result.GetResult<Prisma.$AssessmentSessionPayload, S>
+
+  type AssessmentSessionCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<AssessmentSessionFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: AssessmentSessionCountAggregateInputType | true
+    }
+
+  export interface AssessmentSessionDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['AssessmentSession'], meta: { name: 'AssessmentSession' } }
+    /**
+     * Find zero or one AssessmentSession that matches the filter.
+     * @param {AssessmentSessionFindUniqueArgs} args - Arguments to find a AssessmentSession
+     * @example
+     * // Get one AssessmentSession
+     * const assessmentSession = await prisma.assessmentSession.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends AssessmentSessionFindUniqueArgs>(args: SelectSubset<T, AssessmentSessionFindUniqueArgs<ExtArgs>>): Prisma__AssessmentSessionClient<$Result.GetResult<Prisma.$AssessmentSessionPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one AssessmentSession that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {AssessmentSessionFindUniqueOrThrowArgs} args - Arguments to find a AssessmentSession
+     * @example
+     * // Get one AssessmentSession
+     * const assessmentSession = await prisma.assessmentSession.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends AssessmentSessionFindUniqueOrThrowArgs>(args: SelectSubset<T, AssessmentSessionFindUniqueOrThrowArgs<ExtArgs>>): Prisma__AssessmentSessionClient<$Result.GetResult<Prisma.$AssessmentSessionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first AssessmentSession that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AssessmentSessionFindFirstArgs} args - Arguments to find a AssessmentSession
+     * @example
+     * // Get one AssessmentSession
+     * const assessmentSession = await prisma.assessmentSession.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends AssessmentSessionFindFirstArgs>(args?: SelectSubset<T, AssessmentSessionFindFirstArgs<ExtArgs>>): Prisma__AssessmentSessionClient<$Result.GetResult<Prisma.$AssessmentSessionPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first AssessmentSession that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AssessmentSessionFindFirstOrThrowArgs} args - Arguments to find a AssessmentSession
+     * @example
+     * // Get one AssessmentSession
+     * const assessmentSession = await prisma.assessmentSession.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends AssessmentSessionFindFirstOrThrowArgs>(args?: SelectSubset<T, AssessmentSessionFindFirstOrThrowArgs<ExtArgs>>): Prisma__AssessmentSessionClient<$Result.GetResult<Prisma.$AssessmentSessionPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more AssessmentSessions that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AssessmentSessionFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all AssessmentSessions
+     * const assessmentSessions = await prisma.assessmentSession.findMany()
+     * 
+     * // Get first 10 AssessmentSessions
+     * const assessmentSessions = await prisma.assessmentSession.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const assessmentSessionWithIdOnly = await prisma.assessmentSession.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends AssessmentSessionFindManyArgs>(args?: SelectSubset<T, AssessmentSessionFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AssessmentSessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a AssessmentSession.
+     * @param {AssessmentSessionCreateArgs} args - Arguments to create a AssessmentSession.
+     * @example
+     * // Create one AssessmentSession
+     * const AssessmentSession = await prisma.assessmentSession.create({
+     *   data: {
+     *     // ... data to create a AssessmentSession
+     *   }
+     * })
+     * 
+     */
+    create<T extends AssessmentSessionCreateArgs>(args: SelectSubset<T, AssessmentSessionCreateArgs<ExtArgs>>): Prisma__AssessmentSessionClient<$Result.GetResult<Prisma.$AssessmentSessionPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many AssessmentSessions.
+     * @param {AssessmentSessionCreateManyArgs} args - Arguments to create many AssessmentSessions.
+     * @example
+     * // Create many AssessmentSessions
+     * const assessmentSession = await prisma.assessmentSession.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends AssessmentSessionCreateManyArgs>(args?: SelectSubset<T, AssessmentSessionCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many AssessmentSessions and returns the data saved in the database.
+     * @param {AssessmentSessionCreateManyAndReturnArgs} args - Arguments to create many AssessmentSessions.
+     * @example
+     * // Create many AssessmentSessions
+     * const assessmentSession = await prisma.assessmentSession.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many AssessmentSessions and only return the `id`
+     * const assessmentSessionWithIdOnly = await prisma.assessmentSession.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends AssessmentSessionCreateManyAndReturnArgs>(args?: SelectSubset<T, AssessmentSessionCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AssessmentSessionPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a AssessmentSession.
+     * @param {AssessmentSessionDeleteArgs} args - Arguments to delete one AssessmentSession.
+     * @example
+     * // Delete one AssessmentSession
+     * const AssessmentSession = await prisma.assessmentSession.delete({
+     *   where: {
+     *     // ... filter to delete one AssessmentSession
+     *   }
+     * })
+     * 
+     */
+    delete<T extends AssessmentSessionDeleteArgs>(args: SelectSubset<T, AssessmentSessionDeleteArgs<ExtArgs>>): Prisma__AssessmentSessionClient<$Result.GetResult<Prisma.$AssessmentSessionPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one AssessmentSession.
+     * @param {AssessmentSessionUpdateArgs} args - Arguments to update one AssessmentSession.
+     * @example
+     * // Update one AssessmentSession
+     * const assessmentSession = await prisma.assessmentSession.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends AssessmentSessionUpdateArgs>(args: SelectSubset<T, AssessmentSessionUpdateArgs<ExtArgs>>): Prisma__AssessmentSessionClient<$Result.GetResult<Prisma.$AssessmentSessionPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more AssessmentSessions.
+     * @param {AssessmentSessionDeleteManyArgs} args - Arguments to filter AssessmentSessions to delete.
+     * @example
+     * // Delete a few AssessmentSessions
+     * const { count } = await prisma.assessmentSession.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends AssessmentSessionDeleteManyArgs>(args?: SelectSubset<T, AssessmentSessionDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more AssessmentSessions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AssessmentSessionUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many AssessmentSessions
+     * const assessmentSession = await prisma.assessmentSession.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends AssessmentSessionUpdateManyArgs>(args: SelectSubset<T, AssessmentSessionUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more AssessmentSessions and returns the data updated in the database.
+     * @param {AssessmentSessionUpdateManyAndReturnArgs} args - Arguments to update many AssessmentSessions.
+     * @example
+     * // Update many AssessmentSessions
+     * const assessmentSession = await prisma.assessmentSession.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more AssessmentSessions and only return the `id`
+     * const assessmentSessionWithIdOnly = await prisma.assessmentSession.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends AssessmentSessionUpdateManyAndReturnArgs>(args: SelectSubset<T, AssessmentSessionUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AssessmentSessionPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one AssessmentSession.
+     * @param {AssessmentSessionUpsertArgs} args - Arguments to update or create a AssessmentSession.
+     * @example
+     * // Update or create a AssessmentSession
+     * const assessmentSession = await prisma.assessmentSession.upsert({
+     *   create: {
+     *     // ... data to create a AssessmentSession
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the AssessmentSession we want to update
+     *   }
+     * })
+     */
+    upsert<T extends AssessmentSessionUpsertArgs>(args: SelectSubset<T, AssessmentSessionUpsertArgs<ExtArgs>>): Prisma__AssessmentSessionClient<$Result.GetResult<Prisma.$AssessmentSessionPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of AssessmentSessions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AssessmentSessionCountArgs} args - Arguments to filter AssessmentSessions to count.
+     * @example
+     * // Count the number of AssessmentSessions
+     * const count = await prisma.assessmentSession.count({
+     *   where: {
+     *     // ... the filter for the AssessmentSessions we want to count
+     *   }
+     * })
+    **/
+    count<T extends AssessmentSessionCountArgs>(
+      args?: Subset<T, AssessmentSessionCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], AssessmentSessionCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a AssessmentSession.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AssessmentSessionAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends AssessmentSessionAggregateArgs>(args: Subset<T, AssessmentSessionAggregateArgs>): Prisma.PrismaPromise<GetAssessmentSessionAggregateType<T>>
+
+    /**
+     * Group by AssessmentSession.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AssessmentSessionGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends AssessmentSessionGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: AssessmentSessionGroupByArgs['orderBy'] }
+        : { orderBy?: AssessmentSessionGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, AssessmentSessionGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetAssessmentSessionGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the AssessmentSession model
+   */
+  readonly fields: AssessmentSessionFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for AssessmentSession.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__AssessmentSessionClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the AssessmentSession model
+   */
+  interface AssessmentSessionFieldRefs {
+    readonly id: FieldRef<"AssessmentSession", 'String'>
+    readonly userId: FieldRef<"AssessmentSession", 'String'>
+    readonly templateId: FieldRef<"AssessmentSession", 'String'>
+    readonly sessionToken: FieldRef<"AssessmentSession", 'String'>
+    readonly timeRemaining: FieldRef<"AssessmentSession", 'Int'>
+    readonly currentQuestionIndex: FieldRef<"AssessmentSession", 'Int'>
+    readonly answers: FieldRef<"AssessmentSession", 'Json'>
+    readonly isActive: FieldRef<"AssessmentSession", 'Boolean'>
+    readonly expiresAt: FieldRef<"AssessmentSession", 'DateTime'>
+    readonly createdAt: FieldRef<"AssessmentSession", 'DateTime'>
+    readonly updatedAt: FieldRef<"AssessmentSession", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * AssessmentSession findUnique
+   */
+  export type AssessmentSessionFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AssessmentSession
+     */
+    select?: AssessmentSessionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AssessmentSession
+     */
+    omit?: AssessmentSessionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AssessmentSessionInclude<ExtArgs> | null
+    /**
+     * Filter, which AssessmentSession to fetch.
+     */
+    where: AssessmentSessionWhereUniqueInput
+  }
+
+  /**
+   * AssessmentSession findUniqueOrThrow
+   */
+  export type AssessmentSessionFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AssessmentSession
+     */
+    select?: AssessmentSessionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AssessmentSession
+     */
+    omit?: AssessmentSessionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AssessmentSessionInclude<ExtArgs> | null
+    /**
+     * Filter, which AssessmentSession to fetch.
+     */
+    where: AssessmentSessionWhereUniqueInput
+  }
+
+  /**
+   * AssessmentSession findFirst
+   */
+  export type AssessmentSessionFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AssessmentSession
+     */
+    select?: AssessmentSessionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AssessmentSession
+     */
+    omit?: AssessmentSessionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AssessmentSessionInclude<ExtArgs> | null
+    /**
+     * Filter, which AssessmentSession to fetch.
+     */
+    where?: AssessmentSessionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AssessmentSessions to fetch.
+     */
+    orderBy?: AssessmentSessionOrderByWithRelationInput | AssessmentSessionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for AssessmentSessions.
+     */
+    cursor?: AssessmentSessionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AssessmentSessions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AssessmentSessions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of AssessmentSessions.
+     */
+    distinct?: AssessmentSessionScalarFieldEnum | AssessmentSessionScalarFieldEnum[]
+  }
+
+  /**
+   * AssessmentSession findFirstOrThrow
+   */
+  export type AssessmentSessionFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AssessmentSession
+     */
+    select?: AssessmentSessionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AssessmentSession
+     */
+    omit?: AssessmentSessionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AssessmentSessionInclude<ExtArgs> | null
+    /**
+     * Filter, which AssessmentSession to fetch.
+     */
+    where?: AssessmentSessionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AssessmentSessions to fetch.
+     */
+    orderBy?: AssessmentSessionOrderByWithRelationInput | AssessmentSessionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for AssessmentSessions.
+     */
+    cursor?: AssessmentSessionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AssessmentSessions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AssessmentSessions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of AssessmentSessions.
+     */
+    distinct?: AssessmentSessionScalarFieldEnum | AssessmentSessionScalarFieldEnum[]
+  }
+
+  /**
+   * AssessmentSession findMany
+   */
+  export type AssessmentSessionFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AssessmentSession
+     */
+    select?: AssessmentSessionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AssessmentSession
+     */
+    omit?: AssessmentSessionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AssessmentSessionInclude<ExtArgs> | null
+    /**
+     * Filter, which AssessmentSessions to fetch.
+     */
+    where?: AssessmentSessionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AssessmentSessions to fetch.
+     */
+    orderBy?: AssessmentSessionOrderByWithRelationInput | AssessmentSessionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing AssessmentSessions.
+     */
+    cursor?: AssessmentSessionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AssessmentSessions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AssessmentSessions.
+     */
+    skip?: number
+    distinct?: AssessmentSessionScalarFieldEnum | AssessmentSessionScalarFieldEnum[]
+  }
+
+  /**
+   * AssessmentSession create
+   */
+  export type AssessmentSessionCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AssessmentSession
+     */
+    select?: AssessmentSessionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AssessmentSession
+     */
+    omit?: AssessmentSessionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AssessmentSessionInclude<ExtArgs> | null
+    /**
+     * The data needed to create a AssessmentSession.
+     */
+    data: XOR<AssessmentSessionCreateInput, AssessmentSessionUncheckedCreateInput>
+  }
+
+  /**
+   * AssessmentSession createMany
+   */
+  export type AssessmentSessionCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many AssessmentSessions.
+     */
+    data: AssessmentSessionCreateManyInput | AssessmentSessionCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * AssessmentSession createManyAndReturn
+   */
+  export type AssessmentSessionCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AssessmentSession
+     */
+    select?: AssessmentSessionSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the AssessmentSession
+     */
+    omit?: AssessmentSessionOmit<ExtArgs> | null
+    /**
+     * The data used to create many AssessmentSessions.
+     */
+    data: AssessmentSessionCreateManyInput | AssessmentSessionCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AssessmentSessionIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * AssessmentSession update
+   */
+  export type AssessmentSessionUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AssessmentSession
+     */
+    select?: AssessmentSessionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AssessmentSession
+     */
+    omit?: AssessmentSessionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AssessmentSessionInclude<ExtArgs> | null
+    /**
+     * The data needed to update a AssessmentSession.
+     */
+    data: XOR<AssessmentSessionUpdateInput, AssessmentSessionUncheckedUpdateInput>
+    /**
+     * Choose, which AssessmentSession to update.
+     */
+    where: AssessmentSessionWhereUniqueInput
+  }
+
+  /**
+   * AssessmentSession updateMany
+   */
+  export type AssessmentSessionUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update AssessmentSessions.
+     */
+    data: XOR<AssessmentSessionUpdateManyMutationInput, AssessmentSessionUncheckedUpdateManyInput>
+    /**
+     * Filter which AssessmentSessions to update
+     */
+    where?: AssessmentSessionWhereInput
+    /**
+     * Limit how many AssessmentSessions to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * AssessmentSession updateManyAndReturn
+   */
+  export type AssessmentSessionUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AssessmentSession
+     */
+    select?: AssessmentSessionSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the AssessmentSession
+     */
+    omit?: AssessmentSessionOmit<ExtArgs> | null
+    /**
+     * The data used to update AssessmentSessions.
+     */
+    data: XOR<AssessmentSessionUpdateManyMutationInput, AssessmentSessionUncheckedUpdateManyInput>
+    /**
+     * Filter which AssessmentSessions to update
+     */
+    where?: AssessmentSessionWhereInput
+    /**
+     * Limit how many AssessmentSessions to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AssessmentSessionIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * AssessmentSession upsert
+   */
+  export type AssessmentSessionUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AssessmentSession
+     */
+    select?: AssessmentSessionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AssessmentSession
+     */
+    omit?: AssessmentSessionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AssessmentSessionInclude<ExtArgs> | null
+    /**
+     * The filter to search for the AssessmentSession to update in case it exists.
+     */
+    where: AssessmentSessionWhereUniqueInput
+    /**
+     * In case the AssessmentSession found by the `where` argument doesn't exist, create a new AssessmentSession with this data.
+     */
+    create: XOR<AssessmentSessionCreateInput, AssessmentSessionUncheckedCreateInput>
+    /**
+     * In case the AssessmentSession was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<AssessmentSessionUpdateInput, AssessmentSessionUncheckedUpdateInput>
+  }
+
+  /**
+   * AssessmentSession delete
+   */
+  export type AssessmentSessionDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AssessmentSession
+     */
+    select?: AssessmentSessionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AssessmentSession
+     */
+    omit?: AssessmentSessionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AssessmentSessionInclude<ExtArgs> | null
+    /**
+     * Filter which AssessmentSession to delete.
+     */
+    where: AssessmentSessionWhereUniqueInput
+  }
+
+  /**
+   * AssessmentSession deleteMany
+   */
+  export type AssessmentSessionDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which AssessmentSessions to delete
+     */
+    where?: AssessmentSessionWhereInput
+    /**
+     * Limit how many AssessmentSessions to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * AssessmentSession without action
+   */
+  export type AssessmentSessionDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AssessmentSession
+     */
+    select?: AssessmentSessionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AssessmentSession
+     */
+    omit?: AssessmentSessionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AssessmentSessionInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -22270,6 +26199,58 @@ export namespace Prisma {
   export type SubscriptionScalarFieldEnum = (typeof SubscriptionScalarFieldEnum)[keyof typeof SubscriptionScalarFieldEnum]
 
 
+  export const SelfAssessmentTemplateScalarFieldEnum: {
+    id: 'id',
+    title: 'title',
+    description: 'description',
+    category: 'category',
+    questions: 'questions',
+    passingScore: 'passingScore',
+    totalPoints: 'totalPoints',
+    timeLimit: 'timeLimit',
+    isActive: 'isActive',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type SelfAssessmentTemplateScalarFieldEnum = (typeof SelfAssessmentTemplateScalarFieldEnum)[keyof typeof SelfAssessmentTemplateScalarFieldEnum]
+
+
+  export const SelfAssessmentScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    templateId: 'templateId',
+    score: 'score',
+    totalPoints: 'totalPoints',
+    isPassed: 'isPassed',
+    timeSpent: 'timeSpent',
+    answers: 'answers',
+    startedAt: 'startedAt',
+    completedAt: 'completedAt',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type SelfAssessmentScalarFieldEnum = (typeof SelfAssessmentScalarFieldEnum)[keyof typeof SelfAssessmentScalarFieldEnum]
+
+
+  export const AssessmentSessionScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    templateId: 'templateId',
+    sessionToken: 'sessionToken',
+    timeRemaining: 'timeRemaining',
+    currentQuestionIndex: 'currentQuestionIndex',
+    answers: 'answers',
+    isActive: 'isActive',
+    expiresAt: 'expiresAt',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type AssessmentSessionScalarFieldEnum = (typeof AssessmentSessionScalarFieldEnum)[keyof typeof AssessmentSessionScalarFieldEnum]
+
+
   export const SortOrder: {
     asc: 'asc',
     desc: 'desc'
@@ -22495,6 +26476,8 @@ export namespace Prisma {
     userTest?: UserTestListRelationFilter
     userResume?: UserResumeListRelationFilter
     Subscription?: SubscriptionListRelationFilter
+    selfAssessments?: SelfAssessmentListRelationFilter
+    assessmentSessions?: AssessmentSessionListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -22524,6 +26507,8 @@ export namespace Prisma {
     userTest?: UserTestOrderByRelationAggregateInput
     userResume?: UserResumeOrderByRelationAggregateInput
     Subscription?: SubscriptionOrderByRelationAggregateInput
+    selfAssessments?: SelfAssessmentOrderByRelationAggregateInput
+    assessmentSessions?: AssessmentSessionOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -22556,6 +26541,8 @@ export namespace Prisma {
     userTest?: UserTestListRelationFilter
     userResume?: UserResumeListRelationFilter
     Subscription?: SubscriptionListRelationFilter
+    selfAssessments?: SelfAssessmentListRelationFilter
+    assessmentSessions?: AssessmentSessionListRelationFilter
   }, "id" | "username" | "email">
 
   export type UserOrderByWithAggregationInput = {
@@ -23773,6 +27760,275 @@ export namespace Prisma {
     updatedAt?: DateTimeWithAggregatesFilter<"Subscription"> | Date | string
   }
 
+  export type SelfAssessmentTemplateWhereInput = {
+    AND?: SelfAssessmentTemplateWhereInput | SelfAssessmentTemplateWhereInput[]
+    OR?: SelfAssessmentTemplateWhereInput[]
+    NOT?: SelfAssessmentTemplateWhereInput | SelfAssessmentTemplateWhereInput[]
+    id?: StringFilter<"SelfAssessmentTemplate"> | string
+    title?: StringFilter<"SelfAssessmentTemplate"> | string
+    description?: StringFilter<"SelfAssessmentTemplate"> | string
+    category?: StringFilter<"SelfAssessmentTemplate"> | string
+    questions?: JsonFilter<"SelfAssessmentTemplate">
+    passingScore?: IntFilter<"SelfAssessmentTemplate"> | number
+    totalPoints?: IntFilter<"SelfAssessmentTemplate"> | number
+    timeLimit?: IntFilter<"SelfAssessmentTemplate"> | number
+    isActive?: BoolFilter<"SelfAssessmentTemplate"> | boolean
+    createdAt?: DateTimeFilter<"SelfAssessmentTemplate"> | Date | string
+    updatedAt?: DateTimeFilter<"SelfAssessmentTemplate"> | Date | string
+    selfAssessments?: SelfAssessmentListRelationFilter
+  }
+
+  export type SelfAssessmentTemplateOrderByWithRelationInput = {
+    id?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    category?: SortOrder
+    questions?: SortOrder
+    passingScore?: SortOrder
+    totalPoints?: SortOrder
+    timeLimit?: SortOrder
+    isActive?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    selfAssessments?: SelfAssessmentOrderByRelationAggregateInput
+  }
+
+  export type SelfAssessmentTemplateWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: SelfAssessmentTemplateWhereInput | SelfAssessmentTemplateWhereInput[]
+    OR?: SelfAssessmentTemplateWhereInput[]
+    NOT?: SelfAssessmentTemplateWhereInput | SelfAssessmentTemplateWhereInput[]
+    title?: StringFilter<"SelfAssessmentTemplate"> | string
+    description?: StringFilter<"SelfAssessmentTemplate"> | string
+    category?: StringFilter<"SelfAssessmentTemplate"> | string
+    questions?: JsonFilter<"SelfAssessmentTemplate">
+    passingScore?: IntFilter<"SelfAssessmentTemplate"> | number
+    totalPoints?: IntFilter<"SelfAssessmentTemplate"> | number
+    timeLimit?: IntFilter<"SelfAssessmentTemplate"> | number
+    isActive?: BoolFilter<"SelfAssessmentTemplate"> | boolean
+    createdAt?: DateTimeFilter<"SelfAssessmentTemplate"> | Date | string
+    updatedAt?: DateTimeFilter<"SelfAssessmentTemplate"> | Date | string
+    selfAssessments?: SelfAssessmentListRelationFilter
+  }, "id">
+
+  export type SelfAssessmentTemplateOrderByWithAggregationInput = {
+    id?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    category?: SortOrder
+    questions?: SortOrder
+    passingScore?: SortOrder
+    totalPoints?: SortOrder
+    timeLimit?: SortOrder
+    isActive?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: SelfAssessmentTemplateCountOrderByAggregateInput
+    _avg?: SelfAssessmentTemplateAvgOrderByAggregateInput
+    _max?: SelfAssessmentTemplateMaxOrderByAggregateInput
+    _min?: SelfAssessmentTemplateMinOrderByAggregateInput
+    _sum?: SelfAssessmentTemplateSumOrderByAggregateInput
+  }
+
+  export type SelfAssessmentTemplateScalarWhereWithAggregatesInput = {
+    AND?: SelfAssessmentTemplateScalarWhereWithAggregatesInput | SelfAssessmentTemplateScalarWhereWithAggregatesInput[]
+    OR?: SelfAssessmentTemplateScalarWhereWithAggregatesInput[]
+    NOT?: SelfAssessmentTemplateScalarWhereWithAggregatesInput | SelfAssessmentTemplateScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"SelfAssessmentTemplate"> | string
+    title?: StringWithAggregatesFilter<"SelfAssessmentTemplate"> | string
+    description?: StringWithAggregatesFilter<"SelfAssessmentTemplate"> | string
+    category?: StringWithAggregatesFilter<"SelfAssessmentTemplate"> | string
+    questions?: JsonWithAggregatesFilter<"SelfAssessmentTemplate">
+    passingScore?: IntWithAggregatesFilter<"SelfAssessmentTemplate"> | number
+    totalPoints?: IntWithAggregatesFilter<"SelfAssessmentTemplate"> | number
+    timeLimit?: IntWithAggregatesFilter<"SelfAssessmentTemplate"> | number
+    isActive?: BoolWithAggregatesFilter<"SelfAssessmentTemplate"> | boolean
+    createdAt?: DateTimeWithAggregatesFilter<"SelfAssessmentTemplate"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"SelfAssessmentTemplate"> | Date | string
+  }
+
+  export type SelfAssessmentWhereInput = {
+    AND?: SelfAssessmentWhereInput | SelfAssessmentWhereInput[]
+    OR?: SelfAssessmentWhereInput[]
+    NOT?: SelfAssessmentWhereInput | SelfAssessmentWhereInput[]
+    id?: StringFilter<"SelfAssessment"> | string
+    userId?: StringFilter<"SelfAssessment"> | string
+    templateId?: StringFilter<"SelfAssessment"> | string
+    score?: IntFilter<"SelfAssessment"> | number
+    totalPoints?: IntFilter<"SelfAssessment"> | number
+    isPassed?: BoolFilter<"SelfAssessment"> | boolean
+    timeSpent?: IntFilter<"SelfAssessment"> | number
+    answers?: JsonFilter<"SelfAssessment">
+    startedAt?: DateTimeFilter<"SelfAssessment"> | Date | string
+    completedAt?: DateTimeNullableFilter<"SelfAssessment"> | Date | string | null
+    createdAt?: DateTimeFilter<"SelfAssessment"> | Date | string
+    updatedAt?: DateTimeFilter<"SelfAssessment"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    template?: XOR<SelfAssessmentTemplateScalarRelationFilter, SelfAssessmentTemplateWhereInput>
+  }
+
+  export type SelfAssessmentOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    templateId?: SortOrder
+    score?: SortOrder
+    totalPoints?: SortOrder
+    isPassed?: SortOrder
+    timeSpent?: SortOrder
+    answers?: SortOrder
+    startedAt?: SortOrder
+    completedAt?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    user?: UserOrderByWithRelationInput
+    template?: SelfAssessmentTemplateOrderByWithRelationInput
+  }
+
+  export type SelfAssessmentWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: SelfAssessmentWhereInput | SelfAssessmentWhereInput[]
+    OR?: SelfAssessmentWhereInput[]
+    NOT?: SelfAssessmentWhereInput | SelfAssessmentWhereInput[]
+    userId?: StringFilter<"SelfAssessment"> | string
+    templateId?: StringFilter<"SelfAssessment"> | string
+    score?: IntFilter<"SelfAssessment"> | number
+    totalPoints?: IntFilter<"SelfAssessment"> | number
+    isPassed?: BoolFilter<"SelfAssessment"> | boolean
+    timeSpent?: IntFilter<"SelfAssessment"> | number
+    answers?: JsonFilter<"SelfAssessment">
+    startedAt?: DateTimeFilter<"SelfAssessment"> | Date | string
+    completedAt?: DateTimeNullableFilter<"SelfAssessment"> | Date | string | null
+    createdAt?: DateTimeFilter<"SelfAssessment"> | Date | string
+    updatedAt?: DateTimeFilter<"SelfAssessment"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    template?: XOR<SelfAssessmentTemplateScalarRelationFilter, SelfAssessmentTemplateWhereInput>
+  }, "id">
+
+  export type SelfAssessmentOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    templateId?: SortOrder
+    score?: SortOrder
+    totalPoints?: SortOrder
+    isPassed?: SortOrder
+    timeSpent?: SortOrder
+    answers?: SortOrder
+    startedAt?: SortOrder
+    completedAt?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: SelfAssessmentCountOrderByAggregateInput
+    _avg?: SelfAssessmentAvgOrderByAggregateInput
+    _max?: SelfAssessmentMaxOrderByAggregateInput
+    _min?: SelfAssessmentMinOrderByAggregateInput
+    _sum?: SelfAssessmentSumOrderByAggregateInput
+  }
+
+  export type SelfAssessmentScalarWhereWithAggregatesInput = {
+    AND?: SelfAssessmentScalarWhereWithAggregatesInput | SelfAssessmentScalarWhereWithAggregatesInput[]
+    OR?: SelfAssessmentScalarWhereWithAggregatesInput[]
+    NOT?: SelfAssessmentScalarWhereWithAggregatesInput | SelfAssessmentScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"SelfAssessment"> | string
+    userId?: StringWithAggregatesFilter<"SelfAssessment"> | string
+    templateId?: StringWithAggregatesFilter<"SelfAssessment"> | string
+    score?: IntWithAggregatesFilter<"SelfAssessment"> | number
+    totalPoints?: IntWithAggregatesFilter<"SelfAssessment"> | number
+    isPassed?: BoolWithAggregatesFilter<"SelfAssessment"> | boolean
+    timeSpent?: IntWithAggregatesFilter<"SelfAssessment"> | number
+    answers?: JsonWithAggregatesFilter<"SelfAssessment">
+    startedAt?: DateTimeWithAggregatesFilter<"SelfAssessment"> | Date | string
+    completedAt?: DateTimeNullableWithAggregatesFilter<"SelfAssessment"> | Date | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"SelfAssessment"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"SelfAssessment"> | Date | string
+  }
+
+  export type AssessmentSessionWhereInput = {
+    AND?: AssessmentSessionWhereInput | AssessmentSessionWhereInput[]
+    OR?: AssessmentSessionWhereInput[]
+    NOT?: AssessmentSessionWhereInput | AssessmentSessionWhereInput[]
+    id?: StringFilter<"AssessmentSession"> | string
+    userId?: StringFilter<"AssessmentSession"> | string
+    templateId?: StringFilter<"AssessmentSession"> | string
+    sessionToken?: StringFilter<"AssessmentSession"> | string
+    timeRemaining?: IntFilter<"AssessmentSession"> | number
+    currentQuestionIndex?: IntFilter<"AssessmentSession"> | number
+    answers?: JsonFilter<"AssessmentSession">
+    isActive?: BoolFilter<"AssessmentSession"> | boolean
+    expiresAt?: DateTimeFilter<"AssessmentSession"> | Date | string
+    createdAt?: DateTimeFilter<"AssessmentSession"> | Date | string
+    updatedAt?: DateTimeFilter<"AssessmentSession"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type AssessmentSessionOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    templateId?: SortOrder
+    sessionToken?: SortOrder
+    timeRemaining?: SortOrder
+    currentQuestionIndex?: SortOrder
+    answers?: SortOrder
+    isActive?: SortOrder
+    expiresAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type AssessmentSessionWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    sessionToken?: string
+    AND?: AssessmentSessionWhereInput | AssessmentSessionWhereInput[]
+    OR?: AssessmentSessionWhereInput[]
+    NOT?: AssessmentSessionWhereInput | AssessmentSessionWhereInput[]
+    userId?: StringFilter<"AssessmentSession"> | string
+    templateId?: StringFilter<"AssessmentSession"> | string
+    timeRemaining?: IntFilter<"AssessmentSession"> | number
+    currentQuestionIndex?: IntFilter<"AssessmentSession"> | number
+    answers?: JsonFilter<"AssessmentSession">
+    isActive?: BoolFilter<"AssessmentSession"> | boolean
+    expiresAt?: DateTimeFilter<"AssessmentSession"> | Date | string
+    createdAt?: DateTimeFilter<"AssessmentSession"> | Date | string
+    updatedAt?: DateTimeFilter<"AssessmentSession"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "id" | "sessionToken">
+
+  export type AssessmentSessionOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    templateId?: SortOrder
+    sessionToken?: SortOrder
+    timeRemaining?: SortOrder
+    currentQuestionIndex?: SortOrder
+    answers?: SortOrder
+    isActive?: SortOrder
+    expiresAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: AssessmentSessionCountOrderByAggregateInput
+    _avg?: AssessmentSessionAvgOrderByAggregateInput
+    _max?: AssessmentSessionMaxOrderByAggregateInput
+    _min?: AssessmentSessionMinOrderByAggregateInput
+    _sum?: AssessmentSessionSumOrderByAggregateInput
+  }
+
+  export type AssessmentSessionScalarWhereWithAggregatesInput = {
+    AND?: AssessmentSessionScalarWhereWithAggregatesInput | AssessmentSessionScalarWhereWithAggregatesInput[]
+    OR?: AssessmentSessionScalarWhereWithAggregatesInput[]
+    NOT?: AssessmentSessionScalarWhereWithAggregatesInput | AssessmentSessionScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"AssessmentSession"> | string
+    userId?: StringWithAggregatesFilter<"AssessmentSession"> | string
+    templateId?: StringWithAggregatesFilter<"AssessmentSession"> | string
+    sessionToken?: StringWithAggregatesFilter<"AssessmentSession"> | string
+    timeRemaining?: IntWithAggregatesFilter<"AssessmentSession"> | number
+    currentQuestionIndex?: IntWithAggregatesFilter<"AssessmentSession"> | number
+    answers?: JsonWithAggregatesFilter<"AssessmentSession">
+    isActive?: BoolWithAggregatesFilter<"AssessmentSession"> | boolean
+    expiresAt?: DateTimeWithAggregatesFilter<"AssessmentSession"> | Date | string
+    createdAt?: DateTimeWithAggregatesFilter<"AssessmentSession"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"AssessmentSession"> | Date | string
+  }
+
   export type UserCreateInput = {
     id?: string
     username: string
@@ -23800,6 +28056,8 @@ export namespace Prisma {
     userTest?: UserTestCreateNestedManyWithoutUserInput
     userResume?: UserResumeCreateNestedManyWithoutUserInput
     Subscription?: SubscriptionCreateNestedManyWithoutUserInput
+    selfAssessments?: SelfAssessmentCreateNestedManyWithoutUserInput
+    assessmentSessions?: AssessmentSessionCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -23829,6 +28087,8 @@ export namespace Prisma {
     userTest?: UserTestUncheckedCreateNestedManyWithoutUserInput
     userResume?: UserResumeUncheckedCreateNestedManyWithoutUserInput
     Subscription?: SubscriptionUncheckedCreateNestedManyWithoutUserInput
+    selfAssessments?: SelfAssessmentUncheckedCreateNestedManyWithoutUserInput
+    assessmentSessions?: AssessmentSessionUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -23858,6 +28118,8 @@ export namespace Prisma {
     userTest?: UserTestUpdateManyWithoutUserNestedInput
     userResume?: UserResumeUpdateManyWithoutUserNestedInput
     Subscription?: SubscriptionUpdateManyWithoutUserNestedInput
+    selfAssessments?: SelfAssessmentUpdateManyWithoutUserNestedInput
+    assessmentSessions?: AssessmentSessionUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -23887,6 +28149,8 @@ export namespace Prisma {
     userTest?: UserTestUncheckedUpdateManyWithoutUserNestedInput
     userResume?: UserResumeUncheckedUpdateManyWithoutUserNestedInput
     Subscription?: SubscriptionUncheckedUpdateManyWithoutUserNestedInput
+    selfAssessments?: SelfAssessmentUncheckedUpdateManyWithoutUserNestedInput
+    assessmentSessions?: AssessmentSessionUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -25217,6 +29481,308 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type SelfAssessmentTemplateCreateInput = {
+    id?: string
+    title: string
+    description: string
+    category: string
+    questions: JsonNullValueInput | InputJsonValue
+    passingScore?: number
+    totalPoints?: number
+    timeLimit?: number
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    selfAssessments?: SelfAssessmentCreateNestedManyWithoutTemplateInput
+  }
+
+  export type SelfAssessmentTemplateUncheckedCreateInput = {
+    id?: string
+    title: string
+    description: string
+    category: string
+    questions: JsonNullValueInput | InputJsonValue
+    passingScore?: number
+    totalPoints?: number
+    timeLimit?: number
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    selfAssessments?: SelfAssessmentUncheckedCreateNestedManyWithoutTemplateInput
+  }
+
+  export type SelfAssessmentTemplateUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    category?: StringFieldUpdateOperationsInput | string
+    questions?: JsonNullValueInput | InputJsonValue
+    passingScore?: IntFieldUpdateOperationsInput | number
+    totalPoints?: IntFieldUpdateOperationsInput | number
+    timeLimit?: IntFieldUpdateOperationsInput | number
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    selfAssessments?: SelfAssessmentUpdateManyWithoutTemplateNestedInput
+  }
+
+  export type SelfAssessmentTemplateUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    category?: StringFieldUpdateOperationsInput | string
+    questions?: JsonNullValueInput | InputJsonValue
+    passingScore?: IntFieldUpdateOperationsInput | number
+    totalPoints?: IntFieldUpdateOperationsInput | number
+    timeLimit?: IntFieldUpdateOperationsInput | number
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    selfAssessments?: SelfAssessmentUncheckedUpdateManyWithoutTemplateNestedInput
+  }
+
+  export type SelfAssessmentTemplateCreateManyInput = {
+    id?: string
+    title: string
+    description: string
+    category: string
+    questions: JsonNullValueInput | InputJsonValue
+    passingScore?: number
+    totalPoints?: number
+    timeLimit?: number
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SelfAssessmentTemplateUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    category?: StringFieldUpdateOperationsInput | string
+    questions?: JsonNullValueInput | InputJsonValue
+    passingScore?: IntFieldUpdateOperationsInput | number
+    totalPoints?: IntFieldUpdateOperationsInput | number
+    timeLimit?: IntFieldUpdateOperationsInput | number
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SelfAssessmentTemplateUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    category?: StringFieldUpdateOperationsInput | string
+    questions?: JsonNullValueInput | InputJsonValue
+    passingScore?: IntFieldUpdateOperationsInput | number
+    totalPoints?: IntFieldUpdateOperationsInput | number
+    timeLimit?: IntFieldUpdateOperationsInput | number
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SelfAssessmentCreateInput = {
+    id?: string
+    score: number
+    totalPoints: number
+    isPassed: boolean
+    timeSpent: number
+    answers: JsonNullValueInput | InputJsonValue
+    startedAt: Date | string
+    completedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutSelfAssessmentsInput
+    template: SelfAssessmentTemplateCreateNestedOneWithoutSelfAssessmentsInput
+  }
+
+  export type SelfAssessmentUncheckedCreateInput = {
+    id?: string
+    userId: string
+    templateId: string
+    score: number
+    totalPoints: number
+    isPassed: boolean
+    timeSpent: number
+    answers: JsonNullValueInput | InputJsonValue
+    startedAt: Date | string
+    completedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SelfAssessmentUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    score?: IntFieldUpdateOperationsInput | number
+    totalPoints?: IntFieldUpdateOperationsInput | number
+    isPassed?: BoolFieldUpdateOperationsInput | boolean
+    timeSpent?: IntFieldUpdateOperationsInput | number
+    answers?: JsonNullValueInput | InputJsonValue
+    startedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutSelfAssessmentsNestedInput
+    template?: SelfAssessmentTemplateUpdateOneRequiredWithoutSelfAssessmentsNestedInput
+  }
+
+  export type SelfAssessmentUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    templateId?: StringFieldUpdateOperationsInput | string
+    score?: IntFieldUpdateOperationsInput | number
+    totalPoints?: IntFieldUpdateOperationsInput | number
+    isPassed?: BoolFieldUpdateOperationsInput | boolean
+    timeSpent?: IntFieldUpdateOperationsInput | number
+    answers?: JsonNullValueInput | InputJsonValue
+    startedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SelfAssessmentCreateManyInput = {
+    id?: string
+    userId: string
+    templateId: string
+    score: number
+    totalPoints: number
+    isPassed: boolean
+    timeSpent: number
+    answers: JsonNullValueInput | InputJsonValue
+    startedAt: Date | string
+    completedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SelfAssessmentUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    score?: IntFieldUpdateOperationsInput | number
+    totalPoints?: IntFieldUpdateOperationsInput | number
+    isPassed?: BoolFieldUpdateOperationsInput | boolean
+    timeSpent?: IntFieldUpdateOperationsInput | number
+    answers?: JsonNullValueInput | InputJsonValue
+    startedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SelfAssessmentUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    templateId?: StringFieldUpdateOperationsInput | string
+    score?: IntFieldUpdateOperationsInput | number
+    totalPoints?: IntFieldUpdateOperationsInput | number
+    isPassed?: BoolFieldUpdateOperationsInput | boolean
+    timeSpent?: IntFieldUpdateOperationsInput | number
+    answers?: JsonNullValueInput | InputJsonValue
+    startedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AssessmentSessionCreateInput = {
+    id?: string
+    templateId: string
+    sessionToken: string
+    timeRemaining: number
+    currentQuestionIndex?: number
+    answers: JsonNullValueInput | InputJsonValue
+    isActive?: boolean
+    expiresAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutAssessmentSessionsInput
+  }
+
+  export type AssessmentSessionUncheckedCreateInput = {
+    id?: string
+    userId: string
+    templateId: string
+    sessionToken: string
+    timeRemaining: number
+    currentQuestionIndex?: number
+    answers: JsonNullValueInput | InputJsonValue
+    isActive?: boolean
+    expiresAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type AssessmentSessionUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    templateId?: StringFieldUpdateOperationsInput | string
+    sessionToken?: StringFieldUpdateOperationsInput | string
+    timeRemaining?: IntFieldUpdateOperationsInput | number
+    currentQuestionIndex?: IntFieldUpdateOperationsInput | number
+    answers?: JsonNullValueInput | InputJsonValue
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutAssessmentSessionsNestedInput
+  }
+
+  export type AssessmentSessionUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    templateId?: StringFieldUpdateOperationsInput | string
+    sessionToken?: StringFieldUpdateOperationsInput | string
+    timeRemaining?: IntFieldUpdateOperationsInput | number
+    currentQuestionIndex?: IntFieldUpdateOperationsInput | number
+    answers?: JsonNullValueInput | InputJsonValue
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AssessmentSessionCreateManyInput = {
+    id?: string
+    userId: string
+    templateId: string
+    sessionToken: string
+    timeRemaining: number
+    currentQuestionIndex?: number
+    answers: JsonNullValueInput | InputJsonValue
+    isActive?: boolean
+    expiresAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type AssessmentSessionUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    templateId?: StringFieldUpdateOperationsInput | string
+    sessionToken?: StringFieldUpdateOperationsInput | string
+    timeRemaining?: IntFieldUpdateOperationsInput | number
+    currentQuestionIndex?: IntFieldUpdateOperationsInput | number
+    answers?: JsonNullValueInput | InputJsonValue
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AssessmentSessionUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    templateId?: StringFieldUpdateOperationsInput | string
+    sessionToken?: StringFieldUpdateOperationsInput | string
+    timeRemaining?: IntFieldUpdateOperationsInput | number
+    currentQuestionIndex?: IntFieldUpdateOperationsInput | number
+    answers?: JsonNullValueInput | InputJsonValue
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -25300,6 +29866,18 @@ export namespace Prisma {
     none?: SubscriptionWhereInput
   }
 
+  export type SelfAssessmentListRelationFilter = {
+    every?: SelfAssessmentWhereInput
+    some?: SelfAssessmentWhereInput
+    none?: SelfAssessmentWhereInput
+  }
+
+  export type AssessmentSessionListRelationFilter = {
+    every?: AssessmentSessionWhereInput
+    some?: AssessmentSessionWhereInput
+    none?: AssessmentSessionWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
@@ -25322,6 +29900,14 @@ export namespace Prisma {
   }
 
   export type SubscriptionOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type SelfAssessmentOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type AssessmentSessionOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -26360,6 +30946,168 @@ export namespace Prisma {
     _max?: NestedEnumPaymentStatusFilter<$PrismaModel>
   }
 
+  export type SelfAssessmentTemplateCountOrderByAggregateInput = {
+    id?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    category?: SortOrder
+    questions?: SortOrder
+    passingScore?: SortOrder
+    totalPoints?: SortOrder
+    timeLimit?: SortOrder
+    isActive?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type SelfAssessmentTemplateAvgOrderByAggregateInput = {
+    passingScore?: SortOrder
+    totalPoints?: SortOrder
+    timeLimit?: SortOrder
+  }
+
+  export type SelfAssessmentTemplateMaxOrderByAggregateInput = {
+    id?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    category?: SortOrder
+    passingScore?: SortOrder
+    totalPoints?: SortOrder
+    timeLimit?: SortOrder
+    isActive?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type SelfAssessmentTemplateMinOrderByAggregateInput = {
+    id?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    category?: SortOrder
+    passingScore?: SortOrder
+    totalPoints?: SortOrder
+    timeLimit?: SortOrder
+    isActive?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type SelfAssessmentTemplateSumOrderByAggregateInput = {
+    passingScore?: SortOrder
+    totalPoints?: SortOrder
+    timeLimit?: SortOrder
+  }
+
+  export type SelfAssessmentTemplateScalarRelationFilter = {
+    is?: SelfAssessmentTemplateWhereInput
+    isNot?: SelfAssessmentTemplateWhereInput
+  }
+
+  export type SelfAssessmentCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    templateId?: SortOrder
+    score?: SortOrder
+    totalPoints?: SortOrder
+    isPassed?: SortOrder
+    timeSpent?: SortOrder
+    answers?: SortOrder
+    startedAt?: SortOrder
+    completedAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type SelfAssessmentAvgOrderByAggregateInput = {
+    score?: SortOrder
+    totalPoints?: SortOrder
+    timeSpent?: SortOrder
+  }
+
+  export type SelfAssessmentMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    templateId?: SortOrder
+    score?: SortOrder
+    totalPoints?: SortOrder
+    isPassed?: SortOrder
+    timeSpent?: SortOrder
+    startedAt?: SortOrder
+    completedAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type SelfAssessmentMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    templateId?: SortOrder
+    score?: SortOrder
+    totalPoints?: SortOrder
+    isPassed?: SortOrder
+    timeSpent?: SortOrder
+    startedAt?: SortOrder
+    completedAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type SelfAssessmentSumOrderByAggregateInput = {
+    score?: SortOrder
+    totalPoints?: SortOrder
+    timeSpent?: SortOrder
+  }
+
+  export type AssessmentSessionCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    templateId?: SortOrder
+    sessionToken?: SortOrder
+    timeRemaining?: SortOrder
+    currentQuestionIndex?: SortOrder
+    answers?: SortOrder
+    isActive?: SortOrder
+    expiresAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type AssessmentSessionAvgOrderByAggregateInput = {
+    timeRemaining?: SortOrder
+    currentQuestionIndex?: SortOrder
+  }
+
+  export type AssessmentSessionMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    templateId?: SortOrder
+    sessionToken?: SortOrder
+    timeRemaining?: SortOrder
+    currentQuestionIndex?: SortOrder
+    isActive?: SortOrder
+    expiresAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type AssessmentSessionMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    templateId?: SortOrder
+    sessionToken?: SortOrder
+    timeRemaining?: SortOrder
+    currentQuestionIndex?: SortOrder
+    isActive?: SortOrder
+    expiresAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type AssessmentSessionSumOrderByAggregateInput = {
+    timeRemaining?: SortOrder
+    currentQuestionIndex?: SortOrder
+  }
+
   export type ApplicationCreateNestedManyWithoutUserInput = {
     create?: XOR<ApplicationCreateWithoutUserInput, ApplicationUncheckedCreateWithoutUserInput> | ApplicationCreateWithoutUserInput[] | ApplicationUncheckedCreateWithoutUserInput[]
     connectOrCreate?: ApplicationCreateOrConnectWithoutUserInput | ApplicationCreateOrConnectWithoutUserInput[]
@@ -26395,6 +31143,20 @@ export namespace Prisma {
     connect?: SubscriptionWhereUniqueInput | SubscriptionWhereUniqueInput[]
   }
 
+  export type SelfAssessmentCreateNestedManyWithoutUserInput = {
+    create?: XOR<SelfAssessmentCreateWithoutUserInput, SelfAssessmentUncheckedCreateWithoutUserInput> | SelfAssessmentCreateWithoutUserInput[] | SelfAssessmentUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: SelfAssessmentCreateOrConnectWithoutUserInput | SelfAssessmentCreateOrConnectWithoutUserInput[]
+    createMany?: SelfAssessmentCreateManyUserInputEnvelope
+    connect?: SelfAssessmentWhereUniqueInput | SelfAssessmentWhereUniqueInput[]
+  }
+
+  export type AssessmentSessionCreateNestedManyWithoutUserInput = {
+    create?: XOR<AssessmentSessionCreateWithoutUserInput, AssessmentSessionUncheckedCreateWithoutUserInput> | AssessmentSessionCreateWithoutUserInput[] | AssessmentSessionUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: AssessmentSessionCreateOrConnectWithoutUserInput | AssessmentSessionCreateOrConnectWithoutUserInput[]
+    createMany?: AssessmentSessionCreateManyUserInputEnvelope
+    connect?: AssessmentSessionWhereUniqueInput | AssessmentSessionWhereUniqueInput[]
+  }
+
   export type ApplicationUncheckedCreateNestedManyWithoutUserInput = {
     create?: XOR<ApplicationCreateWithoutUserInput, ApplicationUncheckedCreateWithoutUserInput> | ApplicationCreateWithoutUserInput[] | ApplicationUncheckedCreateWithoutUserInput[]
     connectOrCreate?: ApplicationCreateOrConnectWithoutUserInput | ApplicationCreateOrConnectWithoutUserInput[]
@@ -26428,6 +31190,20 @@ export namespace Prisma {
     connectOrCreate?: SubscriptionCreateOrConnectWithoutUserInput | SubscriptionCreateOrConnectWithoutUserInput[]
     createMany?: SubscriptionCreateManyUserInputEnvelope
     connect?: SubscriptionWhereUniqueInput | SubscriptionWhereUniqueInput[]
+  }
+
+  export type SelfAssessmentUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<SelfAssessmentCreateWithoutUserInput, SelfAssessmentUncheckedCreateWithoutUserInput> | SelfAssessmentCreateWithoutUserInput[] | SelfAssessmentUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: SelfAssessmentCreateOrConnectWithoutUserInput | SelfAssessmentCreateOrConnectWithoutUserInput[]
+    createMany?: SelfAssessmentCreateManyUserInputEnvelope
+    connect?: SelfAssessmentWhereUniqueInput | SelfAssessmentWhereUniqueInput[]
+  }
+
+  export type AssessmentSessionUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<AssessmentSessionCreateWithoutUserInput, AssessmentSessionUncheckedCreateWithoutUserInput> | AssessmentSessionCreateWithoutUserInput[] | AssessmentSessionUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: AssessmentSessionCreateOrConnectWithoutUserInput | AssessmentSessionCreateOrConnectWithoutUserInput[]
+    createMany?: AssessmentSessionCreateManyUserInputEnvelope
+    connect?: AssessmentSessionWhereUniqueInput | AssessmentSessionWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -26520,6 +31296,34 @@ export namespace Prisma {
     deleteMany?: SubscriptionScalarWhereInput | SubscriptionScalarWhereInput[]
   }
 
+  export type SelfAssessmentUpdateManyWithoutUserNestedInput = {
+    create?: XOR<SelfAssessmentCreateWithoutUserInput, SelfAssessmentUncheckedCreateWithoutUserInput> | SelfAssessmentCreateWithoutUserInput[] | SelfAssessmentUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: SelfAssessmentCreateOrConnectWithoutUserInput | SelfAssessmentCreateOrConnectWithoutUserInput[]
+    upsert?: SelfAssessmentUpsertWithWhereUniqueWithoutUserInput | SelfAssessmentUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: SelfAssessmentCreateManyUserInputEnvelope
+    set?: SelfAssessmentWhereUniqueInput | SelfAssessmentWhereUniqueInput[]
+    disconnect?: SelfAssessmentWhereUniqueInput | SelfAssessmentWhereUniqueInput[]
+    delete?: SelfAssessmentWhereUniqueInput | SelfAssessmentWhereUniqueInput[]
+    connect?: SelfAssessmentWhereUniqueInput | SelfAssessmentWhereUniqueInput[]
+    update?: SelfAssessmentUpdateWithWhereUniqueWithoutUserInput | SelfAssessmentUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: SelfAssessmentUpdateManyWithWhereWithoutUserInput | SelfAssessmentUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: SelfAssessmentScalarWhereInput | SelfAssessmentScalarWhereInput[]
+  }
+
+  export type AssessmentSessionUpdateManyWithoutUserNestedInput = {
+    create?: XOR<AssessmentSessionCreateWithoutUserInput, AssessmentSessionUncheckedCreateWithoutUserInput> | AssessmentSessionCreateWithoutUserInput[] | AssessmentSessionUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: AssessmentSessionCreateOrConnectWithoutUserInput | AssessmentSessionCreateOrConnectWithoutUserInput[]
+    upsert?: AssessmentSessionUpsertWithWhereUniqueWithoutUserInput | AssessmentSessionUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: AssessmentSessionCreateManyUserInputEnvelope
+    set?: AssessmentSessionWhereUniqueInput | AssessmentSessionWhereUniqueInput[]
+    disconnect?: AssessmentSessionWhereUniqueInput | AssessmentSessionWhereUniqueInput[]
+    delete?: AssessmentSessionWhereUniqueInput | AssessmentSessionWhereUniqueInput[]
+    connect?: AssessmentSessionWhereUniqueInput | AssessmentSessionWhereUniqueInput[]
+    update?: AssessmentSessionUpdateWithWhereUniqueWithoutUserInput | AssessmentSessionUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: AssessmentSessionUpdateManyWithWhereWithoutUserInput | AssessmentSessionUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: AssessmentSessionScalarWhereInput | AssessmentSessionScalarWhereInput[]
+  }
+
   export type ApplicationUncheckedUpdateManyWithoutUserNestedInput = {
     create?: XOR<ApplicationCreateWithoutUserInput, ApplicationUncheckedCreateWithoutUserInput> | ApplicationCreateWithoutUserInput[] | ApplicationUncheckedCreateWithoutUserInput[]
     connectOrCreate?: ApplicationCreateOrConnectWithoutUserInput | ApplicationCreateOrConnectWithoutUserInput[]
@@ -26588,6 +31392,34 @@ export namespace Prisma {
     update?: SubscriptionUpdateWithWhereUniqueWithoutUserInput | SubscriptionUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: SubscriptionUpdateManyWithWhereWithoutUserInput | SubscriptionUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: SubscriptionScalarWhereInput | SubscriptionScalarWhereInput[]
+  }
+
+  export type SelfAssessmentUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<SelfAssessmentCreateWithoutUserInput, SelfAssessmentUncheckedCreateWithoutUserInput> | SelfAssessmentCreateWithoutUserInput[] | SelfAssessmentUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: SelfAssessmentCreateOrConnectWithoutUserInput | SelfAssessmentCreateOrConnectWithoutUserInput[]
+    upsert?: SelfAssessmentUpsertWithWhereUniqueWithoutUserInput | SelfAssessmentUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: SelfAssessmentCreateManyUserInputEnvelope
+    set?: SelfAssessmentWhereUniqueInput | SelfAssessmentWhereUniqueInput[]
+    disconnect?: SelfAssessmentWhereUniqueInput | SelfAssessmentWhereUniqueInput[]
+    delete?: SelfAssessmentWhereUniqueInput | SelfAssessmentWhereUniqueInput[]
+    connect?: SelfAssessmentWhereUniqueInput | SelfAssessmentWhereUniqueInput[]
+    update?: SelfAssessmentUpdateWithWhereUniqueWithoutUserInput | SelfAssessmentUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: SelfAssessmentUpdateManyWithWhereWithoutUserInput | SelfAssessmentUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: SelfAssessmentScalarWhereInput | SelfAssessmentScalarWhereInput[]
+  }
+
+  export type AssessmentSessionUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<AssessmentSessionCreateWithoutUserInput, AssessmentSessionUncheckedCreateWithoutUserInput> | AssessmentSessionCreateWithoutUserInput[] | AssessmentSessionUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: AssessmentSessionCreateOrConnectWithoutUserInput | AssessmentSessionCreateOrConnectWithoutUserInput[]
+    upsert?: AssessmentSessionUpsertWithWhereUniqueWithoutUserInput | AssessmentSessionUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: AssessmentSessionCreateManyUserInputEnvelope
+    set?: AssessmentSessionWhereUniqueInput | AssessmentSessionWhereUniqueInput[]
+    disconnect?: AssessmentSessionWhereUniqueInput | AssessmentSessionWhereUniqueInput[]
+    delete?: AssessmentSessionWhereUniqueInput | AssessmentSessionWhereUniqueInput[]
+    connect?: AssessmentSessionWhereUniqueInput | AssessmentSessionWhereUniqueInput[]
+    update?: AssessmentSessionUpdateWithWhereUniqueWithoutUserInput | AssessmentSessionUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: AssessmentSessionUpdateManyWithWhereWithoutUserInput | AssessmentSessionUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: AssessmentSessionScalarWhereInput | AssessmentSessionScalarWhereInput[]
   }
 
   export type IndustryCreateNestedOneWithoutCompanyInput = {
@@ -27384,6 +32216,90 @@ export namespace Prisma {
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutSubscriptionInput, UserUpdateWithoutSubscriptionInput>, UserUncheckedUpdateWithoutSubscriptionInput>
   }
 
+  export type SelfAssessmentCreateNestedManyWithoutTemplateInput = {
+    create?: XOR<SelfAssessmentCreateWithoutTemplateInput, SelfAssessmentUncheckedCreateWithoutTemplateInput> | SelfAssessmentCreateWithoutTemplateInput[] | SelfAssessmentUncheckedCreateWithoutTemplateInput[]
+    connectOrCreate?: SelfAssessmentCreateOrConnectWithoutTemplateInput | SelfAssessmentCreateOrConnectWithoutTemplateInput[]
+    createMany?: SelfAssessmentCreateManyTemplateInputEnvelope
+    connect?: SelfAssessmentWhereUniqueInput | SelfAssessmentWhereUniqueInput[]
+  }
+
+  export type SelfAssessmentUncheckedCreateNestedManyWithoutTemplateInput = {
+    create?: XOR<SelfAssessmentCreateWithoutTemplateInput, SelfAssessmentUncheckedCreateWithoutTemplateInput> | SelfAssessmentCreateWithoutTemplateInput[] | SelfAssessmentUncheckedCreateWithoutTemplateInput[]
+    connectOrCreate?: SelfAssessmentCreateOrConnectWithoutTemplateInput | SelfAssessmentCreateOrConnectWithoutTemplateInput[]
+    createMany?: SelfAssessmentCreateManyTemplateInputEnvelope
+    connect?: SelfAssessmentWhereUniqueInput | SelfAssessmentWhereUniqueInput[]
+  }
+
+  export type SelfAssessmentUpdateManyWithoutTemplateNestedInput = {
+    create?: XOR<SelfAssessmentCreateWithoutTemplateInput, SelfAssessmentUncheckedCreateWithoutTemplateInput> | SelfAssessmentCreateWithoutTemplateInput[] | SelfAssessmentUncheckedCreateWithoutTemplateInput[]
+    connectOrCreate?: SelfAssessmentCreateOrConnectWithoutTemplateInput | SelfAssessmentCreateOrConnectWithoutTemplateInput[]
+    upsert?: SelfAssessmentUpsertWithWhereUniqueWithoutTemplateInput | SelfAssessmentUpsertWithWhereUniqueWithoutTemplateInput[]
+    createMany?: SelfAssessmentCreateManyTemplateInputEnvelope
+    set?: SelfAssessmentWhereUniqueInput | SelfAssessmentWhereUniqueInput[]
+    disconnect?: SelfAssessmentWhereUniqueInput | SelfAssessmentWhereUniqueInput[]
+    delete?: SelfAssessmentWhereUniqueInput | SelfAssessmentWhereUniqueInput[]
+    connect?: SelfAssessmentWhereUniqueInput | SelfAssessmentWhereUniqueInput[]
+    update?: SelfAssessmentUpdateWithWhereUniqueWithoutTemplateInput | SelfAssessmentUpdateWithWhereUniqueWithoutTemplateInput[]
+    updateMany?: SelfAssessmentUpdateManyWithWhereWithoutTemplateInput | SelfAssessmentUpdateManyWithWhereWithoutTemplateInput[]
+    deleteMany?: SelfAssessmentScalarWhereInput | SelfAssessmentScalarWhereInput[]
+  }
+
+  export type SelfAssessmentUncheckedUpdateManyWithoutTemplateNestedInput = {
+    create?: XOR<SelfAssessmentCreateWithoutTemplateInput, SelfAssessmentUncheckedCreateWithoutTemplateInput> | SelfAssessmentCreateWithoutTemplateInput[] | SelfAssessmentUncheckedCreateWithoutTemplateInput[]
+    connectOrCreate?: SelfAssessmentCreateOrConnectWithoutTemplateInput | SelfAssessmentCreateOrConnectWithoutTemplateInput[]
+    upsert?: SelfAssessmentUpsertWithWhereUniqueWithoutTemplateInput | SelfAssessmentUpsertWithWhereUniqueWithoutTemplateInput[]
+    createMany?: SelfAssessmentCreateManyTemplateInputEnvelope
+    set?: SelfAssessmentWhereUniqueInput | SelfAssessmentWhereUniqueInput[]
+    disconnect?: SelfAssessmentWhereUniqueInput | SelfAssessmentWhereUniqueInput[]
+    delete?: SelfAssessmentWhereUniqueInput | SelfAssessmentWhereUniqueInput[]
+    connect?: SelfAssessmentWhereUniqueInput | SelfAssessmentWhereUniqueInput[]
+    update?: SelfAssessmentUpdateWithWhereUniqueWithoutTemplateInput | SelfAssessmentUpdateWithWhereUniqueWithoutTemplateInput[]
+    updateMany?: SelfAssessmentUpdateManyWithWhereWithoutTemplateInput | SelfAssessmentUpdateManyWithWhereWithoutTemplateInput[]
+    deleteMany?: SelfAssessmentScalarWhereInput | SelfAssessmentScalarWhereInput[]
+  }
+
+  export type UserCreateNestedOneWithoutSelfAssessmentsInput = {
+    create?: XOR<UserCreateWithoutSelfAssessmentsInput, UserUncheckedCreateWithoutSelfAssessmentsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutSelfAssessmentsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type SelfAssessmentTemplateCreateNestedOneWithoutSelfAssessmentsInput = {
+    create?: XOR<SelfAssessmentTemplateCreateWithoutSelfAssessmentsInput, SelfAssessmentTemplateUncheckedCreateWithoutSelfAssessmentsInput>
+    connectOrCreate?: SelfAssessmentTemplateCreateOrConnectWithoutSelfAssessmentsInput
+    connect?: SelfAssessmentTemplateWhereUniqueInput
+  }
+
+  export type UserUpdateOneRequiredWithoutSelfAssessmentsNestedInput = {
+    create?: XOR<UserCreateWithoutSelfAssessmentsInput, UserUncheckedCreateWithoutSelfAssessmentsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutSelfAssessmentsInput
+    upsert?: UserUpsertWithoutSelfAssessmentsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutSelfAssessmentsInput, UserUpdateWithoutSelfAssessmentsInput>, UserUncheckedUpdateWithoutSelfAssessmentsInput>
+  }
+
+  export type SelfAssessmentTemplateUpdateOneRequiredWithoutSelfAssessmentsNestedInput = {
+    create?: XOR<SelfAssessmentTemplateCreateWithoutSelfAssessmentsInput, SelfAssessmentTemplateUncheckedCreateWithoutSelfAssessmentsInput>
+    connectOrCreate?: SelfAssessmentTemplateCreateOrConnectWithoutSelfAssessmentsInput
+    upsert?: SelfAssessmentTemplateUpsertWithoutSelfAssessmentsInput
+    connect?: SelfAssessmentTemplateWhereUniqueInput
+    update?: XOR<XOR<SelfAssessmentTemplateUpdateToOneWithWhereWithoutSelfAssessmentsInput, SelfAssessmentTemplateUpdateWithoutSelfAssessmentsInput>, SelfAssessmentTemplateUncheckedUpdateWithoutSelfAssessmentsInput>
+  }
+
+  export type UserCreateNestedOneWithoutAssessmentSessionsInput = {
+    create?: XOR<UserCreateWithoutAssessmentSessionsInput, UserUncheckedCreateWithoutAssessmentSessionsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutAssessmentSessionsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type UserUpdateOneRequiredWithoutAssessmentSessionsNestedInput = {
+    create?: XOR<UserCreateWithoutAssessmentSessionsInput, UserUncheckedCreateWithoutAssessmentSessionsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutAssessmentSessionsInput
+    upsert?: UserUpsertWithoutAssessmentSessionsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutAssessmentSessionsInput, UserUpdateWithoutAssessmentSessionsInput>, UserUncheckedUpdateWithoutAssessmentSessionsInput>
+  }
+
   export type NestedStringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -27873,6 +32789,80 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type SelfAssessmentCreateWithoutUserInput = {
+    id?: string
+    score: number
+    totalPoints: number
+    isPassed: boolean
+    timeSpent: number
+    answers: JsonNullValueInput | InputJsonValue
+    startedAt: Date | string
+    completedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    template: SelfAssessmentTemplateCreateNestedOneWithoutSelfAssessmentsInput
+  }
+
+  export type SelfAssessmentUncheckedCreateWithoutUserInput = {
+    id?: string
+    templateId: string
+    score: number
+    totalPoints: number
+    isPassed: boolean
+    timeSpent: number
+    answers: JsonNullValueInput | InputJsonValue
+    startedAt: Date | string
+    completedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SelfAssessmentCreateOrConnectWithoutUserInput = {
+    where: SelfAssessmentWhereUniqueInput
+    create: XOR<SelfAssessmentCreateWithoutUserInput, SelfAssessmentUncheckedCreateWithoutUserInput>
+  }
+
+  export type SelfAssessmentCreateManyUserInputEnvelope = {
+    data: SelfAssessmentCreateManyUserInput | SelfAssessmentCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type AssessmentSessionCreateWithoutUserInput = {
+    id?: string
+    templateId: string
+    sessionToken: string
+    timeRemaining: number
+    currentQuestionIndex?: number
+    answers: JsonNullValueInput | InputJsonValue
+    isActive?: boolean
+    expiresAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type AssessmentSessionUncheckedCreateWithoutUserInput = {
+    id?: string
+    templateId: string
+    sessionToken: string
+    timeRemaining: number
+    currentQuestionIndex?: number
+    answers: JsonNullValueInput | InputJsonValue
+    isActive?: boolean
+    expiresAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type AssessmentSessionCreateOrConnectWithoutUserInput = {
+    where: AssessmentSessionWhereUniqueInput
+    create: XOR<AssessmentSessionCreateWithoutUserInput, AssessmentSessionUncheckedCreateWithoutUserInput>
+  }
+
+  export type AssessmentSessionCreateManyUserInputEnvelope = {
+    data: AssessmentSessionCreateManyUserInput | AssessmentSessionCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
   export type ApplicationUpsertWithWhereUniqueWithoutUserInput = {
     where: ApplicationWhereUniqueInput
     update: XOR<ApplicationUpdateWithoutUserInput, ApplicationUncheckedUpdateWithoutUserInput>
@@ -28023,6 +33013,73 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Subscription"> | Date | string
     expiredAt?: DateTimeFilter<"Subscription"> | Date | string
     updatedAt?: DateTimeFilter<"Subscription"> | Date | string
+  }
+
+  export type SelfAssessmentUpsertWithWhereUniqueWithoutUserInput = {
+    where: SelfAssessmentWhereUniqueInput
+    update: XOR<SelfAssessmentUpdateWithoutUserInput, SelfAssessmentUncheckedUpdateWithoutUserInput>
+    create: XOR<SelfAssessmentCreateWithoutUserInput, SelfAssessmentUncheckedCreateWithoutUserInput>
+  }
+
+  export type SelfAssessmentUpdateWithWhereUniqueWithoutUserInput = {
+    where: SelfAssessmentWhereUniqueInput
+    data: XOR<SelfAssessmentUpdateWithoutUserInput, SelfAssessmentUncheckedUpdateWithoutUserInput>
+  }
+
+  export type SelfAssessmentUpdateManyWithWhereWithoutUserInput = {
+    where: SelfAssessmentScalarWhereInput
+    data: XOR<SelfAssessmentUpdateManyMutationInput, SelfAssessmentUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type SelfAssessmentScalarWhereInput = {
+    AND?: SelfAssessmentScalarWhereInput | SelfAssessmentScalarWhereInput[]
+    OR?: SelfAssessmentScalarWhereInput[]
+    NOT?: SelfAssessmentScalarWhereInput | SelfAssessmentScalarWhereInput[]
+    id?: StringFilter<"SelfAssessment"> | string
+    userId?: StringFilter<"SelfAssessment"> | string
+    templateId?: StringFilter<"SelfAssessment"> | string
+    score?: IntFilter<"SelfAssessment"> | number
+    totalPoints?: IntFilter<"SelfAssessment"> | number
+    isPassed?: BoolFilter<"SelfAssessment"> | boolean
+    timeSpent?: IntFilter<"SelfAssessment"> | number
+    answers?: JsonFilter<"SelfAssessment">
+    startedAt?: DateTimeFilter<"SelfAssessment"> | Date | string
+    completedAt?: DateTimeNullableFilter<"SelfAssessment"> | Date | string | null
+    createdAt?: DateTimeFilter<"SelfAssessment"> | Date | string
+    updatedAt?: DateTimeFilter<"SelfAssessment"> | Date | string
+  }
+
+  export type AssessmentSessionUpsertWithWhereUniqueWithoutUserInput = {
+    where: AssessmentSessionWhereUniqueInput
+    update: XOR<AssessmentSessionUpdateWithoutUserInput, AssessmentSessionUncheckedUpdateWithoutUserInput>
+    create: XOR<AssessmentSessionCreateWithoutUserInput, AssessmentSessionUncheckedCreateWithoutUserInput>
+  }
+
+  export type AssessmentSessionUpdateWithWhereUniqueWithoutUserInput = {
+    where: AssessmentSessionWhereUniqueInput
+    data: XOR<AssessmentSessionUpdateWithoutUserInput, AssessmentSessionUncheckedUpdateWithoutUserInput>
+  }
+
+  export type AssessmentSessionUpdateManyWithWhereWithoutUserInput = {
+    where: AssessmentSessionScalarWhereInput
+    data: XOR<AssessmentSessionUpdateManyMutationInput, AssessmentSessionUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type AssessmentSessionScalarWhereInput = {
+    AND?: AssessmentSessionScalarWhereInput | AssessmentSessionScalarWhereInput[]
+    OR?: AssessmentSessionScalarWhereInput[]
+    NOT?: AssessmentSessionScalarWhereInput | AssessmentSessionScalarWhereInput[]
+    id?: StringFilter<"AssessmentSession"> | string
+    userId?: StringFilter<"AssessmentSession"> | string
+    templateId?: StringFilter<"AssessmentSession"> | string
+    sessionToken?: StringFilter<"AssessmentSession"> | string
+    timeRemaining?: IntFilter<"AssessmentSession"> | number
+    currentQuestionIndex?: IntFilter<"AssessmentSession"> | number
+    answers?: JsonFilter<"AssessmentSession">
+    isActive?: BoolFilter<"AssessmentSession"> | boolean
+    expiresAt?: DateTimeFilter<"AssessmentSession"> | Date | string
+    createdAt?: DateTimeFilter<"AssessmentSession"> | Date | string
+    updatedAt?: DateTimeFilter<"AssessmentSession"> | Date | string
   }
 
   export type IndustryCreateWithoutCompanyInput = {
@@ -28656,6 +33713,8 @@ export namespace Prisma {
     userTest?: UserTestCreateNestedManyWithoutUserInput
     userResume?: UserResumeCreateNestedManyWithoutUserInput
     Subscription?: SubscriptionCreateNestedManyWithoutUserInput
+    selfAssessments?: SelfAssessmentCreateNestedManyWithoutUserInput
+    assessmentSessions?: AssessmentSessionCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutApplicationInput = {
@@ -28684,6 +33743,8 @@ export namespace Prisma {
     userTest?: UserTestUncheckedCreateNestedManyWithoutUserInput
     userResume?: UserResumeUncheckedCreateNestedManyWithoutUserInput
     Subscription?: SubscriptionUncheckedCreateNestedManyWithoutUserInput
+    selfAssessments?: SelfAssessmentUncheckedCreateNestedManyWithoutUserInput
+    assessmentSessions?: AssessmentSessionUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutApplicationInput = {
@@ -28793,6 +33854,8 @@ export namespace Prisma {
     userTest?: UserTestUpdateManyWithoutUserNestedInput
     userResume?: UserResumeUpdateManyWithoutUserNestedInput
     Subscription?: SubscriptionUpdateManyWithoutUserNestedInput
+    selfAssessments?: SelfAssessmentUpdateManyWithoutUserNestedInput
+    assessmentSessions?: AssessmentSessionUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutApplicationInput = {
@@ -28821,6 +33884,8 @@ export namespace Prisma {
     userTest?: UserTestUncheckedUpdateManyWithoutUserNestedInput
     userResume?: UserResumeUncheckedUpdateManyWithoutUserNestedInput
     Subscription?: SubscriptionUncheckedUpdateManyWithoutUserNestedInput
+    selfAssessments?: SelfAssessmentUncheckedUpdateManyWithoutUserNestedInput
+    assessmentSessions?: AssessmentSessionUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type JobUpsertWithoutApplicationInput = {
@@ -28924,6 +33989,8 @@ export namespace Prisma {
     userTest?: UserTestCreateNestedManyWithoutUserInput
     userResume?: UserResumeCreateNestedManyWithoutUserInput
     Subscription?: SubscriptionCreateNestedManyWithoutUserInput
+    selfAssessments?: SelfAssessmentCreateNestedManyWithoutUserInput
+    assessmentSessions?: AssessmentSessionCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutReviewInput = {
@@ -28952,6 +34019,8 @@ export namespace Prisma {
     userTest?: UserTestUncheckedCreateNestedManyWithoutUserInput
     userResume?: UserResumeUncheckedCreateNestedManyWithoutUserInput
     Subscription?: SubscriptionUncheckedCreateNestedManyWithoutUserInput
+    selfAssessments?: SelfAssessmentUncheckedCreateNestedManyWithoutUserInput
+    assessmentSessions?: AssessmentSessionUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutReviewInput = {
@@ -29051,6 +34120,8 @@ export namespace Prisma {
     userTest?: UserTestUpdateManyWithoutUserNestedInput
     userResume?: UserResumeUpdateManyWithoutUserNestedInput
     Subscription?: SubscriptionUpdateManyWithoutUserNestedInput
+    selfAssessments?: SelfAssessmentUpdateManyWithoutUserNestedInput
+    assessmentSessions?: AssessmentSessionUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutReviewInput = {
@@ -29079,6 +34150,8 @@ export namespace Prisma {
     userTest?: UserTestUncheckedUpdateManyWithoutUserNestedInput
     userResume?: UserResumeUncheckedUpdateManyWithoutUserNestedInput
     Subscription?: SubscriptionUncheckedUpdateManyWithoutUserNestedInput
+    selfAssessments?: SelfAssessmentUncheckedUpdateManyWithoutUserNestedInput
+    assessmentSessions?: AssessmentSessionUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type CompanyUpsertWithoutReviewInput = {
@@ -29260,6 +34333,8 @@ export namespace Prisma {
     Review?: ReviewCreateNestedManyWithoutUserInput
     userResume?: UserResumeCreateNestedManyWithoutUserInput
     Subscription?: SubscriptionCreateNestedManyWithoutUserInput
+    selfAssessments?: SelfAssessmentCreateNestedManyWithoutUserInput
+    assessmentSessions?: AssessmentSessionCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutUserTestInput = {
@@ -29288,6 +34363,8 @@ export namespace Prisma {
     Review?: ReviewUncheckedCreateNestedManyWithoutUserInput
     userResume?: UserResumeUncheckedCreateNestedManyWithoutUserInput
     Subscription?: SubscriptionUncheckedCreateNestedManyWithoutUserInput
+    selfAssessments?: SelfAssessmentUncheckedCreateNestedManyWithoutUserInput
+    assessmentSessions?: AssessmentSessionUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutUserTestInput = {
@@ -29375,6 +34452,8 @@ export namespace Prisma {
     Review?: ReviewUpdateManyWithoutUserNestedInput
     userResume?: UserResumeUpdateManyWithoutUserNestedInput
     Subscription?: SubscriptionUpdateManyWithoutUserNestedInput
+    selfAssessments?: SelfAssessmentUpdateManyWithoutUserNestedInput
+    assessmentSessions?: AssessmentSessionUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutUserTestInput = {
@@ -29403,6 +34482,8 @@ export namespace Prisma {
     Review?: ReviewUncheckedUpdateManyWithoutUserNestedInput
     userResume?: UserResumeUncheckedUpdateManyWithoutUserNestedInput
     Subscription?: SubscriptionUncheckedUpdateManyWithoutUserNestedInput
+    selfAssessments?: SelfAssessmentUncheckedUpdateManyWithoutUserNestedInput
+    assessmentSessions?: AssessmentSessionUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type JobUpsertWithoutUserTestInput = {
@@ -29540,6 +34621,8 @@ export namespace Prisma {
     Review?: ReviewCreateNestedManyWithoutUserInput
     userTest?: UserTestCreateNestedManyWithoutUserInput
     Subscription?: SubscriptionCreateNestedManyWithoutUserInput
+    selfAssessments?: SelfAssessmentCreateNestedManyWithoutUserInput
+    assessmentSessions?: AssessmentSessionCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutUserResumeInput = {
@@ -29568,6 +34651,8 @@ export namespace Prisma {
     Review?: ReviewUncheckedCreateNestedManyWithoutUserInput
     userTest?: UserTestUncheckedCreateNestedManyWithoutUserInput
     Subscription?: SubscriptionUncheckedCreateNestedManyWithoutUserInput
+    selfAssessments?: SelfAssessmentUncheckedCreateNestedManyWithoutUserInput
+    assessmentSessions?: AssessmentSessionUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutUserResumeInput = {
@@ -29724,6 +34809,8 @@ export namespace Prisma {
     Review?: ReviewUpdateManyWithoutUserNestedInput
     userTest?: UserTestUpdateManyWithoutUserNestedInput
     Subscription?: SubscriptionUpdateManyWithoutUserNestedInput
+    selfAssessments?: SelfAssessmentUpdateManyWithoutUserNestedInput
+    assessmentSessions?: AssessmentSessionUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutUserResumeInput = {
@@ -29752,6 +34839,8 @@ export namespace Prisma {
     Review?: ReviewUncheckedUpdateManyWithoutUserNestedInput
     userTest?: UserTestUncheckedUpdateManyWithoutUserNestedInput
     Subscription?: SubscriptionUncheckedUpdateManyWithoutUserNestedInput
+    selfAssessments?: SelfAssessmentUncheckedUpdateManyWithoutUserNestedInput
+    assessmentSessions?: AssessmentSessionUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type WorkExperienceUpsertWithWhereUniqueWithoutUserResumeInput = {
@@ -30126,6 +35215,8 @@ export namespace Prisma {
     Review?: ReviewCreateNestedManyWithoutUserInput
     userTest?: UserTestCreateNestedManyWithoutUserInput
     userResume?: UserResumeCreateNestedManyWithoutUserInput
+    selfAssessments?: SelfAssessmentCreateNestedManyWithoutUserInput
+    assessmentSessions?: AssessmentSessionCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutSubscriptionInput = {
@@ -30154,6 +35245,8 @@ export namespace Prisma {
     Review?: ReviewUncheckedCreateNestedManyWithoutUserInput
     userTest?: UserTestUncheckedCreateNestedManyWithoutUserInput
     userResume?: UserResumeUncheckedCreateNestedManyWithoutUserInput
+    selfAssessments?: SelfAssessmentUncheckedCreateNestedManyWithoutUserInput
+    assessmentSessions?: AssessmentSessionUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutSubscriptionInput = {
@@ -30198,6 +35291,8 @@ export namespace Prisma {
     Review?: ReviewUpdateManyWithoutUserNestedInput
     userTest?: UserTestUpdateManyWithoutUserNestedInput
     userResume?: UserResumeUpdateManyWithoutUserNestedInput
+    selfAssessments?: SelfAssessmentUpdateManyWithoutUserNestedInput
+    assessmentSessions?: AssessmentSessionUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSubscriptionInput = {
@@ -30226,6 +35321,406 @@ export namespace Prisma {
     Review?: ReviewUncheckedUpdateManyWithoutUserNestedInput
     userTest?: UserTestUncheckedUpdateManyWithoutUserNestedInput
     userResume?: UserResumeUncheckedUpdateManyWithoutUserNestedInput
+    selfAssessments?: SelfAssessmentUncheckedUpdateManyWithoutUserNestedInput
+    assessmentSessions?: AssessmentSessionUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type SelfAssessmentCreateWithoutTemplateInput = {
+    id?: string
+    score: number
+    totalPoints: number
+    isPassed: boolean
+    timeSpent: number
+    answers: JsonNullValueInput | InputJsonValue
+    startedAt: Date | string
+    completedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutSelfAssessmentsInput
+  }
+
+  export type SelfAssessmentUncheckedCreateWithoutTemplateInput = {
+    id?: string
+    userId: string
+    score: number
+    totalPoints: number
+    isPassed: boolean
+    timeSpent: number
+    answers: JsonNullValueInput | InputJsonValue
+    startedAt: Date | string
+    completedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SelfAssessmentCreateOrConnectWithoutTemplateInput = {
+    where: SelfAssessmentWhereUniqueInput
+    create: XOR<SelfAssessmentCreateWithoutTemplateInput, SelfAssessmentUncheckedCreateWithoutTemplateInput>
+  }
+
+  export type SelfAssessmentCreateManyTemplateInputEnvelope = {
+    data: SelfAssessmentCreateManyTemplateInput | SelfAssessmentCreateManyTemplateInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type SelfAssessmentUpsertWithWhereUniqueWithoutTemplateInput = {
+    where: SelfAssessmentWhereUniqueInput
+    update: XOR<SelfAssessmentUpdateWithoutTemplateInput, SelfAssessmentUncheckedUpdateWithoutTemplateInput>
+    create: XOR<SelfAssessmentCreateWithoutTemplateInput, SelfAssessmentUncheckedCreateWithoutTemplateInput>
+  }
+
+  export type SelfAssessmentUpdateWithWhereUniqueWithoutTemplateInput = {
+    where: SelfAssessmentWhereUniqueInput
+    data: XOR<SelfAssessmentUpdateWithoutTemplateInput, SelfAssessmentUncheckedUpdateWithoutTemplateInput>
+  }
+
+  export type SelfAssessmentUpdateManyWithWhereWithoutTemplateInput = {
+    where: SelfAssessmentScalarWhereInput
+    data: XOR<SelfAssessmentUpdateManyMutationInput, SelfAssessmentUncheckedUpdateManyWithoutTemplateInput>
+  }
+
+  export type UserCreateWithoutSelfAssessmentsInput = {
+    id?: string
+    username: string
+    email: string
+    role?: string
+    password: string
+    firstName?: string | null
+    lastName?: string | null
+    gender?: $Enums.Gender | null
+    dob?: string | null
+    education?: string | null
+    country?: string | null
+    state?: string | null
+    city?: string | null
+    zipCode?: string | null
+    regionNumber?: string | null
+    phoneNumber?: string | null
+    avatar?: string | null
+    isVerify?: boolean
+    verificationSent?: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    Application?: ApplicationCreateNestedManyWithoutUserInput
+    Review?: ReviewCreateNestedManyWithoutUserInput
+    userTest?: UserTestCreateNestedManyWithoutUserInput
+    userResume?: UserResumeCreateNestedManyWithoutUserInput
+    Subscription?: SubscriptionCreateNestedManyWithoutUserInput
+    assessmentSessions?: AssessmentSessionCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutSelfAssessmentsInput = {
+    id?: string
+    username: string
+    email: string
+    role?: string
+    password: string
+    firstName?: string | null
+    lastName?: string | null
+    gender?: $Enums.Gender | null
+    dob?: string | null
+    education?: string | null
+    country?: string | null
+    state?: string | null
+    city?: string | null
+    zipCode?: string | null
+    regionNumber?: string | null
+    phoneNumber?: string | null
+    avatar?: string | null
+    isVerify?: boolean
+    verificationSent?: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    Application?: ApplicationUncheckedCreateNestedManyWithoutUserInput
+    Review?: ReviewUncheckedCreateNestedManyWithoutUserInput
+    userTest?: UserTestUncheckedCreateNestedManyWithoutUserInput
+    userResume?: UserResumeUncheckedCreateNestedManyWithoutUserInput
+    Subscription?: SubscriptionUncheckedCreateNestedManyWithoutUserInput
+    assessmentSessions?: AssessmentSessionUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutSelfAssessmentsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutSelfAssessmentsInput, UserUncheckedCreateWithoutSelfAssessmentsInput>
+  }
+
+  export type SelfAssessmentTemplateCreateWithoutSelfAssessmentsInput = {
+    id?: string
+    title: string
+    description: string
+    category: string
+    questions: JsonNullValueInput | InputJsonValue
+    passingScore?: number
+    totalPoints?: number
+    timeLimit?: number
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SelfAssessmentTemplateUncheckedCreateWithoutSelfAssessmentsInput = {
+    id?: string
+    title: string
+    description: string
+    category: string
+    questions: JsonNullValueInput | InputJsonValue
+    passingScore?: number
+    totalPoints?: number
+    timeLimit?: number
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SelfAssessmentTemplateCreateOrConnectWithoutSelfAssessmentsInput = {
+    where: SelfAssessmentTemplateWhereUniqueInput
+    create: XOR<SelfAssessmentTemplateCreateWithoutSelfAssessmentsInput, SelfAssessmentTemplateUncheckedCreateWithoutSelfAssessmentsInput>
+  }
+
+  export type UserUpsertWithoutSelfAssessmentsInput = {
+    update: XOR<UserUpdateWithoutSelfAssessmentsInput, UserUncheckedUpdateWithoutSelfAssessmentsInput>
+    create: XOR<UserCreateWithoutSelfAssessmentsInput, UserUncheckedCreateWithoutSelfAssessmentsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutSelfAssessmentsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutSelfAssessmentsInput, UserUncheckedUpdateWithoutSelfAssessmentsInput>
+  }
+
+  export type UserUpdateWithoutSelfAssessmentsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    role?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    gender?: NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
+    dob?: NullableStringFieldUpdateOperationsInput | string | null
+    education?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    zipCode?: NullableStringFieldUpdateOperationsInput | string | null
+    regionNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
+    isVerify?: BoolFieldUpdateOperationsInput | boolean
+    verificationSent?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    Application?: ApplicationUpdateManyWithoutUserNestedInput
+    Review?: ReviewUpdateManyWithoutUserNestedInput
+    userTest?: UserTestUpdateManyWithoutUserNestedInput
+    userResume?: UserResumeUpdateManyWithoutUserNestedInput
+    Subscription?: SubscriptionUpdateManyWithoutUserNestedInput
+    assessmentSessions?: AssessmentSessionUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutSelfAssessmentsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    role?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    gender?: NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
+    dob?: NullableStringFieldUpdateOperationsInput | string | null
+    education?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    zipCode?: NullableStringFieldUpdateOperationsInput | string | null
+    regionNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
+    isVerify?: BoolFieldUpdateOperationsInput | boolean
+    verificationSent?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    Application?: ApplicationUncheckedUpdateManyWithoutUserNestedInput
+    Review?: ReviewUncheckedUpdateManyWithoutUserNestedInput
+    userTest?: UserTestUncheckedUpdateManyWithoutUserNestedInput
+    userResume?: UserResumeUncheckedUpdateManyWithoutUserNestedInput
+    Subscription?: SubscriptionUncheckedUpdateManyWithoutUserNestedInput
+    assessmentSessions?: AssessmentSessionUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type SelfAssessmentTemplateUpsertWithoutSelfAssessmentsInput = {
+    update: XOR<SelfAssessmentTemplateUpdateWithoutSelfAssessmentsInput, SelfAssessmentTemplateUncheckedUpdateWithoutSelfAssessmentsInput>
+    create: XOR<SelfAssessmentTemplateCreateWithoutSelfAssessmentsInput, SelfAssessmentTemplateUncheckedCreateWithoutSelfAssessmentsInput>
+    where?: SelfAssessmentTemplateWhereInput
+  }
+
+  export type SelfAssessmentTemplateUpdateToOneWithWhereWithoutSelfAssessmentsInput = {
+    where?: SelfAssessmentTemplateWhereInput
+    data: XOR<SelfAssessmentTemplateUpdateWithoutSelfAssessmentsInput, SelfAssessmentTemplateUncheckedUpdateWithoutSelfAssessmentsInput>
+  }
+
+  export type SelfAssessmentTemplateUpdateWithoutSelfAssessmentsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    category?: StringFieldUpdateOperationsInput | string
+    questions?: JsonNullValueInput | InputJsonValue
+    passingScore?: IntFieldUpdateOperationsInput | number
+    totalPoints?: IntFieldUpdateOperationsInput | number
+    timeLimit?: IntFieldUpdateOperationsInput | number
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SelfAssessmentTemplateUncheckedUpdateWithoutSelfAssessmentsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    category?: StringFieldUpdateOperationsInput | string
+    questions?: JsonNullValueInput | InputJsonValue
+    passingScore?: IntFieldUpdateOperationsInput | number
+    totalPoints?: IntFieldUpdateOperationsInput | number
+    timeLimit?: IntFieldUpdateOperationsInput | number
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserCreateWithoutAssessmentSessionsInput = {
+    id?: string
+    username: string
+    email: string
+    role?: string
+    password: string
+    firstName?: string | null
+    lastName?: string | null
+    gender?: $Enums.Gender | null
+    dob?: string | null
+    education?: string | null
+    country?: string | null
+    state?: string | null
+    city?: string | null
+    zipCode?: string | null
+    regionNumber?: string | null
+    phoneNumber?: string | null
+    avatar?: string | null
+    isVerify?: boolean
+    verificationSent?: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    Application?: ApplicationCreateNestedManyWithoutUserInput
+    Review?: ReviewCreateNestedManyWithoutUserInput
+    userTest?: UserTestCreateNestedManyWithoutUserInput
+    userResume?: UserResumeCreateNestedManyWithoutUserInput
+    Subscription?: SubscriptionCreateNestedManyWithoutUserInput
+    selfAssessments?: SelfAssessmentCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutAssessmentSessionsInput = {
+    id?: string
+    username: string
+    email: string
+    role?: string
+    password: string
+    firstName?: string | null
+    lastName?: string | null
+    gender?: $Enums.Gender | null
+    dob?: string | null
+    education?: string | null
+    country?: string | null
+    state?: string | null
+    city?: string | null
+    zipCode?: string | null
+    regionNumber?: string | null
+    phoneNumber?: string | null
+    avatar?: string | null
+    isVerify?: boolean
+    verificationSent?: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    Application?: ApplicationUncheckedCreateNestedManyWithoutUserInput
+    Review?: ReviewUncheckedCreateNestedManyWithoutUserInput
+    userTest?: UserTestUncheckedCreateNestedManyWithoutUserInput
+    userResume?: UserResumeUncheckedCreateNestedManyWithoutUserInput
+    Subscription?: SubscriptionUncheckedCreateNestedManyWithoutUserInput
+    selfAssessments?: SelfAssessmentUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutAssessmentSessionsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutAssessmentSessionsInput, UserUncheckedCreateWithoutAssessmentSessionsInput>
+  }
+
+  export type UserUpsertWithoutAssessmentSessionsInput = {
+    update: XOR<UserUpdateWithoutAssessmentSessionsInput, UserUncheckedUpdateWithoutAssessmentSessionsInput>
+    create: XOR<UserCreateWithoutAssessmentSessionsInput, UserUncheckedCreateWithoutAssessmentSessionsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutAssessmentSessionsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutAssessmentSessionsInput, UserUncheckedUpdateWithoutAssessmentSessionsInput>
+  }
+
+  export type UserUpdateWithoutAssessmentSessionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    role?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    gender?: NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
+    dob?: NullableStringFieldUpdateOperationsInput | string | null
+    education?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    zipCode?: NullableStringFieldUpdateOperationsInput | string | null
+    regionNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
+    isVerify?: BoolFieldUpdateOperationsInput | boolean
+    verificationSent?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    Application?: ApplicationUpdateManyWithoutUserNestedInput
+    Review?: ReviewUpdateManyWithoutUserNestedInput
+    userTest?: UserTestUpdateManyWithoutUserNestedInput
+    userResume?: UserResumeUpdateManyWithoutUserNestedInput
+    Subscription?: SubscriptionUpdateManyWithoutUserNestedInput
+    selfAssessments?: SelfAssessmentUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutAssessmentSessionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    role?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    gender?: NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
+    dob?: NullableStringFieldUpdateOperationsInput | string | null
+    education?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    zipCode?: NullableStringFieldUpdateOperationsInput | string | null
+    regionNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
+    isVerify?: BoolFieldUpdateOperationsInput | boolean
+    verificationSent?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    Application?: ApplicationUncheckedUpdateManyWithoutUserNestedInput
+    Review?: ReviewUncheckedUpdateManyWithoutUserNestedInput
+    userTest?: UserTestUncheckedUpdateManyWithoutUserNestedInput
+    userResume?: UserResumeUncheckedUpdateManyWithoutUserNestedInput
+    Subscription?: SubscriptionUncheckedUpdateManyWithoutUserNestedInput
+    selfAssessments?: SelfAssessmentUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type ApplicationCreateManyUserInput = {
@@ -30277,6 +35772,33 @@ export namespace Prisma {
     invoiceUrl?: string | null
     createdAt?: Date | string
     expiredAt: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SelfAssessmentCreateManyUserInput = {
+    id?: string
+    templateId: string
+    score: number
+    totalPoints: number
+    isPassed: boolean
+    timeSpent: number
+    answers: JsonNullValueInput | InputJsonValue
+    startedAt: Date | string
+    completedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type AssessmentSessionCreateManyUserInput = {
+    id?: string
+    templateId: string
+    sessionToken: string
+    timeRemaining: number
+    currentQuestionIndex?: number
+    answers: JsonNullValueInput | InputJsonValue
+    isActive?: boolean
+    expiresAt: Date | string
+    createdAt?: Date | string
     updatedAt?: Date | string
   }
 
@@ -30443,6 +35965,87 @@ export namespace Prisma {
     invoiceUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     expiredAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SelfAssessmentUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    score?: IntFieldUpdateOperationsInput | number
+    totalPoints?: IntFieldUpdateOperationsInput | number
+    isPassed?: BoolFieldUpdateOperationsInput | boolean
+    timeSpent?: IntFieldUpdateOperationsInput | number
+    answers?: JsonNullValueInput | InputJsonValue
+    startedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    template?: SelfAssessmentTemplateUpdateOneRequiredWithoutSelfAssessmentsNestedInput
+  }
+
+  export type SelfAssessmentUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    templateId?: StringFieldUpdateOperationsInput | string
+    score?: IntFieldUpdateOperationsInput | number
+    totalPoints?: IntFieldUpdateOperationsInput | number
+    isPassed?: BoolFieldUpdateOperationsInput | boolean
+    timeSpent?: IntFieldUpdateOperationsInput | number
+    answers?: JsonNullValueInput | InputJsonValue
+    startedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SelfAssessmentUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    templateId?: StringFieldUpdateOperationsInput | string
+    score?: IntFieldUpdateOperationsInput | number
+    totalPoints?: IntFieldUpdateOperationsInput | number
+    isPassed?: BoolFieldUpdateOperationsInput | boolean
+    timeSpent?: IntFieldUpdateOperationsInput | number
+    answers?: JsonNullValueInput | InputJsonValue
+    startedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AssessmentSessionUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    templateId?: StringFieldUpdateOperationsInput | string
+    sessionToken?: StringFieldUpdateOperationsInput | string
+    timeRemaining?: IntFieldUpdateOperationsInput | number
+    currentQuestionIndex?: IntFieldUpdateOperationsInput | number
+    answers?: JsonNullValueInput | InputJsonValue
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AssessmentSessionUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    templateId?: StringFieldUpdateOperationsInput | string
+    sessionToken?: StringFieldUpdateOperationsInput | string
+    timeRemaining?: IntFieldUpdateOperationsInput | number
+    currentQuestionIndex?: IntFieldUpdateOperationsInput | number
+    answers?: JsonNullValueInput | InputJsonValue
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AssessmentSessionUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    templateId?: StringFieldUpdateOperationsInput | string
+    sessionToken?: StringFieldUpdateOperationsInput | string
+    timeRemaining?: IntFieldUpdateOperationsInput | number
+    currentQuestionIndex?: IntFieldUpdateOperationsInput | number
+    answers?: JsonNullValueInput | InputJsonValue
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -30960,6 +36563,62 @@ export namespace Prisma {
     items?: AdditionalUpdateitemsInput | string[]
     description?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SelfAssessmentCreateManyTemplateInput = {
+    id?: string
+    userId: string
+    score: number
+    totalPoints: number
+    isPassed: boolean
+    timeSpent: number
+    answers: JsonNullValueInput | InputJsonValue
+    startedAt: Date | string
+    completedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SelfAssessmentUpdateWithoutTemplateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    score?: IntFieldUpdateOperationsInput | number
+    totalPoints?: IntFieldUpdateOperationsInput | number
+    isPassed?: BoolFieldUpdateOperationsInput | boolean
+    timeSpent?: IntFieldUpdateOperationsInput | number
+    answers?: JsonNullValueInput | InputJsonValue
+    startedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutSelfAssessmentsNestedInput
+  }
+
+  export type SelfAssessmentUncheckedUpdateWithoutTemplateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    score?: IntFieldUpdateOperationsInput | number
+    totalPoints?: IntFieldUpdateOperationsInput | number
+    isPassed?: BoolFieldUpdateOperationsInput | boolean
+    timeSpent?: IntFieldUpdateOperationsInput | number
+    answers?: JsonNullValueInput | InputJsonValue
+    startedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SelfAssessmentUncheckedUpdateManyWithoutTemplateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    score?: IntFieldUpdateOperationsInput | number
+    totalPoints?: IntFieldUpdateOperationsInput | number
+    isPassed?: BoolFieldUpdateOperationsInput | boolean
+    timeSpent?: IntFieldUpdateOperationsInput | number
+    answers?: JsonNullValueInput | InputJsonValue
+    startedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
 
