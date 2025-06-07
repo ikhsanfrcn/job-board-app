@@ -31,13 +31,15 @@ model User {
   isVerify         Boolean  @default(false)
   verificationSent DateTime @default(now())
 
-  createdAt    DateTime       @default(now())
-  updatedAt    DateTime       @updatedAt
-  Application  Application[]
-  Review       Review[]
-  userTest     UserTest[]
-  userResume   UserResume[]
-  Subscription Subscription[]
+  createdAt          DateTime            @default(now())
+  updatedAt          DateTime            @updatedAt
+  Application        Application[]
+  Review             Review[]
+  userTest           UserTest[]
+  userResume         UserResume[]
+  Subscription       Subscription[]
+  selfAssessments    SelfAssessment[]
+  assessmentSessions AssessmentSession[]
 }
 
 enum Gender {
@@ -296,4 +298,54 @@ enum PaymentStatus {
   PAID
   EXPIRED
   CANCELED
+}
+
+model SelfAssessmentTemplate {
+  id           String   @id @default(uuid())
+  title        String
+  description  String
+  category     String
+  questions    Json
+  passingScore Int      @default(75)
+  totalPoints  Int      @default(100)
+  timeLimit    Int      @default(1800)
+  isActive     Boolean  @default(true)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  selfAssessments SelfAssessment[]
+}
+
+model SelfAssessment {
+  id          String    @id @default(uuid())
+  userId      String
+  templateId  String
+  score       Int
+  totalPoints Int
+  isPassed    Boolean
+  timeSpent   Int
+  answers     Json
+  startedAt   DateTime
+  completedAt DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  user     User                   @relation(fields: [userId], references: [id])
+  template SelfAssessmentTemplate @relation(fields: [templateId], references: [id])
+}
+
+model AssessmentSession {
+  id                   String   @id @default(uuid())
+  userId               String
+  templateId           String
+  sessionToken         String   @unique
+  timeRemaining        Int
+  currentQuestionIndex Int      @default(0)
+  answers              Json
+  isActive             Boolean  @default(true)
+  expiresAt            DateTime
+  createdAt            DateTime @default(now())
+  updatedAt            DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id])
 }
