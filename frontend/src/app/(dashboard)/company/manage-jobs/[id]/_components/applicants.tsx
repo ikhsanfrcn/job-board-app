@@ -8,6 +8,7 @@ import Table from "./table";
 import { useRouter, useSearchParams } from "next/navigation";
 import { toast } from "react-toastify";
 import TestResultModal from "./testResultModal";
+import InterviewScheduleModal from "./interviewScheduleModal";
 
 interface IProps {
   jobId: string;
@@ -35,6 +36,10 @@ export default function Applicants({ jobId }: IProps) {
   const [testResult, setTestResult] = useState<ITestResult | null>(null);
   const [testFullName, setTestFullName] = useState<string>("");
   const [statusFilter, setStatusFilter] = useState<string>("");
+
+  const [interviewModalData, setInterviewModalData] = useState<{
+    applicationId: string;
+  } | null>(null);
 
   useEffect(() => {
     const statusFromUrl = searchParams.get("status") || "";
@@ -83,7 +88,38 @@ export default function Applicants({ jobId }: IProps) {
     }
   };
 
-  const handleViewTestResult = (testResult: ITestResult, userFullName: string) => {
+  const handleCreateInterviewSchedule = async ({
+    applicationId,
+    date,
+    location,
+  }: {
+    applicationId: string;
+    date: string;
+    location: string;
+  }) => {
+    try {
+      await axios.post(
+        "/interviews",
+        { applicationId, date, location },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      toast.success("Interview scheduled");
+      setInterviewModalData(null);
+      handleUpdateStatus(applicationId, "INTERVIEW");
+    } catch (error) {
+      console.error(error);
+      toast.error("Failed to create interview schedule");
+    }
+  };
+
+  const handleViewTestResult = (
+    testResult: ITestResult,
+    userFullName: string
+  ) => {
     setTestResult(testResult);
     setTestFullName(userFullName);
   };
@@ -127,6 +163,9 @@ export default function Applicants({ jobId }: IProps) {
         setPreviewUrl={setPreviewUrl}
         onUpdateStatus={handleUpdateStatus}
         onViewTestResult={handleViewTestResult}
+        onInterviewClick={(applicationId) =>
+          setInterviewModalData({ applicationId })
+        }
       />
 
       {previewUrl && (
@@ -134,10 +173,18 @@ export default function Applicants({ jobId }: IProps) {
       )}
 
       {testResult && (
-        <TestResultModal 
+        <TestResultModal
           testResult={testResult}
           userFullName={testFullName}
           onClose={closeTestResultModal}
+        />
+      )}
+
+      {interviewModalData && (
+        <InterviewScheduleModal
+          applicationId={interviewModalData.applicationId}
+          onClose={() => setInterviewModalData(null)}
+          onSubmit={handleCreateInterviewSchedule}
         />
       )}
     </div>

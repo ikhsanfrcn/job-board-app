@@ -20,11 +20,11 @@ exports.Prisma = Prisma
 exports.$Enums = {}
 
 /**
- * Prisma Client JS version: 6.8.1
+ * Prisma Client JS version: 6.8.2
  * Query Engine version: 2060c79ba17c6bb9f5823312b6f6b7f4a845738e
  */
 Prisma.prismaVersion = {
-  client: "6.8.1",
+  client: "6.8.2",
   engine: "2060c79ba17c6bb9f5823312b6f6b7f4a845738e"
 }
 
@@ -260,6 +260,52 @@ exports.Prisma.InterviewScalarFieldEnum = {
   location: 'location'
 };
 
+exports.Prisma.UserResumeScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  summary: 'summary'
+};
+
+exports.Prisma.WorkExperienceScalarFieldEnum = {
+  id: 'id',
+  userResumeId: 'userResumeId',
+  company: 'company',
+  jobdescId: 'jobdescId',
+  description: 'description',
+  employmentType: 'employmentType',
+  startDate: 'startDate',
+  endDate: 'endDate'
+};
+
+exports.Prisma.EducationScalarFieldEnum = {
+  id: 'id',
+  userResumeId: 'userResumeId',
+  schoolName: 'schoolName',
+  degree: 'degree',
+  fieldOfStudy: 'fieldOfStudy',
+  startDate: 'startDate',
+  endDate: 'endDate'
+};
+
+exports.Prisma.LeadershipScalarFieldEnum = {
+  id: 'id',
+  userResumeId: 'userResumeId',
+  organization: 'organization',
+  role: 'role',
+  startDate: 'startDate',
+  endDate: 'endDate',
+  description: 'description'
+};
+
+exports.Prisma.AdditionalScalarFieldEnum = {
+  id: 'id',
+  userResumeId: 'userResumeId',
+  category: 'category',
+  items: 'items',
+  description: 'description',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -299,6 +345,21 @@ exports.ApplicationStatus = exports.$Enums.ApplicationStatus = {
   REJECTED: 'REJECTED'
 };
 
+exports.EmploymentType = exports.$Enums.EmploymentType = {
+  FULLTIME: 'FULLTIME',
+  PARTTIME: 'PARTTIME',
+  CONTRACT: 'CONTRACT',
+  FREELANCE: 'FREELANCE',
+  SELFEMPLOYED: 'SELFEMPLOYED',
+  INTERN: 'INTERN'
+};
+
+exports.AdditionalCategory = exports.$Enums.AdditionalCategory = {
+  TECHNICAL: 'TECHNICAL',
+  LANGUAGE: 'LANGUAGE',
+  INTERPERSONAL: 'INTERPERSONAL'
+};
+
 exports.Prisma.ModelName = {
   User: 'User',
   Company: 'Company',
@@ -310,7 +371,12 @@ exports.Prisma.ModelName = {
   Review: 'Review',
   Test: 'Test',
   UserTest: 'UserTest',
-  Interview: 'Interview'
+  Interview: 'Interview',
+  UserResume: 'UserResume',
+  WorkExperience: 'WorkExperience',
+  Education: 'Education',
+  Leadership: 'Leadership',
+  Additional: 'Additional'
 };
 
 /**

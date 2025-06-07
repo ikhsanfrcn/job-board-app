@@ -36,6 +36,7 @@ model User {
   Application Application[]
   Review      Review[]
   userTest    UserTest[]
+  userResume  UserResume[]
 }
 
 enum Gender {
@@ -104,6 +105,8 @@ model Job {
 model Jobdesc {
   id   String @id @default(uuid())
   name String
+
+  experiences WorkExperience[]
 }
 
 model Developer {
@@ -195,4 +198,80 @@ model Interview {
   location      String
 
   application Application @relation(fields: [applicationId], references: [id])
+}
+
+model UserResume {
+  id      String  @id @default(uuid())
+  userId  String
+  summary String?
+
+  user           User             @relation(fields: [userId], references: [id])
+  workExperience WorkExperience[]
+  education      Education[]
+  leadership     Leadership[]
+  addtional      Additional[]
+}
+
+model WorkExperience {
+  id             String         @id @default(uuid())
+  userResumeId   String
+  company        String
+  jobdescId      String
+  description    String
+  employmentType EmploymentType
+  startDate      DateTime
+  endDate        DateTime?
+
+  userResume UserResume @relation(fields: [userResumeId], references: [id])
+  jobdesc    Jobdesc    @relation(fields: [jobdescId], references: [id])
+}
+
+enum EmploymentType {
+  FULLTIME
+  PARTTIME
+  CONTRACT
+  FREELANCE
+  SELFEMPLOYED
+  INTERN
+}
+
+model Education {
+  id           String    @id @default(uuid())
+  userResumeId String
+  schoolName   String
+  degree       String
+  fieldOfStudy String
+  startDate    DateTime
+  endDate      DateTime?
+
+  userResume UserResume @relation(fields: [userResumeId], references: [id])
+}
+
+model Leadership {
+  id           String   @id @default(uuid())
+  userResumeId String
+  organization String
+  role         String
+  startDate    DateTime
+  endDate      DateTime
+  description  String
+
+  userResume UserResume @relation(fields: [userResumeId], references: [id])
+}
+
+model Additional {
+  id           String             @id @default(uuid())
+  userResumeId String
+  category     AdditionalCategory
+  items        String[]
+  description  String?
+  createdAt    DateTime           @default(now())
+
+  userResume UserResume @relation(fields: [userResumeId], references: [id])
+}
+
+enum AdditionalCategory {
+  TECHNICAL
+  LANGUAGE
+  INTERPERSONAL
 }
