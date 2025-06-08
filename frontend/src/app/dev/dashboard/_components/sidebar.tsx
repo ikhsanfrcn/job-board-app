@@ -1,17 +1,20 @@
-"use client"
+"use client";
 
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import {
   LuLayoutDashboard,
   LuChevronDown,
-  LuChevronRight
-} from 'react-icons/lu';
+  LuChevronRight,
+} from "react-icons/lu";
 import { IoBarChartOutline } from "react-icons/io5";
-import { FaMoneyCheckDollar, FaRegPenToSquare } from 'react-icons/fa6';
-import { MdOutlineCategory, MdOutlinePayments } from 'react-icons/md';
-import { TbUserQuestion } from 'react-icons/tb';
-import { CiViewList } from 'react-icons/ci';
-import Link from 'next/link';
+import { FaMoneyCheckDollar, FaRegPenToSquare } from "react-icons/fa6";
+import { MdOutlineCategory, MdOutlinePayments } from "react-icons/md";
+import { TbUserQuestion } from "react-icons/tb";
+import { CiViewList } from "react-icons/ci";
+import Link from "next/link";
+import { PiSignOutBold } from "react-icons/pi";
+import { signOut } from "next-auth/react";
+import { redirect } from "next/navigation";
 
 interface MenuItem {
   id: string;
@@ -28,53 +31,83 @@ interface SidebarProps {
   onNavigate?: (page: string) => void;
 }
 
-export default function Sidebar({ className, isCollapsed = false, onToggle, onNavigate }: SidebarProps) {
-  const [expandedItems, setExpandedItems] = useState<string[]>(['dashboards', 'subscription', 'skill-assessment']);
-
+export default function Sidebar({
+  className,
+  isCollapsed = false,
+  onToggle,
+  onNavigate,
+}: SidebarProps) {
+  const [expandedItems, setExpandedItems] = useState<string[]>([
+    "dashboards",
+    "subscription",
+    "skill-assessment",
+  ]);
   const menuItems: MenuItem[] = [
     {
-      id: 'dashboards',
-      label: 'Dashboards',
+      id: "dashboards",
+      label: "Dashboards",
       icon: LuLayoutDashboard,
       children: [
-        { id: 'analytics', label: 'Analytics', icon: IoBarChartOutline, href: '/dev/dashboard/analytics' },
-      ]
+        {
+          id: "analytics",
+          label: "Analytics",
+          icon: IoBarChartOutline,
+          href: "/dev/dashboard/analytics",
+        },
+      ],
     },
     {
-      id: 'subscription',
-      label: 'Subscription',
+      id: "subscription",
+      label: "Subscription",
       icon: FaMoneyCheckDollar,
       children: [
-        { id: 'category', label: 'Category', icon: MdOutlineCategory, href: '/dev/dashboard/category' },
-        { id: 'payment', label: 'Payment', icon: MdOutlinePayments, href: '/dev/dashboard/payment' },
-      ]
+        {
+          id: "category",
+          label: "Category",
+          icon: MdOutlineCategory,
+          href: "/dev/dashboard/category",
+        },
+        {
+          id: "payment",
+          label: "Payment",
+          icon: MdOutlinePayments,
+          href: "/dev/dashboard/payment",
+        },
+      ],
     },
     {
-      id: 'skill-assessment',
-      label: 'Skill Assessment',
+      id: "skill-assessment",
+      label: "Skill Assessment",
       icon: FaRegPenToSquare,
       children: [
-        { id: 'assessment', label: 'Assessment', icon: CiViewList, href: '/dev/dashboard/assessment' },
-        { id: 'create-assessment', label: 'Create Assessment', icon: TbUserQuestion, href: '/dev/dashboard/createassessment' },
-      ]
+        {
+          id: "assessment",
+          label: "Assessment",
+          icon: CiViewList,
+          href: "/dev/dashboard/assessment",
+        },
+        {
+          id: "create-assessment",
+          label: "Create Assessment",
+          icon: TbUserQuestion,
+          href: "/dev/dashboard/createassessment",
+        },
+      ],
     },
   ];
-
   const toggleSidebar = () => {
     if (onToggle) {
       onToggle();
     }
   };
-
   const toggleExpanded = (itemId: string) => {
     if (isCollapsed) return;
-    setExpandedItems(prev =>
+    setExpandedItems((prev) =>
       prev.includes(itemId)
-        ? prev.filter(id => id !== itemId)
+        ? prev.filter((id) => id !== itemId)
         : [...prev, itemId]
     );
   };
-
   const handleMenuItemClick = (item: MenuItem, hasChildren: boolean) => {
     // Handle navigation for items with href
     if (!hasChildren && item.href && onNavigate) {
@@ -89,7 +122,6 @@ export default function Sidebar({ className, isCollapsed = false, onToggle, onNa
       toggleExpanded(item.id);
     }
   };
-
   const renderMenuItem = (item: MenuItem, level: number = 0) => {
     const isExpanded = expandedItems.includes(item.id);
     const hasChildren = item.children && item.children.length > 0;
@@ -101,13 +133,12 @@ export default function Sidebar({ className, isCollapsed = false, onToggle, onNa
           <div
             className={`
               relative flex items-center w-full px-3 py-2 text-sm text-gray-600 hover:text-sky-500 rounded-lg cursor-pointer transition-colors duration-200
-              ${level > 0 ? 'ml-2' : ''}
-              ${level > 1 ? 'ml-4' : ''}
+              ${level > 0 ? "ml-2" : ""}
+              ${level > 1 ? "ml-4" : ""}
             `}
             onClick={() => handleMenuItemClick(item, !!hasChildren)}
           >
             <Icon className="w-5 h-5 flex-shrink-0" />
-            
             {/* Label - with smooth width transition */}
             {!isCollapsed && (
               <div className="ml-3 overflow-hidden transition-all duration-300 ease-in-out">
@@ -116,7 +147,6 @@ export default function Sidebar({ className, isCollapsed = false, onToggle, onNa
                 </span>
               </div>
             )}
-            
             {/* Expand/Collapse arrow - with smooth transition */}
             {hasChildren && !isCollapsed && (
               <div className="ml-auto transition-all duration-300 ease-in-out">
@@ -135,13 +165,12 @@ export default function Sidebar({ className, isCollapsed = false, onToggle, onNa
             href={item.href as string}
             className={`
               relative flex items-center w-full px-3 py-2 text-sm text-gray-600 hover:text-sky-500 rounded-lg cursor-pointer transition-colors duration-200
-              ${level > 0 ? 'ml-2' : ''}
-              ${level > 1 ? 'ml-4' : ''}
+              ${level > 0 ? "ml-2" : ""}
+              ${level > 1 ? "ml-4" : ""}
             `}
             onClick={() => handleMenuItemClick(item, !!hasChildren)}
           >
             <Icon className="w-5 h-5 flex-shrink-0" />
-            
             {/* Label - with smooth width transition */}
             {!isCollapsed && (
               <div className="ml-3 overflow-hidden transition-all duration-300 ease-in-out">
@@ -152,15 +181,20 @@ export default function Sidebar({ className, isCollapsed = false, onToggle, onNa
             )}
           </Link>
         )}
-
         {/* Children - with smooth slide down animation */}
         {!isCollapsed && (
-          <div className={`
+          <div
+            className={`
             overflow-hidden transition-all duration-300 ease-in-out
-            ${hasChildren && isExpanded ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}
-          `}>
+            ${
+              hasChildren && isExpanded
+                ? "max-h-96 opacity-100"
+                : "max-h-0 opacity-0"
+            }
+          `}
+          >
             <div className="mt-1 space-y-1 transform transition-transform duration-300">
-              {item.children?.map(child => renderMenuItem(child, level + 1))}
+              {item.children?.map((child) => renderMenuItem(child, level + 1))}
             </div>
           </div>
         )}
@@ -169,9 +203,11 @@ export default function Sidebar({ className, isCollapsed = false, onToggle, onNa
   };
 
   return (
-    <div className={`relative bg-white border-r border-gray-200 h-screen overflow-y-auto transition-all duration-300 ease-in-out ${className}`}>
+    <div
+      className={`relative bg-white border-r border-gray-200 h-screen overflow-y-auto transition-all duration-300 ease-in-out`}
+    >
       {/* Header - Clickable to toggle sidebar */}
-      <div 
+      <div
         className="p-4 border-b border-gray-200 cursor-pointer hover:bg-gray-50 transition-colors duration-200"
         onClick={toggleSidebar}
       >
@@ -188,10 +224,29 @@ export default function Sidebar({ className, isCollapsed = false, onToggle, onNa
           )}
         </div>
       </div>
-
       {/* Menu Items */}
       <div className="p-4 space-y-2">
-        {menuItems.map(item => renderMenuItem(item))}
+        {menuItems.map((item) => renderMenuItem(item))}
+        <div
+          className={`
+            flex items-center mt-10 gap-3 px-3 py-2 rounded-lg cursor-pointer transition-colors duration-200
+            text-gray-600 hover:text-sky-500
+            ${isCollapsed ? "justify-center" : ""}
+          `}
+        >
+          <PiSignOutBold className="text-xl flex-shrink-0" />
+          {!isCollapsed && (
+            <button
+              className="text-sm hover:text-sky-500 text-gray-700 cursor-pointer w-full text-left"
+              onClick={async () => {
+                await signOut({ redirect: false });
+                redirect("/dev/login");
+              }}
+            >
+              Sign Out
+            </button>
+          )}
+        </div>
       </div>
     </div>
   );
