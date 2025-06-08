@@ -19,6 +19,8 @@ export class SubscriptionRouter {
     this.router.post("/webhook", this.subscriptionController.handleWebhook);
     this.router.get("/", this.authMiddleware.verifyToken, this.subscriptionController.getSubscriptionByUser)
     this.router.get("/:id", this.subscriptionController.getSubscriptionById);
+    this.router.patch("/cancel", this.subscriptionController.cancelPayment);
+
   }
   getRouter(): Router {
     return this.router;

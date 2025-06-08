@@ -1,7 +1,7 @@
 import prisma from "../../prisma";
 
 export const getSubscriptionByUser = async (userId: string) => {
-  return await prisma.subscription.findFirst({
+  return await prisma.subscription.findUnique({
     where: { userId },
     include: {
       user: {
