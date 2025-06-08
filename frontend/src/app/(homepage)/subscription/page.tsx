@@ -31,50 +31,59 @@ export default function SubscriptionPage() {
   const { data: session } = useSession();
   const router = useRouter();
 
-  const [loadingPlan, setLoadingPlan] = useState<"STANDART" | "PROFESSIONAL" | null>(null);
+  const [loadingPlan, setLoadingPlan] = useState<
+    "STANDART" | "PROFESSIONAL" | null
+  >(null);
   const [isSubscribed, setIsSubscribed] = useState<boolean | null>(null);
 
   useEffect(() => {
-    const fetchSubscriptionStatus = async () => {
-      try {
-        const token = session?.accessToken;
-        if (!token) return; // kalau belum login, jangan fetch
+  const fetchSubscriptionStatus = async () => {
+    try {
+      const token = session?.accessToken;
+      if (!token) return;
 
-        const response = await axios.get("/subscriptions", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
+      const response = await axios.get("/subscriptions", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
-        const subscription = response.data;
+      const subscription = response.data;
 
-        if (!subscription) {
-          setIsSubscribed(false);
-          return;
-        }
-
-        if (subscription.status === "PENDING") {
-          router.push(`/subscription/${subscription.id}`);
-          return;
-        }
-
-        const isActive = subscription.status === "PAID";
-        const isNotExpired =
-          new Date(subscription.expiredAt).getTime() > new Date().getTime();
-
-        setIsSubscribed(isActive && isNotExpired);
-      } catch (error) {
-        console.error("Failed to fetch subscription status:", error);
+      if (!subscription) {
         setIsSubscribed(false);
+        return;
       }
-    };
 
-    if (session?.accessToken) {
-      fetchSubscriptionStatus();
+      if (subscription.status === "PENDING") {
+        router.push(`/subscription/${subscription.id}`);
+        return;
+      }
+
+      if (!subscription.startDate || !subscription.endDate) {
+        setIsSubscribed(false);
+        return;
+      }
+
+      const now = new Date();
+      const startDate = new Date(subscription.startDate);
+      const endDate = new Date(subscription.endDate);
+
+      const isInRange = now >= startDate && now <= endDate;
+
+      setIsSubscribed(isInRange);
+    } catch (error) {
+      console.error("Failed to fetch subscription status:", error);
+      setIsSubscribed(false);
     }
-  }, [session?.accessToken, router]);
+  };
 
-  // Loading hanya tampil kalau sudah login & status belum diketahui
+  if (session?.accessToken) {
+    fetchSubscriptionStatus();
+  }
+}, [session?.accessToken, router]);
+
+
   if (session?.accessToken && isSubscribed === null) {
     return (
       <div className="min-h-screen flex items-center justify-center">
@@ -83,21 +92,21 @@ export default function SubscriptionPage() {
     );
   }
 
-  // Kalau sudah langganan aktif
   if (isSubscribed) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <p className="text-green-700 text-xl font-semibold">
-          Kamu sudah memiliki langganan aktif. 🎉
+          You already have an active subscription. 🎉
         </p>
       </div>
     );
   }
 
-  // Halaman subscription terbuka untuk semua
   return (
     <div className="min-h-screen bg-white flex flex-col items-center justify-center px-4">
-      <h1 className="text-3xl font-bold text-blue-900 mb-2">Subscription Plan</h1>
+      <h1 className="text-3xl font-bold text-blue-900 mb-2">
+        Subscription Plan
+      </h1>
       <p className="text-center text-gray-600 mb-8">
         Take your career to the next level with the right plan!
         <br />
@@ -118,8 +127,8 @@ export default function SubscriptionPage() {
             loading={loadingPlan === plan.type}
             onSubscribe={() => {
               if (!session) {
-                toast.info("Silakan login terlebih dahulu untuk berlangganan.");
-                router.push("/auth/login");
+                toast.info("Please login first to subscribe.");
+                router.push("/login");
                 return;
               }
               handleSubscribe(plan.type as "STANDART" | "PROFESSIONAL");
@@ -146,7 +155,6 @@ export default function SubscriptionPage() {
       );
 
       const transactionId = response.data.result.data.id;
-      toast.success("Subscription successful!");
       router.push(`/subscription/${transactionId}`);
     } catch (err: any) {
       toast.error(err.response?.data?.message || "Subscription failed");

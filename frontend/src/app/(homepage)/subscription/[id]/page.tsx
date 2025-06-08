@@ -4,11 +4,12 @@ import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import axios from "@/lib/axios";
 import { Modal } from "@/components/atoms/Modal";
+import { toast } from "react-toastify";
 
 type TransactionData = {
   id: string;
   type: string;
-  status: "PAID" | "PENDING" | "EXPIRED";
+  status: "PAID" | "PENDING" | "EXPIRED" | "CANCELED";
   price: number;
   createdAt: string;
   updatedAt: string;
@@ -70,7 +71,7 @@ export default function TransactionDetailPage() {
               );
               if (updatedData.status !== "PENDING") {
                 clearInterval(statusInterval);
-                setTransaction(updatedData); // update state with new status
+                setTransaction(updatedData);
               }
             } catch (err) {
               console.error("Failed to poll payment status", err);
@@ -95,12 +96,30 @@ export default function TransactionDetailPage() {
   const handleOpenPayment = () => {
     if (!transaction) return;
     if (!transaction.invoiceUrl) {
-      alert("Invoice URL not available.");
+      toast.info("Invoice URL not available.");
       return;
     }
 
     setInvoiceUrl(transaction.invoiceUrl);
     setIsModalOpen(true);
+  };
+
+  const handleCancelPayment = async () => {
+    try {
+      await axios.patch(`/subscriptions/cancel`, {
+        id: transaction.id,
+      });
+
+      toast.info("Payment cancelled successfully.");
+
+      setTransaction({
+      ...transaction!,
+      status: "CANCELED",
+    });
+    } catch (err) {
+      console.error("Failed to cancel payment", err);
+      toast.error("Failed to cancel payment. Please try again.");
+    }
   };
 
   return (
@@ -158,18 +177,33 @@ export default function TransactionDetailPage() {
           </button>
         ) : transaction.status === "EXPIRED" ? (
           <button
-            onClick={handleOpenPayment}
+            onClick={() => router.push("/")}
+            className="mt-6 w-full bg-red-600 text-white py-2 rounded-md hover:bg-red-700 cursor-pointer transition"
+          >
+            Back to Home
+          </button>
+        ) : transaction.status === "CANCELED" ? (
+          <button
+            onClick={() => router.push("/")}
             className="mt-6 w-full bg-red-600 text-white py-2 rounded-md hover:bg-red-700 cursor-pointer transition"
           >
             Back to Home
           </button>
         ) : (
-          <button
-            onClick={handleOpenPayment}
-            className="mt-6 w-full bg-pink-600 text-white py-2 rounded-md hover:bg-pink-700 cursor-pointer transition"
-          >
-            Pay Subscription
-          </button>
+          <>
+            <button
+              onClick={handleOpenPayment}
+              className="mt-6 w-full bg-green-600 text-white py-2 rounded-md hover:bg-green-700 cursor-pointer transition"
+            >
+              Pay Subscription
+            </button>
+            <button
+              onClick={handleCancelPayment}
+              className="mt-2 w-full bg-pink-600 text-white py-2 rounded-md hover:bg-pink-700 cursor-pointer transition"
+            >
+              Cancel
+            </button>
+          </>
         )}
       </div>
 
