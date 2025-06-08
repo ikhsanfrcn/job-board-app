@@ -319,7 +319,7 @@ exports.Prisma.SubscriptionScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
-exports.Prisma.SelfAssessmentTemplateScalarFieldEnum = {
+exports.Prisma.SkillAssessmentTemplateScalarFieldEnum = {
   id: 'id',
   title: 'title',
   description: 'description',
@@ -333,7 +333,7 @@ exports.Prisma.SelfAssessmentTemplateScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
-exports.Prisma.SelfAssessmentScalarFieldEnum = {
+exports.Prisma.SkillAssessmentScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
   templateId: 'templateId',
@@ -441,8 +441,8 @@ exports.Prisma.ModelName = {
   Leadership: 'Leadership',
   Additional: 'Additional',
   Subscription: 'Subscription',
-  SelfAssessmentTemplate: 'SelfAssessmentTemplate',
-  SelfAssessment: 'SelfAssessment',
+  SkillAssessmentTemplate: 'SkillAssessmentTemplate',
+  SkillAssessment: 'SkillAssessment',
   AssessmentSession: 'AssessmentSession'
 };
 
