@@ -26908,12 +26908,12 @@ export namespace Prisma {
 
   export type JobdescWhereUniqueInput = Prisma.AtLeast<{
     id?: string
+    name?: string
     AND?: JobdescWhereInput | JobdescWhereInput[]
     OR?: JobdescWhereInput[]
     NOT?: JobdescWhereInput | JobdescWhereInput[]
-    name?: StringFilter<"Jobdesc"> | string
     experiences?: WorkExperienceListRelationFilter
-  }, "id">
+  }, "id" | "name">
 
   export type JobdescOrderByWithAggregationInput = {
     id?: SortOrder
@@ -27387,17 +27387,17 @@ export namespace Prisma {
 
   export type UserResumeWhereUniqueInput = Prisma.AtLeast<{
     id?: string
+    userId?: string
     AND?: UserResumeWhereInput | UserResumeWhereInput[]
     OR?: UserResumeWhereInput[]
     NOT?: UserResumeWhereInput | UserResumeWhereInput[]
-    userId?: StringFilter<"UserResume"> | string
     summary?: StringNullableFilter<"UserResume"> | string | null
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
     workExperience?: WorkExperienceListRelationFilter
     education?: EducationListRelationFilter
     leadership?: LeadershipListRelationFilter
     addtional?: AdditionalListRelationFilter
-  }, "id">
+  }, "id" | "userId">
 
   export type UserResumeOrderByWithAggregationInput = {
     id?: SortOrder

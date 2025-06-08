@@ -11,6 +11,7 @@ import { TestRouter } from "./router/test.router";
 import { InterviewRouter } from "./router/interview.routes";
 import { DeveloperRouter } from "./router/developer.routes";
 import { SubscriptionRouter } from "./router/subscription.routes";
+import { ResumeRouter } from "./router/resume.routes";
 
 const PORT: number = 8000;
 
@@ -54,6 +55,9 @@ app.use("/api/interviews", interviewRouter.getRouter());
 
 const subscriptionRouter = new SubscriptionRouter();
 app.use("/api/subscriptions", subscriptionRouter.getRouter());
+
+const resumeRouter = new ResumeRouter();
+app.use("/api/resumes", resumeRouter.getRouter());
 
 app.listen(PORT, () => {
   console.log(`Server running http://localhost:${PORT}/api`);

@@ -107,7 +107,7 @@ model Job {
 
 model Jobdesc {
   id   String @id @default(uuid())
-  name String
+  name String @unique
 
   experiences WorkExperience[]
 }
@@ -205,7 +205,7 @@ model Interview {
 
 model UserResume {
   id      String  @id @default(uuid())
-  userId  String
+  userId  String  @unique
   summary String?
 
   user           User             @relation(fields: [userId], references: [id])
