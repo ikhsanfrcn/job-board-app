@@ -573,7 +573,7 @@ export namespace Prisma {
   export import Exact = $Public.Exact
 
   /**
-   * Prisma Client JS version: 6.8.1
+   * Prisma Client JS version: 6.8.2
    * Query Engine version: 2060c79ba17c6bb9f5823312b6f6b7f4a845738e
    */
   export type PrismaVersion = {
@@ -2992,10 +2992,12 @@ export namespace Prisma {
 
   export type SkillAssessmentTemplateCountOutputType = {
     skillAssessments: number
+    assessmentSession: number
   }
 
   export type SkillAssessmentTemplateCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     skillAssessments?: boolean | SkillAssessmentTemplateCountOutputTypeCountSkillAssessmentsArgs
+    assessmentSession?: boolean | SkillAssessmentTemplateCountOutputTypeCountAssessmentSessionArgs
   }
 
   // Custom InputTypes
@@ -3014,6 +3016,13 @@ export namespace Prisma {
    */
   export type SkillAssessmentTemplateCountOutputTypeCountSkillAssessmentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: SkillAssessmentWhereInput
+  }
+
+  /**
+   * SkillAssessmentTemplateCountOutputType without action
+   */
+  export type SkillAssessmentTemplateCountOutputTypeCountAssessmentSessionArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AssessmentSessionWhereInput
   }
 
 
@@ -22635,6 +22644,7 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     skillAssessments?: boolean | SkillAssessmentTemplate$skillAssessmentsArgs<ExtArgs>
+    assessmentSession?: boolean | SkillAssessmentTemplate$assessmentSessionArgs<ExtArgs>
     _count?: boolean | SkillAssessmentTemplateCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["skillAssessmentTemplate"]>
 
@@ -22683,6 +22693,7 @@ export namespace Prisma {
   export type SkillAssessmentTemplateOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "category" | "questions" | "passingScore" | "totalPoints" | "timeLimit" | "isActive" | "createdAt" | "updatedAt", ExtArgs["result"]["skillAssessmentTemplate"]>
   export type SkillAssessmentTemplateInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     skillAssessments?: boolean | SkillAssessmentTemplate$skillAssessmentsArgs<ExtArgs>
+    assessmentSession?: boolean | SkillAssessmentTemplate$assessmentSessionArgs<ExtArgs>
     _count?: boolean | SkillAssessmentTemplateCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type SkillAssessmentTemplateIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -22692,6 +22703,7 @@ export namespace Prisma {
     name: "SkillAssessmentTemplate"
     objects: {
       skillAssessments: Prisma.$SkillAssessmentPayload<ExtArgs>[]
+      assessmentSession: Prisma.$AssessmentSessionPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -23100,6 +23112,7 @@ export namespace Prisma {
   export interface Prisma__SkillAssessmentTemplateClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     skillAssessments<T extends SkillAssessmentTemplate$skillAssessmentsArgs<ExtArgs> = {}>(args?: Subset<T, SkillAssessmentTemplate$skillAssessmentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SkillAssessmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    assessmentSession<T extends SkillAssessmentTemplate$assessmentSessionArgs<ExtArgs> = {}>(args?: Subset<T, SkillAssessmentTemplate$assessmentSessionArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AssessmentSessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -23549,6 +23562,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: SkillAssessmentScalarFieldEnum | SkillAssessmentScalarFieldEnum[]
+  }
+
+  /**
+   * SkillAssessmentTemplate.assessmentSession
+   */
+  export type SkillAssessmentTemplate$assessmentSessionArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AssessmentSession
+     */
+    select?: AssessmentSessionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AssessmentSession
+     */
+    omit?: AssessmentSessionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AssessmentSessionInclude<ExtArgs> | null
+    where?: AssessmentSessionWhereInput
+    orderBy?: AssessmentSessionOrderByWithRelationInput | AssessmentSessionOrderByWithRelationInput[]
+    cursor?: AssessmentSessionWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: AssessmentSessionScalarFieldEnum | AssessmentSessionScalarFieldEnum[]
   }
 
   /**
@@ -25012,6 +25049,7 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
+    template?: boolean | SkillAssessmentTemplateDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["assessmentSession"]>
 
   export type AssessmentSessionSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -25027,6 +25065,7 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
+    template?: boolean | SkillAssessmentTemplateDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["assessmentSession"]>
 
   export type AssessmentSessionSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -25042,6 +25081,7 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
+    template?: boolean | SkillAssessmentTemplateDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["assessmentSession"]>
 
   export type AssessmentSessionSelectScalar = {
@@ -25061,18 +25101,22 @@ export namespace Prisma {
   export type AssessmentSessionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "templateId" | "sessionToken" | "timeRemaining" | "currentQuestionIndex" | "answers" | "isActive" | "expiresAt" | "createdAt" | "updatedAt", ExtArgs["result"]["assessmentSession"]>
   export type AssessmentSessionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
+    template?: boolean | SkillAssessmentTemplateDefaultArgs<ExtArgs>
   }
   export type AssessmentSessionIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
+    template?: boolean | SkillAssessmentTemplateDefaultArgs<ExtArgs>
   }
   export type AssessmentSessionIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
+    template?: boolean | SkillAssessmentTemplateDefaultArgs<ExtArgs>
   }
 
   export type $AssessmentSessionPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "AssessmentSession"
     objects: {
       user: Prisma.$UserPayload<ExtArgs>
+      template: Prisma.$SkillAssessmentTemplatePayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -25481,6 +25525,7 @@ export namespace Prisma {
   export interface Prisma__AssessmentSessionClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    template<T extends SkillAssessmentTemplateDefaultArgs<ExtArgs> = {}>(args?: Subset<T, SkillAssessmentTemplateDefaultArgs<ExtArgs>>): Prisma__SkillAssessmentTemplateClient<$Result.GetResult<Prisma.$SkillAssessmentTemplatePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -27776,6 +27821,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"SkillAssessmentTemplate"> | Date | string
     updatedAt?: DateTimeFilter<"SkillAssessmentTemplate"> | Date | string
     skillAssessments?: SkillAssessmentListRelationFilter
+    assessmentSession?: AssessmentSessionListRelationFilter
   }
 
   export type SkillAssessmentTemplateOrderByWithRelationInput = {
@@ -27791,6 +27837,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     skillAssessments?: SkillAssessmentOrderByRelationAggregateInput
+    assessmentSession?: AssessmentSessionOrderByRelationAggregateInput
   }
 
   export type SkillAssessmentTemplateWhereUniqueInput = Prisma.AtLeast<{
@@ -27809,6 +27856,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"SkillAssessmentTemplate"> | Date | string
     updatedAt?: DateTimeFilter<"SkillAssessmentTemplate"> | Date | string
     skillAssessments?: SkillAssessmentListRelationFilter
+    assessmentSession?: AssessmentSessionListRelationFilter
   }, "id">
 
   export type SkillAssessmentTemplateOrderByWithAggregationInput = {
@@ -27958,6 +28006,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"AssessmentSession"> | Date | string
     updatedAt?: DateTimeFilter<"AssessmentSession"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    template?: XOR<SkillAssessmentTemplateScalarRelationFilter, SkillAssessmentTemplateWhereInput>
   }
 
   export type AssessmentSessionOrderByWithRelationInput = {
@@ -27973,6 +28022,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     user?: UserOrderByWithRelationInput
+    template?: SkillAssessmentTemplateOrderByWithRelationInput
   }
 
   export type AssessmentSessionWhereUniqueInput = Prisma.AtLeast<{
@@ -27991,6 +28041,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"AssessmentSession"> | Date | string
     updatedAt?: DateTimeFilter<"AssessmentSession"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    template?: XOR<SkillAssessmentTemplateScalarRelationFilter, SkillAssessmentTemplateWhereInput>
   }, "id" | "sessionToken">
 
   export type AssessmentSessionOrderByWithAggregationInput = {
@@ -29494,6 +29545,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     skillAssessments?: SkillAssessmentCreateNestedManyWithoutTemplateInput
+    assessmentSession?: AssessmentSessionCreateNestedManyWithoutTemplateInput
   }
 
   export type SkillAssessmentTemplateUncheckedCreateInput = {
@@ -29509,6 +29561,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     skillAssessments?: SkillAssessmentUncheckedCreateNestedManyWithoutTemplateInput
+    assessmentSession?: AssessmentSessionUncheckedCreateNestedManyWithoutTemplateInput
   }
 
   export type SkillAssessmentTemplateUpdateInput = {
@@ -29524,6 +29577,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     skillAssessments?: SkillAssessmentUpdateManyWithoutTemplateNestedInput
+    assessmentSession?: AssessmentSessionUpdateManyWithoutTemplateNestedInput
   }
 
   export type SkillAssessmentTemplateUncheckedUpdateInput = {
@@ -29539,6 +29593,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     skillAssessments?: SkillAssessmentUncheckedUpdateManyWithoutTemplateNestedInput
+    assessmentSession?: AssessmentSessionUncheckedUpdateManyWithoutTemplateNestedInput
   }
 
   export type SkillAssessmentTemplateCreateManyInput = {
@@ -29688,7 +29743,6 @@ export namespace Prisma {
 
   export type AssessmentSessionCreateInput = {
     id?: string
-    templateId: string
     sessionToken: string
     timeRemaining: number
     currentQuestionIndex?: number
@@ -29698,6 +29752,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutAssessmentSessionsInput
+    template: SkillAssessmentTemplateCreateNestedOneWithoutAssessmentSessionInput
   }
 
   export type AssessmentSessionUncheckedCreateInput = {
@@ -29716,7 +29771,6 @@ export namespace Prisma {
 
   export type AssessmentSessionUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    templateId?: StringFieldUpdateOperationsInput | string
     sessionToken?: StringFieldUpdateOperationsInput | string
     timeRemaining?: IntFieldUpdateOperationsInput | number
     currentQuestionIndex?: IntFieldUpdateOperationsInput | number
@@ -29726,6 +29780,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutAssessmentSessionsNestedInput
+    template?: SkillAssessmentTemplateUpdateOneRequiredWithoutAssessmentSessionNestedInput
   }
 
   export type AssessmentSessionUncheckedUpdateInput = {
@@ -29758,7 +29813,6 @@ export namespace Prisma {
 
   export type AssessmentSessionUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
-    templateId?: StringFieldUpdateOperationsInput | string
     sessionToken?: StringFieldUpdateOperationsInput | string
     timeRemaining?: IntFieldUpdateOperationsInput | number
     currentQuestionIndex?: IntFieldUpdateOperationsInput | number
@@ -32223,11 +32277,25 @@ export namespace Prisma {
     connect?: SkillAssessmentWhereUniqueInput | SkillAssessmentWhereUniqueInput[]
   }
 
+  export type AssessmentSessionCreateNestedManyWithoutTemplateInput = {
+    create?: XOR<AssessmentSessionCreateWithoutTemplateInput, AssessmentSessionUncheckedCreateWithoutTemplateInput> | AssessmentSessionCreateWithoutTemplateInput[] | AssessmentSessionUncheckedCreateWithoutTemplateInput[]
+    connectOrCreate?: AssessmentSessionCreateOrConnectWithoutTemplateInput | AssessmentSessionCreateOrConnectWithoutTemplateInput[]
+    createMany?: AssessmentSessionCreateManyTemplateInputEnvelope
+    connect?: AssessmentSessionWhereUniqueInput | AssessmentSessionWhereUniqueInput[]
+  }
+
   export type SkillAssessmentUncheckedCreateNestedManyWithoutTemplateInput = {
     create?: XOR<SkillAssessmentCreateWithoutTemplateInput, SkillAssessmentUncheckedCreateWithoutTemplateInput> | SkillAssessmentCreateWithoutTemplateInput[] | SkillAssessmentUncheckedCreateWithoutTemplateInput[]
     connectOrCreate?: SkillAssessmentCreateOrConnectWithoutTemplateInput | SkillAssessmentCreateOrConnectWithoutTemplateInput[]
     createMany?: SkillAssessmentCreateManyTemplateInputEnvelope
     connect?: SkillAssessmentWhereUniqueInput | SkillAssessmentWhereUniqueInput[]
+  }
+
+  export type AssessmentSessionUncheckedCreateNestedManyWithoutTemplateInput = {
+    create?: XOR<AssessmentSessionCreateWithoutTemplateInput, AssessmentSessionUncheckedCreateWithoutTemplateInput> | AssessmentSessionCreateWithoutTemplateInput[] | AssessmentSessionUncheckedCreateWithoutTemplateInput[]
+    connectOrCreate?: AssessmentSessionCreateOrConnectWithoutTemplateInput | AssessmentSessionCreateOrConnectWithoutTemplateInput[]
+    createMany?: AssessmentSessionCreateManyTemplateInputEnvelope
+    connect?: AssessmentSessionWhereUniqueInput | AssessmentSessionWhereUniqueInput[]
   }
 
   export type SkillAssessmentUpdateManyWithoutTemplateNestedInput = {
@@ -32244,6 +32312,20 @@ export namespace Prisma {
     deleteMany?: SkillAssessmentScalarWhereInput | SkillAssessmentScalarWhereInput[]
   }
 
+  export type AssessmentSessionUpdateManyWithoutTemplateNestedInput = {
+    create?: XOR<AssessmentSessionCreateWithoutTemplateInput, AssessmentSessionUncheckedCreateWithoutTemplateInput> | AssessmentSessionCreateWithoutTemplateInput[] | AssessmentSessionUncheckedCreateWithoutTemplateInput[]
+    connectOrCreate?: AssessmentSessionCreateOrConnectWithoutTemplateInput | AssessmentSessionCreateOrConnectWithoutTemplateInput[]
+    upsert?: AssessmentSessionUpsertWithWhereUniqueWithoutTemplateInput | AssessmentSessionUpsertWithWhereUniqueWithoutTemplateInput[]
+    createMany?: AssessmentSessionCreateManyTemplateInputEnvelope
+    set?: AssessmentSessionWhereUniqueInput | AssessmentSessionWhereUniqueInput[]
+    disconnect?: AssessmentSessionWhereUniqueInput | AssessmentSessionWhereUniqueInput[]
+    delete?: AssessmentSessionWhereUniqueInput | AssessmentSessionWhereUniqueInput[]
+    connect?: AssessmentSessionWhereUniqueInput | AssessmentSessionWhereUniqueInput[]
+    update?: AssessmentSessionUpdateWithWhereUniqueWithoutTemplateInput | AssessmentSessionUpdateWithWhereUniqueWithoutTemplateInput[]
+    updateMany?: AssessmentSessionUpdateManyWithWhereWithoutTemplateInput | AssessmentSessionUpdateManyWithWhereWithoutTemplateInput[]
+    deleteMany?: AssessmentSessionScalarWhereInput | AssessmentSessionScalarWhereInput[]
+  }
+
   export type SkillAssessmentUncheckedUpdateManyWithoutTemplateNestedInput = {
     create?: XOR<SkillAssessmentCreateWithoutTemplateInput, SkillAssessmentUncheckedCreateWithoutTemplateInput> | SkillAssessmentCreateWithoutTemplateInput[] | SkillAssessmentUncheckedCreateWithoutTemplateInput[]
     connectOrCreate?: SkillAssessmentCreateOrConnectWithoutTemplateInput | SkillAssessmentCreateOrConnectWithoutTemplateInput[]
@@ -32256,6 +32338,20 @@ export namespace Prisma {
     update?: SkillAssessmentUpdateWithWhereUniqueWithoutTemplateInput | SkillAssessmentUpdateWithWhereUniqueWithoutTemplateInput[]
     updateMany?: SkillAssessmentUpdateManyWithWhereWithoutTemplateInput | SkillAssessmentUpdateManyWithWhereWithoutTemplateInput[]
     deleteMany?: SkillAssessmentScalarWhereInput | SkillAssessmentScalarWhereInput[]
+  }
+
+  export type AssessmentSessionUncheckedUpdateManyWithoutTemplateNestedInput = {
+    create?: XOR<AssessmentSessionCreateWithoutTemplateInput, AssessmentSessionUncheckedCreateWithoutTemplateInput> | AssessmentSessionCreateWithoutTemplateInput[] | AssessmentSessionUncheckedCreateWithoutTemplateInput[]
+    connectOrCreate?: AssessmentSessionCreateOrConnectWithoutTemplateInput | AssessmentSessionCreateOrConnectWithoutTemplateInput[]
+    upsert?: AssessmentSessionUpsertWithWhereUniqueWithoutTemplateInput | AssessmentSessionUpsertWithWhereUniqueWithoutTemplateInput[]
+    createMany?: AssessmentSessionCreateManyTemplateInputEnvelope
+    set?: AssessmentSessionWhereUniqueInput | AssessmentSessionWhereUniqueInput[]
+    disconnect?: AssessmentSessionWhereUniqueInput | AssessmentSessionWhereUniqueInput[]
+    delete?: AssessmentSessionWhereUniqueInput | AssessmentSessionWhereUniqueInput[]
+    connect?: AssessmentSessionWhereUniqueInput | AssessmentSessionWhereUniqueInput[]
+    update?: AssessmentSessionUpdateWithWhereUniqueWithoutTemplateInput | AssessmentSessionUpdateWithWhereUniqueWithoutTemplateInput[]
+    updateMany?: AssessmentSessionUpdateManyWithWhereWithoutTemplateInput | AssessmentSessionUpdateManyWithWhereWithoutTemplateInput[]
+    deleteMany?: AssessmentSessionScalarWhereInput | AssessmentSessionScalarWhereInput[]
   }
 
   export type UserCreateNestedOneWithoutSkillAssessmentsInput = {
@@ -32292,12 +32388,26 @@ export namespace Prisma {
     connect?: UserWhereUniqueInput
   }
 
+  export type SkillAssessmentTemplateCreateNestedOneWithoutAssessmentSessionInput = {
+    create?: XOR<SkillAssessmentTemplateCreateWithoutAssessmentSessionInput, SkillAssessmentTemplateUncheckedCreateWithoutAssessmentSessionInput>
+    connectOrCreate?: SkillAssessmentTemplateCreateOrConnectWithoutAssessmentSessionInput
+    connect?: SkillAssessmentTemplateWhereUniqueInput
+  }
+
   export type UserUpdateOneRequiredWithoutAssessmentSessionsNestedInput = {
     create?: XOR<UserCreateWithoutAssessmentSessionsInput, UserUncheckedCreateWithoutAssessmentSessionsInput>
     connectOrCreate?: UserCreateOrConnectWithoutAssessmentSessionsInput
     upsert?: UserUpsertWithoutAssessmentSessionsInput
     connect?: UserWhereUniqueInput
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutAssessmentSessionsInput, UserUpdateWithoutAssessmentSessionsInput>, UserUncheckedUpdateWithoutAssessmentSessionsInput>
+  }
+
+  export type SkillAssessmentTemplateUpdateOneRequiredWithoutAssessmentSessionNestedInput = {
+    create?: XOR<SkillAssessmentTemplateCreateWithoutAssessmentSessionInput, SkillAssessmentTemplateUncheckedCreateWithoutAssessmentSessionInput>
+    connectOrCreate?: SkillAssessmentTemplateCreateOrConnectWithoutAssessmentSessionInput
+    upsert?: SkillAssessmentTemplateUpsertWithoutAssessmentSessionInput
+    connect?: SkillAssessmentTemplateWhereUniqueInput
+    update?: XOR<XOR<SkillAssessmentTemplateUpdateToOneWithWhereWithoutAssessmentSessionInput, SkillAssessmentTemplateUpdateWithoutAssessmentSessionInput>, SkillAssessmentTemplateUncheckedUpdateWithoutAssessmentSessionInput>
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -32829,7 +32939,6 @@ export namespace Prisma {
 
   export type AssessmentSessionCreateWithoutUserInput = {
     id?: string
-    templateId: string
     sessionToken: string
     timeRemaining: number
     currentQuestionIndex?: number
@@ -32838,6 +32947,7 @@ export namespace Prisma {
     expiresAt: Date | string
     createdAt?: Date | string
     updatedAt?: Date | string
+    template: SkillAssessmentTemplateCreateNestedOneWithoutAssessmentSessionInput
   }
 
   export type AssessmentSessionUncheckedCreateWithoutUserInput = {
@@ -35363,6 +35473,42 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type AssessmentSessionCreateWithoutTemplateInput = {
+    id?: string
+    sessionToken: string
+    timeRemaining: number
+    currentQuestionIndex?: number
+    answers: JsonNullValueInput | InputJsonValue
+    isActive?: boolean
+    expiresAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutAssessmentSessionsInput
+  }
+
+  export type AssessmentSessionUncheckedCreateWithoutTemplateInput = {
+    id?: string
+    userId: string
+    sessionToken: string
+    timeRemaining: number
+    currentQuestionIndex?: number
+    answers: JsonNullValueInput | InputJsonValue
+    isActive?: boolean
+    expiresAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type AssessmentSessionCreateOrConnectWithoutTemplateInput = {
+    where: AssessmentSessionWhereUniqueInput
+    create: XOR<AssessmentSessionCreateWithoutTemplateInput, AssessmentSessionUncheckedCreateWithoutTemplateInput>
+  }
+
+  export type AssessmentSessionCreateManyTemplateInputEnvelope = {
+    data: AssessmentSessionCreateManyTemplateInput | AssessmentSessionCreateManyTemplateInput[]
+    skipDuplicates?: boolean
+  }
+
   export type SkillAssessmentUpsertWithWhereUniqueWithoutTemplateInput = {
     where: SkillAssessmentWhereUniqueInput
     update: XOR<SkillAssessmentUpdateWithoutTemplateInput, SkillAssessmentUncheckedUpdateWithoutTemplateInput>
@@ -35377,6 +35523,22 @@ export namespace Prisma {
   export type SkillAssessmentUpdateManyWithWhereWithoutTemplateInput = {
     where: SkillAssessmentScalarWhereInput
     data: XOR<SkillAssessmentUpdateManyMutationInput, SkillAssessmentUncheckedUpdateManyWithoutTemplateInput>
+  }
+
+  export type AssessmentSessionUpsertWithWhereUniqueWithoutTemplateInput = {
+    where: AssessmentSessionWhereUniqueInput
+    update: XOR<AssessmentSessionUpdateWithoutTemplateInput, AssessmentSessionUncheckedUpdateWithoutTemplateInput>
+    create: XOR<AssessmentSessionCreateWithoutTemplateInput, AssessmentSessionUncheckedCreateWithoutTemplateInput>
+  }
+
+  export type AssessmentSessionUpdateWithWhereUniqueWithoutTemplateInput = {
+    where: AssessmentSessionWhereUniqueInput
+    data: XOR<AssessmentSessionUpdateWithoutTemplateInput, AssessmentSessionUncheckedUpdateWithoutTemplateInput>
+  }
+
+  export type AssessmentSessionUpdateManyWithWhereWithoutTemplateInput = {
+    where: AssessmentSessionScalarWhereInput
+    data: XOR<AssessmentSessionUpdateManyMutationInput, AssessmentSessionUncheckedUpdateManyWithoutTemplateInput>
   }
 
   export type UserCreateWithoutSkillAssessmentsInput = {
@@ -35456,6 +35618,7 @@ export namespace Prisma {
     isActive?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    assessmentSession?: AssessmentSessionCreateNestedManyWithoutTemplateInput
   }
 
   export type SkillAssessmentTemplateUncheckedCreateWithoutSkillAssessmentsInput = {
@@ -35470,6 +35633,7 @@ export namespace Prisma {
     isActive?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    assessmentSession?: AssessmentSessionUncheckedCreateNestedManyWithoutTemplateInput
   }
 
   export type SkillAssessmentTemplateCreateOrConnectWithoutSkillAssessmentsInput = {
@@ -35571,6 +35735,7 @@ export namespace Prisma {
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    assessmentSession?: AssessmentSessionUpdateManyWithoutTemplateNestedInput
   }
 
   export type SkillAssessmentTemplateUncheckedUpdateWithoutSkillAssessmentsInput = {
@@ -35585,6 +35750,7 @@ export namespace Prisma {
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    assessmentSession?: AssessmentSessionUncheckedUpdateManyWithoutTemplateNestedInput
   }
 
   export type UserCreateWithoutAssessmentSessionsInput = {
@@ -35650,6 +35816,41 @@ export namespace Prisma {
   export type UserCreateOrConnectWithoutAssessmentSessionsInput = {
     where: UserWhereUniqueInput
     create: XOR<UserCreateWithoutAssessmentSessionsInput, UserUncheckedCreateWithoutAssessmentSessionsInput>
+  }
+
+  export type SkillAssessmentTemplateCreateWithoutAssessmentSessionInput = {
+    id?: string
+    title: string
+    description: string
+    category: string
+    questions: JsonNullValueInput | InputJsonValue
+    passingScore?: number
+    totalPoints?: number
+    timeLimit?: number
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    skillAssessments?: SkillAssessmentCreateNestedManyWithoutTemplateInput
+  }
+
+  export type SkillAssessmentTemplateUncheckedCreateWithoutAssessmentSessionInput = {
+    id?: string
+    title: string
+    description: string
+    category: string
+    questions: JsonNullValueInput | InputJsonValue
+    passingScore?: number
+    totalPoints?: number
+    timeLimit?: number
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    skillAssessments?: SkillAssessmentUncheckedCreateNestedManyWithoutTemplateInput
+  }
+
+  export type SkillAssessmentTemplateCreateOrConnectWithoutAssessmentSessionInput = {
+    where: SkillAssessmentTemplateWhereUniqueInput
+    create: XOR<SkillAssessmentTemplateCreateWithoutAssessmentSessionInput, SkillAssessmentTemplateUncheckedCreateWithoutAssessmentSessionInput>
   }
 
   export type UserUpsertWithoutAssessmentSessionsInput = {
@@ -35721,6 +35922,47 @@ export namespace Prisma {
     userResume?: UserResumeUncheckedUpdateManyWithoutUserNestedInput
     Subscription?: SubscriptionUncheckedUpdateManyWithoutUserNestedInput
     skillAssessments?: SkillAssessmentUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type SkillAssessmentTemplateUpsertWithoutAssessmentSessionInput = {
+    update: XOR<SkillAssessmentTemplateUpdateWithoutAssessmentSessionInput, SkillAssessmentTemplateUncheckedUpdateWithoutAssessmentSessionInput>
+    create: XOR<SkillAssessmentTemplateCreateWithoutAssessmentSessionInput, SkillAssessmentTemplateUncheckedCreateWithoutAssessmentSessionInput>
+    where?: SkillAssessmentTemplateWhereInput
+  }
+
+  export type SkillAssessmentTemplateUpdateToOneWithWhereWithoutAssessmentSessionInput = {
+    where?: SkillAssessmentTemplateWhereInput
+    data: XOR<SkillAssessmentTemplateUpdateWithoutAssessmentSessionInput, SkillAssessmentTemplateUncheckedUpdateWithoutAssessmentSessionInput>
+  }
+
+  export type SkillAssessmentTemplateUpdateWithoutAssessmentSessionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    category?: StringFieldUpdateOperationsInput | string
+    questions?: JsonNullValueInput | InputJsonValue
+    passingScore?: IntFieldUpdateOperationsInput | number
+    totalPoints?: IntFieldUpdateOperationsInput | number
+    timeLimit?: IntFieldUpdateOperationsInput | number
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    skillAssessments?: SkillAssessmentUpdateManyWithoutTemplateNestedInput
+  }
+
+  export type SkillAssessmentTemplateUncheckedUpdateWithoutAssessmentSessionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    category?: StringFieldUpdateOperationsInput | string
+    questions?: JsonNullValueInput | InputJsonValue
+    passingScore?: IntFieldUpdateOperationsInput | number
+    totalPoints?: IntFieldUpdateOperationsInput | number
+    timeLimit?: IntFieldUpdateOperationsInput | number
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    skillAssessments?: SkillAssessmentUncheckedUpdateManyWithoutTemplateNestedInput
   }
 
   export type ApplicationCreateManyUserInput = {
@@ -36012,7 +36254,6 @@ export namespace Prisma {
 
   export type AssessmentSessionUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
-    templateId?: StringFieldUpdateOperationsInput | string
     sessionToken?: StringFieldUpdateOperationsInput | string
     timeRemaining?: IntFieldUpdateOperationsInput | number
     currentQuestionIndex?: IntFieldUpdateOperationsInput | number
@@ -36021,6 +36262,7 @@ export namespace Prisma {
     expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    template?: SkillAssessmentTemplateUpdateOneRequiredWithoutAssessmentSessionNestedInput
   }
 
   export type AssessmentSessionUncheckedUpdateWithoutUserInput = {
@@ -36579,6 +36821,19 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
+  export type AssessmentSessionCreateManyTemplateInput = {
+    id?: string
+    userId: string
+    sessionToken: string
+    timeRemaining: number
+    currentQuestionIndex?: number
+    answers: JsonNullValueInput | InputJsonValue
+    isActive?: boolean
+    expiresAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
   export type SkillAssessmentUpdateWithoutTemplateInput = {
     id?: StringFieldUpdateOperationsInput | string
     score?: IntFieldUpdateOperationsInput | number
@@ -36617,6 +36872,45 @@ export namespace Prisma {
     answers?: JsonNullValueInput | InputJsonValue
     startedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AssessmentSessionUpdateWithoutTemplateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    sessionToken?: StringFieldUpdateOperationsInput | string
+    timeRemaining?: IntFieldUpdateOperationsInput | number
+    currentQuestionIndex?: IntFieldUpdateOperationsInput | number
+    answers?: JsonNullValueInput | InputJsonValue
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutAssessmentSessionsNestedInput
+  }
+
+  export type AssessmentSessionUncheckedUpdateWithoutTemplateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    sessionToken?: StringFieldUpdateOperationsInput | string
+    timeRemaining?: IntFieldUpdateOperationsInput | number
+    currentQuestionIndex?: IntFieldUpdateOperationsInput | number
+    answers?: JsonNullValueInput | InputJsonValue
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AssessmentSessionUncheckedUpdateManyWithoutTemplateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    sessionToken?: StringFieldUpdateOperationsInput | string
+    timeRemaining?: IntFieldUpdateOperationsInput | number
+    currentQuestionIndex?: IntFieldUpdateOperationsInput | number
+    answers?: JsonNullValueInput | InputJsonValue
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }

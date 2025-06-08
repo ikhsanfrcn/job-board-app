@@ -74,7 +74,7 @@ export default function Page() {
                 autoComplete="off"
               >
                 <div>
-                  <h2 className="text-3xl text-shadow-sm font-bold mb-7 mt-40">
+                  <h2 className="text-3xl text-shadow-sm font-bold mb-7 mt-35">
                     Welcome Back Developer
                   </h2>
                   <div>
