@@ -8,7 +8,9 @@ export default function ProfilePage() {
       <div className="bg-white border border-gray-200 rounded-xl shadow-sm">
         <Hero />
         <Profile />
-        <Resume />
+        <div className="border-t border-gray-200">
+          <Resume />
+        </div>
       </div>
     </div>
   );
