@@ -573,7 +573,7 @@ export namespace Prisma {
   export import Exact = $Public.Exact
 
   /**
-   * Prisma Client JS version: 6.8.2
+   * Prisma Client JS version: 6.8.1
    * Query Engine version: 2060c79ba17c6bb9f5823312b6f6b7f4a845738e
    */
   export type PrismaVersion = {
@@ -27713,10 +27713,10 @@ export namespace Prisma {
 
   export type SubscriptionWhereUniqueInput = Prisma.AtLeast<{
     id?: string
+    userId?: string
     AND?: SubscriptionWhereInput | SubscriptionWhereInput[]
     OR?: SubscriptionWhereInput[]
     NOT?: SubscriptionWhereInput | SubscriptionWhereInput[]
-    userId?: StringFilter<"Subscription"> | string
     type?: StringFilter<"Subscription"> | string
     startDate?: DateTimeNullableFilter<"Subscription"> | Date | string | null
     endDate?: DateTimeNullableFilter<"Subscription"> | Date | string | null
@@ -27726,7 +27726,7 @@ export namespace Prisma {
     expiredAt?: DateTimeFilter<"Subscription"> | Date | string
     updatedAt?: DateTimeFilter<"Subscription"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
-  }, "id">
+  }, "id" | "userId">
 
   export type SubscriptionOrderByWithAggregationInput = {
     id?: SortOrder

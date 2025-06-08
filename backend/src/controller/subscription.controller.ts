@@ -3,6 +3,7 @@ import { createSubscription } from "../services/subscription/createSubscription"
 import { handleInvoiceStatusUpdate } from "../services/subscription/invoiceUpdate";
 import { getSubscriptionById } from "../services/subscription/getSubsById";
 import { getSubscriptionByUser } from "../services/subscription/getSubsByUser";
+import { cancelPayment } from "../services/subscription/canclePayment";
 
 export class SubscriptionController {
   async createSubscription(req: Request, res: Response) {
@@ -70,6 +71,16 @@ export class SubscriptionController {
       const subscription = await getSubscriptionByUser(userId)
       res.status(200).json(subscription)
     } catch (error: any) {
+      res.status(error.status || 500).json({ message: error.message})
+    }
+  }
+
+  async cancelPayment(req: Request, res: Response) {
+    try {
+      const { id } = req.body
+      const result = await cancelPayment(id)
+      res.status(200).json(result)
+    } catch (error:any) {
       res.status(error.status || 500).json({ message: error.message})
     }
   }

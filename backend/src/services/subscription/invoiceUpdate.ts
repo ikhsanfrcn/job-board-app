@@ -1,7 +1,18 @@
 import prisma from "../../prisma";
 
-export const handleInvoiceStatusUpdate = async (status: string, externalId: string) => {
-  if (status === 'PAID') {
+export const handleInvoiceStatusUpdate = async (
+  status: string,
+  externalId: string
+) => {
+  const subscription = await prisma.subscription.findUnique({
+    where: { id: externalId },
+  });
+
+  if (!subscription) {
+    throw (`Subscription not found for ID: ${externalId}`);
+  }
+
+  if (status === "PAID") {
     const now = new Date();
     const endDate = new Date();
     endDate.setMonth(endDate.getMonth() + 1);
@@ -9,15 +20,15 @@ export const handleInvoiceStatusUpdate = async (status: string, externalId: stri
     await prisma.subscription.update({
       where: { id: externalId },
       data: {
-        status: 'PAID',
+        status: "PAID",
         startDate: now,
         endDate: endDate,
       },
     });
-  } else if (status === 'EXPIRED') {
+  } else if (status === "EXPIRED") {
     await prisma.subscription.update({
       where: { id: externalId },
-      data: { status: 'EXPIRED' },
+      data: { status: "EXPIRED" },
     });
   }
 };

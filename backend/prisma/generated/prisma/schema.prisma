@@ -281,7 +281,7 @@ enum AdditionalCategory {
 
 model Subscription {
   id         String        @id @default(uuid())
-  userId     String
+  userId     String        @unique
   user       User          @relation(fields: [userId], references: [id])
   type       String
   startDate  DateTime?
