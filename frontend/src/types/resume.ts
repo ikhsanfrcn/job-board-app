@@ -34,10 +34,10 @@ export interface IAdditional {
 }
 
 export interface IResume {
-  id: string;
+  id?: string;
   summary?: string;
   workExperience: IWorkExperience[];
   education: IEducation[];
   leadership: ILeadership[];
-  addtional: IAdditional[];
+  additional: IAdditional[];
 }

@@ -2936,14 +2936,14 @@ export namespace Prisma {
     workExperience: number
     education: number
     leadership: number
-    addtional: number
+    additional: number
   }
 
   export type UserResumeCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     workExperience?: boolean | UserResumeCountOutputTypeCountWorkExperienceArgs
     education?: boolean | UserResumeCountOutputTypeCountEducationArgs
     leadership?: boolean | UserResumeCountOutputTypeCountLeadershipArgs
-    addtional?: boolean | UserResumeCountOutputTypeCountAddtionalArgs
+    additional?: boolean | UserResumeCountOutputTypeCountAdditionalArgs
   }
 
   // Custom InputTypes
@@ -2981,7 +2981,7 @@ export namespace Prisma {
   /**
    * UserResumeCountOutputType without action
    */
-  export type UserResumeCountOutputTypeCountAddtionalArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type UserResumeCountOutputTypeCountAdditionalArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: AdditionalWhereInput
   }
 
@@ -15936,7 +15936,7 @@ export namespace Prisma {
     workExperience?: boolean | UserResume$workExperienceArgs<ExtArgs>
     education?: boolean | UserResume$educationArgs<ExtArgs>
     leadership?: boolean | UserResume$leadershipArgs<ExtArgs>
-    addtional?: boolean | UserResume$addtionalArgs<ExtArgs>
+    additional?: boolean | UserResume$additionalArgs<ExtArgs>
     _count?: boolean | UserResumeCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["userResume"]>
 
@@ -15966,7 +15966,7 @@ export namespace Prisma {
     workExperience?: boolean | UserResume$workExperienceArgs<ExtArgs>
     education?: boolean | UserResume$educationArgs<ExtArgs>
     leadership?: boolean | UserResume$leadershipArgs<ExtArgs>
-    addtional?: boolean | UserResume$addtionalArgs<ExtArgs>
+    additional?: boolean | UserResume$additionalArgs<ExtArgs>
     _count?: boolean | UserResumeCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserResumeIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -15983,7 +15983,7 @@ export namespace Prisma {
       workExperience: Prisma.$WorkExperiencePayload<ExtArgs>[]
       education: Prisma.$EducationPayload<ExtArgs>[]
       leadership: Prisma.$LeadershipPayload<ExtArgs>[]
-      addtional: Prisma.$AdditionalPayload<ExtArgs>[]
+      additional: Prisma.$AdditionalPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -16387,7 +16387,7 @@ export namespace Prisma {
     workExperience<T extends UserResume$workExperienceArgs<ExtArgs> = {}>(args?: Subset<T, UserResume$workExperienceArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WorkExperiencePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     education<T extends UserResume$educationArgs<ExtArgs> = {}>(args?: Subset<T, UserResume$educationArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EducationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     leadership<T extends UserResume$leadershipArgs<ExtArgs> = {}>(args?: Subset<T, UserResume$leadershipArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LeadershipPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    addtional<T extends UserResume$addtionalArgs<ExtArgs> = {}>(args?: Subset<T, UserResume$addtionalArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AdditionalPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    additional<T extends UserResume$additionalArgs<ExtArgs> = {}>(args?: Subset<T, UserResume$additionalArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AdditionalPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -16888,9 +16888,9 @@ export namespace Prisma {
   }
 
   /**
-   * UserResume.addtional
+   * UserResume.additional
    */
-  export type UserResume$addtionalArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type UserResume$additionalArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Additional
      */
@@ -16947,8 +16947,8 @@ export namespace Prisma {
     jobdescId: string | null
     description: string | null
     employmentType: $Enums.EmploymentType | null
-    startDate: Date | null
-    endDate: Date | null
+    startDate: string | null
+    endDate: string | null
   }
 
   export type WorkExperienceMaxAggregateOutputType = {
@@ -16958,8 +16958,8 @@ export namespace Prisma {
     jobdescId: string | null
     description: string | null
     employmentType: $Enums.EmploymentType | null
-    startDate: Date | null
-    endDate: Date | null
+    startDate: string | null
+    endDate: string | null
   }
 
   export type WorkExperienceCountAggregateOutputType = {
@@ -17088,8 +17088,8 @@ export namespace Prisma {
     jobdescId: string
     description: string
     employmentType: $Enums.EmploymentType
-    startDate: Date
-    endDate: Date | null
+    startDate: string
+    endDate: string | null
     _count: WorkExperienceCountAggregateOutputType | null
     _min: WorkExperienceMinAggregateOutputType | null
     _max: WorkExperienceMaxAggregateOutputType | null
@@ -17186,8 +17186,8 @@ export namespace Prisma {
       jobdescId: string
       description: string
       employmentType: $Enums.EmploymentType
-      startDate: Date
-      endDate: Date | null
+      startDate: string
+      endDate: string | null
     }, ExtArgs["result"]["workExperience"]>
     composites: {}
   }
@@ -17619,8 +17619,8 @@ export namespace Prisma {
     readonly jobdescId: FieldRef<"WorkExperience", 'String'>
     readonly description: FieldRef<"WorkExperience", 'String'>
     readonly employmentType: FieldRef<"WorkExperience", 'EmploymentType'>
-    readonly startDate: FieldRef<"WorkExperience", 'DateTime'>
-    readonly endDate: FieldRef<"WorkExperience", 'DateTime'>
+    readonly startDate: FieldRef<"WorkExperience", 'String'>
+    readonly endDate: FieldRef<"WorkExperience", 'String'>
   }
     
 
@@ -18051,8 +18051,8 @@ export namespace Prisma {
     schoolName: string | null
     degree: string | null
     fieldOfStudy: string | null
-    startDate: Date | null
-    endDate: Date | null
+    startDate: string | null
+    endDate: string | null
   }
 
   export type EducationMaxAggregateOutputType = {
@@ -18061,8 +18061,8 @@ export namespace Prisma {
     schoolName: string | null
     degree: string | null
     fieldOfStudy: string | null
-    startDate: Date | null
-    endDate: Date | null
+    startDate: string | null
+    endDate: string | null
   }
 
   export type EducationCountAggregateOutputType = {
@@ -18186,8 +18186,8 @@ export namespace Prisma {
     schoolName: string
     degree: string
     fieldOfStudy: string
-    startDate: Date
-    endDate: Date | null
+    startDate: string
+    endDate: string | null
     _count: EducationCountAggregateOutputType | null
     _min: EducationMinAggregateOutputType | null
     _max: EducationMaxAggregateOutputType | null
@@ -18272,8 +18272,8 @@ export namespace Prisma {
       schoolName: string
       degree: string
       fieldOfStudy: string
-      startDate: Date
-      endDate: Date | null
+      startDate: string
+      endDate: string | null
     }, ExtArgs["result"]["education"]>
     composites: {}
   }
@@ -18703,8 +18703,8 @@ export namespace Prisma {
     readonly schoolName: FieldRef<"Education", 'String'>
     readonly degree: FieldRef<"Education", 'String'>
     readonly fieldOfStudy: FieldRef<"Education", 'String'>
-    readonly startDate: FieldRef<"Education", 'DateTime'>
-    readonly endDate: FieldRef<"Education", 'DateTime'>
+    readonly startDate: FieldRef<"Education", 'String'>
+    readonly endDate: FieldRef<"Education", 'String'>
   }
     
 
@@ -19134,8 +19134,8 @@ export namespace Prisma {
     userResumeId: string | null
     organization: string | null
     role: string | null
-    startDate: Date | null
-    endDate: Date | null
+    startDate: string | null
+    endDate: string | null
     description: string | null
   }
 
@@ -19144,8 +19144,8 @@ export namespace Prisma {
     userResumeId: string | null
     organization: string | null
     role: string | null
-    startDate: Date | null
-    endDate: Date | null
+    startDate: string | null
+    endDate: string | null
     description: string | null
   }
 
@@ -19269,8 +19269,8 @@ export namespace Prisma {
     userResumeId: string
     organization: string
     role: string
-    startDate: Date
-    endDate: Date
+    startDate: string
+    endDate: string
     description: string
     _count: LeadershipCountAggregateOutputType | null
     _min: LeadershipMinAggregateOutputType | null
@@ -19355,8 +19355,8 @@ export namespace Prisma {
       userResumeId: string
       organization: string
       role: string
-      startDate: Date
-      endDate: Date
+      startDate: string
+      endDate: string
       description: string
     }, ExtArgs["result"]["leadership"]>
     composites: {}
@@ -19786,8 +19786,8 @@ export namespace Prisma {
     readonly userResumeId: FieldRef<"Leadership", 'String'>
     readonly organization: FieldRef<"Leadership", 'String'>
     readonly role: FieldRef<"Leadership", 'String'>
-    readonly startDate: FieldRef<"Leadership", 'DateTime'>
-    readonly endDate: FieldRef<"Leadership", 'DateTime'>
+    readonly startDate: FieldRef<"Leadership", 'String'>
+    readonly endDate: FieldRef<"Leadership", 'String'>
     readonly description: FieldRef<"Leadership", 'String'>
   }
     
@@ -20218,7 +20218,6 @@ export namespace Prisma {
     userResumeId: string | null
     category: $Enums.AdditionalCategory | null
     description: string | null
-    createdAt: Date | null
   }
 
   export type AdditionalMaxAggregateOutputType = {
@@ -20226,7 +20225,6 @@ export namespace Prisma {
     userResumeId: string | null
     category: $Enums.AdditionalCategory | null
     description: string | null
-    createdAt: Date | null
   }
 
   export type AdditionalCountAggregateOutputType = {
@@ -20235,7 +20233,6 @@ export namespace Prisma {
     category: number
     items: number
     description: number
-    createdAt: number
     _all: number
   }
 
@@ -20245,7 +20242,6 @@ export namespace Prisma {
     userResumeId?: true
     category?: true
     description?: true
-    createdAt?: true
   }
 
   export type AdditionalMaxAggregateInputType = {
@@ -20253,7 +20249,6 @@ export namespace Prisma {
     userResumeId?: true
     category?: true
     description?: true
-    createdAt?: true
   }
 
   export type AdditionalCountAggregateInputType = {
@@ -20262,7 +20257,6 @@ export namespace Prisma {
     category?: true
     items?: true
     description?: true
-    createdAt?: true
     _all?: true
   }
 
@@ -20344,7 +20338,6 @@ export namespace Prisma {
     category: $Enums.AdditionalCategory
     items: string[]
     description: string | null
-    createdAt: Date
     _count: AdditionalCountAggregateOutputType | null
     _min: AdditionalMinAggregateOutputType | null
     _max: AdditionalMaxAggregateOutputType | null
@@ -20370,7 +20363,6 @@ export namespace Prisma {
     category?: boolean
     items?: boolean
     description?: boolean
-    createdAt?: boolean
     userResume?: boolean | UserResumeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["additional"]>
 
@@ -20380,7 +20372,6 @@ export namespace Prisma {
     category?: boolean
     items?: boolean
     description?: boolean
-    createdAt?: boolean
     userResume?: boolean | UserResumeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["additional"]>
 
@@ -20390,7 +20381,6 @@ export namespace Prisma {
     category?: boolean
     items?: boolean
     description?: boolean
-    createdAt?: boolean
     userResume?: boolean | UserResumeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["additional"]>
 
@@ -20400,10 +20390,9 @@ export namespace Prisma {
     category?: boolean
     items?: boolean
     description?: boolean
-    createdAt?: boolean
   }
 
-  export type AdditionalOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userResumeId" | "category" | "items" | "description" | "createdAt", ExtArgs["result"]["additional"]>
+  export type AdditionalOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userResumeId" | "category" | "items" | "description", ExtArgs["result"]["additional"]>
   export type AdditionalInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     userResume?: boolean | UserResumeDefaultArgs<ExtArgs>
   }
@@ -20425,7 +20414,6 @@ export namespace Prisma {
       category: $Enums.AdditionalCategory
       items: string[]
       description: string | null
-      createdAt: Date
     }, ExtArgs["result"]["additional"]>
     composites: {}
   }
@@ -20855,7 +20843,6 @@ export namespace Prisma {
     readonly category: FieldRef<"Additional", 'AdditionalCategory'>
     readonly items: FieldRef<"Additional", 'String[]'>
     readonly description: FieldRef<"Additional", 'String'>
-    readonly createdAt: FieldRef<"Additional", 'DateTime'>
   }
     
 
@@ -26221,8 +26208,7 @@ export namespace Prisma {
     userResumeId: 'userResumeId',
     category: 'category',
     items: 'items',
-    description: 'description',
-    createdAt: 'createdAt'
+    description: 'description'
   };
 
   export type AdditionalScalarFieldEnum = (typeof AdditionalScalarFieldEnum)[keyof typeof AdditionalScalarFieldEnum]
@@ -27416,7 +27402,7 @@ export namespace Prisma {
     workExperience?: WorkExperienceListRelationFilter
     education?: EducationListRelationFilter
     leadership?: LeadershipListRelationFilter
-    addtional?: AdditionalListRelationFilter
+    additional?: AdditionalListRelationFilter
   }
 
   export type UserResumeOrderByWithRelationInput = {
@@ -27427,7 +27413,7 @@ export namespace Prisma {
     workExperience?: WorkExperienceOrderByRelationAggregateInput
     education?: EducationOrderByRelationAggregateInput
     leadership?: LeadershipOrderByRelationAggregateInput
-    addtional?: AdditionalOrderByRelationAggregateInput
+    additional?: AdditionalOrderByRelationAggregateInput
   }
 
   export type UserResumeWhereUniqueInput = Prisma.AtLeast<{
@@ -27441,7 +27427,7 @@ export namespace Prisma {
     workExperience?: WorkExperienceListRelationFilter
     education?: EducationListRelationFilter
     leadership?: LeadershipListRelationFilter
-    addtional?: AdditionalListRelationFilter
+    additional?: AdditionalListRelationFilter
   }, "id" | "userId">
 
   export type UserResumeOrderByWithAggregationInput = {
@@ -27472,8 +27458,8 @@ export namespace Prisma {
     jobdescId?: StringFilter<"WorkExperience"> | string
     description?: StringFilter<"WorkExperience"> | string
     employmentType?: EnumEmploymentTypeFilter<"WorkExperience"> | $Enums.EmploymentType
-    startDate?: DateTimeFilter<"WorkExperience"> | Date | string
-    endDate?: DateTimeNullableFilter<"WorkExperience"> | Date | string | null
+    startDate?: StringFilter<"WorkExperience"> | string
+    endDate?: StringNullableFilter<"WorkExperience"> | string | null
     userResume?: XOR<UserResumeScalarRelationFilter, UserResumeWhereInput>
     jobdesc?: XOR<JobdescScalarRelationFilter, JobdescWhereInput>
   }
@@ -27501,8 +27487,8 @@ export namespace Prisma {
     jobdescId?: StringFilter<"WorkExperience"> | string
     description?: StringFilter<"WorkExperience"> | string
     employmentType?: EnumEmploymentTypeFilter<"WorkExperience"> | $Enums.EmploymentType
-    startDate?: DateTimeFilter<"WorkExperience"> | Date | string
-    endDate?: DateTimeNullableFilter<"WorkExperience"> | Date | string | null
+    startDate?: StringFilter<"WorkExperience"> | string
+    endDate?: StringNullableFilter<"WorkExperience"> | string | null
     userResume?: XOR<UserResumeScalarRelationFilter, UserResumeWhereInput>
     jobdesc?: XOR<JobdescScalarRelationFilter, JobdescWhereInput>
   }, "id">
@@ -27531,8 +27517,8 @@ export namespace Prisma {
     jobdescId?: StringWithAggregatesFilter<"WorkExperience"> | string
     description?: StringWithAggregatesFilter<"WorkExperience"> | string
     employmentType?: EnumEmploymentTypeWithAggregatesFilter<"WorkExperience"> | $Enums.EmploymentType
-    startDate?: DateTimeWithAggregatesFilter<"WorkExperience"> | Date | string
-    endDate?: DateTimeNullableWithAggregatesFilter<"WorkExperience"> | Date | string | null
+    startDate?: StringWithAggregatesFilter<"WorkExperience"> | string
+    endDate?: StringNullableWithAggregatesFilter<"WorkExperience"> | string | null
   }
 
   export type EducationWhereInput = {
@@ -27544,8 +27530,8 @@ export namespace Prisma {
     schoolName?: StringFilter<"Education"> | string
     degree?: StringFilter<"Education"> | string
     fieldOfStudy?: StringFilter<"Education"> | string
-    startDate?: DateTimeFilter<"Education"> | Date | string
-    endDate?: DateTimeNullableFilter<"Education"> | Date | string | null
+    startDate?: StringFilter<"Education"> | string
+    endDate?: StringNullableFilter<"Education"> | string | null
     userResume?: XOR<UserResumeScalarRelationFilter, UserResumeWhereInput>
   }
 
@@ -27569,8 +27555,8 @@ export namespace Prisma {
     schoolName?: StringFilter<"Education"> | string
     degree?: StringFilter<"Education"> | string
     fieldOfStudy?: StringFilter<"Education"> | string
-    startDate?: DateTimeFilter<"Education"> | Date | string
-    endDate?: DateTimeNullableFilter<"Education"> | Date | string | null
+    startDate?: StringFilter<"Education"> | string
+    endDate?: StringNullableFilter<"Education"> | string | null
     userResume?: XOR<UserResumeScalarRelationFilter, UserResumeWhereInput>
   }, "id">
 
@@ -27596,8 +27582,8 @@ export namespace Prisma {
     schoolName?: StringWithAggregatesFilter<"Education"> | string
     degree?: StringWithAggregatesFilter<"Education"> | string
     fieldOfStudy?: StringWithAggregatesFilter<"Education"> | string
-    startDate?: DateTimeWithAggregatesFilter<"Education"> | Date | string
-    endDate?: DateTimeNullableWithAggregatesFilter<"Education"> | Date | string | null
+    startDate?: StringWithAggregatesFilter<"Education"> | string
+    endDate?: StringNullableWithAggregatesFilter<"Education"> | string | null
   }
 
   export type LeadershipWhereInput = {
@@ -27608,8 +27594,8 @@ export namespace Prisma {
     userResumeId?: StringFilter<"Leadership"> | string
     organization?: StringFilter<"Leadership"> | string
     role?: StringFilter<"Leadership"> | string
-    startDate?: DateTimeFilter<"Leadership"> | Date | string
-    endDate?: DateTimeFilter<"Leadership"> | Date | string
+    startDate?: StringFilter<"Leadership"> | string
+    endDate?: StringFilter<"Leadership"> | string
     description?: StringFilter<"Leadership"> | string
     userResume?: XOR<UserResumeScalarRelationFilter, UserResumeWhereInput>
   }
@@ -27633,8 +27619,8 @@ export namespace Prisma {
     userResumeId?: StringFilter<"Leadership"> | string
     organization?: StringFilter<"Leadership"> | string
     role?: StringFilter<"Leadership"> | string
-    startDate?: DateTimeFilter<"Leadership"> | Date | string
-    endDate?: DateTimeFilter<"Leadership"> | Date | string
+    startDate?: StringFilter<"Leadership"> | string
+    endDate?: StringFilter<"Leadership"> | string
     description?: StringFilter<"Leadership"> | string
     userResume?: XOR<UserResumeScalarRelationFilter, UserResumeWhereInput>
   }, "id">
@@ -27660,8 +27646,8 @@ export namespace Prisma {
     userResumeId?: StringWithAggregatesFilter<"Leadership"> | string
     organization?: StringWithAggregatesFilter<"Leadership"> | string
     role?: StringWithAggregatesFilter<"Leadership"> | string
-    startDate?: DateTimeWithAggregatesFilter<"Leadership"> | Date | string
-    endDate?: DateTimeWithAggregatesFilter<"Leadership"> | Date | string
+    startDate?: StringWithAggregatesFilter<"Leadership"> | string
+    endDate?: StringWithAggregatesFilter<"Leadership"> | string
     description?: StringWithAggregatesFilter<"Leadership"> | string
   }
 
@@ -27674,7 +27660,6 @@ export namespace Prisma {
     category?: EnumAdditionalCategoryFilter<"Additional"> | $Enums.AdditionalCategory
     items?: StringNullableListFilter<"Additional">
     description?: StringNullableFilter<"Additional"> | string | null
-    createdAt?: DateTimeFilter<"Additional"> | Date | string
     userResume?: XOR<UserResumeScalarRelationFilter, UserResumeWhereInput>
   }
 
@@ -27684,7 +27669,6 @@ export namespace Prisma {
     category?: SortOrder
     items?: SortOrder
     description?: SortOrderInput | SortOrder
-    createdAt?: SortOrder
     userResume?: UserResumeOrderByWithRelationInput
   }
 
@@ -27697,7 +27681,6 @@ export namespace Prisma {
     category?: EnumAdditionalCategoryFilter<"Additional"> | $Enums.AdditionalCategory
     items?: StringNullableListFilter<"Additional">
     description?: StringNullableFilter<"Additional"> | string | null
-    createdAt?: DateTimeFilter<"Additional"> | Date | string
     userResume?: XOR<UserResumeScalarRelationFilter, UserResumeWhereInput>
   }, "id">
 
@@ -27707,7 +27690,6 @@ export namespace Prisma {
     category?: SortOrder
     items?: SortOrder
     description?: SortOrderInput | SortOrder
-    createdAt?: SortOrder
     _count?: AdditionalCountOrderByAggregateInput
     _max?: AdditionalMaxOrderByAggregateInput
     _min?: AdditionalMinOrderByAggregateInput
@@ -27722,7 +27704,6 @@ export namespace Prisma {
     category?: EnumAdditionalCategoryWithAggregatesFilter<"Additional"> | $Enums.AdditionalCategory
     items?: StringNullableListFilter<"Additional">
     description?: StringNullableWithAggregatesFilter<"Additional"> | string | null
-    createdAt?: DateTimeWithAggregatesFilter<"Additional"> | Date | string
   }
 
   export type SubscriptionWhereInput = {
@@ -29117,7 +29098,7 @@ export namespace Prisma {
     workExperience?: WorkExperienceCreateNestedManyWithoutUserResumeInput
     education?: EducationCreateNestedManyWithoutUserResumeInput
     leadership?: LeadershipCreateNestedManyWithoutUserResumeInput
-    addtional?: AdditionalCreateNestedManyWithoutUserResumeInput
+    additional?: AdditionalCreateNestedManyWithoutUserResumeInput
   }
 
   export type UserResumeUncheckedCreateInput = {
@@ -29127,7 +29108,7 @@ export namespace Prisma {
     workExperience?: WorkExperienceUncheckedCreateNestedManyWithoutUserResumeInput
     education?: EducationUncheckedCreateNestedManyWithoutUserResumeInput
     leadership?: LeadershipUncheckedCreateNestedManyWithoutUserResumeInput
-    addtional?: AdditionalUncheckedCreateNestedManyWithoutUserResumeInput
+    additional?: AdditionalUncheckedCreateNestedManyWithoutUserResumeInput
   }
 
   export type UserResumeUpdateInput = {
@@ -29137,7 +29118,7 @@ export namespace Prisma {
     workExperience?: WorkExperienceUpdateManyWithoutUserResumeNestedInput
     education?: EducationUpdateManyWithoutUserResumeNestedInput
     leadership?: LeadershipUpdateManyWithoutUserResumeNestedInput
-    addtional?: AdditionalUpdateManyWithoutUserResumeNestedInput
+    additional?: AdditionalUpdateManyWithoutUserResumeNestedInput
   }
 
   export type UserResumeUncheckedUpdateInput = {
@@ -29147,7 +29128,7 @@ export namespace Prisma {
     workExperience?: WorkExperienceUncheckedUpdateManyWithoutUserResumeNestedInput
     education?: EducationUncheckedUpdateManyWithoutUserResumeNestedInput
     leadership?: LeadershipUncheckedUpdateManyWithoutUserResumeNestedInput
-    addtional?: AdditionalUncheckedUpdateManyWithoutUserResumeNestedInput
+    additional?: AdditionalUncheckedUpdateManyWithoutUserResumeNestedInput
   }
 
   export type UserResumeCreateManyInput = {
@@ -29172,8 +29153,8 @@ export namespace Prisma {
     company: string
     description: string
     employmentType: $Enums.EmploymentType
-    startDate: Date | string
-    endDate?: Date | string | null
+    startDate: string
+    endDate?: string | null
     userResume: UserResumeCreateNestedOneWithoutWorkExperienceInput
     jobdesc: JobdescCreateNestedOneWithoutExperiencesInput
   }
@@ -29185,8 +29166,8 @@ export namespace Prisma {
     jobdescId: string
     description: string
     employmentType: $Enums.EmploymentType
-    startDate: Date | string
-    endDate?: Date | string | null
+    startDate: string
+    endDate?: string | null
   }
 
   export type WorkExperienceUpdateInput = {
@@ -29194,8 +29175,8 @@ export namespace Prisma {
     company?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     employmentType?: EnumEmploymentTypeFieldUpdateOperationsInput | $Enums.EmploymentType
-    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    startDate?: StringFieldUpdateOperationsInput | string
+    endDate?: NullableStringFieldUpdateOperationsInput | string | null
     userResume?: UserResumeUpdateOneRequiredWithoutWorkExperienceNestedInput
     jobdesc?: JobdescUpdateOneRequiredWithoutExperiencesNestedInput
   }
@@ -29207,8 +29188,8 @@ export namespace Prisma {
     jobdescId?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     employmentType?: EnumEmploymentTypeFieldUpdateOperationsInput | $Enums.EmploymentType
-    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    startDate?: StringFieldUpdateOperationsInput | string
+    endDate?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type WorkExperienceCreateManyInput = {
@@ -29218,8 +29199,8 @@ export namespace Prisma {
     jobdescId: string
     description: string
     employmentType: $Enums.EmploymentType
-    startDate: Date | string
-    endDate?: Date | string | null
+    startDate: string
+    endDate?: string | null
   }
 
   export type WorkExperienceUpdateManyMutationInput = {
@@ -29227,8 +29208,8 @@ export namespace Prisma {
     company?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     employmentType?: EnumEmploymentTypeFieldUpdateOperationsInput | $Enums.EmploymentType
-    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    startDate?: StringFieldUpdateOperationsInput | string
+    endDate?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type WorkExperienceUncheckedUpdateManyInput = {
@@ -29238,8 +29219,8 @@ export namespace Prisma {
     jobdescId?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     employmentType?: EnumEmploymentTypeFieldUpdateOperationsInput | $Enums.EmploymentType
-    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    startDate?: StringFieldUpdateOperationsInput | string
+    endDate?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type EducationCreateInput = {
@@ -29247,8 +29228,8 @@ export namespace Prisma {
     schoolName: string
     degree: string
     fieldOfStudy: string
-    startDate: Date | string
-    endDate?: Date | string | null
+    startDate: string
+    endDate?: string | null
     userResume: UserResumeCreateNestedOneWithoutEducationInput
   }
 
@@ -29258,8 +29239,8 @@ export namespace Prisma {
     schoolName: string
     degree: string
     fieldOfStudy: string
-    startDate: Date | string
-    endDate?: Date | string | null
+    startDate: string
+    endDate?: string | null
   }
 
   export type EducationUpdateInput = {
@@ -29267,8 +29248,8 @@ export namespace Prisma {
     schoolName?: StringFieldUpdateOperationsInput | string
     degree?: StringFieldUpdateOperationsInput | string
     fieldOfStudy?: StringFieldUpdateOperationsInput | string
-    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    startDate?: StringFieldUpdateOperationsInput | string
+    endDate?: NullableStringFieldUpdateOperationsInput | string | null
     userResume?: UserResumeUpdateOneRequiredWithoutEducationNestedInput
   }
 
@@ -29278,8 +29259,8 @@ export namespace Prisma {
     schoolName?: StringFieldUpdateOperationsInput | string
     degree?: StringFieldUpdateOperationsInput | string
     fieldOfStudy?: StringFieldUpdateOperationsInput | string
-    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    startDate?: StringFieldUpdateOperationsInput | string
+    endDate?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type EducationCreateManyInput = {
@@ -29288,8 +29269,8 @@ export namespace Prisma {
     schoolName: string
     degree: string
     fieldOfStudy: string
-    startDate: Date | string
-    endDate?: Date | string | null
+    startDate: string
+    endDate?: string | null
   }
 
   export type EducationUpdateManyMutationInput = {
@@ -29297,8 +29278,8 @@ export namespace Prisma {
     schoolName?: StringFieldUpdateOperationsInput | string
     degree?: StringFieldUpdateOperationsInput | string
     fieldOfStudy?: StringFieldUpdateOperationsInput | string
-    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    startDate?: StringFieldUpdateOperationsInput | string
+    endDate?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type EducationUncheckedUpdateManyInput = {
@@ -29307,16 +29288,16 @@ export namespace Prisma {
     schoolName?: StringFieldUpdateOperationsInput | string
     degree?: StringFieldUpdateOperationsInput | string
     fieldOfStudy?: StringFieldUpdateOperationsInput | string
-    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    startDate?: StringFieldUpdateOperationsInput | string
+    endDate?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type LeadershipCreateInput = {
     id?: string
     organization: string
     role: string
-    startDate: Date | string
-    endDate: Date | string
+    startDate: string
+    endDate: string
     description: string
     userResume: UserResumeCreateNestedOneWithoutLeadershipInput
   }
@@ -29326,8 +29307,8 @@ export namespace Prisma {
     userResumeId: string
     organization: string
     role: string
-    startDate: Date | string
-    endDate: Date | string
+    startDate: string
+    endDate: string
     description: string
   }
 
@@ -29335,8 +29316,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     organization?: StringFieldUpdateOperationsInput | string
     role?: StringFieldUpdateOperationsInput | string
-    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    startDate?: StringFieldUpdateOperationsInput | string
+    endDate?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     userResume?: UserResumeUpdateOneRequiredWithoutLeadershipNestedInput
   }
@@ -29346,8 +29327,8 @@ export namespace Prisma {
     userResumeId?: StringFieldUpdateOperationsInput | string
     organization?: StringFieldUpdateOperationsInput | string
     role?: StringFieldUpdateOperationsInput | string
-    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    startDate?: StringFieldUpdateOperationsInput | string
+    endDate?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
   }
 
@@ -29356,8 +29337,8 @@ export namespace Prisma {
     userResumeId: string
     organization: string
     role: string
-    startDate: Date | string
-    endDate: Date | string
+    startDate: string
+    endDate: string
     description: string
   }
 
@@ -29365,8 +29346,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     organization?: StringFieldUpdateOperationsInput | string
     role?: StringFieldUpdateOperationsInput | string
-    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    startDate?: StringFieldUpdateOperationsInput | string
+    endDate?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
   }
 
@@ -29375,8 +29356,8 @@ export namespace Prisma {
     userResumeId?: StringFieldUpdateOperationsInput | string
     organization?: StringFieldUpdateOperationsInput | string
     role?: StringFieldUpdateOperationsInput | string
-    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    startDate?: StringFieldUpdateOperationsInput | string
+    endDate?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
   }
 
@@ -29385,8 +29366,7 @@ export namespace Prisma {
     category: $Enums.AdditionalCategory
     items?: AdditionalCreateitemsInput | string[]
     description?: string | null
-    createdAt?: Date | string
-    userResume: UserResumeCreateNestedOneWithoutAddtionalInput
+    userResume: UserResumeCreateNestedOneWithoutAdditionalInput
   }
 
   export type AdditionalUncheckedCreateInput = {
@@ -29395,7 +29375,6 @@ export namespace Prisma {
     category: $Enums.AdditionalCategory
     items?: AdditionalCreateitemsInput | string[]
     description?: string | null
-    createdAt?: Date | string
   }
 
   export type AdditionalUpdateInput = {
@@ -29403,8 +29382,7 @@ export namespace Prisma {
     category?: EnumAdditionalCategoryFieldUpdateOperationsInput | $Enums.AdditionalCategory
     items?: AdditionalUpdateitemsInput | string[]
     description?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    userResume?: UserResumeUpdateOneRequiredWithoutAddtionalNestedInput
+    userResume?: UserResumeUpdateOneRequiredWithoutAdditionalNestedInput
   }
 
   export type AdditionalUncheckedUpdateInput = {
@@ -29413,7 +29391,6 @@ export namespace Prisma {
     category?: EnumAdditionalCategoryFieldUpdateOperationsInput | $Enums.AdditionalCategory
     items?: AdditionalUpdateitemsInput | string[]
     description?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type AdditionalCreateManyInput = {
@@ -29422,7 +29399,6 @@ export namespace Prisma {
     category: $Enums.AdditionalCategory
     items?: AdditionalCreateitemsInput | string[]
     description?: string | null
-    createdAt?: Date | string
   }
 
   export type AdditionalUpdateManyMutationInput = {
@@ -29430,7 +29406,6 @@ export namespace Prisma {
     category?: EnumAdditionalCategoryFieldUpdateOperationsInput | $Enums.AdditionalCategory
     items?: AdditionalUpdateitemsInput | string[]
     description?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type AdditionalUncheckedUpdateManyInput = {
@@ -29439,7 +29414,6 @@ export namespace Prisma {
     category?: EnumAdditionalCategoryFieldUpdateOperationsInput | $Enums.AdditionalCategory
     items?: AdditionalUpdateitemsInput | string[]
     description?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type SubscriptionCreateInput = {
@@ -30764,17 +30738,6 @@ export namespace Prisma {
     not?: NestedEnumEmploymentTypeFilter<$PrismaModel> | $Enums.EmploymentType
   }
 
-  export type DateTimeNullableFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
-  }
-
   export type UserResumeScalarRelationFilter = {
     is?: UserResumeWhereInput
     isNot?: UserResumeWhereInput
@@ -30826,20 +30789,6 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumEmploymentTypeFilter<$PrismaModel>
     _max?: NestedEnumEmploymentTypeFilter<$PrismaModel>
-  }
-
-  export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedDateTimeNullableFilter<$PrismaModel>
-    _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
   export type EducationCountOrderByAggregateInput = {
@@ -30915,7 +30864,6 @@ export namespace Prisma {
     category?: SortOrder
     items?: SortOrder
     description?: SortOrder
-    createdAt?: SortOrder
   }
 
   export type AdditionalMaxOrderByAggregateInput = {
@@ -30923,7 +30871,6 @@ export namespace Prisma {
     userResumeId?: SortOrder
     category?: SortOrder
     description?: SortOrder
-    createdAt?: SortOrder
   }
 
   export type AdditionalMinOrderByAggregateInput = {
@@ -30931,7 +30878,6 @@ export namespace Prisma {
     userResumeId?: SortOrder
     category?: SortOrder
     description?: SortOrder
-    createdAt?: SortOrder
   }
 
   export type EnumAdditionalCategoryWithAggregatesFilter<$PrismaModel = never> = {
@@ -30942,6 +30888,17 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumAdditionalCategoryFilter<$PrismaModel>
     _max?: NestedEnumAdditionalCategoryFilter<$PrismaModel>
+  }
+
+  export type DateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
   }
 
   export type EnumPaymentStatusFilter<$PrismaModel = never> = {
@@ -30988,6 +30945,20 @@ export namespace Prisma {
     createdAt?: SortOrder
     expiredAt?: SortOrder
     updatedAt?: SortOrder
+  }
+
+  export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
   export type EnumPaymentStatusWithAggregatesFilter<$PrismaModel = never> = {
@@ -32177,10 +32148,6 @@ export namespace Prisma {
     set?: $Enums.EmploymentType
   }
 
-  export type NullableDateTimeFieldUpdateOperationsInput = {
-    set?: Date | string | null
-  }
-
   export type UserResumeUpdateOneRequiredWithoutWorkExperienceNestedInput = {
     create?: XOR<UserResumeCreateWithoutWorkExperienceInput, UserResumeUncheckedCreateWithoutWorkExperienceInput>
     connectOrCreate?: UserResumeCreateOrConnectWithoutWorkExperienceInput
@@ -32229,9 +32196,9 @@ export namespace Prisma {
     set: string[]
   }
 
-  export type UserResumeCreateNestedOneWithoutAddtionalInput = {
-    create?: XOR<UserResumeCreateWithoutAddtionalInput, UserResumeUncheckedCreateWithoutAddtionalInput>
-    connectOrCreate?: UserResumeCreateOrConnectWithoutAddtionalInput
+  export type UserResumeCreateNestedOneWithoutAdditionalInput = {
+    create?: XOR<UserResumeCreateWithoutAdditionalInput, UserResumeUncheckedCreateWithoutAdditionalInput>
+    connectOrCreate?: UserResumeCreateOrConnectWithoutAdditionalInput
     connect?: UserResumeWhereUniqueInput
   }
 
@@ -32244,18 +32211,22 @@ export namespace Prisma {
     push?: string | string[]
   }
 
-  export type UserResumeUpdateOneRequiredWithoutAddtionalNestedInput = {
-    create?: XOR<UserResumeCreateWithoutAddtionalInput, UserResumeUncheckedCreateWithoutAddtionalInput>
-    connectOrCreate?: UserResumeCreateOrConnectWithoutAddtionalInput
-    upsert?: UserResumeUpsertWithoutAddtionalInput
+  export type UserResumeUpdateOneRequiredWithoutAdditionalNestedInput = {
+    create?: XOR<UserResumeCreateWithoutAdditionalInput, UserResumeUncheckedCreateWithoutAdditionalInput>
+    connectOrCreate?: UserResumeCreateOrConnectWithoutAdditionalInput
+    upsert?: UserResumeUpsertWithoutAdditionalInput
     connect?: UserResumeWhereUniqueInput
-    update?: XOR<XOR<UserResumeUpdateToOneWithWhereWithoutAddtionalInput, UserResumeUpdateWithoutAddtionalInput>, UserResumeUncheckedUpdateWithoutAddtionalInput>
+    update?: XOR<XOR<UserResumeUpdateToOneWithWhereWithoutAdditionalInput, UserResumeUpdateWithoutAdditionalInput>, UserResumeUncheckedUpdateWithoutAdditionalInput>
   }
 
   export type UserCreateNestedOneWithoutSubscriptionInput = {
     create?: XOR<UserCreateWithoutSubscriptionInput, UserUncheckedCreateWithoutSubscriptionInput>
     connectOrCreate?: UserCreateOrConnectWithoutSubscriptionInput
     connect?: UserWhereUniqueInput
+  }
+
+  export type NullableDateTimeFieldUpdateOperationsInput = {
+    set?: Date | string | null
   }
 
   export type EnumPaymentStatusFieldUpdateOperationsInput = {
@@ -32666,17 +32637,6 @@ export namespace Prisma {
     not?: NestedEnumEmploymentTypeFilter<$PrismaModel> | $Enums.EmploymentType
   }
 
-  export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
-  }
-
   export type NestedEnumEmploymentTypeWithAggregatesFilter<$PrismaModel = never> = {
     equals?: $Enums.EmploymentType | EnumEmploymentTypeFieldRefInput<$PrismaModel>
     in?: $Enums.EmploymentType[] | ListEnumEmploymentTypeFieldRefInput<$PrismaModel>
@@ -32685,20 +32645,6 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumEmploymentTypeFilter<$PrismaModel>
     _max?: NestedEnumEmploymentTypeFilter<$PrismaModel>
-  }
-
-  export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedDateTimeNullableFilter<$PrismaModel>
-    _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
   export type NestedEnumAdditionalCategoryFilter<$PrismaModel = never> = {
@@ -32718,11 +32664,36 @@ export namespace Prisma {
     _max?: NestedEnumAdditionalCategoryFilter<$PrismaModel>
   }
 
+  export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  }
+
   export type NestedEnumPaymentStatusFilter<$PrismaModel = never> = {
     equals?: $Enums.PaymentStatus | EnumPaymentStatusFieldRefInput<$PrismaModel>
     in?: $Enums.PaymentStatus[] | ListEnumPaymentStatusFieldRefInput<$PrismaModel>
     notIn?: $Enums.PaymentStatus[] | ListEnumPaymentStatusFieldRefInput<$PrismaModel>
     not?: NestedEnumPaymentStatusFilter<$PrismaModel> | $Enums.PaymentStatus
+  }
+
+  export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
   export type NestedEnumPaymentStatusWithAggregatesFilter<$PrismaModel = never> = {
@@ -32843,7 +32814,7 @@ export namespace Prisma {
     workExperience?: WorkExperienceCreateNestedManyWithoutUserResumeInput
     education?: EducationCreateNestedManyWithoutUserResumeInput
     leadership?: LeadershipCreateNestedManyWithoutUserResumeInput
-    addtional?: AdditionalCreateNestedManyWithoutUserResumeInput
+    additional?: AdditionalCreateNestedManyWithoutUserResumeInput
   }
 
   export type UserResumeUncheckedCreateWithoutUserInput = {
@@ -32852,7 +32823,7 @@ export namespace Prisma {
     workExperience?: WorkExperienceUncheckedCreateNestedManyWithoutUserResumeInput
     education?: EducationUncheckedCreateNestedManyWithoutUserResumeInput
     leadership?: LeadershipUncheckedCreateNestedManyWithoutUserResumeInput
-    addtional?: AdditionalUncheckedCreateNestedManyWithoutUserResumeInput
+    additional?: AdditionalUncheckedCreateNestedManyWithoutUserResumeInput
   }
 
   export type UserResumeCreateOrConnectWithoutUserInput = {
@@ -33742,8 +33713,8 @@ export namespace Prisma {
     company: string
     description: string
     employmentType: $Enums.EmploymentType
-    startDate: Date | string
-    endDate?: Date | string | null
+    startDate: string
+    endDate?: string | null
     userResume: UserResumeCreateNestedOneWithoutWorkExperienceInput
   }
 
@@ -33753,8 +33724,8 @@ export namespace Prisma {
     company: string
     description: string
     employmentType: $Enums.EmploymentType
-    startDate: Date | string
-    endDate?: Date | string | null
+    startDate: string
+    endDate?: string | null
   }
 
   export type WorkExperienceCreateOrConnectWithoutJobdescInput = {
@@ -33793,8 +33764,8 @@ export namespace Prisma {
     jobdescId?: StringFilter<"WorkExperience"> | string
     description?: StringFilter<"WorkExperience"> | string
     employmentType?: EnumEmploymentTypeFilter<"WorkExperience"> | $Enums.EmploymentType
-    startDate?: DateTimeFilter<"WorkExperience"> | Date | string
-    endDate?: DateTimeNullableFilter<"WorkExperience"> | Date | string | null
+    startDate?: StringFilter<"WorkExperience"> | string
+    endDate?: StringNullableFilter<"WorkExperience"> | string | null
   }
 
   export type UserCreateWithoutApplicationInput = {
@@ -34775,8 +34746,8 @@ export namespace Prisma {
     company: string
     description: string
     employmentType: $Enums.EmploymentType
-    startDate: Date | string
-    endDate?: Date | string | null
+    startDate: string
+    endDate?: string | null
     jobdesc: JobdescCreateNestedOneWithoutExperiencesInput
   }
 
@@ -34786,8 +34757,8 @@ export namespace Prisma {
     jobdescId: string
     description: string
     employmentType: $Enums.EmploymentType
-    startDate: Date | string
-    endDate?: Date | string | null
+    startDate: string
+    endDate?: string | null
   }
 
   export type WorkExperienceCreateOrConnectWithoutUserResumeInput = {
@@ -34805,8 +34776,8 @@ export namespace Prisma {
     schoolName: string
     degree: string
     fieldOfStudy: string
-    startDate: Date | string
-    endDate?: Date | string | null
+    startDate: string
+    endDate?: string | null
   }
 
   export type EducationUncheckedCreateWithoutUserResumeInput = {
@@ -34814,8 +34785,8 @@ export namespace Prisma {
     schoolName: string
     degree: string
     fieldOfStudy: string
-    startDate: Date | string
-    endDate?: Date | string | null
+    startDate: string
+    endDate?: string | null
   }
 
   export type EducationCreateOrConnectWithoutUserResumeInput = {
@@ -34832,8 +34803,8 @@ export namespace Prisma {
     id?: string
     organization: string
     role: string
-    startDate: Date | string
-    endDate: Date | string
+    startDate: string
+    endDate: string
     description: string
   }
 
@@ -34841,8 +34812,8 @@ export namespace Prisma {
     id?: string
     organization: string
     role: string
-    startDate: Date | string
-    endDate: Date | string
+    startDate: string
+    endDate: string
     description: string
   }
 
@@ -34861,7 +34832,6 @@ export namespace Prisma {
     category: $Enums.AdditionalCategory
     items?: AdditionalCreateitemsInput | string[]
     description?: string | null
-    createdAt?: Date | string
   }
 
   export type AdditionalUncheckedCreateWithoutUserResumeInput = {
@@ -34869,7 +34839,6 @@ export namespace Prisma {
     category: $Enums.AdditionalCategory
     items?: AdditionalCreateitemsInput | string[]
     description?: string | null
-    createdAt?: Date | string
   }
 
   export type AdditionalCreateOrConnectWithoutUserResumeInput = {
@@ -34994,8 +34963,8 @@ export namespace Prisma {
     schoolName?: StringFilter<"Education"> | string
     degree?: StringFilter<"Education"> | string
     fieldOfStudy?: StringFilter<"Education"> | string
-    startDate?: DateTimeFilter<"Education"> | Date | string
-    endDate?: DateTimeNullableFilter<"Education"> | Date | string | null
+    startDate?: StringFilter<"Education"> | string
+    endDate?: StringNullableFilter<"Education"> | string | null
   }
 
   export type LeadershipUpsertWithWhereUniqueWithoutUserResumeInput = {
@@ -35022,8 +34991,8 @@ export namespace Prisma {
     userResumeId?: StringFilter<"Leadership"> | string
     organization?: StringFilter<"Leadership"> | string
     role?: StringFilter<"Leadership"> | string
-    startDate?: DateTimeFilter<"Leadership"> | Date | string
-    endDate?: DateTimeFilter<"Leadership"> | Date | string
+    startDate?: StringFilter<"Leadership"> | string
+    endDate?: StringFilter<"Leadership"> | string
     description?: StringFilter<"Leadership"> | string
   }
 
@@ -35052,7 +35021,6 @@ export namespace Prisma {
     category?: EnumAdditionalCategoryFilter<"Additional"> | $Enums.AdditionalCategory
     items?: StringNullableListFilter<"Additional">
     description?: StringNullableFilter<"Additional"> | string | null
-    createdAt?: DateTimeFilter<"Additional"> | Date | string
   }
 
   export type UserResumeCreateWithoutWorkExperienceInput = {
@@ -35061,7 +35029,7 @@ export namespace Prisma {
     user: UserCreateNestedOneWithoutUserResumeInput
     education?: EducationCreateNestedManyWithoutUserResumeInput
     leadership?: LeadershipCreateNestedManyWithoutUserResumeInput
-    addtional?: AdditionalCreateNestedManyWithoutUserResumeInput
+    additional?: AdditionalCreateNestedManyWithoutUserResumeInput
   }
 
   export type UserResumeUncheckedCreateWithoutWorkExperienceInput = {
@@ -35070,7 +35038,7 @@ export namespace Prisma {
     summary?: string | null
     education?: EducationUncheckedCreateNestedManyWithoutUserResumeInput
     leadership?: LeadershipUncheckedCreateNestedManyWithoutUserResumeInput
-    addtional?: AdditionalUncheckedCreateNestedManyWithoutUserResumeInput
+    additional?: AdditionalUncheckedCreateNestedManyWithoutUserResumeInput
   }
 
   export type UserResumeCreateOrConnectWithoutWorkExperienceInput = {
@@ -35110,7 +35078,7 @@ export namespace Prisma {
     user?: UserUpdateOneRequiredWithoutUserResumeNestedInput
     education?: EducationUpdateManyWithoutUserResumeNestedInput
     leadership?: LeadershipUpdateManyWithoutUserResumeNestedInput
-    addtional?: AdditionalUpdateManyWithoutUserResumeNestedInput
+    additional?: AdditionalUpdateManyWithoutUserResumeNestedInput
   }
 
   export type UserResumeUncheckedUpdateWithoutWorkExperienceInput = {
@@ -35119,7 +35087,7 @@ export namespace Prisma {
     summary?: NullableStringFieldUpdateOperationsInput | string | null
     education?: EducationUncheckedUpdateManyWithoutUserResumeNestedInput
     leadership?: LeadershipUncheckedUpdateManyWithoutUserResumeNestedInput
-    addtional?: AdditionalUncheckedUpdateManyWithoutUserResumeNestedInput
+    additional?: AdditionalUncheckedUpdateManyWithoutUserResumeNestedInput
   }
 
   export type JobdescUpsertWithoutExperiencesInput = {
@@ -35149,7 +35117,7 @@ export namespace Prisma {
     user: UserCreateNestedOneWithoutUserResumeInput
     workExperience?: WorkExperienceCreateNestedManyWithoutUserResumeInput
     leadership?: LeadershipCreateNestedManyWithoutUserResumeInput
-    addtional?: AdditionalCreateNestedManyWithoutUserResumeInput
+    additional?: AdditionalCreateNestedManyWithoutUserResumeInput
   }
 
   export type UserResumeUncheckedCreateWithoutEducationInput = {
@@ -35158,7 +35126,7 @@ export namespace Prisma {
     summary?: string | null
     workExperience?: WorkExperienceUncheckedCreateNestedManyWithoutUserResumeInput
     leadership?: LeadershipUncheckedCreateNestedManyWithoutUserResumeInput
-    addtional?: AdditionalUncheckedCreateNestedManyWithoutUserResumeInput
+    additional?: AdditionalUncheckedCreateNestedManyWithoutUserResumeInput
   }
 
   export type UserResumeCreateOrConnectWithoutEducationInput = {
@@ -35183,7 +35151,7 @@ export namespace Prisma {
     user?: UserUpdateOneRequiredWithoutUserResumeNestedInput
     workExperience?: WorkExperienceUpdateManyWithoutUserResumeNestedInput
     leadership?: LeadershipUpdateManyWithoutUserResumeNestedInput
-    addtional?: AdditionalUpdateManyWithoutUserResumeNestedInput
+    additional?: AdditionalUpdateManyWithoutUserResumeNestedInput
   }
 
   export type UserResumeUncheckedUpdateWithoutEducationInput = {
@@ -35192,7 +35160,7 @@ export namespace Prisma {
     summary?: NullableStringFieldUpdateOperationsInput | string | null
     workExperience?: WorkExperienceUncheckedUpdateManyWithoutUserResumeNestedInput
     leadership?: LeadershipUncheckedUpdateManyWithoutUserResumeNestedInput
-    addtional?: AdditionalUncheckedUpdateManyWithoutUserResumeNestedInput
+    additional?: AdditionalUncheckedUpdateManyWithoutUserResumeNestedInput
   }
 
   export type UserResumeCreateWithoutLeadershipInput = {
@@ -35201,7 +35169,7 @@ export namespace Prisma {
     user: UserCreateNestedOneWithoutUserResumeInput
     workExperience?: WorkExperienceCreateNestedManyWithoutUserResumeInput
     education?: EducationCreateNestedManyWithoutUserResumeInput
-    addtional?: AdditionalCreateNestedManyWithoutUserResumeInput
+    additional?: AdditionalCreateNestedManyWithoutUserResumeInput
   }
 
   export type UserResumeUncheckedCreateWithoutLeadershipInput = {
@@ -35210,7 +35178,7 @@ export namespace Prisma {
     summary?: string | null
     workExperience?: WorkExperienceUncheckedCreateNestedManyWithoutUserResumeInput
     education?: EducationUncheckedCreateNestedManyWithoutUserResumeInput
-    addtional?: AdditionalUncheckedCreateNestedManyWithoutUserResumeInput
+    additional?: AdditionalUncheckedCreateNestedManyWithoutUserResumeInput
   }
 
   export type UserResumeCreateOrConnectWithoutLeadershipInput = {
@@ -35235,7 +35203,7 @@ export namespace Prisma {
     user?: UserUpdateOneRequiredWithoutUserResumeNestedInput
     workExperience?: WorkExperienceUpdateManyWithoutUserResumeNestedInput
     education?: EducationUpdateManyWithoutUserResumeNestedInput
-    addtional?: AdditionalUpdateManyWithoutUserResumeNestedInput
+    additional?: AdditionalUpdateManyWithoutUserResumeNestedInput
   }
 
   export type UserResumeUncheckedUpdateWithoutLeadershipInput = {
@@ -35244,10 +35212,10 @@ export namespace Prisma {
     summary?: NullableStringFieldUpdateOperationsInput | string | null
     workExperience?: WorkExperienceUncheckedUpdateManyWithoutUserResumeNestedInput
     education?: EducationUncheckedUpdateManyWithoutUserResumeNestedInput
-    addtional?: AdditionalUncheckedUpdateManyWithoutUserResumeNestedInput
+    additional?: AdditionalUncheckedUpdateManyWithoutUserResumeNestedInput
   }
 
-  export type UserResumeCreateWithoutAddtionalInput = {
+  export type UserResumeCreateWithoutAdditionalInput = {
     id?: string
     summary?: string | null
     user: UserCreateNestedOneWithoutUserResumeInput
@@ -35256,7 +35224,7 @@ export namespace Prisma {
     leadership?: LeadershipCreateNestedManyWithoutUserResumeInput
   }
 
-  export type UserResumeUncheckedCreateWithoutAddtionalInput = {
+  export type UserResumeUncheckedCreateWithoutAdditionalInput = {
     id?: string
     userId: string
     summary?: string | null
@@ -35265,23 +35233,23 @@ export namespace Prisma {
     leadership?: LeadershipUncheckedCreateNestedManyWithoutUserResumeInput
   }
 
-  export type UserResumeCreateOrConnectWithoutAddtionalInput = {
+  export type UserResumeCreateOrConnectWithoutAdditionalInput = {
     where: UserResumeWhereUniqueInput
-    create: XOR<UserResumeCreateWithoutAddtionalInput, UserResumeUncheckedCreateWithoutAddtionalInput>
+    create: XOR<UserResumeCreateWithoutAdditionalInput, UserResumeUncheckedCreateWithoutAdditionalInput>
   }
 
-  export type UserResumeUpsertWithoutAddtionalInput = {
-    update: XOR<UserResumeUpdateWithoutAddtionalInput, UserResumeUncheckedUpdateWithoutAddtionalInput>
-    create: XOR<UserResumeCreateWithoutAddtionalInput, UserResumeUncheckedCreateWithoutAddtionalInput>
+  export type UserResumeUpsertWithoutAdditionalInput = {
+    update: XOR<UserResumeUpdateWithoutAdditionalInput, UserResumeUncheckedUpdateWithoutAdditionalInput>
+    create: XOR<UserResumeCreateWithoutAdditionalInput, UserResumeUncheckedCreateWithoutAdditionalInput>
     where?: UserResumeWhereInput
   }
 
-  export type UserResumeUpdateToOneWithWhereWithoutAddtionalInput = {
+  export type UserResumeUpdateToOneWithWhereWithoutAdditionalInput = {
     where?: UserResumeWhereInput
-    data: XOR<UserResumeUpdateWithoutAddtionalInput, UserResumeUncheckedUpdateWithoutAddtionalInput>
+    data: XOR<UserResumeUpdateWithoutAdditionalInput, UserResumeUncheckedUpdateWithoutAdditionalInput>
   }
 
-  export type UserResumeUpdateWithoutAddtionalInput = {
+  export type UserResumeUpdateWithoutAdditionalInput = {
     id?: StringFieldUpdateOperationsInput | string
     summary?: NullableStringFieldUpdateOperationsInput | string | null
     user?: UserUpdateOneRequiredWithoutUserResumeNestedInput
@@ -35290,7 +35258,7 @@ export namespace Prisma {
     leadership?: LeadershipUpdateManyWithoutUserResumeNestedInput
   }
 
-  export type UserResumeUncheckedUpdateWithoutAddtionalInput = {
+  export type UserResumeUncheckedUpdateWithoutAdditionalInput = {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     summary?: NullableStringFieldUpdateOperationsInput | string | null
@@ -36157,7 +36125,7 @@ export namespace Prisma {
     workExperience?: WorkExperienceUpdateManyWithoutUserResumeNestedInput
     education?: EducationUpdateManyWithoutUserResumeNestedInput
     leadership?: LeadershipUpdateManyWithoutUserResumeNestedInput
-    addtional?: AdditionalUpdateManyWithoutUserResumeNestedInput
+    additional?: AdditionalUpdateManyWithoutUserResumeNestedInput
   }
 
   export type UserResumeUncheckedUpdateWithoutUserInput = {
@@ -36166,7 +36134,7 @@ export namespace Prisma {
     workExperience?: WorkExperienceUncheckedUpdateManyWithoutUserResumeNestedInput
     education?: EducationUncheckedUpdateManyWithoutUserResumeNestedInput
     leadership?: LeadershipUncheckedUpdateManyWithoutUserResumeNestedInput
-    addtional?: AdditionalUncheckedUpdateManyWithoutUserResumeNestedInput
+    additional?: AdditionalUncheckedUpdateManyWithoutUserResumeNestedInput
   }
 
   export type UserResumeUncheckedUpdateManyWithoutUserInput = {
@@ -36605,8 +36573,8 @@ export namespace Prisma {
     company: string
     description: string
     employmentType: $Enums.EmploymentType
-    startDate: Date | string
-    endDate?: Date | string | null
+    startDate: string
+    endDate?: string | null
   }
 
   export type WorkExperienceUpdateWithoutJobdescInput = {
@@ -36614,8 +36582,8 @@ export namespace Prisma {
     company?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     employmentType?: EnumEmploymentTypeFieldUpdateOperationsInput | $Enums.EmploymentType
-    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    startDate?: StringFieldUpdateOperationsInput | string
+    endDate?: NullableStringFieldUpdateOperationsInput | string | null
     userResume?: UserResumeUpdateOneRequiredWithoutWorkExperienceNestedInput
   }
 
@@ -36625,8 +36593,8 @@ export namespace Prisma {
     company?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     employmentType?: EnumEmploymentTypeFieldUpdateOperationsInput | $Enums.EmploymentType
-    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    startDate?: StringFieldUpdateOperationsInput | string
+    endDate?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type WorkExperienceUncheckedUpdateManyWithoutJobdescInput = {
@@ -36635,8 +36603,8 @@ export namespace Prisma {
     company?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     employmentType?: EnumEmploymentTypeFieldUpdateOperationsInput | $Enums.EmploymentType
-    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    startDate?: StringFieldUpdateOperationsInput | string
+    endDate?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type InterviewCreateManyApplicationInput = {
@@ -36669,8 +36637,8 @@ export namespace Prisma {
     jobdescId: string
     description: string
     employmentType: $Enums.EmploymentType
-    startDate: Date | string
-    endDate?: Date | string | null
+    startDate: string
+    endDate?: string | null
   }
 
   export type EducationCreateManyUserResumeInput = {
@@ -36678,16 +36646,16 @@ export namespace Prisma {
     schoolName: string
     degree: string
     fieldOfStudy: string
-    startDate: Date | string
-    endDate?: Date | string | null
+    startDate: string
+    endDate?: string | null
   }
 
   export type LeadershipCreateManyUserResumeInput = {
     id?: string
     organization: string
     role: string
-    startDate: Date | string
-    endDate: Date | string
+    startDate: string
+    endDate: string
     description: string
   }
 
@@ -36696,7 +36664,6 @@ export namespace Prisma {
     category: $Enums.AdditionalCategory
     items?: AdditionalCreateitemsInput | string[]
     description?: string | null
-    createdAt?: Date | string
   }
 
   export type WorkExperienceUpdateWithoutUserResumeInput = {
@@ -36704,8 +36671,8 @@ export namespace Prisma {
     company?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     employmentType?: EnumEmploymentTypeFieldUpdateOperationsInput | $Enums.EmploymentType
-    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    startDate?: StringFieldUpdateOperationsInput | string
+    endDate?: NullableStringFieldUpdateOperationsInput | string | null
     jobdesc?: JobdescUpdateOneRequiredWithoutExperiencesNestedInput
   }
 
@@ -36715,8 +36682,8 @@ export namespace Prisma {
     jobdescId?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     employmentType?: EnumEmploymentTypeFieldUpdateOperationsInput | $Enums.EmploymentType
-    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    startDate?: StringFieldUpdateOperationsInput | string
+    endDate?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type WorkExperienceUncheckedUpdateManyWithoutUserResumeInput = {
@@ -36725,8 +36692,8 @@ export namespace Prisma {
     jobdescId?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     employmentType?: EnumEmploymentTypeFieldUpdateOperationsInput | $Enums.EmploymentType
-    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    startDate?: StringFieldUpdateOperationsInput | string
+    endDate?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type EducationUpdateWithoutUserResumeInput = {
@@ -36734,8 +36701,8 @@ export namespace Prisma {
     schoolName?: StringFieldUpdateOperationsInput | string
     degree?: StringFieldUpdateOperationsInput | string
     fieldOfStudy?: StringFieldUpdateOperationsInput | string
-    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    startDate?: StringFieldUpdateOperationsInput | string
+    endDate?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type EducationUncheckedUpdateWithoutUserResumeInput = {
@@ -36743,8 +36710,8 @@ export namespace Prisma {
     schoolName?: StringFieldUpdateOperationsInput | string
     degree?: StringFieldUpdateOperationsInput | string
     fieldOfStudy?: StringFieldUpdateOperationsInput | string
-    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    startDate?: StringFieldUpdateOperationsInput | string
+    endDate?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type EducationUncheckedUpdateManyWithoutUserResumeInput = {
@@ -36752,16 +36719,16 @@ export namespace Prisma {
     schoolName?: StringFieldUpdateOperationsInput | string
     degree?: StringFieldUpdateOperationsInput | string
     fieldOfStudy?: StringFieldUpdateOperationsInput | string
-    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    startDate?: StringFieldUpdateOperationsInput | string
+    endDate?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type LeadershipUpdateWithoutUserResumeInput = {
     id?: StringFieldUpdateOperationsInput | string
     organization?: StringFieldUpdateOperationsInput | string
     role?: StringFieldUpdateOperationsInput | string
-    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    startDate?: StringFieldUpdateOperationsInput | string
+    endDate?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
   }
 
@@ -36769,8 +36736,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     organization?: StringFieldUpdateOperationsInput | string
     role?: StringFieldUpdateOperationsInput | string
-    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    startDate?: StringFieldUpdateOperationsInput | string
+    endDate?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
   }
 
@@ -36778,8 +36745,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     organization?: StringFieldUpdateOperationsInput | string
     role?: StringFieldUpdateOperationsInput | string
-    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    startDate?: StringFieldUpdateOperationsInput | string
+    endDate?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
   }
 
@@ -36788,7 +36755,6 @@ export namespace Prisma {
     category?: EnumAdditionalCategoryFieldUpdateOperationsInput | $Enums.AdditionalCategory
     items?: AdditionalUpdateitemsInput | string[]
     description?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type AdditionalUncheckedUpdateWithoutUserResumeInput = {
@@ -36796,7 +36762,6 @@ export namespace Prisma {
     category?: EnumAdditionalCategoryFieldUpdateOperationsInput | $Enums.AdditionalCategory
     items?: AdditionalUpdateitemsInput | string[]
     description?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type AdditionalUncheckedUpdateManyWithoutUserResumeInput = {
@@ -36804,7 +36769,6 @@ export namespace Prisma {
     category?: EnumAdditionalCategoryFieldUpdateOperationsInput | $Enums.AdditionalCategory
     items?: AdditionalUpdateitemsInput | string[]
     description?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type SkillAssessmentCreateManyTemplateInput = {
