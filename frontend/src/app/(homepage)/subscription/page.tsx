@@ -42,7 +42,7 @@ export default function SubscriptionPage() {
       const token = session?.accessToken;
       if (!token) return;
 
-      const response = await axios.get("/subscriptions", {
+      const response = await axios.get("/subscribers", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -56,12 +56,17 @@ export default function SubscriptionPage() {
       }
 
       if (subscription.status === "PENDING") {
-        router.push(`/subscription/${subscription.id}`);
+        router.push(`/subscription/${subscription.transactionId}`);
         return;
       }
 
       if (!subscription.startDate || !subscription.endDate) {
         setIsSubscribed(false);
+        return;
+      }
+
+      if (subscription.status === "CANCELED") {
+        setIsSubscribed(false)
         return;
       }
 
@@ -145,7 +150,7 @@ export default function SubscriptionPage() {
       const token = session?.accessToken;
 
       const response = await axios.post(
-        "/subscriptions",
+        "/transactions",
         { type: planType },
         {
           headers: {
@@ -153,8 +158,11 @@ export default function SubscriptionPage() {
           },
         }
       );
+      console.log(response);
+      
 
-      const transactionId = response.data.result.data.id;
+      const transactionId = response.data.transaction.data.id;
+      
       router.push(`/subscription/${transactionId}`);
     } catch (err: any) {
       toast.error(err.response?.data?.message || "Subscription failed");

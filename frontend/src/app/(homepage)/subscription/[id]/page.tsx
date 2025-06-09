@@ -35,7 +35,7 @@ export default function TransactionDetailPage() {
 
     async function fetchTransaction() {
       try {
-        const { data } = await axios.get(`/subscriptions/${id}`);
+        const { data } = await axios.get(`/transactions/${id}`);
         setTransaction(data);
 
         countdownInterval = setInterval(() => {
@@ -67,7 +67,7 @@ export default function TransactionDetailPage() {
           statusInterval = setInterval(async () => {
             try {
               const { data: updatedData } = await axios.get(
-                `/subscriptions/${id}`
+                `/transactions/${id}`
               );
               if (updatedData.status !== "PENDING") {
                 clearInterval(statusInterval);
@@ -76,7 +76,7 @@ export default function TransactionDetailPage() {
             } catch (err) {
               console.error("Failed to poll payment status", err);
             }
-          }, 10000);
+          }, 10000); //10 detik
         }
       } catch (err) {
         console.error("Failed to fetch transaction", err);
@@ -106,7 +106,7 @@ export default function TransactionDetailPage() {
 
   const handleCancelPayment = async () => {
     try {
-      await axios.patch(`/subscriptions/cancel`, {
+      await axios.patch(`/transactions/cancel`, {
         id: transaction.id,
       });
 

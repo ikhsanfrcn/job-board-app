@@ -20,11 +20,11 @@ exports.Prisma = Prisma
 exports.$Enums = {}
 
 /**
- * Prisma Client JS version: 6.8.2
+ * Prisma Client JS version: 6.8.1
  * Query Engine version: 2060c79ba17c6bb9f5823312b6f6b7f4a845738e
  */
 Prisma.prismaVersion = {
-  client: "6.8.2",
+  client: "6.8.1",
   engine: "2060c79ba17c6bb9f5823312b6f6b7f4a845738e"
 }
 
@@ -307,15 +307,34 @@ exports.Prisma.AdditionalScalarFieldEnum = {
 
 exports.Prisma.SubscriptionScalarFieldEnum = {
   id: 'id',
+  name: 'name',
+  type: 'type',
+  price: 'price',
+  features: 'features',
+  userId: 'userId'
+};
+
+exports.Prisma.TransactionScalarFieldEnum = {
+  id: 'id',
   userId: 'userId',
   type: 'type',
-  startDate: 'startDate',
-  endDate: 'endDate',
   status: 'status',
   invoiceUrl: 'invoiceUrl',
   createdAt: 'createdAt',
   expiredAt: 'expiredAt',
   updatedAt: 'updatedAt'
+};
+
+exports.Prisma.SubscriberScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  type: 'type',
+  startDate: 'startDate',
+  endDate: 'endDate',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  transactionId: 'transactionId'
 };
 
 exports.Prisma.SkillAssessmentTemplateScalarFieldEnum = {
@@ -422,6 +441,13 @@ exports.PaymentStatus = exports.$Enums.PaymentStatus = {
   CANCELED: 'CANCELED'
 };
 
+exports.SubscriberStatus = exports.$Enums.SubscriberStatus = {
+  PENDING: 'PENDING',
+  ACTIVE: 'ACTIVE',
+  EXPIRED: 'EXPIRED',
+  CANCELED: 'CANCELED'
+};
+
 exports.Prisma.ModelName = {
   User: 'User',
   Company: 'Company',
@@ -440,6 +466,8 @@ exports.Prisma.ModelName = {
   Leadership: 'Leadership',
   Additional: 'Additional',
   Subscription: 'Subscription',
+  Transaction: 'Transaction',
+  Subscriber: 'Subscriber',
   SkillAssessmentTemplate: 'SkillAssessmentTemplate',
   SkillAssessment: 'SkillAssessment',
   AssessmentSession: 'AssessmentSession'

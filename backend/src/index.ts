@@ -10,9 +10,10 @@ import { ReviewRouter } from "./router/review.routes";
 import { TestRouter } from "./router/test.router";
 import { InterviewRouter } from "./router/interview.routes";
 import { DeveloperRouter } from "./router/developer.routes";
-import { SubscriptionRouter } from "./router/subscription.routes";
+import { SubscriberRouter } from "./router/subscriber.routes";
 import { ResumeRouter } from "./router/resume.routes";
 import { SkillAssessmentRouter } from "./router/assessment.routes";
+import { TransactionRouter } from "./router/transaction.routes";
 
 const PORT: number = 8000;
 
@@ -54,14 +55,17 @@ app.use("/api/test", testRouter.getRouter());
 const interviewRouter = new InterviewRouter();
 app.use("/api/interviews", interviewRouter.getRouter());
 
-const subscriptionRouter = new SubscriptionRouter();
-app.use("/api/subscriptions", subscriptionRouter.getRouter());
+const subscriberRouter = new SubscriberRouter();
+app.use("/api/subscribers", subscriberRouter.getRouter());
 
 const resumeRouter = new ResumeRouter();
 app.use("/api/resumes", resumeRouter.getRouter());
 
 const skillAssessmentRouter = new SkillAssessmentRouter();
 app.use("/api/assessment", skillAssessmentRouter.getRouter())
+
+const transactionRouter = new TransactionRouter();
+app.use("/api/transactions", transactionRouter.getRouter());
 
 app.listen(PORT, () => {
   console.log(`Server running http://localhost:${PORT}/api`);
