@@ -21,6 +21,12 @@ export class ResumeRouter {
       this.resumeController.createResume
     );
 
+    this.router.put(
+      "/",
+      this.authMiddleware.verifyToken,
+      this.resumeController.updateResume
+    );
+
     this.router.get(
       "/user",
       this.authMiddleware.verifyToken,

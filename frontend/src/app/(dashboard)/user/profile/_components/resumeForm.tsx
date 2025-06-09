@@ -41,7 +41,7 @@ export default function ResumeForm({
     try {
       setLoading(true);
 
-      const url = isEditMode ? `/resumes/${values.id}` : "/resumes";
+      const url = "/resumes";
       const method = isEditMode ? axios.put : axios.post;
 
       const { data } = await method(url, values, {
@@ -79,26 +79,35 @@ export default function ResumeForm({
         enableReinitialize
       >
         {({ values, errors, touched }) => (
-          <Form className="space-y-6">
+          <Form className="space-y-4 text-sm text-gray-800">
             <CreateSummary touched={touched.summary} errors={errors.summary} />
             <CreateExperience values={values} />
             <CreateEducation values={values} />
             <CreateLeadership values={values} />
             <CreateAdditional values={values} />
 
-            <button
-              type="submit"
-              className="bg-blue-600 text-white px-4 py-2 rounded"
-              disabled={loading}
-            >
-              {loading
-                ? isEditMode
-                  ? "Updating..."
-                  : "Submitting..."
-                : isEditMode
-                ? "Update Resume"
-                : "Submit Resume"}
-            </button>
+            <div className="flex justify-between mt-6 gap-4">
+              <button
+                type="button"
+                onClick={() => setIsCreating(false)}
+                className="w-full border border-black px-4 py-2 rounded hover:bg-gray-100"
+              >
+                Cancel
+              </button>
+              <button
+                type="submit"
+                className="w-full text-white px-4 py-2 border rounded bg-gray-400 hover:bg-gray-600"
+                disabled={loading}
+              >
+                {loading
+                  ? isEditMode
+                    ? "Updating..."
+                    : "Submitting..."
+                  : isEditMode
+                  ? "Update Resume"
+                  : "Submit Resume"}
+              </button>
+            </div>
           </Form>
         )}
       </Formik>

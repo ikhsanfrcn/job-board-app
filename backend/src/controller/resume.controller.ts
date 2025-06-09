@@ -65,7 +65,11 @@ export class ResumeController {
           },
         },
         include: {
-          workExperience: true,
+          workExperience: {
+            include: {
+              jobdesc: true,
+            },
+          },
           education: true,
           leadership: true,
           additional: true,
@@ -103,6 +107,91 @@ export class ResumeController {
     } catch (err) {
       console.log(err);
       res.status(400).send(err);
+    }
+  }
+
+  async updateResume(req: Request, res: Response) {
+    const userId = req.user?.id;
+
+    const {
+      summary,
+      workExperience = [],
+      education = [],
+      leadership = [],
+      additional = [],
+    } = req.body;
+
+    try {
+      const resume = await prisma.userResume.update({
+        where: {
+          userId,
+        },
+        data: {
+          summary,
+          workExperience: {
+            deleteMany: {},
+            create: workExperience.map((job: any) => ({
+              company: job.company,
+              description: job.description,
+              employmentType: job.employmentType,
+              startDate: job.startDate,
+              endDate: job.endDate ?? null,
+              jobdesc: {
+                connectOrCreate: {
+                  where: { name: job.jobdesc.name },
+                  create: { name: job.jobdesc.name },
+                },
+              },
+            })),
+          },
+          education: {
+            deleteMany: {},
+            create: education.map((edu: any) => ({
+              schoolName: edu.schoolName,
+              degree: edu.degree,
+              fieldOfStudy: edu.fieldOfStudy,
+              startDate: edu.startDate,
+              endDate: edu.endDate ?? null,
+            })),
+          },
+          leadership: {
+            deleteMany: {},
+            create: leadership.map((lead: any) => ({
+              organization: lead.organization,
+              role: lead.role,
+              description: lead.description,
+              startDate: lead.startDate,
+              endDate: lead.endDate,
+            })),
+          },
+          additional: {
+            deleteMany: {},
+            create: additional.map((add: any) => ({
+              category: add.category,
+              items: add.items,
+              description: add.description,
+            })),
+          },
+        },
+        include: {
+          workExperience: {
+            include: {
+              jobdesc: true,
+            },
+          },
+          education: true,
+          leadership: true,
+          additional: true,
+        },
+      });
+
+      res.status(200).send({
+        message: "Resume updated successfully ✅",
+        resume,
+      });
+    } catch (err) {
+      console.error(err);
+      res.status(400).send({ error: "Failed to update resume", details: err });
     }
   }
 }
