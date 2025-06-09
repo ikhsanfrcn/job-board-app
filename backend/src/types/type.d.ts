@@ -66,3 +66,10 @@ export interface CreateInterviewParams {
   date: string;
   location: string;
 }
+
+export interface CreateSubscriptionParams {
+  type: string;
+  features: string;
+  name: string;
+  price: number;
+}

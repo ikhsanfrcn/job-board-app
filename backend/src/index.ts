@@ -14,6 +14,7 @@ import { SubscriberRouter } from "./router/subscriber.routes";
 import { ResumeRouter } from "./router/resume.routes";
 import { SkillAssessmentRouter } from "./router/assessment.routes";
 import { TransactionRouter } from "./router/transaction.routes";
+import { SubscriptionRouter } from "./router/subscription.routes";
 
 const PORT: number = 8000;
 
@@ -66,6 +67,9 @@ app.use("/api/assessment", skillAssessmentRouter.getRouter())
 
 const transactionRouter = new TransactionRouter();
 app.use("/api/transactions", transactionRouter.getRouter());
+
+const subscriptionRouter = new SubscriptionRouter();
+app.use("/api/subscriptions", subscriptionRouter.getRouter())
 
 app.listen(PORT, () => {
   console.log(`Server running http://localhost:${PORT}/api`);
