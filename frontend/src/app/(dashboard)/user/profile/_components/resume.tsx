@@ -7,6 +7,7 @@ import axios from "@/lib/axios";
 import { IResume } from "@/types/resume";
 import ResumeDetail from "./resumeDetail";
 import ResumeForm from "./resumeForm";
+import ResumeSkeleton from "./resumeSkeleton";
 
 export default function Resume() {
   const { data: user } = useSession();
@@ -39,7 +40,11 @@ export default function Resume() {
   }, [fetchResume]);
 
   if (loading) {
-    return <div className="p-6">Loading...</div>;
+    return (
+      <div className="p-6">
+        <ResumeSkeleton />
+      </div>
+    );
   }
 
   return (
@@ -61,7 +66,8 @@ export default function Resume() {
       </div>
 
       <p className="text-sm text-gray-600 mb-6">
-        Keep your resume current by updating your experiences and achievements regularly.
+        Keep your resume current by updating your experiences and achievements
+        regularly.
       </p>
 
       {/* Create mode */}
