@@ -212,7 +212,7 @@ model UserResume {
   workExperience WorkExperience[]
   education      Education[]
   leadership     Leadership[]
-  addtional      Additional[]
+  additional     Additional[]
 }
 
 model WorkExperience {
@@ -222,8 +222,8 @@ model WorkExperience {
   jobdescId      String
   description    String
   employmentType EmploymentType
-  startDate      DateTime
-  endDate        DateTime?
+  startDate      String
+  endDate        String?
 
   userResume UserResume @relation(fields: [userResumeId], references: [id])
   jobdesc    Jobdesc    @relation(fields: [jobdescId], references: [id])
@@ -239,24 +239,24 @@ enum EmploymentType {
 }
 
 model Education {
-  id           String    @id @default(uuid())
+  id           String  @id @default(uuid())
   userResumeId String
   schoolName   String
   degree       String
   fieldOfStudy String
-  startDate    DateTime
-  endDate      DateTime?
+  startDate    String
+  endDate      String?
 
   userResume UserResume @relation(fields: [userResumeId], references: [id])
 }
 
 model Leadership {
-  id           String   @id @default(uuid())
+  id           String @id @default(uuid())
   userResumeId String
   organization String
   role         String
-  startDate    DateTime
-  endDate      DateTime
+  startDate    String
+  endDate      String
   description  String
 
   userResume UserResume @relation(fields: [userResumeId], references: [id])
@@ -268,7 +268,6 @@ model Additional {
   category     AdditionalCategory
   items        String[]
   description  String?
-  createdAt    DateTime           @default(now())
 
   userResume UserResume @relation(fields: [userResumeId], references: [id])
 }

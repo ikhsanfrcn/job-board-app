@@ -71,11 +71,12 @@ export class SkillAssessmentController {
       if (existingSession) {
         // ✅ Return existing session instead of creating new one
         console.log("🔄 Returning existing active session");
-        return res.status(200).json({
+        res.status(200).json({
           sessionToken: existingSession.sessionToken,
           existingSession: existingSession,
           isResuming: true,
         });
+        return;
       }
 
       // ✅ Create new session only if no active session exists
@@ -207,7 +208,8 @@ export class SkillAssessmentController {
       });
 
       if (!activeSession) {
-        return res.status(404).json({ message: "No active session found" });
+        res.status(404).json({ message: "No active session found" });
+        return;
       }
 
       // ✅ Check if session has expired
@@ -216,7 +218,8 @@ export class SkillAssessmentController {
           where: { id: activeSession.id },
           data: { isActive: false },
         });
-        return res.status(404).json({ message: "Session has expired" });
+        res.status(404).json({ message: "Session has expired" });
+        return;
       }
 
       res.status(200).json({
@@ -263,14 +266,12 @@ export class SkillAssessmentController {
         where: { id: session.id },
         data: { isActive: false },
       });
-      res
-        .status(200)
-        .json({
-          message: "Assessment submitted successfully",
-          result: assessmentResult,
-          score,
-          isPassed,
-        });
+      res.status(200).json({
+        message: "Assessment submitted successfully",
+        result: assessmentResult,
+        score,
+        isPassed,
+      });
     } catch (err) {
       console.log(err);
       res.status(400).json(err);
@@ -297,7 +298,7 @@ function calculateScore(answers: any, questions: any) {
   if (!Array.isArray(parsedQuestions)) return 0;
 
   let correctAnswers = 0;
-  
+
   // If answers is an array (from frontend)
   if (Array.isArray(answers)) {
     correctAnswers = answers.filter((ans: any) => ans && ans.isCorrect).length;
@@ -310,4 +311,4 @@ function calculateScore(answers: any, questions: any) {
 
   const totalQuestions = parsedQuestions.length || 1;
   return Math.round((correctAnswers / totalQuestions) * 100);
-} 
+}
