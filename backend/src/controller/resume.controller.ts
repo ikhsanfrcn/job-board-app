@@ -15,7 +15,7 @@ export class ResumeController {
       workExperience = [],
       education = [],
       leadership = [],
-      addtional = [],
+      additional = [],
     } = req.body;
 
     try {
@@ -28,8 +28,8 @@ export class ResumeController {
               company: job.company,
               description: job.description,
               employmentType: job.employmentType,
-              startDate: new Date(job.startDate),
-              endDate: job.endDate ? new Date(job.endDate) : null,
+              startDate: job.startDate,
+              endDate: job.endDate ? job.endDate : null,
               jobdesc: {
                 connectOrCreate: {
                   where: { name: job.jobdesc.name },
@@ -43,8 +43,8 @@ export class ResumeController {
               schoolName: edu.schoolName,
               degree: edu.degree,
               fieldOfStudy: edu.fieldOfStudy,
-              startDate: new Date(edu.startDate),
-              endDate: edu.endDate ? new Date(edu.endDate) : null,
+              startDate: edu.startDate,
+              endDate: edu.endDate ? edu.endDate : null,
             })),
           },
           leadership: {
@@ -52,12 +52,12 @@ export class ResumeController {
               organization: lead.organization,
               role: lead.role,
               description: lead.description,
-              startDate: new Date(lead.startDate),
-              endDate: new Date(lead.endDate),
+              startDate: lead.startDate,
+              endDate: lead.endDate,
             })),
           },
-          addtional: {
-            create: addtional.map((add: any) => ({
+          additional: {
+            create: additional.map((add: any) => ({
               category: add.category,
               items: add.items,
               description: add.description,
@@ -68,7 +68,7 @@ export class ResumeController {
           workExperience: true,
           education: true,
           leadership: true,
-          addtional: true,
+          additional: true,
         },
       });
 
@@ -94,7 +94,7 @@ export class ResumeController {
           },
           education: true,
           leadership: true,
-          addtional: true,
+          additional: true,
         },
       });
       res

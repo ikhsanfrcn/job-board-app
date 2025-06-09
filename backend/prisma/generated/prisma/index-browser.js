@@ -302,8 +302,7 @@ exports.Prisma.AdditionalScalarFieldEnum = {
   userResumeId: 'userResumeId',
   category: 'category',
   items: 'items',
-  description: 'description',
-  createdAt: 'createdAt'
+  description: 'description'
 };
 
 exports.Prisma.SubscriptionScalarFieldEnum = {
