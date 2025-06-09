@@ -37,7 +37,6 @@ export default function Page({
   const router = useRouter();
   const { data: session } = useSession();
   const token = session?.accessToken;
-  console.log(session?.user.id)
 
   // State with proper typing
   const [assessment, setAssessment] = useState<Assessment | null>(null);
@@ -169,8 +168,9 @@ export default function Page({
       // Remove localStorage data after submitting
       localStorage.removeItem("assessmentCurrentIndex");
       localStorage.removeItem("assessmentEndTime");
+      localStorage.removeItem("assessmentTimeLeft");
     } catch (error) {
-      console.error("Submission error:", error);
+      console.log(error);
     }
   };
 
