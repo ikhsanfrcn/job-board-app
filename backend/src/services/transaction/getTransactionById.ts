@@ -1,8 +1,8 @@
 import prisma from "../../prisma";
 
-export const getSubscriptionByUser = async (userId: string) => {
-  return await prisma.subscription.findUnique({
-    where: { userId },
+export const getTransactionById = async (id: string) => {
+  return await prisma.transaction.findUnique({
+    where: { id },
     include: {
       user: {
         select: {

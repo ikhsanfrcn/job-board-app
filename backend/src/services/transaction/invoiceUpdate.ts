@@ -4,12 +4,12 @@ export const handleInvoiceStatusUpdate = async (
   status: string,
   externalId: string
 ) => {
-  const subscription = await prisma.subscription.findUnique({
+  const transaction = await prisma.transaction.findUnique({
     where: { id: externalId },
   });
 
-  if (!subscription) {
-    throw (`Subscription not found for ID: ${externalId}`);
+  if (!transaction) {
+    throw `Transaction not found for ID: ${externalId}`;
   }
 
   if (status === "PAID") {
@@ -17,16 +17,24 @@ export const handleInvoiceStatusUpdate = async (
     const endDate = new Date();
     endDate.setMonth(endDate.getMonth() + 1);
 
-    await prisma.subscription.update({
+    await prisma.transaction.update({
       where: { id: externalId },
       data: {
         status: "PAID",
+      },
+    });
+
+    await prisma.subscriber.update({
+      where: { userId: transaction.userId },
+      data: {
+        status: "ACTIVE",
         startDate: now,
-        endDate: endDate,
+        endDate,
+        transactionId: transaction.id,
       },
     });
   } else if (status === "EXPIRED") {
-    await prisma.subscription.update({
+    await prisma.transaction.update({
       where: { id: externalId },
       data: { status: "EXPIRED" },
     });
