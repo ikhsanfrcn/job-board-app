@@ -32,6 +32,12 @@ export class ResumeRouter {
       this.authMiddleware.verifyToken,
       this.resumeController.getUserResume
     );
+
+    this.router.get(
+      "/generate-pdf",
+      this.authMiddleware.verifyToken,
+      this.resumeController.generatePdf
+    );
   }
 
   getRouter(): Router {

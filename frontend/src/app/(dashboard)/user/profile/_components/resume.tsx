@@ -8,6 +8,8 @@ import { IResume } from "@/types/resume";
 import ResumeDetail from "./resumeDetail";
 import ResumeForm from "./resumeForm";
 import ResumeSkeleton from "./resumeSkeleton";
+import { toast } from "react-toastify";
+import { AxiosError } from "axios";
 
 export default function Resume() {
   const { data: user } = useSession();
@@ -35,6 +37,35 @@ export default function Resume() {
     }
   }, [token]);
 
+  const handleDownloadPdf = async () => {
+    try {
+      const { data } = await axios.get("/resumes/generate-pdf", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        responseType: "blob",
+      });
+
+      const url = window.URL.createObjectURL(
+        new Blob([data], { type: "application/pdf" })
+      );
+      const link = document.createElement("a");
+      link.href = url;
+      link.setAttribute("download", "resume.pdf");
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      window.URL.revokeObjectURL(url);
+    } catch (err) {
+      console.error(err);
+      if (err instanceof AxiosError) {
+        toast.error(err.response?.data?.message || "Failed to download PDF");
+      } else {
+        toast.error("An unexpected error occurred");
+      }
+    }
+  };
+
   useEffect(() => {
     fetchResume();
   }, [fetchResume]);
@@ -49,20 +80,28 @@ export default function Resume() {
 
   return (
     <div className="w-full p-6 space-y-6">
-      <div className="flex items-center mb-2 space-x-2">
-        <h2 className="text-xl font-semibold">Resume</h2>
-        {!isEditing && resume && (
-          <MdOutlineModeEdit
-            className="text-4xl p-2 rounded-full hover:bg-gray-200 cursor-pointer"
-            onClick={() => setIsEditing(true)}
-          />
-        )}
-        {!resume && !isCreating && (
-          <MdOutlineModeEdit
-            className="text-4xl p-2 rounded-full hover:bg-gray-200 cursor-pointer"
-            onClick={() => setIsCreating(true)}
-          />
-        )}
+      <div className="flex justify-between items-center">
+        <div className="flex items-center mb-2 space-x-2">
+          <h2 className="text-xl font-semibold">Resume</h2>
+          {!isEditing && resume && (
+            <MdOutlineModeEdit
+              className="text-4xl p-2 rounded-full hover:bg-gray-200 cursor-pointer"
+              onClick={() => setIsEditing(true)}
+            />
+          )}
+          {!resume && !isCreating && (
+            <MdOutlineModeEdit
+              className="text-4xl p-2 rounded-full hover:bg-gray-200 cursor-pointer"
+              onClick={() => setIsCreating(true)}
+            />
+          )}
+        </div>
+        <button
+          onClick={handleDownloadPdf}
+          className="text-sm px-4 py-2 bg-gray-200 rounded-md cursor-pointer hover:bg-gray-300 hover:scale-105 transition duration-300"
+        >
+          Download PDF
+        </button>
       </div>
 
       <p className="text-sm text-gray-600 mb-6">
@@ -70,7 +109,6 @@ export default function Resume() {
         regularly.
       </p>
 
-      {/* Create mode */}
       {!resume && isCreating && (
         <ResumeForm
           token={token}
@@ -79,14 +117,12 @@ export default function Resume() {
         />
       )}
 
-      {/* Resume doesn't exist */}
       {!resume && !isCreating && (
         <p className="text-sm text-gray-600 mb-6">
           You don&apos;t have a resume yet. Create one.
         </p>
       )}
 
-      {/* View or edit resume */}
       {resume && !isEditing && <ResumeDetail resume={resume} />}
 
       {resume && isEditing && (
