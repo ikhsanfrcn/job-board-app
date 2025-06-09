@@ -53,7 +53,7 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
           };
 
           console.log("Sending user data to API:", userData);
-          const {data: response} = await axios.post("/auth/google", userData);
+          const { data: response } = await axios.post("/auth/google", userData);
           console.log("API Response:", response);
 
           const createUser = response.data;
@@ -71,7 +71,7 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
           };
         } catch (err) {
           console.error("Error during Google auth:", err);
-          throw new Error("Authentication failed!")
+          throw new Error("Authentication failed!");
         }
       },
     }),
@@ -84,7 +84,7 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
     maxAge: 60 * 60,
   },
   callbacks: {
-    async jwt({ token, user }) {
+    async jwt({ token, user, account, profile }) {
       if (user) {
         token.id = user.id;
         token.username = user.username;
@@ -103,6 +103,23 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
         token.phoneNumber = user.phoneNumber;
         token.avatar = user.avatar;
         token.accessToken = user.accessToken;
+      }
+      if (account?.provider === "google" && profile?.email) {
+        try {
+          const { data: existingUser } = await axios.get(
+            `/users/user-email/${profile.email}`
+          );
+
+          if (existingUser) {
+            token.id = existingUser.id;
+            token.username = existingUser.username;
+            token.email = existingUser.email;
+            token.role = existingUser.role;
+            token.avatar = existingUser.avatar;
+          } 
+        } catch (err) {
+          console.error("Error during Google login:", err);
+        }
       }
       return token;
     },
