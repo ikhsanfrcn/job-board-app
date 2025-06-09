@@ -22,9 +22,9 @@ export class SkillAssessmentController {
 
   async getAllAssessment(req: Request, res: Response) {
     try {
-      const templates = await prisma.skillAssessmentTemplate.findMany();
+      const assessments = await prisma.skillAssessmentTemplate.findMany();
 
-      res.status(200).json(templates);
+      res.status(200).json(assessments);
     } catch (err) {
       console.error(err);
       res.status(400).json(err);
@@ -34,13 +34,13 @@ export class SkillAssessmentController {
   async getAssessmentById(req: Request, res: Response) {
     try {
       const { templateId } = req.params;
-      const template = await prisma.skillAssessmentTemplate.findUnique({
+      const assessment = await prisma.skillAssessmentTemplate.findUnique({
         where: { id: templateId },
       });
 
-      if (!template) throw { message: "Assessment template not found!" };
+      if (!assessment) throw { message: "Assessment template not found!" };
 
-      res.status(200).json(template);
+      res.status(200).json(assessment);
     } catch (err) {
       console.error(err);
       res.status(400).json(err);
@@ -49,188 +49,89 @@ export class SkillAssessmentController {
 
   async startAssessment(req: Request, res: Response) {
     try {
+      const { templateId } = req.params;
       const userId = req.user?.id;
       if (!userId) throw { message: "User not found!" };
-      const { templateId } = req.params;
-      // ✅ Validate template existence
-      const template = await prisma.skillAssessmentTemplate.findUnique({
-        where: { id: templateId },
-      });
 
-      if (!template) throw { message: "Assessment template not found!" };
-
-      // ✅ Check if user has an active session for this template
       const existingSession = await prisma.assessmentSession.findFirst({
         where: {
           userId,
           templateId,
           isActive: true,
+          expiresAt: { gt: new Date() },
         },
       });
 
       if (existingSession) {
-        // ✅ Return existing session instead of creating new one
-        console.log("🔄 Returning existing active session");
         res.status(200).json({
           sessionToken: existingSession.sessionToken,
-          existingSession: existingSession,
-          isResuming: true,
+          timeRemaining: existingSession.timeRemaining,
+          currentQuestionIndex: existingSession.currentQuestionIndex,
+          answers: existingSession.answers,
         });
         return;
       }
 
-      // ✅ Create new session only if no active session exists
+      const template = await prisma.skillAssessmentTemplate.findUnique({
+        where: { id: templateId },
+      });
+
+      if (!template) throw { message: "Assessment not found!" };
+
       const sessionToken = uuidv4();
+      const expiresAt = new Date(Date.now() + template.timeLimit * 1000);
+
       const newSession = await prisma.assessmentSession.create({
         data: {
           userId,
           templateId,
           sessionToken,
+          timeRemaining: template.timeLimit,
+          currentQuestionIndex: 0,
           answers: {},
-          timeRemaining: 1800,
-          expiresAt: new Date(Date.now() + 1800000),
+          expiresAt,
+          isActive: true,
         },
       });
-      res.status(201).json({ sessionToken, newSession, isResuming: false });
+
+      res.status(201).json({
+        sessionToken: newSession.sessionToken,
+        timeRemaining: newSession.timeRemaining,
+        currentQuestionIndex: 0,
+        answers: {},
+      });
     } catch (err) {
-      console.log(err);
+      console.error(err);
       res.status(400).json(err);
     }
   }
 
-  async updateSessionProgress(req: Request, res: Response) {
+  async saveProgress(req: Request, res: Response) {
     try {
-      const { sessionToken, currentQuestionIndex, answers, timeRemaining } =
+      const { sessionToken, answers, currentQuestionIndex, timeRemaining } =
         req.body;
-
-      if (!sessionToken) throw { message: "Session token is required!" };
+      const userId = req.user?.id;
 
       const session = await prisma.assessmentSession.findUnique({
         where: { sessionToken },
       });
 
-      if (!session || !session.isActive) {
-        throw { message: "Session expired or invalid!" };
-      }
+      if (!session || !session.isActive || session.userId !== userId)
+        throw { message: "Invalid session!" };
 
-      // ✅ Update session with current progress
-      const updatedSession = await prisma.assessmentSession.update({
+      const updateSession = await prisma.assessmentSession.update({
         where: { sessionToken },
         data: {
-          currentQuestionIndex:
-            currentQuestionIndex ?? session.currentQuestionIndex,
-          answers: answers ?? session.answers,
-          timeRemaining: timeRemaining ?? session.timeRemaining,
+          answers,
+          currentQuestionIndex,
+          timeRemaining,
           updatedAt: new Date(),
         },
       });
 
-      res.status(200).json({
-        message: "Session progress updated",
-        session: updatedSession,
-      });
+      res.status(201).json(updateSession);
     } catch (err) {
-      console.log(err);
-      res.status(400).json(err);
-    }
-  }
-
-  async updateSessionTime(req: Request, res: Response) {
-    try {
-      const { sessionToken, timeRemaining } = req.body;
-
-      const session = await prisma.assessmentSession.findUnique({
-        where: { sessionToken },
-      });
-
-      if (!session || !session.isActive)
-        throw { message: "Session expired or invalid!" };
-
-      const updatedSession = await prisma.assessmentSession.update({
-        where: { sessionToken },
-        data: { timeRemaining, updatedAt: new Date() },
-      });
-      res.status(200).json(updatedSession);
-    } catch (err) {
-      console.log(err);
-      res.status(400).json(err);
-    }
-  }
-
-  async resumeAssessment(req: Request, res: Response) {
-    try {
-      const { sessionToken } = req.params;
-      if (!sessionToken) throw { message: "Session token is required!" };
-      const session = await prisma.assessmentSession.findUnique({
-        where: { sessionToken },
-        include: { template: true },
-      });
-      if (!session || !session.isActive)
-        throw { message: "Session expired or invalid!" };
-      // ✅ Check if session has expired based on time
-      if (session.timeRemaining <= 0) {
-        await prisma.assessmentSession.update({
-          where: { id: session.id },
-          data: { isActive: false },
-        });
-        throw { message: "Session has expired!" };
-      }
-      res.status(200).json({
-        timeRemaining: session.timeRemaining,
-        currentQuestionIndex: session.currentQuestionIndex || 0,
-        answers: session.answers || {},
-        template: session.template,
-        sessionToken: session.sessionToken,
-      });
-    } catch (err) {
-      console.log(err);
-      res.status(400).json(err);
-    }
-  }
-
-  // ✅ NEW: Get active session for user and template
-  async getActiveSession(req: Request, res: Response) {
-    try {
-      const userId = req.user?.id;
-      const { templateId } = req.params;
-
-      if (!userId) throw { message: "User not found!" };
-
-      const activeSession = await prisma.assessmentSession.findFirst({
-        where: {
-          userId,
-          templateId,
-          isActive: true,
-        },
-        include: {
-          template: true,
-        },
-      });
-
-      if (!activeSession) {
-        res.status(404).json({ message: "No active session found" });
-        return;
-      }
-
-      // ✅ Check if session has expired
-      if (activeSession.timeRemaining <= 0) {
-        await prisma.assessmentSession.update({
-          where: { id: activeSession.id },
-          data: { isActive: false },
-        });
-        res.status(404).json({ message: "Session has expired" });
-        return;
-      }
-
-      res.status(200).json({
-        sessionToken: activeSession.sessionToken,
-        timeRemaining: activeSession.timeRemaining,
-        currentQuestionIndex: activeSession.currentQuestionIndex || 0,
-        answers: activeSession.answers || {},
-        template: activeSession.template,
-      });
-    } catch (err) {
-      console.log(err);
+      console.error(err);
       res.status(400).json(err);
     }
   }
@@ -238,77 +139,67 @@ export class SkillAssessmentController {
   async submitAssessment(req: Request, res: Response) {
     try {
       const { sessionToken, answers } = req.body;
+      const userId = req.user?.id;
+
       const session = await prisma.assessmentSession.findUnique({
         where: { sessionToken },
+        include: { template: true },
       });
-      if (!session || !session.isActive) throw { message: "Invalid session!" };
-      const template = await prisma.skillAssessmentTemplate.findUnique({
-        where: { id: session.templateId },
-      });
-      if (!template) throw { message: "Template not found!" };
 
-      let score = calculateScore(answers, template?.questions);
-      let isPassed = score >= (template?.passingScore || 75);
-      const assessmentResult = await prisma.skillAssessment.create({
+      if (!session || !session.isActive || session.userId !== userId)
+        throw { message: "Invalid session!" };
+
+      let questions = session.template.questions;
+      if (typeof questions === "string") {
+        try {
+          questions = JSON.parse(questions);
+        } catch (e) {
+          throw { message: "Failed to parse questions." };
+        }
+      }
+      if (!Array.isArray(questions)) {
+        throw { message: "Questions are not in array format." };
+      }
+      const correctAnswers = questions.filter(
+        (q: any, i: number) => q.answer === answers[i]
+      ).length;
+      
+      const score = Math.round((correctAnswers / questions.length) * 100);
+      const isPassed = score >= session.template.passingScore;
+      const timeSpent = session.template.timeLimit - session.timeRemaining;
+
+      const result = await prisma.skillAssessment.create({
         data: {
-          userId: session.userId,
+          userId,
           templateId: session.templateId,
           score,
-          totalPoints: template?.totalPoints || 100,
+          totalPoints: session.template.totalPoints,
           isPassed,
-          timeSpent: (template?.timeLimit || 1800) - session.timeRemaining,
+          timeSpent,
           answers,
           startedAt: session.createdAt,
           completedAt: new Date(),
         },
       });
+
       await prisma.assessmentSession.update({
-        where: { id: session.id },
+        where: { sessionToken },
         data: { isActive: false },
       });
-      res.status(200).json({
-        message: "Assessment submitted successfully",
-        result: assessmentResult,
-        score,
-        isPassed,
-      });
+
+      res
+        .status(201)
+        .json({
+          score,
+          isPassed,
+          correctAnswers,
+          totalQuestions: questions.length,
+          timeSpent,
+          result,
+        });
     } catch (err) {
       console.log(err);
       res.status(400).json(err);
     }
   }
-}
-
-function calculateScore(answers: any, questions: any) {
-  // ✅ Improved scoring logic
-  if (!answers || typeof answers !== "object") return 0;
-  if (!questions) return 0;
-
-  // Parse questions if they're stored as JSON string
-  let parsedQuestions = questions;
-  if (typeof questions === "string") {
-    try {
-      parsedQuestions = JSON.parse(questions);
-    } catch (e) {
-      console.error("Error parsing questions:", e);
-      return 0;
-    }
-  }
-
-  if (!Array.isArray(parsedQuestions)) return 0;
-
-  let correctAnswers = 0;
-
-  // If answers is an array (from frontend)
-  if (Array.isArray(answers)) {
-    correctAnswers = answers.filter((ans: any) => ans && ans.isCorrect).length;
-  } else {
-    // If answers is an object
-    correctAnswers = Object.values(answers).filter(
-      (ans: any) => ans && ans.isCorrect
-    ).length;
-  }
-
-  const totalQuestions = parsedQuestions.length || 1;
-  return Math.round((correctAnswers / totalQuestions) * 100);
 }
