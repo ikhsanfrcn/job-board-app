@@ -1,5 +1,8 @@
 import { Request, Response } from "express";
 import prisma from "../prisma";
+import path from "path";
+import ejs from "ejs";
+import puppeteer from "puppeteer";
 
 export class ResumeController {
   async createResume(req: Request, res: Response) {
@@ -81,7 +84,7 @@ export class ResumeController {
         .send({ message: "Resume created successfully ✅", resume });
     } catch (err) {
       console.error(err);
-      res.status(400).send({ error: "Failed to create resume", details: err });
+      res.status(400).send(err);
     }
   }
 
@@ -191,7 +194,69 @@ export class ResumeController {
       });
     } catch (err) {
       console.error(err);
-      res.status(400).send({ error: "Failed to update resume", details: err });
+      res.status(400).send(err);
+    }
+  }
+
+  async generatePdf(req: Request, res: Response) {
+    const userId = req.user?.id;
+
+    try {
+      const resume = await prisma.userResume.findUnique({
+        where: { userId },
+        include: {
+          workExperience: { include: { jobdesc: true } },
+          education: true,
+          leadership: true,
+          additional: true,
+          user: true,
+        },
+      });
+
+      if (!resume) {
+        res.status(404).send({ message: "Resume not found" });
+        return;
+      }
+
+      const templatePath = path.join(
+        __dirname,
+        "..",
+        "templates",
+        "cvGenerate.ejs"
+      );
+
+      const html = await ejs.renderFile(templatePath, {
+        resume,
+        user: resume.user,
+      });
+
+      const browser = await puppeteer.launch({
+        headless: true,
+      });
+
+      const page = await browser.newPage();
+      await page.setContent(html, {
+        waitUntil: "networkidle0",
+      });
+
+      const pdfBuffer = await page.pdf({
+        format: "A4",
+        printBackground: true,
+      });
+
+      await browser.close();
+
+      res.set({
+        "Content-Type": "application/pdf",
+        "Content-Disposition": "attachment; filename=resume.pdf",
+        "Content-Length": pdfBuffer.length,
+      });
+
+      res.status(200).send(pdfBuffer);
+      return;
+    } catch (err) {
+      console.error(err);
+      res.status(500).send(err);
     }
   }
 }
