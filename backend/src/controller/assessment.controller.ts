@@ -33,6 +33,70 @@ export class SkillAssessmentController {
 
   async getAssessmentById(req: Request, res: Response) {
     try {
+      const { id } = req.params;
+      const assessment = await prisma.skillAssessmentTemplate.findUnique({
+        where: { id },
+      });
+
+      if (!assessment) throw { message: "Assessment template not found!" };
+
+      res.status(200).json(assessment);
+    } catch (err) {
+      console.error(err);
+      res.status(400).json(err);
+    }
+  }
+
+  async editAssessment(req: Request, res: Response) {
+    try {
+      const { id } = req.params;
+      const { title, description, category, questions } = req.body;
+
+      const existingAssessment =
+        await prisma.skillAssessmentTemplate.findUnique({ where: { id } });
+
+      if (!existingAssessment) throw { message: "Assessment not found" };
+
+      const updatedAssessment = await prisma.skillAssessmentTemplate.update({
+        where: { id },
+        data: {
+          title,
+          description,
+          category,
+          questions,
+          updatedAt: new Date(),
+        },
+      });
+
+      res.status(200).json({
+        message: "Assessment updated successfully✅",
+        updatedAssessment,
+      });
+    } catch (err) {
+      console.log(err);
+      res.status(400).json(err);
+    }
+  }
+
+  async deleteAssessment(req: Request, res: Response) {
+    try {
+      const { id } = req.params;
+
+      const existingAssessment =
+        await prisma.skillAssessmentTemplate.findUnique({ where: { id } });
+      if (!existingAssessment) throw { message: "Assessment not found" };
+
+      await prisma.skillAssessmentTemplate.delete({ where: { id } });
+
+      res.status(200).json({ message: "Assessment deleted successfully✅" });
+    } catch (err) {
+      console.log(err);
+      res.status(400).json(err);
+    }
+  }
+
+  async getAssessmentByTemplateId(req: Request, res: Response) {
+    try {
       const { templateId } = req.params;
       const assessment = await prisma.skillAssessmentTemplate.findUnique({
         where: { id: templateId },
@@ -163,7 +227,7 @@ export class SkillAssessmentController {
       const correctAnswers = questions.filter(
         (q: any, i: number) => q.answer === answers[i]
       ).length;
-      
+
       const score = Math.round((correctAnswers / questions.length) * 100);
       const isPassed = score >= session.template.passingScore;
       const timeSpent = session.template.timeLimit - session.timeRemaining;
@@ -187,16 +251,14 @@ export class SkillAssessmentController {
         data: { isActive: false },
       });
 
-      res
-        .status(201)
-        .json({
-          score,
-          isPassed,
-          correctAnswers,
-          totalQuestions: questions.length,
-          timeSpent,
-          result,
-        });
+      res.status(201).json({
+        score,
+        isPassed,
+        correctAnswers,
+        totalQuestions: questions.length,
+        timeSpent,
+        result,
+      });
     } catch (err) {
       console.log(err);
       res.status(400).json(err);

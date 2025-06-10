@@ -18,9 +18,15 @@ export class SkillAssessmentRouter {
     this.router.get("/", this.skillAssessmentController.getAllAssessment);
     this.router.post("/", this.skillAssessmentController.createAssessment);
     this.router.get(
+      "/:id",
+      this.skillAssessmentController.getAssessmentById
+    );
+    this.router.put("/:id", this.skillAssessmentController.editAssessment);
+    this.router.delete("/:id", this.skillAssessmentController.deleteAssessment);
+    this.router.get(
       "/:templateId",
       this.authMiddleware.verifyToken,
-      this.skillAssessmentController.getAssessmentById
+      this.skillAssessmentController.getAssessmentByTemplateId
     );
     this.router.post(
       "/start/:templateId",
