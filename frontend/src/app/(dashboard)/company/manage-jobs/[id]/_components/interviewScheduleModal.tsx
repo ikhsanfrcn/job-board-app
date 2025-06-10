@@ -8,6 +8,7 @@ interface Props {
   onSubmit: (data: {
     applicationId: string;
     date: string;
+    time: string;
     location: string;
   }) => void;
 }
@@ -18,11 +19,12 @@ export default function InterviewScheduleModal({
   onSubmit,
 }: Props) {
   const [date, setDate] = useState("");
+  const [time, setTime] = useState("");
   const [location, setLocation] = useState("");
 
   const handleSubmit = () => {
-    if (!date || !location) return alert("Please fill all fields.");
-    onSubmit({ applicationId, date, location });
+    if (!date || !time || !location) return alert("Please fill all fields.");
+    onSubmit({ applicationId, date, time, location });
   };
 
   return (
@@ -57,20 +59,27 @@ export default function InterviewScheduleModal({
                 </Dialog.Title>
 
                 <div className="mb-4">
-                  <label className="block text-sm font-medium mb-1">
-                    Date & Time
-                  </label>
+                  <label className="block text-sm font-medium mb-1">Date</label>
                   <input
-                    type="datetime-local"
+                    type="date"
                     value={date}
                     onChange={(e) => setDate(e.target.value)}
                     className="w-full border p-2 rounded"
                   />
                 </div>
+
                 <div className="mb-4">
-                  <label className="block text-sm font-medium mb-1">
-                    Location
-                  </label>
+                  <label className="block text-sm font-medium mb-1">Time</label>
+                  <input
+                    type="time"
+                    value={time}
+                    onChange={(e) => setTime(e.target.value)}
+                    className="w-full border p-2 rounded"
+                  />
+                </div>
+
+                <div className="mb-4">
+                  <label className="block text-sm font-medium mb-1">Location</label>
                   <input
                     type="text"
                     value={location}

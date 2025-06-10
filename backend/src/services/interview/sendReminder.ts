@@ -16,6 +16,11 @@ export const sendInterviewRemindersService = async () => {
       application: {
         include: {
           user: true,
+          job: {
+            include: {
+              company: true,
+            },
+          },
         },
       },
     },
@@ -24,14 +29,19 @@ export const sendInterviewRemindersService = async () => {
   for (const interview of interviews) {
     const user = interview.application?.user;
 
+    const companyName = interview.application?.job?.company.name || "the company";
+
     if (user?.email) {
       await sendReminderEmail({
         email: user.email,
         subject: "Interview Reminder",
-        templateName: "interviewReminder",
+        templateName: "interviewNotice",
         templateData: {
+          heading: "Interview Reminder",
           name: user.firstName || "there",
+          message: `This is a reminder that you have an upcoming interview scheduled with ${companyName}.`,
           date: interview.date,
+          time: interview.time,
           location: interview.location,
         },
       });
