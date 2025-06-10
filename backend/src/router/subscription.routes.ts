@@ -15,10 +15,10 @@ export class SubscriptionRouter {
   }
 
   private initializeRoute() {
-    this.router.post("/", this.authMiddleware.verifyToken, this.subscriptionController.createSubscription);
-    this.router.get("/", this.authMiddleware.verifyToken, this.subscriptionController.getSubscription)
-    this.router.patch("/:id", this.authMiddleware.verifyToken, this.subscriptionController.updateSubscription)
-    this.router.delete("/:id", this.authMiddleware.verifyToken, this.subscriptionController.deleteSubscription)
+    this.router.post("/", this.authMiddleware.verifyToken, this.authMiddleware.verifyRole, this.subscriptionController.createSubscription);
+    this.router.get("/", this.subscriptionController.getSubscription)
+    this.router.patch("/:id", this.authMiddleware.verifyToken, this.authMiddleware.verifyRole, this.subscriptionController.updateSubscription)
+    this.router.delete("/:id", this.authMiddleware.verifyToken, this.authMiddleware.verifyRole, this.subscriptionController.deleteSubscription)
   }
 
   getRouter(): Router {

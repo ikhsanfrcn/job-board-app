@@ -22,8 +22,6 @@ export class SubscriptionController {
   }
   async getSubscription(req: Request, res: Response) {
     try {
-      const userId = req.user?.id;
-      if (!userId) throw { status: 400, message: "Unauthorized" };
       const subscriptions = await getSubscription();
       res.status(200).json(subscriptions);
     } catch (error: any) {

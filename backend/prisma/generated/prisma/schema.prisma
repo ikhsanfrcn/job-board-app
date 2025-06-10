@@ -280,11 +280,11 @@ enum AdditionalCategory {
 }
 
 model Subscription {
-  id       String  @id @default(uuid())
+  id       String   @id @default(uuid())
   name     String
   type     String
   price    Int
-  features String
+  features String[]
   userId   String?
 }
 
