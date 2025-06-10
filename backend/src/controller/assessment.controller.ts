@@ -264,4 +264,24 @@ export class SkillAssessmentController {
       res.status(400).json(err);
     }
   }
+
+  async getUserAssessments(req: Request, res: Response) {
+    try {
+      const userId = req.user?.id;
+
+      const userAssessments = await prisma.skillAssessment.findMany({
+        where: { userId },
+        include: {
+          template: { select: { title: true, category: true } },
+        },
+      });
+      res.status(200).send({
+        message: "User assessments fetched successfully✅",
+        userAssessments,
+      });
+    } catch (err) {
+      console.log(err);
+      res.status(404).send(err);
+    }
+  }
 }
