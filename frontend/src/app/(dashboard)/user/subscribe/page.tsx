@@ -47,7 +47,7 @@ export default function SubscribePage() {
 
   if (!subscriber && token) {
     return (
-      <div className="w-full md:px-14 mt-3">
+      <div className="w-full md:px-8 mt-3">
         <div className="mt-3 p-7 border border-gray-200 h-full rounded-xl shadow-sm">
           <div className="flex justify-center items-center">
             <p>Loading subscription information...</p>
@@ -58,11 +58,11 @@ export default function SubscribePage() {
   }
 
   return (
-    <div className="w-full md:px-14">
+    <div className="w-full md:px-8">
       <div className="mt-3 p-3 border border-gray-200 h-full rounded-xl shadow-sm font-sans">
         {isActive ? (
           <>
-            <div className="w-full md:px-14">
+            <div className="w-full md:px-8">
               <div className="mt-3 p-7 h-full">
                 <div className="flex flex-col items-center font-sans">
                   <h2 className="text-3xl font-semibold tracking-tight text-green-600">
@@ -88,7 +88,7 @@ export default function SubscribePage() {
                   CV Generator
                 </Link>
                 <Link
-                  href={"/"}
+                  href={"/user/subscribe/skill-assessment"}
                   className="w-60 h-30 p-2 flex flex-col items-center justify-center bg-sky-100 rounded-md shadow-md border border-sky-600 hover:scale-105 transition duration-200"
                 >
                   Skill Assessment
