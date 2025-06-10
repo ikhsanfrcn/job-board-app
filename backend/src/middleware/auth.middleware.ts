@@ -31,4 +31,16 @@ export class AuthMiddleware {
       res.status(500).json({ error });
     }
   }
+
+  verifyRole(req: Request, res: Response, next: NextFunction) {
+    try {
+      if (req.user?.role !== "developer") {
+        res.status(403).json({ message: "developer only" });
+      }
+      next();
+    } catch (error) {
+      console.log(error);
+      res.status(500).send(error);
+    }
+  }
 }

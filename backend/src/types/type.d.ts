@@ -69,7 +69,7 @@ export interface CreateInterviewParams {
 
 export interface CreateSubscriptionParams {
   type: string;
-  features: string;
+  features: string[];
   name: string;
   price: number;
 }

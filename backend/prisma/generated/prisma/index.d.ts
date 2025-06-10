@@ -21546,7 +21546,6 @@ export namespace Prisma {
     name: string | null
     type: string | null
     price: number | null
-    features: string | null
     userId: string | null
   }
 
@@ -21555,7 +21554,6 @@ export namespace Prisma {
     name: string | null
     type: string | null
     price: number | null
-    features: string | null
     userId: string | null
   }
 
@@ -21583,7 +21581,6 @@ export namespace Prisma {
     name?: true
     type?: true
     price?: true
-    features?: true
     userId?: true
   }
 
@@ -21592,7 +21589,6 @@ export namespace Prisma {
     name?: true
     type?: true
     price?: true
-    features?: true
     userId?: true
   }
 
@@ -21697,7 +21693,7 @@ export namespace Prisma {
     name: string
     type: string
     price: number
-    features: string
+    features: string[]
     userId: string | null
     _count: SubscriptionCountAggregateOutputType | null
     _avg: SubscriptionAvgAggregateOutputType | null
@@ -21766,7 +21762,7 @@ export namespace Prisma {
       name: string
       type: string
       price: number
-      features: string
+      features: string[]
       userId: string | null
     }, ExtArgs["result"]["subscription"]>
     composites: {}
@@ -22195,7 +22191,7 @@ export namespace Prisma {
     readonly name: FieldRef<"Subscription", 'String'>
     readonly type: FieldRef<"Subscription", 'String'>
     readonly price: FieldRef<"Subscription", 'Int'>
-    readonly features: FieldRef<"Subscription", 'String'>
+    readonly features: FieldRef<"Subscription", 'String[]'>
     readonly userId: FieldRef<"Subscription", 'String'>
   }
     
@@ -30203,7 +30199,7 @@ export namespace Prisma {
     name?: StringFilter<"Subscription"> | string
     type?: StringFilter<"Subscription"> | string
     price?: IntFilter<"Subscription"> | number
-    features?: StringFilter<"Subscription"> | string
+    features?: StringNullableListFilter<"Subscription">
     userId?: StringNullableFilter<"Subscription"> | string | null
   }
 
@@ -30224,7 +30220,7 @@ export namespace Prisma {
     name?: StringFilter<"Subscription"> | string
     type?: StringFilter<"Subscription"> | string
     price?: IntFilter<"Subscription"> | number
-    features?: StringFilter<"Subscription"> | string
+    features?: StringNullableListFilter<"Subscription">
     userId?: StringNullableFilter<"Subscription"> | string | null
   }, "id">
 
@@ -30250,7 +30246,7 @@ export namespace Prisma {
     name?: StringWithAggregatesFilter<"Subscription"> | string
     type?: StringWithAggregatesFilter<"Subscription"> | string
     price?: IntWithAggregatesFilter<"Subscription"> | number
-    features?: StringWithAggregatesFilter<"Subscription"> | string
+    features?: StringNullableListFilter<"Subscription">
     userId?: StringNullableWithAggregatesFilter<"Subscription"> | string | null
   }
 
@@ -32044,7 +32040,7 @@ export namespace Prisma {
     name: string
     type: string
     price: number
-    features: string
+    features?: SubscriptionCreatefeaturesInput | string[]
     userId?: string | null
   }
 
@@ -32053,7 +32049,7 @@ export namespace Prisma {
     name: string
     type: string
     price: number
-    features: string
+    features?: SubscriptionCreatefeaturesInput | string[]
     userId?: string | null
   }
 
@@ -32062,7 +32058,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     type?: StringFieldUpdateOperationsInput | string
     price?: IntFieldUpdateOperationsInput | number
-    features?: StringFieldUpdateOperationsInput | string
+    features?: SubscriptionUpdatefeaturesInput | string[]
     userId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
@@ -32071,7 +32067,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     type?: StringFieldUpdateOperationsInput | string
     price?: IntFieldUpdateOperationsInput | number
-    features?: StringFieldUpdateOperationsInput | string
+    features?: SubscriptionUpdatefeaturesInput | string[]
     userId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
@@ -32080,7 +32076,7 @@ export namespace Prisma {
     name: string
     type: string
     price: number
-    features: string
+    features?: SubscriptionCreatefeaturesInput | string[]
     userId?: string | null
   }
 
@@ -32089,7 +32085,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     type?: StringFieldUpdateOperationsInput | string
     price?: IntFieldUpdateOperationsInput | number
-    features?: StringFieldUpdateOperationsInput | string
+    features?: SubscriptionUpdatefeaturesInput | string[]
     userId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
@@ -32098,7 +32094,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     type?: StringFieldUpdateOperationsInput | string
     price?: IntFieldUpdateOperationsInput | number
-    features?: StringFieldUpdateOperationsInput | string
+    features?: SubscriptionUpdatefeaturesInput | string[]
     userId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
@@ -33676,7 +33672,6 @@ export namespace Prisma {
     name?: SortOrder
     type?: SortOrder
     price?: SortOrder
-    features?: SortOrder
     userId?: SortOrder
   }
 
@@ -33685,7 +33680,6 @@ export namespace Prisma {
     name?: SortOrder
     type?: SortOrder
     price?: SortOrder
-    features?: SortOrder
     userId?: SortOrder
   }
 
@@ -35114,6 +35108,15 @@ export namespace Prisma {
     upsert?: UserResumeUpsertWithoutAdditionalInput
     connect?: UserResumeWhereUniqueInput
     update?: XOR<XOR<UserResumeUpdateToOneWithWhereWithoutAdditionalInput, UserResumeUpdateWithoutAdditionalInput>, UserResumeUncheckedUpdateWithoutAdditionalInput>
+  }
+
+  export type SubscriptionCreatefeaturesInput = {
+    set: string[]
+  }
+
+  export type SubscriptionUpdatefeaturesInput = {
+    set?: string[]
+    push?: string | string[]
   }
 
   export type UserCreateNestedOneWithoutTransactionInput = {

@@ -8,86 +8,93 @@ import axios from "@/lib/axios";
 import { useSession } from "next-auth/react";
 import SubscriptionCard from "./_components/subscriptionCard";
 
-const plans = [
-  {
-    name: "Standard Plan",
-    price: 25000,
-    type: "STANDART",
-    features: ["CV Generator", "2x Skill Assessment"],
-  },
-  {
-    name: "Professional Plan",
-    price: 100000,
-    type: "PROFESSIONAL",
-    features: [
-      "CV Generator",
-      "Unlimited Skill Assessment",
-      "Job Application Review Priority",
-    ],
-  },
-];
+type PlanType = {
+  name: string;
+  price: number;
+  type: string;
+  features: string[];
+};
 
 export default function SubscriptionPage() {
   const { data: session } = useSession();
   const router = useRouter();
 
-  const [loadingPlan, setLoadingPlan] = useState<
-    "STANDART" | "PROFESSIONAL" | null
-  >(null);
+  const [loadingPlan, setLoadingPlan] = useState<string | null>(null);
   const [isSubscribed, setIsSubscribed] = useState<boolean | null>(null);
+  const [plans, setPlans] = useState<PlanType[]>([]);
+  const [loadingPlans, setLoadingPlans] = useState<boolean>(true);
 
   useEffect(() => {
-  const fetchSubscriptionStatus = async () => {
+  const fetchPlans = async () => {
     try {
-      const token = session?.accessToken;
-      if (!token) return;
+      const res = await axios.get("/subscriptions", );
 
-      const response = await axios.get("/subscribers", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const formattedPlans = res.data.data.map((plan: any) => ({
+        name: plan.name,
+        price: plan.price,
+        type: plan.type,
+        features: Array.isArray(plan.features) ? plan.features : []
+      }));
 
-      const subscription = response.data;
-
-      if (!subscription) {
-        setIsSubscribed(false);
-        return;
-      }
-
-      if (subscription.status === "PENDING") {
-        router.push(`/subscription/${subscription.transactionId}`);
-        return;
-      }
-
-      if (!subscription.startDate || !subscription.endDate) {
-        setIsSubscribed(false);
-        return;
-      }
-
-      if (subscription.status === "CANCELED") {
-        setIsSubscribed(false)
-        return;
-      }
-
-      const now = new Date();
-      const startDate = new Date(subscription.startDate);
-      const endDate = new Date(subscription.endDate);
-
-      const isInRange = now >= startDate && now <= endDate;
-
-      setIsSubscribed(isInRange);
+      setPlans(formattedPlans);
     } catch (error) {
-      console.error("Failed to fetch subscription status:", error);
-      setIsSubscribed(false);
+      console.error("Failed to fetch plans:", error);
+      toast.error("Gagal mengambil data subscription.");
+    } finally {
+      setLoadingPlans(false);
     }
   };
 
-  if (session?.accessToken) {
-    fetchSubscriptionStatus();
-  }
-}, [session?.accessToken, router]);
+  fetchPlans()
 
+}, []);
+
+
+  useEffect(() => {
+    const fetchSubscriptionStatus = async () => {
+      try {
+        const token = session?.accessToken;
+        if (!token) return;
+
+        const response = await axios.get("/subscribers", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        const subscription = response.data;
+
+        if (!subscription) {
+          setIsSubscribed(false);
+          return;
+        }
+
+        if (subscription.status === "PENDING") {
+          router.push(`/subscription/${subscription.transactionId}`);
+          return;
+        }
+
+        if (!subscription.startDate || !subscription.endDate || subscription.status === "CANCELED") {
+          setIsSubscribed(false);
+          return;
+        }
+
+        const now = new Date();
+        const startDate = new Date(subscription.startDate);
+        const endDate = new Date(subscription.endDate);
+
+        const isInRange = now >= startDate && now <= endDate;
+        setIsSubscribed(isInRange);
+      } catch (error) {
+        console.error("Failed to fetch subscription status:", error);
+        setIsSubscribed(false);
+      }
+    };
+
+    if (session?.accessToken) {
+      fetchSubscriptionStatus();
+    }
+  }, [session?.accessToken, router]);
 
   if (session?.accessToken && isSubscribed === null) {
     return (
@@ -122,29 +129,33 @@ export default function SubscriptionPage() {
         </span>
       </p>
 
-      <div className="flex flex-col md:flex-row gap-6">
-        {plans.map((plan) => (
-          <SubscriptionCard
-            key={plan.name}
-            name={plan.name}
-            price={plan.price}
-            features={plan.features}
-            loading={loadingPlan === plan.type}
-            onSubscribe={() => {
-              if (!session) {
-                toast.info("Please login first to subscribe.");
-                router.push("/login");
-                return;
-              }
-              handleSubscribe(plan.type as "STANDART" | "PROFESSIONAL");
-            }}
-          />
-        ))}
-      </div>
+      {loadingPlans ? (
+        <p className="text-gray-500">Loading plans...</p>
+      ) : (
+        <div className="flex flex-col md:flex-row gap-6">
+          {plans.map((plan) => (
+            <SubscriptionCard
+              key={plan.name}
+              name={plan.name}
+              price={plan.price}
+              features={plan.features}
+              loading={loadingPlan === plan.type}
+              onSubscribe={() => {
+                if (!session) {
+                  toast.info("Please login first to subscribe.");
+                  router.push("/login");
+                  return;
+                }
+                handleSubscribe(plan.type);
+              }}
+            />
+          ))}
+        </div>
+      )}
     </div>
   );
 
-  async function handleSubscribe(planType: "STANDART" | "PROFESSIONAL") {
+  async function handleSubscribe(planType: string) {
     try {
       setLoadingPlan(planType);
       const token = session?.accessToken;
@@ -158,11 +169,8 @@ export default function SubscriptionPage() {
           },
         }
       );
-      console.log(response);
-      
 
       const transactionId = response.data.transaction.data.id;
-      
       router.push(`/subscription/${transactionId}`);
     } catch (err: any) {
       toast.error(err.response?.data?.message || "Subscription failed");
