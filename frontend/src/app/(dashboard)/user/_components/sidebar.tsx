@@ -27,6 +27,7 @@ export default function SideBar() {
     { label: "Following", path: "/user/following" },
     { label: "Account Settings", path: "/user/settings" },
     { label: "Notifications", path: "/user/notifications" },
+    { label: "Subscribe", path: "/user/subscribe" },
   ];
 
   const isActive = (path: string) =>
