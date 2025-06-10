@@ -257,6 +257,7 @@ exports.Prisma.InterviewScalarFieldEnum = {
   id: 'id',
   applicationId: 'applicationId',
   date: 'date',
+  time: 'time',
   location: 'location'
 };
 

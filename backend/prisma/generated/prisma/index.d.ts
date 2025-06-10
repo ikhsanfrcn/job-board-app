@@ -15017,6 +15017,7 @@ export namespace Prisma {
     id: string | null
     applicationId: string | null
     date: string | null
+    time: string | null
     location: string | null
   }
 
@@ -15024,6 +15025,7 @@ export namespace Prisma {
     id: string | null
     applicationId: string | null
     date: string | null
+    time: string | null
     location: string | null
   }
 
@@ -15031,6 +15033,7 @@ export namespace Prisma {
     id: number
     applicationId: number
     date: number
+    time: number
     location: number
     _all: number
   }
@@ -15040,6 +15043,7 @@ export namespace Prisma {
     id?: true
     applicationId?: true
     date?: true
+    time?: true
     location?: true
   }
 
@@ -15047,6 +15051,7 @@ export namespace Prisma {
     id?: true
     applicationId?: true
     date?: true
+    time?: true
     location?: true
   }
 
@@ -15054,6 +15059,7 @@ export namespace Prisma {
     id?: true
     applicationId?: true
     date?: true
+    time?: true
     location?: true
     _all?: true
   }
@@ -15134,6 +15140,7 @@ export namespace Prisma {
     id: string
     applicationId: string
     date: string
+    time: string
     location: string
     _count: InterviewCountAggregateOutputType | null
     _min: InterviewMinAggregateOutputType | null
@@ -15158,6 +15165,7 @@ export namespace Prisma {
     id?: boolean
     applicationId?: boolean
     date?: boolean
+    time?: boolean
     location?: boolean
     application?: boolean | ApplicationDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["interview"]>
@@ -15166,6 +15174,7 @@ export namespace Prisma {
     id?: boolean
     applicationId?: boolean
     date?: boolean
+    time?: boolean
     location?: boolean
     application?: boolean | ApplicationDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["interview"]>
@@ -15174,6 +15183,7 @@ export namespace Prisma {
     id?: boolean
     applicationId?: boolean
     date?: boolean
+    time?: boolean
     location?: boolean
     application?: boolean | ApplicationDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["interview"]>
@@ -15182,10 +15192,11 @@ export namespace Prisma {
     id?: boolean
     applicationId?: boolean
     date?: boolean
+    time?: boolean
     location?: boolean
   }
 
-  export type InterviewOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "applicationId" | "date" | "location", ExtArgs["result"]["interview"]>
+  export type InterviewOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "applicationId" | "date" | "time" | "location", ExtArgs["result"]["interview"]>
   export type InterviewInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     application?: boolean | ApplicationDefaultArgs<ExtArgs>
   }
@@ -15205,6 +15216,7 @@ export namespace Prisma {
       id: string
       applicationId: string
       date: string
+      time: string
       location: string
     }, ExtArgs["result"]["interview"]>
     composites: {}
@@ -15633,6 +15645,7 @@ export namespace Prisma {
     readonly id: FieldRef<"Interview", 'String'>
     readonly applicationId: FieldRef<"Interview", 'String'>
     readonly date: FieldRef<"Interview", 'String'>
+    readonly time: FieldRef<"Interview", 'String'>
     readonly location: FieldRef<"Interview", 'String'>
   }
     
@@ -28591,6 +28604,7 @@ export namespace Prisma {
     id: 'id',
     applicationId: 'applicationId',
     date: 'date',
+    time: 'time',
     location: 'location'
   };
 
@@ -29833,6 +29847,7 @@ export namespace Prisma {
     id?: StringFilter<"Interview"> | string
     applicationId?: StringFilter<"Interview"> | string
     date?: StringFilter<"Interview"> | string
+    time?: StringFilter<"Interview"> | string
     location?: StringFilter<"Interview"> | string
     application?: XOR<ApplicationScalarRelationFilter, ApplicationWhereInput>
   }
@@ -29841,6 +29856,7 @@ export namespace Prisma {
     id?: SortOrder
     applicationId?: SortOrder
     date?: SortOrder
+    time?: SortOrder
     location?: SortOrder
     application?: ApplicationOrderByWithRelationInput
   }
@@ -29852,6 +29868,7 @@ export namespace Prisma {
     NOT?: InterviewWhereInput | InterviewWhereInput[]
     applicationId?: StringFilter<"Interview"> | string
     date?: StringFilter<"Interview"> | string
+    time?: StringFilter<"Interview"> | string
     location?: StringFilter<"Interview"> | string
     application?: XOR<ApplicationScalarRelationFilter, ApplicationWhereInput>
   }, "id">
@@ -29860,6 +29877,7 @@ export namespace Prisma {
     id?: SortOrder
     applicationId?: SortOrder
     date?: SortOrder
+    time?: SortOrder
     location?: SortOrder
     _count?: InterviewCountOrderByAggregateInput
     _max?: InterviewMaxOrderByAggregateInput
@@ -29873,6 +29891,7 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"Interview"> | string
     applicationId?: StringWithAggregatesFilter<"Interview"> | string
     date?: StringWithAggregatesFilter<"Interview"> | string
+    time?: StringWithAggregatesFilter<"Interview"> | string
     location?: StringWithAggregatesFilter<"Interview"> | string
   }
 
@@ -31665,6 +31684,7 @@ export namespace Prisma {
   export type InterviewCreateInput = {
     id?: string
     date: string
+    time: string
     location: string
     application: ApplicationCreateNestedOneWithoutInterviewInput
   }
@@ -31673,12 +31693,14 @@ export namespace Prisma {
     id?: string
     applicationId: string
     date: string
+    time: string
     location: string
   }
 
   export type InterviewUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     date?: StringFieldUpdateOperationsInput | string
+    time?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
     application?: ApplicationUpdateOneRequiredWithoutInterviewNestedInput
   }
@@ -31687,6 +31709,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     applicationId?: StringFieldUpdateOperationsInput | string
     date?: StringFieldUpdateOperationsInput | string
+    time?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
   }
 
@@ -31694,12 +31717,14 @@ export namespace Prisma {
     id?: string
     applicationId: string
     date: string
+    time: string
     location: string
   }
 
   export type InterviewUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     date?: StringFieldUpdateOperationsInput | string
+    time?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
   }
 
@@ -31707,6 +31732,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     applicationId?: StringFieldUpdateOperationsInput | string
     date?: StringFieldUpdateOperationsInput | string
+    time?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
   }
 
@@ -33430,6 +33456,7 @@ export namespace Prisma {
     id?: SortOrder
     applicationId?: SortOrder
     date?: SortOrder
+    time?: SortOrder
     location?: SortOrder
   }
 
@@ -33437,6 +33464,7 @@ export namespace Prisma {
     id?: SortOrder
     applicationId?: SortOrder
     date?: SortOrder
+    time?: SortOrder
     location?: SortOrder
   }
 
@@ -33444,6 +33472,7 @@ export namespace Prisma {
     id?: SortOrder
     applicationId?: SortOrder
     date?: SortOrder
+    time?: SortOrder
     location?: SortOrder
   }
 
@@ -36933,12 +36962,14 @@ export namespace Prisma {
   export type InterviewCreateWithoutApplicationInput = {
     id?: string
     date: string
+    time: string
     location: string
   }
 
   export type InterviewUncheckedCreateWithoutApplicationInput = {
     id?: string
     date: string
+    time: string
     location: string
   }
 
@@ -37097,6 +37128,7 @@ export namespace Prisma {
     id?: StringFilter<"Interview"> | string
     applicationId?: StringFilter<"Interview"> | string
     date?: StringFilter<"Interview"> | string
+    time?: StringFilter<"Interview"> | string
     location?: StringFilter<"Interview"> | string
   }
 
@@ -39976,24 +40008,28 @@ export namespace Prisma {
   export type InterviewCreateManyApplicationInput = {
     id?: string
     date: string
+    time: string
     location: string
   }
 
   export type InterviewUpdateWithoutApplicationInput = {
     id?: StringFieldUpdateOperationsInput | string
     date?: StringFieldUpdateOperationsInput | string
+    time?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
   }
 
   export type InterviewUncheckedUpdateWithoutApplicationInput = {
     id?: StringFieldUpdateOperationsInput | string
     date?: StringFieldUpdateOperationsInput | string
+    time?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
   }
 
   export type InterviewUncheckedUpdateManyWithoutApplicationInput = {
     id?: StringFieldUpdateOperationsInput | string
     date?: StringFieldUpdateOperationsInput | string
+    time?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
   }
 

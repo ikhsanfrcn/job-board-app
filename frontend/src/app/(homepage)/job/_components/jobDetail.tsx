@@ -1,21 +1,51 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { IJob } from "@/types/job";
 import { Modal } from "@/components/atoms/Modal";
 import { useSession } from "next-auth/react";
 import axios from "@/lib/axios";
 
-export default function JobDetail({ job }: {job: IJob}) {
+export default function JobDetail({ job }: { job: IJob }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [expectedSalary, setExpectedSalary] = useState("");
   const [cvFile, setCvFile] = useState<File | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState("");
+  const [hasApplied, setHasApplied] = useState(false);
+  const [isChecking, setIsChecking] = useState(true);
+
   const { data: session } = useSession();
+  const token = session?.accessToken;
+
+  useEffect(() => {
+    const checkIfAlreadyApplied = async () => {
+      if (!token) return;
+
+      try {
+        setIsChecking(true);
+        const res = await axios.get("/applications", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        const userApplications = res.data.applications;
+        const applied = userApplications.some(
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          (app: any) => app.jobId === job.id
+        );
+        setHasApplied(applied);
+      } catch (error) {
+        console.error("Failed to check applications:", error);
+      } finally {
+        setIsChecking(false);
+      }
+    };
+
+    checkIfAlreadyApplied();
+  }, [job.id, token]);
 
   const handleApply = async () => {
-    const token = session?.accessToken;
     if (!cvFile) {
       setSubmitStatus("CV file is required.");
       return;
@@ -40,6 +70,7 @@ export default function JobDetail({ job }: {job: IJob}) {
       setSubmitStatus("Successfully applied!");
       setExpectedSalary("");
       setCvFile(null);
+      setHasApplied(true);
       setTimeout(() => {
         setIsModalOpen(false);
         setSubmitStatus("");
@@ -59,15 +90,21 @@ export default function JobDetail({ job }: {job: IJob}) {
           <p className="text-black">{job.company.name}</p>
           <h2 className="text-xl font-bold">{job.title}</h2>
           <p className="text-gray-700">
-            {job.city} {job.salaryMin && `• IDR ${job.salaryMin}`} {job.salaryMax && ` - ${job.salaryMax}`}
+            {job.city} {job.salaryMin && `• IDR ${job.salaryMin}`}{" "}
+            {job.salaryMax && ` - ${job.salaryMax}`}
           </p>
         </div>
         <div>
           <button
             onClick={() => setIsModalOpen(true)}
-            className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+            disabled={hasApplied || isChecking}
+            className={`${
+              hasApplied || isChecking
+                ? "bg-gray-400 cursor-not-allowed"
+                : "bg-blue-600 hover:bg-blue-700"
+            } text-white px-4 py-2 rounded`}
           >
-            Apply for this Job
+            {isChecking ? "Checking..." : hasApplied ? "Applied" : "Apply for this Job"}
           </button>
         </div>
       </div>
@@ -107,9 +144,7 @@ export default function JobDetail({ job }: {job: IJob}) {
       >
         <div className="space-y-4">
           <div>
-            <label className="block text-sm font-medium mb-1">
-              Expected Salary
-            </label>
+            <label className="block text-sm font-medium mb-1">Expected Salary</label>
             <input
               type="number"
               value={expectedSalary}
@@ -121,9 +156,7 @@ export default function JobDetail({ job }: {job: IJob}) {
           </div>
 
           <div>
-            <label className="block text-sm font-medium mb-1">
-              Upload CV (PDF)
-            </label>
+            <label className="block text-sm font-medium mb-1">Upload CV (PDF)</label>
             <input
               type="file"
               accept=".pdf"

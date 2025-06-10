@@ -91,16 +91,18 @@ export default function Applicants({ jobId }: IProps) {
   const handleCreateInterviewSchedule = async ({
     applicationId,
     date,
+    time,
     location,
   }: {
     applicationId: string;
     date: string;
+    time: string;
     location: string;
   }) => {
     try {
       await axios.post(
         "/interviews",
-        { applicationId, date, location },
+        { applicationId, date, time, location },
         {
           headers: {
             Authorization: `Bearer ${token}`,

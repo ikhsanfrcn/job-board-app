@@ -64,6 +64,7 @@ export interface GetApplicationsParams {
 export interface CreateInterviewParams {
   applicationId: string;
   date: string;
+  time: string;
   location: string;
 }
 

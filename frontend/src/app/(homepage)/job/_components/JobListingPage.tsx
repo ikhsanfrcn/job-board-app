@@ -97,7 +97,7 @@ export const JobListingsPage: React.FC = () => {
       <JobSearchHeader />
       <JobFilters filters={filters} setFilters={setFilters} />
       <div className="max-w-7xl mx-auto p-4 grid grid-cols-1 md:grid-cols-3 gap-4">
-        <div className="space-y-2">
+        <div className="space-y-2  overflow-y-auto h-screen">
           {jobs.map((job) => (
             <JobCard
               key={job.id}

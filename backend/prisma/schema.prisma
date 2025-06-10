@@ -199,6 +199,7 @@ model Interview {
   id            String @id @default(uuid())
   applicationId String
   date          String
+  time          String
   location      String
 
   application Application @relation(fields: [applicationId], references: [id])
@@ -280,7 +281,7 @@ enum AdditionalCategory {
 }
 
 model Subscription {
-  id       String  @id @default(uuid())
+  id       String   @id @default(uuid())
   name     String
   type     String
   price    Int
