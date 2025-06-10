@@ -80,7 +80,6 @@ export default function SkillAssessment() {
                   <button
                     onClick={() => handleStartClick(a)}
                     className="px-5 py-2 text-gray-500 bg-gray-100 hover:text-white hover:bg-green-600 rounded-lg transition duration-300"
-                    title="Edit Assessment"
                   >
                     Start
                   </button>
