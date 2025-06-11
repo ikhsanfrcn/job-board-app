@@ -1,6 +1,9 @@
 import { Request, Response } from "express";
 import prisma from "../prisma";
 import { v4 as uuidv4 } from "uuid";
+import path from "path";
+import ejs from "ejs";
+import puppeteer from "puppeteer";
 
 export class SkillAssessmentController {
   async createAssessment(req: Request, res: Response) {
@@ -273,6 +276,14 @@ export class SkillAssessmentController {
         where: { userId },
         include: {
           template: { select: { title: true, category: true } },
+          user: {
+            select: {
+              email: true,
+              username: true,
+              firstName: true,
+              lastName: true,
+            },
+          },
         },
       });
       res.status(200).send({
@@ -282,6 +293,72 @@ export class SkillAssessmentController {
     } catch (err) {
       console.log(err);
       res.status(404).send(err);
+    }
+  }
+
+  async generatePdf(req: Request, res: Response) {
+    const userId = req.user?.id;
+    const assessmentId = req.params.id;
+
+    try {
+      const assessment = await prisma.skillAssessment.findUnique({
+        where: { id: assessmentId },
+        include: {
+          template: true,
+          user: true,
+        },
+      });
+
+      if (!assessment || assessment.userId !== userId) {
+        res
+          .status(404)
+          .send({ message: "Assessment not found or unauthorized" });
+        return;
+      }
+
+      const templatePath = path.join(
+        __dirname,
+        "../templates/certificateGenerate.ejs"
+      );
+
+      const html = await ejs.renderFile(templatePath, {
+        userName: assessment.user.firstName + " " + assessment.user.lastName,
+        assessmentTitle: assessment.template.title,
+        score: assessment.score,
+        totalPoints: assessment.totalPoints,
+        completedAt: assessment.completedAt,
+      });
+
+      const browser = await puppeteer.launch({
+        headless: true,
+        args: ["--no-sandbox", "--disable-setuid-sandbox"],
+      });
+
+      const page = await browser.newPage();
+      await page.setContent(html, { waitUntil: "networkidle0" });
+
+      const pdfBuffer = await page.pdf({
+        format: "A4",
+        printBackground: true,
+        margin: {
+          top: "20mm",
+          bottom: "20mm",
+          left: "15mm",
+          right: "15mm",
+        },
+      });
+
+      await browser.close();
+
+      res.set({
+        "Content-Type": "application/pdf",
+        "Content-Disposition": `attachment; filename="${assessment.user.username}_certificate.pdf"`,
+      });
+
+      res.status(200).send(pdfBuffer);
+    } catch (err) {
+      console.error(err);
+      res.status(500).send(err);
     }
   }
 }

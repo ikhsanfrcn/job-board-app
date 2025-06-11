@@ -33,6 +33,12 @@ export class SkillAssessmentRouter {
       this.skillAssessmentController.getUserAssessments
     );
 
+    this.router.get(
+      "/generate-pdf/:id",
+      this.authMiddleware.verifyToken,
+      this.skillAssessmentController.generatePdf
+    );
+
     this.router.post(
       "/start/:templateId",
       this.authMiddleware.verifyToken,
