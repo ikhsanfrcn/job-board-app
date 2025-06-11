@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Certificate of Achievement</title>
+    <style>
+      body {
+        font-family: "Segoe UI", sans-serif;
+        text-align: center;
+        padding: 40px;
+        background-color: #f9fafb;
+        color: #333;
+      }
+
+      .certificate {
+        border: 10px solid #4caf50;
+        padding: 50px 30px;
+        border-radius: 20px;
+        background: white;
+      }
+
+      h1 {
+        color: #2e7d32;
+        font-size: 32px;
+        margin-bottom: 0;
+      }
+
+      h2 {
+        margin: 0;
+        font-size: 24px;
+        font-weight: normal;
+      }
+
+      .info {
+        margin: 30px 0;
+        font-size: 18px;
+      }
+
+      .footer {
+        margin-top: 50px;
+        font-size: 14px;
+        color: #666;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="certificate">
+      <h1>Certificate of Completion</h1>
+      <h2>This certifies that</h2>
+      <h2><strong><%= userName %></strong></h2>
+
+      <div class="info">
+        has successfully completed the assessment<br />
+        <strong><%= assessmentTitle %></strong><br />
+        with a score of <strong><%= score %></strong> out of
+        <strong><%= totalPoints %></strong>
+      </div>
+
+      <div class="footer">
+        Issued on: <%= new Date(completedAt).toLocaleDateString("en-US", { year:
+        'numeric', month: 'long', day: 'numeric' }) %>
+      </div>
+    </div>
+  </body>
+</html>

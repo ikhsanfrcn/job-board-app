@@ -1,4 +1,4 @@
-import Hero from "../../_components/hero";
+import Hero from "@/app/(dashboard)/_components/hero";
 import Applicants from "./_components/applicants";
 
 export default async function ApplicantsPage({

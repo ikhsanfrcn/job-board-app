@@ -24,6 +24,7 @@ export default function SideBar() {
     { label: "Profile", path: "/user/profile" },
     { label: "Job Preferences", path: "/user/preferences" },
     { label: "Job Activity", path: "/user/activity" },
+    { label: "Assessment History", path: "/user/assessments" },
     { label: "Following", path: "/user/following" },
     { label: "Account Settings", path: "/user/settings" },
     { label: "Notifications", path: "/user/notifications" },

@@ -1,4 +1,4 @@
-import Hero from "../_components/hero";
+import Hero from "../../_components/hero";
 import Jobs from "./_components/jobs";
 
 export default function JobsPage() {

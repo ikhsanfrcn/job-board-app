@@ -9,3 +9,17 @@ export interface IAssessment {
     answer: string;
   }>;
 }
+
+export interface IUserAssessment {
+  id: string;
+  score: number;
+  totalPoints: number;
+  isPassed: boolean;
+  timeSpent: number;
+  startedAt: string;
+  completedAt: string;
+  template: {
+    title: string;
+    category: string;
+  };
+}
