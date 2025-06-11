@@ -234,7 +234,7 @@ export default function Page({
             )}
           </div>
           <button
-            onClick={() => router.push("/")}
+            onClick={() => router.push("/user/subscribe/skill-assessment")}
             className="mt-5 bg-white border px-4 py-2 rounded-md hover:bg-green-600 transition duration-200 hover:text-white cursor-pointer"
           >
             Back to Dashboard
