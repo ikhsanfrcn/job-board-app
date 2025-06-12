@@ -617,7 +617,7 @@ export namespace Prisma {
   export import Exact = $Public.Exact
 
   /**
-   * Prisma Client JS version: 6.8.2
+   * Prisma Client JS version: 6.8.1
    * Query Engine version: 2060c79ba17c6bb9f5823312b6f6b7f4a845738e
    */
   export type PrismaVersion = {
@@ -22578,14 +22578,25 @@ export namespace Prisma {
 
   export type AggregateTransaction = {
     _count: TransactionCountAggregateOutputType | null
+    _avg: TransactionAvgAggregateOutputType | null
+    _sum: TransactionSumAggregateOutputType | null
     _min: TransactionMinAggregateOutputType | null
     _max: TransactionMaxAggregateOutputType | null
+  }
+
+  export type TransactionAvgAggregateOutputType = {
+    amount: number | null
+  }
+
+  export type TransactionSumAggregateOutputType = {
+    amount: number | null
   }
 
   export type TransactionMinAggregateOutputType = {
     id: string | null
     userId: string | null
     type: string | null
+    amount: number | null
     status: $Enums.PaymentStatus | null
     invoiceUrl: string | null
     createdAt: Date | null
@@ -22597,6 +22608,7 @@ export namespace Prisma {
     id: string | null
     userId: string | null
     type: string | null
+    amount: number | null
     status: $Enums.PaymentStatus | null
     invoiceUrl: string | null
     createdAt: Date | null
@@ -22608,6 +22620,7 @@ export namespace Prisma {
     id: number
     userId: number
     type: number
+    amount: number
     status: number
     invoiceUrl: number
     createdAt: number
@@ -22617,10 +22630,19 @@ export namespace Prisma {
   }
 
 
+  export type TransactionAvgAggregateInputType = {
+    amount?: true
+  }
+
+  export type TransactionSumAggregateInputType = {
+    amount?: true
+  }
+
   export type TransactionMinAggregateInputType = {
     id?: true
     userId?: true
     type?: true
+    amount?: true
     status?: true
     invoiceUrl?: true
     createdAt?: true
@@ -22632,6 +22654,7 @@ export namespace Prisma {
     id?: true
     userId?: true
     type?: true
+    amount?: true
     status?: true
     invoiceUrl?: true
     createdAt?: true
@@ -22643,6 +22666,7 @@ export namespace Prisma {
     id?: true
     userId?: true
     type?: true
+    amount?: true
     status?: true
     invoiceUrl?: true
     createdAt?: true
@@ -22689,6 +22713,18 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
+     * Select which fields to average
+    **/
+    _avg?: TransactionAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: TransactionSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: TransactionMinAggregateInputType
@@ -22719,6 +22755,8 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: TransactionCountAggregateInputType | true
+    _avg?: TransactionAvgAggregateInputType
+    _sum?: TransactionSumAggregateInputType
     _min?: TransactionMinAggregateInputType
     _max?: TransactionMaxAggregateInputType
   }
@@ -22727,12 +22765,15 @@ export namespace Prisma {
     id: string
     userId: string
     type: string
+    amount: number
     status: $Enums.PaymentStatus
     invoiceUrl: string | null
     createdAt: Date
     expiredAt: Date
     updatedAt: Date
     _count: TransactionCountAggregateOutputType | null
+    _avg: TransactionAvgAggregateOutputType | null
+    _sum: TransactionSumAggregateOutputType | null
     _min: TransactionMinAggregateOutputType | null
     _max: TransactionMaxAggregateOutputType | null
   }
@@ -22755,6 +22796,7 @@ export namespace Prisma {
     id?: boolean
     userId?: boolean
     type?: boolean
+    amount?: boolean
     status?: boolean
     invoiceUrl?: boolean
     createdAt?: boolean
@@ -22769,6 +22811,7 @@ export namespace Prisma {
     id?: boolean
     userId?: boolean
     type?: boolean
+    amount?: boolean
     status?: boolean
     invoiceUrl?: boolean
     createdAt?: boolean
@@ -22781,6 +22824,7 @@ export namespace Prisma {
     id?: boolean
     userId?: boolean
     type?: boolean
+    amount?: boolean
     status?: boolean
     invoiceUrl?: boolean
     createdAt?: boolean
@@ -22793,6 +22837,7 @@ export namespace Prisma {
     id?: boolean
     userId?: boolean
     type?: boolean
+    amount?: boolean
     status?: boolean
     invoiceUrl?: boolean
     createdAt?: boolean
@@ -22800,7 +22845,7 @@ export namespace Prisma {
     updatedAt?: boolean
   }
 
-  export type TransactionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "type" | "status" | "invoiceUrl" | "createdAt" | "expiredAt" | "updatedAt", ExtArgs["result"]["transaction"]>
+  export type TransactionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "type" | "amount" | "status" | "invoiceUrl" | "createdAt" | "expiredAt" | "updatedAt", ExtArgs["result"]["transaction"]>
   export type TransactionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
     Subscriber?: boolean | Transaction$SubscriberArgs<ExtArgs>
@@ -22823,6 +22868,7 @@ export namespace Prisma {
       id: string
       userId: string
       type: string
+      amount: number
       status: $Enums.PaymentStatus
       invoiceUrl: string | null
       createdAt: Date
@@ -23256,6 +23302,7 @@ export namespace Prisma {
     readonly id: FieldRef<"Transaction", 'String'>
     readonly userId: FieldRef<"Transaction", 'String'>
     readonly type: FieldRef<"Transaction", 'String'>
+    readonly amount: FieldRef<"Transaction", 'Int'>
     readonly status: FieldRef<"Transaction", 'PaymentStatus'>
     readonly invoiceUrl: FieldRef<"Transaction", 'String'>
     readonly createdAt: FieldRef<"Transaction", 'DateTime'>
@@ -28700,6 +28747,7 @@ export namespace Prisma {
     id: 'id',
     userId: 'userId',
     type: 'type',
+    amount: 'amount',
     status: 'status',
     invoiceUrl: 'invoiceUrl',
     createdAt: 'createdAt',
@@ -30290,6 +30338,7 @@ export namespace Prisma {
     id?: StringFilter<"Transaction"> | string
     userId?: StringFilter<"Transaction"> | string
     type?: StringFilter<"Transaction"> | string
+    amount?: IntFilter<"Transaction"> | number
     status?: EnumPaymentStatusFilter<"Transaction"> | $Enums.PaymentStatus
     invoiceUrl?: StringNullableFilter<"Transaction"> | string | null
     createdAt?: DateTimeFilter<"Transaction"> | Date | string
@@ -30303,6 +30352,7 @@ export namespace Prisma {
     id?: SortOrder
     userId?: SortOrder
     type?: SortOrder
+    amount?: SortOrder
     status?: SortOrder
     invoiceUrl?: SortOrderInput | SortOrder
     createdAt?: SortOrder
@@ -30319,6 +30369,7 @@ export namespace Prisma {
     NOT?: TransactionWhereInput | TransactionWhereInput[]
     userId?: StringFilter<"Transaction"> | string
     type?: StringFilter<"Transaction"> | string
+    amount?: IntFilter<"Transaction"> | number
     status?: EnumPaymentStatusFilter<"Transaction"> | $Enums.PaymentStatus
     invoiceUrl?: StringNullableFilter<"Transaction"> | string | null
     createdAt?: DateTimeFilter<"Transaction"> | Date | string
@@ -30332,14 +30383,17 @@ export namespace Prisma {
     id?: SortOrder
     userId?: SortOrder
     type?: SortOrder
+    amount?: SortOrder
     status?: SortOrder
     invoiceUrl?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     expiredAt?: SortOrder
     updatedAt?: SortOrder
     _count?: TransactionCountOrderByAggregateInput
+    _avg?: TransactionAvgOrderByAggregateInput
     _max?: TransactionMaxOrderByAggregateInput
     _min?: TransactionMinOrderByAggregateInput
+    _sum?: TransactionSumOrderByAggregateInput
   }
 
   export type TransactionScalarWhereWithAggregatesInput = {
@@ -30349,6 +30403,7 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"Transaction"> | string
     userId?: StringWithAggregatesFilter<"Transaction"> | string
     type?: StringWithAggregatesFilter<"Transaction"> | string
+    amount?: IntWithAggregatesFilter<"Transaction"> | number
     status?: EnumPaymentStatusWithAggregatesFilter<"Transaction"> | $Enums.PaymentStatus
     invoiceUrl?: StringNullableWithAggregatesFilter<"Transaction"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Transaction"> | Date | string
@@ -32146,6 +32201,7 @@ export namespace Prisma {
   export type TransactionCreateInput = {
     id?: string
     type: string
+    amount: number
     status?: $Enums.PaymentStatus
     invoiceUrl?: string | null
     createdAt?: Date | string
@@ -32159,6 +32215,7 @@ export namespace Prisma {
     id?: string
     userId: string
     type: string
+    amount: number
     status?: $Enums.PaymentStatus
     invoiceUrl?: string | null
     createdAt?: Date | string
@@ -32170,6 +32227,7 @@ export namespace Prisma {
   export type TransactionUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     type?: StringFieldUpdateOperationsInput | string
+    amount?: IntFieldUpdateOperationsInput | number
     status?: EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
     invoiceUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -32183,6 +32241,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     type?: StringFieldUpdateOperationsInput | string
+    amount?: IntFieldUpdateOperationsInput | number
     status?: EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
     invoiceUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -32195,6 +32254,7 @@ export namespace Prisma {
     id?: string
     userId: string
     type: string
+    amount: number
     status?: $Enums.PaymentStatus
     invoiceUrl?: string | null
     createdAt?: Date | string
@@ -32205,6 +32265,7 @@ export namespace Prisma {
   export type TransactionUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     type?: StringFieldUpdateOperationsInput | string
+    amount?: IntFieldUpdateOperationsInput | number
     status?: EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
     invoiceUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -32216,6 +32277,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     type?: StringFieldUpdateOperationsInput | string
+    amount?: IntFieldUpdateOperationsInput | number
     status?: EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
     invoiceUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -33753,6 +33815,7 @@ export namespace Prisma {
     id?: SortOrder
     userId?: SortOrder
     type?: SortOrder
+    amount?: SortOrder
     status?: SortOrder
     invoiceUrl?: SortOrder
     createdAt?: SortOrder
@@ -33760,10 +33823,15 @@ export namespace Prisma {
     updatedAt?: SortOrder
   }
 
+  export type TransactionAvgOrderByAggregateInput = {
+    amount?: SortOrder
+  }
+
   export type TransactionMaxOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
     type?: SortOrder
+    amount?: SortOrder
     status?: SortOrder
     invoiceUrl?: SortOrder
     createdAt?: SortOrder
@@ -33775,11 +33843,16 @@ export namespace Prisma {
     id?: SortOrder
     userId?: SortOrder
     type?: SortOrder
+    amount?: SortOrder
     status?: SortOrder
     invoiceUrl?: SortOrder
     createdAt?: SortOrder
     expiredAt?: SortOrder
     updatedAt?: SortOrder
+  }
+
+  export type TransactionSumOrderByAggregateInput = {
+    amount?: SortOrder
   }
 
   export type EnumPaymentStatusWithAggregatesFilter<$PrismaModel = never> = {
@@ -35996,6 +36069,7 @@ export namespace Prisma {
   export type TransactionCreateWithoutUserInput = {
     id?: string
     type: string
+    amount: number
     status?: $Enums.PaymentStatus
     invoiceUrl?: string | null
     createdAt?: Date | string
@@ -36007,6 +36081,7 @@ export namespace Prisma {
   export type TransactionUncheckedCreateWithoutUserInput = {
     id?: string
     type: string
+    amount: number
     status?: $Enums.PaymentStatus
     invoiceUrl?: string | null
     createdAt?: Date | string
@@ -36266,6 +36341,7 @@ export namespace Prisma {
     id?: StringFilter<"Transaction"> | string
     userId?: StringFilter<"Transaction"> | string
     type?: StringFilter<"Transaction"> | string
+    amount?: IntFilter<"Transaction"> | number
     status?: EnumPaymentStatusFilter<"Transaction"> | $Enums.PaymentStatus
     invoiceUrl?: StringNullableFilter<"Transaction"> | string | null
     createdAt?: DateTimeFilter<"Transaction"> | Date | string
@@ -38654,6 +38730,7 @@ export namespace Prisma {
   export type TransactionCreateWithoutSubscriberInput = {
     id?: string
     type: string
+    amount: number
     status?: $Enums.PaymentStatus
     invoiceUrl?: string | null
     createdAt?: Date | string
@@ -38666,6 +38743,7 @@ export namespace Prisma {
     id?: string
     userId: string
     type: string
+    amount: number
     status?: $Enums.PaymentStatus
     invoiceUrl?: string | null
     createdAt?: Date | string
@@ -38765,6 +38843,7 @@ export namespace Prisma {
   export type TransactionUpdateWithoutSubscriberInput = {
     id?: StringFieldUpdateOperationsInput | string
     type?: StringFieldUpdateOperationsInput | string
+    amount?: IntFieldUpdateOperationsInput | number
     status?: EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
     invoiceUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -38777,6 +38856,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     type?: StringFieldUpdateOperationsInput | string
+    amount?: IntFieldUpdateOperationsInput | number
     status?: EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
     invoiceUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -39411,6 +39491,7 @@ export namespace Prisma {
   export type TransactionCreateManyUserInput = {
     id?: string
     type: string
+    amount: number
     status?: $Enums.PaymentStatus
     invoiceUrl?: string | null
     createdAt?: Date | string
@@ -39665,6 +39746,7 @@ export namespace Prisma {
   export type TransactionUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     type?: StringFieldUpdateOperationsInput | string
+    amount?: IntFieldUpdateOperationsInput | number
     status?: EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
     invoiceUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -39676,6 +39758,7 @@ export namespace Prisma {
   export type TransactionUncheckedUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     type?: StringFieldUpdateOperationsInput | string
+    amount?: IntFieldUpdateOperationsInput | number
     status?: EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
     invoiceUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -39687,6 +39770,7 @@ export namespace Prisma {
   export type TransactionUncheckedUpdateManyWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     type?: StringFieldUpdateOperationsInput | string
+    amount?: IntFieldUpdateOperationsInput | number
     status?: EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
     invoiceUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
