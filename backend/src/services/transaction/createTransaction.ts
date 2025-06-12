@@ -1,22 +1,15 @@
 import prisma from "../../prisma";
 import xenditClient from "../../helpers/xendit";
 
-const subscriptionPrice: Record<string, number> = {
-  STANDART: 25000,
-  PROFESSIONAL: 100000,
-};
-
 export const createTransaction = async ({
   userId,
   type,
+  amount
 }: {
   userId: string;
   type: string;
+  amount: number;
 }) => {
-  const amount = subscriptionPrice[type.toUpperCase()];
-  if (!amount) {
-    throw new Error("Invalid subscription type");
-  }
 
   const now = new Date();
   const expiredAt = new Date(now.getTime() + 60 * 60 * 1000); // 1 jam
@@ -36,6 +29,7 @@ export const createTransaction = async ({
       data: {
         userId,
         type,
+        amount,
         status: "PENDING",
         createdAt: now,
         expiredAt,

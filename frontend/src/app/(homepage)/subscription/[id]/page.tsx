@@ -9,8 +9,8 @@ import { toast } from "react-toastify";
 type TransactionData = {
   id: string;
   type: string;
+  amount: number;
   status: "PAID" | "PENDING" | "EXPIRED" | "CANCELED";
-  price: number;
   createdAt: string;
   updatedAt: string;
   expiredAt: string;
@@ -113,9 +113,9 @@ export default function TransactionDetailPage() {
       toast.info("Payment cancelled successfully.");
 
       setTransaction({
-      ...transaction!,
-      status: "CANCELED",
-    });
+        ...transaction!,
+        status: "CANCELED",
+      });
     } catch (err) {
       console.error("Failed to cancel payment", err);
       toast.error("Failed to cancel payment. Please try again.");
@@ -150,7 +150,7 @@ export default function TransactionDetailPage() {
           />
           <Info
             label="Price"
-            value={`IDR ${getPriceByPlanType(transaction.type)
+            value={`IDR ${transaction.amount
               .toString()
               .replace(/\B(?=(\d{3})+(?!\d))/g, ".")}`}
           />
@@ -245,15 +245,4 @@ function formatDate(date: string) {
     hour: "2-digit",
     minute: "2-digit",
   });
-}
-
-function getPriceByPlanType(planType: string): number {
-  switch (planType.toUpperCase()) {
-    case "STANDARD":
-      return 25000;
-    case "PROFESSIONAL":
-      return 100000;
-    default:
-      return 0;
-  }
 }

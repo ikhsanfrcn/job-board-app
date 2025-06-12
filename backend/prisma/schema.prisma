@@ -294,6 +294,7 @@ model Transaction {
   userId     String
   user       User          @relation(fields: [userId], references: [id])
   type       String
+  amount     Int
   status     PaymentStatus @default(PENDING)
   invoiceUrl String?
   createdAt  DateTime      @default(now())
