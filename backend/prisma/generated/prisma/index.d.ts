@@ -617,7 +617,7 @@ export namespace Prisma {
   export import Exact = $Public.Exact
 
   /**
-   * Prisma Client JS version: 6.8.1
+   * Prisma Client JS version: 6.8.2
    * Query Engine version: 2060c79ba17c6bb9f5823312b6f6b7f4a845738e
    */
   export type PrismaVersion = {
@@ -24869,6 +24869,7 @@ export namespace Prisma {
     totalPoints: number | null
     timeLimit: number | null
     isActive: boolean | null
+    badgeImage: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -24882,6 +24883,7 @@ export namespace Prisma {
     totalPoints: number | null
     timeLimit: number | null
     isActive: boolean | null
+    badgeImage: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -24896,6 +24898,7 @@ export namespace Prisma {
     totalPoints: number
     timeLimit: number
     isActive: number
+    badgeImage: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -24923,6 +24926,7 @@ export namespace Prisma {
     totalPoints?: true
     timeLimit?: true
     isActive?: true
+    badgeImage?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -24936,6 +24940,7 @@ export namespace Prisma {
     totalPoints?: true
     timeLimit?: true
     isActive?: true
+    badgeImage?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -24950,6 +24955,7 @@ export namespace Prisma {
     totalPoints?: true
     timeLimit?: true
     isActive?: true
+    badgeImage?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -25051,6 +25057,7 @@ export namespace Prisma {
     totalPoints: number
     timeLimit: number
     isActive: boolean
+    badgeImage: string | null
     createdAt: Date
     updatedAt: Date
     _count: SkillAssessmentTemplateCountAggregateOutputType | null
@@ -25084,6 +25091,7 @@ export namespace Prisma {
     totalPoints?: boolean
     timeLimit?: boolean
     isActive?: boolean
+    badgeImage?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     skillAssessments?: boolean | SkillAssessmentTemplate$skillAssessmentsArgs<ExtArgs>
@@ -25101,6 +25109,7 @@ export namespace Prisma {
     totalPoints?: boolean
     timeLimit?: boolean
     isActive?: boolean
+    badgeImage?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }, ExtArgs["result"]["skillAssessmentTemplate"]>
@@ -25115,6 +25124,7 @@ export namespace Prisma {
     totalPoints?: boolean
     timeLimit?: boolean
     isActive?: boolean
+    badgeImage?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }, ExtArgs["result"]["skillAssessmentTemplate"]>
@@ -25129,11 +25139,12 @@ export namespace Prisma {
     totalPoints?: boolean
     timeLimit?: boolean
     isActive?: boolean
+    badgeImage?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type SkillAssessmentTemplateOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "category" | "questions" | "passingScore" | "totalPoints" | "timeLimit" | "isActive" | "createdAt" | "updatedAt", ExtArgs["result"]["skillAssessmentTemplate"]>
+  export type SkillAssessmentTemplateOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "category" | "questions" | "passingScore" | "totalPoints" | "timeLimit" | "isActive" | "badgeImage" | "createdAt" | "updatedAt", ExtArgs["result"]["skillAssessmentTemplate"]>
   export type SkillAssessmentTemplateInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     skillAssessments?: boolean | SkillAssessmentTemplate$skillAssessmentsArgs<ExtArgs>
     assessmentSession?: boolean | SkillAssessmentTemplate$assessmentSessionArgs<ExtArgs>
@@ -25158,6 +25169,7 @@ export namespace Prisma {
       totalPoints: number
       timeLimit: number
       isActive: boolean
+      badgeImage: string | null
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["skillAssessmentTemplate"]>
@@ -25594,6 +25606,7 @@ export namespace Prisma {
     readonly totalPoints: FieldRef<"SkillAssessmentTemplate", 'Int'>
     readonly timeLimit: FieldRef<"SkillAssessmentTemplate", 'Int'>
     readonly isActive: FieldRef<"SkillAssessmentTemplate", 'Boolean'>
+    readonly badgeImage: FieldRef<"SkillAssessmentTemplate", 'String'>
     readonly createdAt: FieldRef<"SkillAssessmentTemplate", 'DateTime'>
     readonly updatedAt: FieldRef<"SkillAssessmentTemplate", 'DateTime'>
   }
@@ -28722,6 +28735,7 @@ export namespace Prisma {
     totalPoints: 'totalPoints',
     timeLimit: 'timeLimit',
     isActive: 'isActive',
+    badgeImage: 'badgeImage',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -30433,6 +30447,7 @@ export namespace Prisma {
     totalPoints?: IntFilter<"SkillAssessmentTemplate"> | number
     timeLimit?: IntFilter<"SkillAssessmentTemplate"> | number
     isActive?: BoolFilter<"SkillAssessmentTemplate"> | boolean
+    badgeImage?: StringNullableFilter<"SkillAssessmentTemplate"> | string | null
     createdAt?: DateTimeFilter<"SkillAssessmentTemplate"> | Date | string
     updatedAt?: DateTimeFilter<"SkillAssessmentTemplate"> | Date | string
     skillAssessments?: SkillAssessmentListRelationFilter
@@ -30449,6 +30464,7 @@ export namespace Prisma {
     totalPoints?: SortOrder
     timeLimit?: SortOrder
     isActive?: SortOrder
+    badgeImage?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     skillAssessments?: SkillAssessmentOrderByRelationAggregateInput
@@ -30468,6 +30484,7 @@ export namespace Prisma {
     totalPoints?: IntFilter<"SkillAssessmentTemplate"> | number
     timeLimit?: IntFilter<"SkillAssessmentTemplate"> | number
     isActive?: BoolFilter<"SkillAssessmentTemplate"> | boolean
+    badgeImage?: StringNullableFilter<"SkillAssessmentTemplate"> | string | null
     createdAt?: DateTimeFilter<"SkillAssessmentTemplate"> | Date | string
     updatedAt?: DateTimeFilter<"SkillAssessmentTemplate"> | Date | string
     skillAssessments?: SkillAssessmentListRelationFilter
@@ -30484,6 +30501,7 @@ export namespace Prisma {
     totalPoints?: SortOrder
     timeLimit?: SortOrder
     isActive?: SortOrder
+    badgeImage?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: SkillAssessmentTemplateCountOrderByAggregateInput
@@ -30506,6 +30524,7 @@ export namespace Prisma {
     totalPoints?: IntWithAggregatesFilter<"SkillAssessmentTemplate"> | number
     timeLimit?: IntWithAggregatesFilter<"SkillAssessmentTemplate"> | number
     isActive?: BoolWithAggregatesFilter<"SkillAssessmentTemplate"> | boolean
+    badgeImage?: StringNullableWithAggregatesFilter<"SkillAssessmentTemplate"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"SkillAssessmentTemplate"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"SkillAssessmentTemplate"> | Date | string
   }
@@ -32296,6 +32315,7 @@ export namespace Prisma {
     totalPoints?: number
     timeLimit?: number
     isActive?: boolean
+    badgeImage?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     skillAssessments?: SkillAssessmentCreateNestedManyWithoutTemplateInput
@@ -32312,6 +32332,7 @@ export namespace Prisma {
     totalPoints?: number
     timeLimit?: number
     isActive?: boolean
+    badgeImage?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     skillAssessments?: SkillAssessmentUncheckedCreateNestedManyWithoutTemplateInput
@@ -32328,6 +32349,7 @@ export namespace Prisma {
     totalPoints?: IntFieldUpdateOperationsInput | number
     timeLimit?: IntFieldUpdateOperationsInput | number
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    badgeImage?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     skillAssessments?: SkillAssessmentUpdateManyWithoutTemplateNestedInput
@@ -32344,6 +32366,7 @@ export namespace Prisma {
     totalPoints?: IntFieldUpdateOperationsInput | number
     timeLimit?: IntFieldUpdateOperationsInput | number
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    badgeImage?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     skillAssessments?: SkillAssessmentUncheckedUpdateManyWithoutTemplateNestedInput
@@ -32360,6 +32383,7 @@ export namespace Prisma {
     totalPoints?: number
     timeLimit?: number
     isActive?: boolean
+    badgeImage?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -32374,6 +32398,7 @@ export namespace Prisma {
     totalPoints?: IntFieldUpdateOperationsInput | number
     timeLimit?: IntFieldUpdateOperationsInput | number
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    badgeImage?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -32388,6 +32413,7 @@ export namespace Prisma {
     totalPoints?: IntFieldUpdateOperationsInput | number
     timeLimit?: IntFieldUpdateOperationsInput | number
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    badgeImage?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -33859,6 +33885,7 @@ export namespace Prisma {
     totalPoints?: SortOrder
     timeLimit?: SortOrder
     isActive?: SortOrder
+    badgeImage?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -33878,6 +33905,7 @@ export namespace Prisma {
     totalPoints?: SortOrder
     timeLimit?: SortOrder
     isActive?: SortOrder
+    badgeImage?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -33891,6 +33919,7 @@ export namespace Prisma {
     totalPoints?: SortOrder
     timeLimit?: SortOrder
     isActive?: SortOrder
+    badgeImage?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -38938,6 +38967,7 @@ export namespace Prisma {
     totalPoints?: number
     timeLimit?: number
     isActive?: boolean
+    badgeImage?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     assessmentSession?: AssessmentSessionCreateNestedManyWithoutTemplateInput
@@ -38953,6 +38983,7 @@ export namespace Prisma {
     totalPoints?: number
     timeLimit?: number
     isActive?: boolean
+    badgeImage?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     assessmentSession?: AssessmentSessionUncheckedCreateNestedManyWithoutTemplateInput
@@ -39057,6 +39088,7 @@ export namespace Prisma {
     totalPoints?: IntFieldUpdateOperationsInput | number
     timeLimit?: IntFieldUpdateOperationsInput | number
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    badgeImage?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     assessmentSession?: AssessmentSessionUpdateManyWithoutTemplateNestedInput
@@ -39072,6 +39104,7 @@ export namespace Prisma {
     totalPoints?: IntFieldUpdateOperationsInput | number
     timeLimit?: IntFieldUpdateOperationsInput | number
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    badgeImage?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     assessmentSession?: AssessmentSessionUncheckedUpdateManyWithoutTemplateNestedInput
@@ -39154,6 +39187,7 @@ export namespace Prisma {
     totalPoints?: number
     timeLimit?: number
     isActive?: boolean
+    badgeImage?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     skillAssessments?: SkillAssessmentCreateNestedManyWithoutTemplateInput
@@ -39169,6 +39203,7 @@ export namespace Prisma {
     totalPoints?: number
     timeLimit?: number
     isActive?: boolean
+    badgeImage?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     skillAssessments?: SkillAssessmentUncheckedCreateNestedManyWithoutTemplateInput
@@ -39273,6 +39308,7 @@ export namespace Prisma {
     totalPoints?: IntFieldUpdateOperationsInput | number
     timeLimit?: IntFieldUpdateOperationsInput | number
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    badgeImage?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     skillAssessments?: SkillAssessmentUpdateManyWithoutTemplateNestedInput
@@ -39288,6 +39324,7 @@ export namespace Prisma {
     totalPoints?: IntFieldUpdateOperationsInput | number
     timeLimit?: IntFieldUpdateOperationsInput | number
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    badgeImage?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     skillAssessments?: SkillAssessmentUncheckedUpdateManyWithoutTemplateNestedInput
