@@ -7,6 +7,7 @@ import { toast } from "react-toastify";
 import LoadingSkeleton from "./_components/loadingSkeleton";
 import { useRouter } from "next/navigation";
 import StartModal from "./_components/startModal";
+import { useSession } from "next-auth/react";
 
 export default function SkillAssessment() {
   const [assessments, setAssessments] = useState<IAssessment[]>([]);
@@ -14,7 +15,14 @@ export default function SkillAssessment() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedAssessment, setSelectedAssessment] =
     useState<IAssessment | null>(null);
+  const [userAssessmentCount, setUserAssessmentCount] = useState(0);
+  const [userSubscriptionType, setUserSubscriptionType] = useState<
+    string | null
+  >(null);
+  const [checkingLimits, setCheckingLimits] = useState(false);
   const router = useRouter();
+  const { data: session } = useSession();
+  const token = session?.accessToken;
 
   useEffect(() => {
     const fetchAssessments = async () => {
@@ -32,7 +40,49 @@ export default function SkillAssessment() {
     fetchAssessments();
   }, []);
 
-  const handleStartClick = (assessment: IAssessment) => {
+  const checkUserLimits = async () => {
+    if (checkingLimits) return false;
+
+    try {
+      setCheckingLimits(true);
+      const subscribe = await axios.get("/subscribers", {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      const user = subscribe.data;
+
+      const subscriptionType = user.type || null;
+      setUserSubscriptionType(subscriptionType);
+
+      // If user has standard subscription, check their assessment count
+      if (subscriptionType === "STANDARD") {
+        const assessments = await axios.get(
+          "/assessment/user-assessment",
+          { headers: { Authorization: `Bearer ${token}` } }
+        );
+        const assessmentCount = assessments.data?.userAssessments?.length || 0;
+
+        setUserAssessmentCount(assessmentCount);
+        // Check if user has reached the limit (2 for standard)
+        if (assessmentCount >= 2) {
+          toast.warning(
+            "You have reached your assessment limit (2/2). Please upgrade to Professional Plan for unlimited assessments."
+          );
+          return false;
+        }
+      }
+      return true;
+    } catch (error) {
+      console.log("Error checking user limits:", error);
+      return true;
+    } finally {
+      setCheckingLimits(false);
+    }
+  };
+
+  const handleStartClick = async (assessment: IAssessment) => {
+    const canStart = await checkUserLimits();
+    if (!canStart) return;
+
     setSelectedAssessment(assessment);
     setIsModalOpen(true);
   };
@@ -47,6 +97,19 @@ export default function SkillAssessment() {
       router.push(`/assessment/${selectedAssessment.id}`);
     }
     handleModalClose();
+  };
+
+  const getButtonText = () => {
+    if (userSubscriptionType === "STANDARD") {
+      const remaining = Math.max(0, 2 - userAssessmentCount);
+      if (remaining === 0) return "Limit Reached";
+      return `Start (${remaining} left)`;
+    }
+    return "Start";
+  };
+
+  const isButtonDisabled = () => {
+    return checkingLimits || (userSubscriptionType === "STANDARD" && userAssessmentCount >= 2);
   };
 
   return (
@@ -79,9 +142,14 @@ export default function SkillAssessment() {
                   </span>
                   <button
                     onClick={() => handleStartClick(a)}
-                    className="px-5 py-2 text-gray-500 bg-gray-100 hover:text-white hover:bg-green-600 rounded-lg transition duration-300"
+                    disabled={isButtonDisabled()}
+                    className={`px-3 py-2 rounded-lg transition duration-300 ${
+                      isButtonDisabled()
+                        ? "text-gray-400 bg-gray-200 cursor-not-allowed"
+                        : "text-gray-500 bg-gray-100 hover:text-white hover:bg-green-600"
+                    }`}
                   >
-                    Start
+                    {checkingLimits ? "Checking..." : getButtonText()}
                   </button>
                 </div>
               </div>

@@ -4,14 +4,28 @@ import { v4 as uuidv4 } from "uuid";
 import path from "path";
 import ejs from "ejs";
 import puppeteer from "puppeteer";
+import { cloudinaryUpload } from "../helpers/cloudinary";
 
 export class SkillAssessmentController {
   async createAssessment(req: Request, res: Response) {
     try {
+      if (!req.file) throw { message: "Image Empty!" };
       const { title, description, category, questions } = req.body;
+      const { secure_url } = await cloudinaryUpload(
+        req.file,
+        "jobsdoors",
+        "image"
+      );
+      const parsedQUestions = JSON.parse(questions);
 
       const newAssessment = await prisma.skillAssessmentTemplate.create({
-        data: { title, description, category, questions },
+        data: {
+          title,
+          description,
+          category,
+          questions: parsedQUestions,
+          badgeImage: secure_url,
+        },
       });
 
       res
@@ -25,7 +39,7 @@ export class SkillAssessmentController {
 
   async getAllAssessment(req: Request, res: Response) {
     try {
-      const assessments = await prisma.skillAssessmentTemplate.findMany();
+      const assessments = await prisma.skillAssessmentTemplate.findMany({ orderBy: { createdAt: "asc" } });
 
       res.status(200).json(assessments);
     } catch (err) {
@@ -55,20 +69,36 @@ export class SkillAssessmentController {
       const { id } = req.params;
       const { title, description, category, questions } = req.body;
 
+      let badgeImagePath = undefined;
+      if (req.file) {
+        const { secure_url } = await cloudinaryUpload(
+          req.file,
+          "jobsdoors",
+          "image"
+        );
+        badgeImagePath = secure_url;
+      }
+
       const existingAssessment =
         await prisma.skillAssessmentTemplate.findUnique({ where: { id } });
 
       if (!existingAssessment) throw { message: "Assessment not found" };
 
+      const updateData: any = {
+        title,
+        description,
+        category,
+        questions: JSON.parse(questions),
+        updatedAt: new Date(),
+      };
+
+      if (badgeImagePath) {
+        updateData.badgeImage = badgeImagePath;
+      }
+
       const updatedAssessment = await prisma.skillAssessmentTemplate.update({
         where: { id },
-        data: {
-          title,
-          description,
-          category,
-          questions,
-          updatedAt: new Date(),
-        },
+        data: updateData,
       });
 
       res.status(200).json({

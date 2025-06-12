@@ -4,6 +4,8 @@ import axios from "@/lib/axios";
 import { IAssessment } from "@/types/assessment";
 import { AxiosError } from "axios";
 import { ErrorMessage, Field, Form, Formik } from "formik";
+import Image from "next/image";
+import { useState } from "react";
 import { VscChromeClose } from "react-icons/vsc";
 import { toast } from "react-toastify";
 import * as Yup from "yup";
@@ -22,6 +24,8 @@ export default function ModalEditAssessment({
   onSuccess,
 }: EditAssessmentProps) {
   if (!isOpen || !assessment) return null;
+  const [selectedImage, setSelectedImage] = useState<File | null>(null);
+  const [imageError, setImageError] = useState<string>("");
 
   const initialValues = {
     title: assessment.title || "",
@@ -61,7 +65,15 @@ export default function ModalEditAssessment({
 
   const handleSubmit = async (values: typeof initialValues) => {
     try {
-      const { data } = await axios.put(`/assessment/${assessment.id}`, values);
+      const formData = new FormData();
+      formData.append("title", values.title);
+      formData.append("description", values.description);
+      formData.append("category", values.category);
+      formData.append("questions", JSON.stringify(values.questions));
+      if (selectedImage) {
+        formData.append("badgeImage", selectedImage);
+      }
+      const { data } = await axios.put(`/assessment/${assessment.id}`, formData);
       toast.success(data.message || "Assessment updated successfully");
       onSuccess();
       onClose();
@@ -73,6 +85,17 @@ export default function ModalEditAssessment({
         toast.error("Update assessment failed!");
         console.log(err);
       }
+    }
+  };
+
+  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const f = event.target.files?.[0];
+    if (f) {
+      setSelectedImage(f);
+      setImageError("");
+    } else {
+      setSelectedImage(null);
+      setImageError("");
     }
   };
 
@@ -123,13 +146,53 @@ export default function ModalEditAssessment({
                   type="text"
                   name="category"
                   placeholder="Test Category"
-                  className="border border-gray-300 rounded-sm p-3 w-full mt-4 text-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-300"
+                  className="border border-gray-300 rounded-sm p-3 w-full mt-4 text-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-300 mb-3"
                 />
                 <ErrorMessage
                   name="category"
                   component="p"
                   className="text-red-500 text-xs mt-1"
                 />
+                <label
+                  className="text-gray-700 font-medium"
+                  htmlFor="badgeImage"
+                >
+                  Badge Image
+                </label>
+                <Field
+                  type="file"
+                  name="badgeImage"
+                  className="border border-gray-300 rounded-sm p-3 w-full mt-4 text-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-300"
+                  accept="image/png, image/jpeg, image/webp, image/svg"
+                  onChange={handleImageChange}
+                />
+                {imageError && (
+                  <p className="text-red-500 text-xs mt-1">{imageError}</p>
+                )}
+                {!selectedImage && assessment.badgeImage && (
+                  <div className="mt-4">
+                    <p className="text-sm text-gray-600 mb-2">Current Badge:</p>
+                    <Image
+                      src={assessment.badgeImage}
+                      width={100}
+                      height={100}
+                      alt="Current Badge"
+                      className="rounded-md w-full h-auto"
+                    />
+                  </div>
+                )}
+                {selectedImage && (
+                  <div className="mt-4">
+                    <p className="text-sm text-gray-600 mb-2">New Badge Preview:</p>
+                    <Image
+                      src={URL.createObjectURL(selectedImage)}
+                      width={100}
+                      height={100}
+                      alt="Selected Preview"
+                      className="rounded-md w-full h-auto"
+                    />
+                  </div>
+                )}
                 {values.questions.map((q, index) => (
                   <div
                     key={index}

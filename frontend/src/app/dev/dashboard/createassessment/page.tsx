@@ -3,11 +3,15 @@
 import axios from "@/lib/axios";
 import { AxiosError } from "axios";
 import { ErrorMessage, Field, Form, Formik } from "formik";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 import { toast } from "react-toastify";
 import * as Yup from "yup";
 
 export default function Page() {
+  const [selectedImage, setSelectedImage] = useState<File | null>(null);
+  const [imageError, setImageError] = useState<string>("");
   const router = useRouter();
 
   const initialValues = {
@@ -38,7 +42,19 @@ export default function Page() {
 
   const handleSubmit = async (values: typeof initialValues) => {
     try {
-      const { data } = await axios.post("/assessment", values);
+      if (!selectedImage) {
+        setImageError("Badge image is required!");
+        toast.error("Badge Image is required!");
+        return;
+      }
+      setImageError("");
+      const formData = new FormData();
+      formData.append("title", values.title);
+      formData.append("description", values.description);
+      formData.append("category", values.category);
+      formData.append("badgeImage", selectedImage);
+      formData.append("questions", JSON.stringify(values.questions));
+      const { data } = await axios.post("/assessment", formData);
       toast.success(data.message);
       router.push("/dev/dashboard/assessment");
     } catch (err) {
@@ -49,6 +65,17 @@ export default function Page() {
         toast.error("Create skill assessment failed!");
         console.log(err);
       }
+    }
+  };
+
+  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const f = event.target.files?.[0];
+    if (f) {
+      setSelectedImage(f);
+      setImageError("");
+    } else {
+      setSelectedImage(null);
+      setImageError("Badge image is required");
     }
   };
 
@@ -83,7 +110,6 @@ export default function Page() {
                   component="p"
                   className="text-red-500 text-xs mt-1"
                 />
-
                 <Field
                   as="textarea"
                   name="description"
@@ -95,19 +121,44 @@ export default function Page() {
                   component="p"
                   className="text-red-500 text-xs"
                 />
-
                 <Field
                   type="text"
                   name="category"
                   placeholder="Test Category"
-                  className="border border-gray-300 rounded-sm p-3 w-full mt-4 text-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-300"
+                  className="border border-gray-300 rounded-sm p-3 w-full mt-4 text-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-300 mb-3"
                 />
                 <ErrorMessage
                   name="category"
                   component="p"
                   className="text-red-500 text-xs"
                 />
-
+                <label
+                  className="text-gray-700 font-medium"
+                  htmlFor="badgeImage"
+                >
+                  Badge Image
+                </label>
+                <Field
+                  type="file"
+                  name="badgeImage"
+                  className="border border-gray-300 rounded-sm p-3 w-full text-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-300"
+                  accept="image/png, image/jpeg, image/webp, image/svg"
+                  onChange={handleImageChange}
+                />
+                {!selectedImage && (
+                  <p className="text-red-500 text-xs mt-1">{imageError}</p>
+                )}
+                {selectedImage && (
+                  <div className="mt-4">
+                    <Image
+                      src={URL.createObjectURL(selectedImage)}
+                      width={100}
+                      height={100}
+                      alt="Selected Preview"
+                      className="rounded-md w-full h-auto"
+                    />
+                  </div>
+                )}
                 {values.questions.map((q, index) => (
                   <div
                     key={index}
@@ -124,7 +175,6 @@ export default function Page() {
                       component="p"
                       className="text-red-500 text-xs mt-1"
                     />
-
                     <label className="block font-semibold mt-3 text-gray-700">
                       Options
                     </label>
@@ -143,7 +193,6 @@ export default function Page() {
                         />
                       </div>
                     ))}
-
                     <label className="block font-semibold mt-3 text-gray-700">
                       Correct Answer
                     </label>
@@ -158,7 +207,6 @@ export default function Page() {
                       component="p"
                       className="text-red-500 text-xs mt-1"
                     />
-
                     <div className="flex gap-4 mt-4 text-gray-700">
                       <button
                         className="border border-gray-300 flex-1 py-2 rounded-lg text-sm font-medium hover:bg-yellow-300 transition duration-200 cursor-pointer"
@@ -175,7 +223,6 @@ export default function Page() {
                     </div>
                   </div>
                 ))}
-
                 <div className="flex gap-4 mt-6">
                   <button
                     type="submit"

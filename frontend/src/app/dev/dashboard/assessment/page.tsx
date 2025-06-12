@@ -9,6 +9,7 @@ import ModaleditAssessment from "./_components/modalEditAssessment";
 import ModalDeleteAssessment from "./_components/modalDeleteAssessment";
 import { LuPencil, LuTrash2 } from "react-icons/lu";
 import { useSession } from "next-auth/react";
+import Image from "next/image";
 
 export default function Page() {
   const [assessments, setAssessments] = useState<IAssessment[]>([]);
@@ -103,6 +104,12 @@ export default function Page() {
                   <div className="border-b border-gray-300 text-shadow-sm">
                     {idx + 1}
                   </div>
+                  <Image
+                    src={a.badgeImage}
+                    alt={a.title}
+                    height={40}
+                    width={40}
+                  />
                   <div>
                     <h3 className="text-lg font-semibold">{a.title}</h3>
                     <p className="text-gray-600">{a.description}</p>

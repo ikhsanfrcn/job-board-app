@@ -249,7 +249,7 @@ function formatDate(date: string) {
 
 function getPriceByPlanType(planType: string): number {
   switch (planType.toUpperCase()) {
-    case "STANDART":
+    case "STANDARD":
       return 25000;
     case "PROFESSIONAL":
       return 100000;
