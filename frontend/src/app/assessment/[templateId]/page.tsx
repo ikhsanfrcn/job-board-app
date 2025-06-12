@@ -107,6 +107,7 @@ export default function Page({
   // Save progress to backend
   const saveProgress = useCallback(async () => {
     if (!sessionToken) return;
+    const savedIndex = currentIndex + 1;
 
     try {
       const res = await axios.put(
@@ -114,7 +115,7 @@ export default function Page({
         {
           sessionToken,
           answers,
-          currentQuestionIndex: currentIndex + 1,
+          currentQuestionIndex: savedIndex,
           timeRemaining: timeLeft,
         },
         {
@@ -122,8 +123,7 @@ export default function Page({
         }
       );
       localStorage.setItem("assessmentTimeLeft", timeLeft.toString());
-      localStorage.setItem("assessmentCurrentIndex", currentIndex.toString());
-      console.log(res);
+      localStorage.setItem("assessmentCurrentIndex", savedIndex.toString());
     } catch (error) {
       console.error("Progress save failed:", error);
     }

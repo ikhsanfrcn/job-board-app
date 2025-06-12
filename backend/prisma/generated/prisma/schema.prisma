@@ -340,6 +340,7 @@ model SkillAssessmentTemplate {
   totalPoints  Int      @default(100)
   timeLimit    Int      @default(1800)
   isActive     Boolean  @default(true)
+  badgeImage   String?  @default("https://res.cloudinary.com/dyjsmoxmq/image/upload/v1749704951/samrxrnas1uzvtiw1uvt.svg")
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
 
