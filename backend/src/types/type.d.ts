@@ -1,3 +1,5 @@
+import { Gender } from "../../prisma/generated/prisma";
+
 export interface RegisterCompanyParams {
   name: string;
   email: string;
@@ -73,4 +75,19 @@ export interface CreateSubscriptionParams {
   features: string[];
   name: string;
   price: number;
+}
+
+export interface UserParams {
+  username?: string;
+  firstName?: string;
+  lastName?: string;
+  gender?: Gender; 
+  dob?: string;
+  education?: string;
+  country?: string;
+  state?: string;
+  city?: string;
+  zipCode?: string;
+  regionNumber?: string;
+  phoneNumber?: string;
 }

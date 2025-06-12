@@ -24,9 +24,7 @@ export default function Jobs() {
   const [deleteJob, setDeleteJob] = useState<IMJob | null>(null);
   const [isCreateOpen, setIsCreateOpen] = useState(false);
   const [isCreateTestOpen, setIsCreateTestOpen] = useState(false);
-  const [selectedJobForTest, setSelectedJobForTest] = useState<IMJob | null>(
-    null
-  );
+  const [selectedJobForTest, setSelectedJobForTest] = useState<IMJob | null>(null);
   const [loading, setLoading] = useState(false);
 
   const fetchJobs = useCallback(async () => {
@@ -131,9 +129,7 @@ export default function Jobs() {
             j.id === job.id ? { ...j, isTestActive: newActiveState } : j
           )
         );
-        toast.info(
-          `Test ${newActiveState ? "enabled" : "disabled"} successfully.`
-        );
+        toast.info(`Test ${newActiveState ? "enabled" : "disabled"} successfully.`);
         return;
       } else {
         setSelectedJobForTest(job);
@@ -146,7 +142,6 @@ export default function Jobs() {
     }
   };
 
-  // ✅ Handle test creation confirmation
   const handleCreateTestConfirm = () => {
     if (selectedJobForTest) {
       router.push(`/company/test/${selectedJobForTest.id}`);
@@ -168,9 +163,8 @@ export default function Jobs() {
       <div className="flex justify-end items-center mb-4">
         <button
           onClick={() => setIsCreateOpen(true)}
-          className="bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600 transition duration-300"
-        >
-          Add Job
+          className="bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600 transition duration-300">
+            Add Job
         </button>
       </div>
       <JobsCard

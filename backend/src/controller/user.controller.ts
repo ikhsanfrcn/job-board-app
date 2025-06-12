@@ -1,126 +1,53 @@
 import { Request, Response } from "express";
-import prisma from "../prisma";
-import { cloudinaryUpload } from "../helpers/cloudinary";
+import getUserProfile from "../services/user/getUserProfile";
+import updateUser from "../services/user/updateUser";
+import getUserByEmail from "../services/user/getUserByEmail";
+import updateAvatar from "../services/user/updateAvatar";
+import { updateUserSchema } from "../validation/userValidation";
 
 export class UserController {
   async getUserProfile(req: Request, res: Response) {
     try {
-      const user = await prisma.user.findUnique({
-        where: { id: req.user?.id },
-        select: {
-          email: true,
-          username: true,
-          firstName: true,
-          lastName: true,
-          gender: true,
-          dob: true,
-          education: true,
-          country: true,
-          state: true,
-          city: true,
-          zipCode: true,
-          regionNumber: true,
-          phoneNumber: true,
-          avatar: true,
-        },
-      });
-      res.status(200).send({
-        message: "User fetched successfully✅",
-        user,
-      });
-    } catch (err) {
-      console.log(err);
-      res.status(404).send(err);
+      const user = await getUserProfile(req.user?.id);
+      res.status(200).send({ message: "User fetched successfully", user });
+    } catch (error: any) {
+      res.status(error.status || 500).json({ message: error.message });
     }
   }
 
   async updateUser(req: Request, res: Response) {
     try {
-      const userId = req.user?.id;
-      const user = await prisma.user.findUnique({ where: { id: userId } });
-      if (!user) {
-        res.status(404).send({ message: "User not found" });
-        return;
-      }
-      const {
-        username,
-        firstName,
-        lastName,
-        gender,
-        dob,
-        education,
-        country,
-        state,
-        city,
-        zipCode,
-        regionNumber,
-        phoneNumber,
-      } = req.body;
-
-      const updatedUser = await prisma.user.update({
-        where: { id: userId },
-        data: {
-          username,
-          firstName,
-          lastName,
-          gender,
-          dob,
-          education,
-          country,
-          state,
-          city,
-          zipCode,
-          regionNumber,
-          phoneNumber,
-        },
+      const userId = req.user?.id as string;
+      const validatedData = await updateUserSchema.validate(req.body, {
+        abortEarly: false,
+        stripUnknown: true,
       });
-      res.status(200).send({
-        message: "User updated successfully✅",
-        user: updatedUser,
-      });
-    } catch (err) {
-      console.log(err);
-      res.status(404).send(err);
+      const updatedUser = await updateUser(userId, validatedData);
+      res
+        .status(200)
+        .send({ message: "User updated successfully", user: updatedUser });
+    } catch (error: any) {
+      res.status(error.status || 500).json({ message: error.message });
     }
   }
 
   async getUserByEmail(req: Request, res: Response) {
     try {
-      const { email } = req.params;
-      const user = await prisma.user.findUnique({ where: { email } });
-
-      if (!user) throw { message: "User not found" };
-
+      const user = await getUserByEmail(req.params.email);
       res.status(200).send(user);
-    } catch (err) {
-      console.error(err);
-      res.status(400).send(err);
+    } catch (error: any) {
+      res.status(error.status || 500).json({ message: error.message });
     }
   }
 
   async updateAvatar(req: Request, res: Response) {
     try {
-      const userId = req.user?.id;
-
-      if (!req.file) throw { message: "avatar is required" };
-      const { secure_url } = await cloudinaryUpload(
-        req.file,
-        "jobsdoors",
-        "image"
-      );
-
-      await prisma.user.update({
-        where: { id: userId },
-        data: {
-          avatar: secure_url,
-        },
-      });
+      const url = await updateAvatar(req.user?.id, req.file);
       res
         .status(200)
-        .send({ message: "Avatar updated successfully ✅", secure_url });
-    } catch (err) {
-      console.log(err);
-      res.status(404).send(err);
+        .send({ message: "Avatar updated successfully", secure_url: url });
+    } catch (error: any) {
+      res.status(error.status || 500).json({ message: error.message });
     }
   }
 }

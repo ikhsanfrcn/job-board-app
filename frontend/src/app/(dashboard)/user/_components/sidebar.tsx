@@ -78,7 +78,7 @@ export default function SideBar() {
     fetchAvatar();
   }, [fetchAvatar]);
   return (
-    <div>
+    <aside>
       <div className="hidden md:block">
         <div className="w-full">
           <div
@@ -125,8 +125,13 @@ export default function SideBar() {
             <HiOutlineLogout className="text-2xl" />
           </div>
           <Link href="/help">
-            <button className="w-full font-medium px-4 py-2 border rounded-lg">
+            <button className="w-full font-medium px-4 py-2 border rounded-lg cursor-pointer">
               Help Center
+            </button>
+          </Link>
+          <Link href="/">
+            <button className="mt-4 w-full font-medium px-4 py-2 border rounded-lg cursor-pointer">
+              Back to home
             </button>
           </Link>
         </div>
@@ -139,6 +144,6 @@ export default function SideBar() {
         setSelectedFile={setSelectedFile}
         onUpload={handleUpdateAvatar}
       />
-    </div>
+    </aside>
   );
 }

@@ -1,14 +1,13 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useSearchParams } from "next/navigation";
+import { useSearchParams, useRouter } from "next/navigation";
 import { IJob } from "@/types/job";
-import JobCard from "@/app/(homepage)/job/_components/JobCard";
 import JobDetail from "@/app/(homepage)/job/_components/jobDetail";
 import axios from "@/lib/axios";
 import JobSearchHeader from "@/app/(homepage)/job/_components/Header";
-import JobFilters from "@/app/(homepage)/job/_components/JobFilter";
-// import { SalaryFilter } from "@/components/molecules/job/SalaryFilter";
+import JobFilters from "./jobFilter";
+import JobCard from "./jobCard";
 
 type Filters = {
   title?: string;
@@ -19,6 +18,7 @@ type Filters = {
 
 export const JobListingsPage: React.FC = () => {
   const searchParams = useSearchParams();
+  const router = useRouter();
   const jobIdFromQuery = searchParams.get("id");
 
   const [jobs, setJobs] = useState<IJob[]>([]);
@@ -40,6 +40,7 @@ export const JobListingsPage: React.FC = () => {
 
       if (page === 1 && jobList.length > 0 && !selectedJob && !jobIdFromQuery) {
         setSelectedJob(jobList[0]);
+        router.replace(`?id=${jobList[0].id}`);
       }
     } catch (error) {
       console.error("Failed to fetch jobs:", error);
@@ -92,17 +93,22 @@ export const JobListingsPage: React.FC = () => {
     }
   };
 
+  const onJobClick = (job: IJob) => {
+    setSelectedJob(job);
+    router.replace(`?id=${job.id}`);
+  };
+
   return (
     <div className="mt-20">
       <JobSearchHeader />
       <JobFilters filters={filters} setFilters={setFilters} />
       <div className="max-w-7xl mx-auto p-4 grid grid-cols-1 md:grid-cols-3 gap-4">
-        <div className="space-y-2  overflow-y-auto h-screen">
+        <div className="space-y-2 overflow-y-auto h-screen">
           {jobs.map((job) => (
             <JobCard
               key={job.id}
               job={job}
-              onClick={() => setSelectedJob(job)}
+              onClick={() => onJobClick(job)}
               isSelected={selectedJob?.id === job.id}
             />
           ))}
@@ -114,7 +120,6 @@ export const JobListingsPage: React.FC = () => {
               Load More
             </button>
           )}
-          {/* <SalaryFilter /> */}
         </div>
 
         <div className="md:col-span-2">

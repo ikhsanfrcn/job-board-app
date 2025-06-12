@@ -37,9 +37,6 @@ export default function Profile() {
     fetchUserProfile();
   }, [fetchUserProfile]);
 
-  const onReload = () => {
-    fetchUserProfile();
-  };
 
   if (loading) return <ProfileSkeleton />;
   if (!profile) return <div className="p-6">No user profile</div>;

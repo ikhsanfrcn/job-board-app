@@ -13,7 +13,6 @@ interface JobFiltersProps {
 export default function JobFilters({ filters, setFilters }: JobFiltersProps) {
   const [isSalaryOpen, setIsSalaryOpen] = useState(false);
 
-  // Ubah jadi string supaya input bisa dikosongkan/diedit bebas
   const [minSalary, setMinSalary] = useState<string>(
     filters.minSalary !== undefined ? filters.minSalary.toString() : "0"
   );

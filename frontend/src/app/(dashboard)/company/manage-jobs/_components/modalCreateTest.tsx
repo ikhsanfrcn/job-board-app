@@ -18,7 +18,7 @@ export default function ModalCreateTest({
       <div className="bg-white rounded-lg p-6 w-full max-w-md mx-4 font-sans">
         <h2 className="text-xl font-semibold mb-4 text-center">Create Pre Test</h2>
         <p className="text-gray-600 mb-6">
-          Do you want to create a pre-test for the job "{jobTitle}"?<br/><span className="text-sm italic">Note: You can only create the test once.</span>
+          Do you want to create a pre-test for the job &quot;{jobTitle}&quot;?<br/><span className="text-sm italic">Note: You can only create the test once.</span>
         </p>
         <div className="flex gap-5 justify-center">
           <button

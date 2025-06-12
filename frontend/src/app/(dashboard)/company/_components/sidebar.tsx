@@ -128,8 +128,13 @@ export default function SideBar() {
           </div>
 
           <Link href="/help">
-            <button className="w-full font-medium px-4 py-2 border rounded-lg">
+            <button className="w-full font-medium px-4 py-2 border rounded-lg cursor-pointer">
               Help Center
+            </button>
+          </Link>
+          <Link href="/">
+            <button className="mt-4 w-full font-medium px-4 py-2 border rounded-lg cursor-pointer">
+              Back to home
             </button>
           </Link>
         </div>
