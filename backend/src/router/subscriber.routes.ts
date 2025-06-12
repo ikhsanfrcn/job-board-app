@@ -19,8 +19,10 @@ export class SubscriberRouter {
     this.router.get("/", this.authMiddleware.verifyToken, this.subscriberController.getSubscriberByUser)
     this.router.get("/:id", this.subscriberController.getSubscriberById);
     this.router.patch("/cancel", this.subscriberController.cancelPayment);
-
+    this.router.post("/send-reminder", this.subscriberController.sendReminder);
+    this.router.post("/check-expire", this.subscriberController.checkExpire);
   }
+
   getRouter(): Router {
     return this.router;
   }
