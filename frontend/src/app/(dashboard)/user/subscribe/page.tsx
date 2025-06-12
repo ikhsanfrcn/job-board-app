@@ -39,13 +39,14 @@ export default function SubscribePage() {
         setIsActive(isInRange);
       } catch (err) {
         console.log(err);
+        setSubscriber({ id: "", userId: "", startDate: new Date(), endDate: new Date(), type: "NONE" });
       }
     };
 
     fetch();
   }, []);
 
-  if (!subscriber && token) {
+  if (subscriber === null && token) {
     return (
       <div className="w-full md:px-8 mt-3">
         <div className="mt-3 p-7 border border-gray-200 h-full rounded-xl shadow-sm">

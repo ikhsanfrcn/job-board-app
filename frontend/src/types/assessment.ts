@@ -8,6 +8,7 @@ export interface IAssessment {
     options: string[];
     answer: string;
   }>;
+  badgeImage: string;
 }
 
 export interface IUserAssessment {

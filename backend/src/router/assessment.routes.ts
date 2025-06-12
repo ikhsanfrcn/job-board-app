@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { SkillAssessmentController } from "../controller/assessment.controller";
 import { AuthMiddleware } from "../middleware/auth.middleware";
+import { uploader } from "../helpers/uploader";
 
 export class SkillAssessmentRouter {
   private router: Router;
@@ -16,7 +17,11 @@ export class SkillAssessmentRouter {
 
   private InitializeRoute() {
     this.router.get("/", this.skillAssessmentController.getAllAssessment);
-    this.router.post("/", this.skillAssessmentController.createAssessment);
+    this.router.post(
+      "/",
+      uploader("memoryStorage", "badge-").single("badgeImage"),
+      this.skillAssessmentController.createAssessment
+    );
     this.router.put(
       "/progress",
       this.authMiddleware.verifyToken,
@@ -45,7 +50,11 @@ export class SkillAssessmentRouter {
       this.skillAssessmentController.startAssessment
     );
     this.router.get("/:id", this.skillAssessmentController.getAssessmentById);
-    this.router.put("/:id", this.skillAssessmentController.editAssessment);
+    this.router.put(
+      "/:id",
+      uploader("memoryStorage", "badge-").single("badgeImage"),
+      this.skillAssessmentController.editAssessment
+    );
     this.router.delete("/:id", this.skillAssessmentController.deleteAssessment);
     this.router.get(
       "/:templateId",
