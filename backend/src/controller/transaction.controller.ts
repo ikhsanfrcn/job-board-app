@@ -11,14 +11,14 @@ export class TransactionController {
   async createTransaction(req: Request, res: Response) {
     try {
       const userId = req.user?.id;
-      const { type } = req.body;
+      const { type, amount } = req.body;
 
       if (!userId) throw { status: 400, message: "Unauthorized" };
 
       if (!type) throw { status: 400, message: "`type` field is required" };
 
       const subscriber = await createSubscriber({ userId, type });
-      const transaction = await createTransaction({ userId, type });
+      const transaction = await createTransaction({ userId, type, amount });
 
       res.status(201).json({
         message: "Transaction created",

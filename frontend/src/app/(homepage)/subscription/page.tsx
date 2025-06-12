@@ -156,26 +156,36 @@ export default function SubscriptionPage() {
   );
 
   async function handleSubscribe(planType: string) {
-    try {
-      setLoadingPlan(planType);
-      const token = session?.accessToken;
+  try {
+    setLoadingPlan(planType);
+    const token = session?.accessToken;
 
-      const response = await axios.post(
-        "/transactions",
-        { type: planType },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-
-      const transactionId = response.data.transaction.data.id;
-      router.push(`/subscription/${transactionId}`);
-    } catch (err: any) {
-      toast.error(err.response?.data?.message || "Subscription failed");
-    } finally {
-      setLoadingPlan(null);
+    const selectedPlan = plans.find(plan => plan.type === planType);
+    if (!selectedPlan) {
+      toast.error("Plan not found");
+      return;
     }
+
+    const response = await axios.post(
+      "/transactions",
+      {
+        type: planType,
+        amount: selectedPlan.price, 
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    const transactionId = response.data.transaction.data.id;
+    router.push(`/subscription/${transactionId}`);
+  } catch (err: any) {
+    toast.error(err.response?.data?.message || "Subscription failed");
+  } finally {
+    setLoadingPlan(null);
   }
+}
+
 }
