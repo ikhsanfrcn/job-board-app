@@ -10,15 +10,17 @@ import { FiEdit } from "react-icons/fi";
 import { AxiosError } from "axios";
 import { toast } from "react-toastify";
 import UpdateAvatarModal from "./updateAvatarModal";
+import { FaAward } from "react-icons/fa6";
 
 export default function SideBar() {
   const { data: user } = useSession();
   const token = user?.accessToken;
-
   const pathname = usePathname();
   const [avatar, setAvatar] = useState<string>("");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [badge, setBadge] = useState<any[]>([]);
+  const [showAllBadges, setShowAllBadges] = useState(false);
 
   const menuItems = [
     { label: "Profile", path: "/user/profile" },
@@ -26,9 +28,9 @@ export default function SideBar() {
     { label: "Job Activity", path: "/user/activity" },
     { label: "Assessment History", path: "/user/assessments" },
     { label: "Following", path: "/user/following" },
-    { label: "Account Settings", path: "/user/settings" },
     { label: "Notifications", path: "/user/notifications" },
     { label: "Subscribe", path: "/user/subscribe" },
+    { label: "Badges", path: "/user/badges" },
   ];
 
   const isActive = (path: string) =>
@@ -43,6 +45,10 @@ export default function SideBar() {
         },
       });
       setAvatar(data.user.avatar);
+      const { data: badgeData } = await axios.get("/assessment/user-badges", {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      setBadge(Array.isArray(badgeData.badges) ? badgeData.badges : []);
     } catch (err) {
       console.log(err);
     }
@@ -50,10 +56,8 @@ export default function SideBar() {
 
   const handleUpdateAvatar = async () => {
     if (!selectedFile || !token) return;
-
     const formData = new FormData();
     formData.append("image", selectedFile);
-
     try {
       const { data } = await axios.patch("/users/update-avatar", formData, {
         headers: {
@@ -82,7 +86,7 @@ export default function SideBar() {
       <div className="hidden md:block">
         <div className="w-full">
           <div
-            className="relative w-25 h-25 border border-gray-200 rounded-full mb-5 overflow-hidden cursor-pointer group"
+            className="relative w-25 h-25 border border-gray-200 rounded-full mb-3 overflow-hidden cursor-pointer group"
             onClick={() => setIsModalOpen(true)}
           >
             {avatar ? (
@@ -92,6 +96,7 @@ export default function SideBar() {
                 width={100}
                 height={100}
                 className="w-full h-full object-cover"
+                priority
               />
             ) : (
               <div className="w-full h-full bg-gray-200" />
@@ -100,6 +105,56 @@ export default function SideBar() {
               <FiEdit className="text-gray-600 text-sm" />
             </div>
           </div>{" "}
+          {badge && badge.length > 0 && (
+            <div className="mb-4">
+              <div className="flex items-center gap-2 mb-2">
+                <FaAward className="text-[#F0D27F] text-lg" />
+                <h3 className="text-sm font-semibold text-gray-700">
+                  Earned Badges ({badge.length})
+                </h3>
+              </div>
+              <div className="grid grid-cols-3 gap-2 space-y-2 mb-2 justify-items-center">
+                {(showAllBadges ? badge : badge.slice(0, 3)).map((b: any) => (
+                  <div
+                    key={b.templateId}
+                    className="relative group cursor-pointer"
+                    title={`${b.title} - ${b.category}`}
+                  >
+                    <div className="w-7 h-7 overflow-hidden">
+                      {b.badgeImage ? (
+                        <Image
+                          src={b.badgeImage}
+                          alt={b.title}
+                          width={48}
+                          height={48}
+                          className="w-full h-full object-cover"
+                        />
+                      ) : (
+                        "No Badge Earned!"
+                      )}
+                    </div>
+                    <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-2 py-1 bg-sky-100/95 text-black text-xs rounded opacity-0 group-hover:opacity-100 transition-all z-10 whitespace-nowrap duration-500">
+                      <div className="font-semibold">{b.title}</div>
+                      <div className="text-gray-700">{b.category}</div>
+                      <div className="text-gray-700">
+                        Score: {b.score}/{b.totalPoints}
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+              {badge.length > 3 && (
+                <button
+                  onClick={() => setShowAllBadges(!showAllBadges)}
+                  className="text-xs hover:font-semibold hover:underline cursor-pointer"
+                >
+                  {showAllBadges
+                    ? "Show Less"
+                    : `View All ${badge.length} Badges`}
+                </button>
+              )}
+            </div>
+          )}
           <hr className="w-full border border-gray-200 mb-5" />
           <div className="w-full flex flex-col items-start gap-2 text-sm">
             {menuItems.map((item) => (
@@ -136,7 +191,6 @@ export default function SideBar() {
           </Link>
         </div>
       </div>
-
       <UpdateAvatarModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
