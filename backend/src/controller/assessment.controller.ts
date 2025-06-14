@@ -361,6 +361,8 @@ export class SkillAssessmentController {
         score: assessment.score,
         totalPoints: assessment.totalPoints,
         completedAt: assessment.completedAt,
+        certificateId: assessmentId,
+        domain: process.env.BASE_URL_FRONTEND,
       });
 
       const browser = await puppeteer.launch({
@@ -373,13 +375,8 @@ export class SkillAssessmentController {
 
       const pdfBuffer = await page.pdf({
         format: "A4",
+        landscape: true,
         printBackground: true,
-        margin: {
-          top: "20mm",
-          bottom: "20mm",
-          left: "15mm",
-          right: "15mm",
-        },
       });
 
       await browser.close();
@@ -395,6 +392,37 @@ export class SkillAssessmentController {
       res.status(500).send(err);
     }
   }
+
+  async verifyAssessment(req: Request, res: Response) {
+    const assessmentId = req.params.id;
+    try {
+      const assessment = await prisma.skillAssessment.findUnique({
+        where: { id: assessmentId },
+        include: {
+          template: { select: { title: true, category: true } },
+          user: {
+            select: {
+              email: true,
+              username: true,
+              firstName: true,
+              lastName: true,
+            },
+          },
+        },
+      });
+
+      if (!assessment) {
+        res.status(404).send({ message: "Assessment not found or invalid" });
+        return;
+      }
+
+      res.status(200).send({
+        message: "Assessment verified successfully✅",
+        assessment,
+      });
+    } catch (err) {
+      console.log(err);
+      res.status(404).send(err);
 
   async getUserPassedBadges(req: Request, res: Response) {
     try {

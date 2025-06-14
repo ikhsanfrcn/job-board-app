@@ -23,4 +23,10 @@ export interface IUserAssessment {
     title: string;
     category: string;
   };
+  user: {
+    username: string;
+    email: string;
+    firstName: string;
+    lastName: string;
+  };
 }

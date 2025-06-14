@@ -49,6 +49,11 @@ export class SkillAssessmentRouter {
       this.skillAssessmentController.generatePdf
     );
 
+    this.router.get(
+      "/verify/:id",
+      this.skillAssessmentController.verifyAssessment
+    );
+
     this.router.post(
       "/start/:templateId",
       this.authMiddleware.verifyToken,

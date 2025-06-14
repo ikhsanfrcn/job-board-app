@@ -63,13 +63,13 @@ const resumeRouter = new ResumeRouter();
 app.use("/api/resumes", resumeRouter.getRouter());
 
 const skillAssessmentRouter = new SkillAssessmentRouter();
-app.use("/api/assessment", skillAssessmentRouter.getRouter())
+app.use("/api/assessment", skillAssessmentRouter.getRouter());
 
 const transactionRouter = new TransactionRouter();
 app.use("/api/transactions", transactionRouter.getRouter());
 
 const subscriptionRouter = new SubscriptionRouter();
-app.use("/api/subscriptions", subscriptionRouter.getRouter())
+app.use("/api/subscriptions", subscriptionRouter.getRouter());
 
 app.listen(PORT, () => {
   console.log(`Server running http://localhost:${PORT}/api`);

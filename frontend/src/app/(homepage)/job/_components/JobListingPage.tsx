@@ -3,11 +3,13 @@
 import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { IJob } from "@/types/job";
-import JobDetail from "@/app/(homepage)/job/_components/jobDetail";
 import axios from "@/lib/axios";
-import JobSearchHeader from "@/app/(homepage)/job/_components/Header";
+import JobDetail from "./jobDetail";
+import JobSearchHeader from "./header";
 import JobFilters from "./jobFilter";
 import JobCard from "./jobCard";
+
+
 
 type Filters = {
   title?: string;

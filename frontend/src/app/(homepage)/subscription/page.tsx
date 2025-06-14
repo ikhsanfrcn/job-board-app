@@ -51,6 +51,7 @@ export default function SubscriptionPage() {
 
 
   useEffect(() => {
+
     const fetchSubscriptionStatus = async () => {
       try {
         const token = session?.accessToken;
