@@ -129,7 +129,7 @@ export default function BadgeInterface() {
       </div>
 
       {/* Badge Grid */}
-      <div className="grid grid-cols-1 space-y-3">
+      <div className="grid grid-cols-1 space-y-3 h-[375px] overflow-y-auto">
         {badges.length === 0 ? (
           <div className="col-span-full text-center py-12">
             <div className="text-gray-400 text-6xl mb-4">🏆</div>
@@ -144,7 +144,7 @@ export default function BadgeInterface() {
           badges.map((badge) => (
             <div
               key={badge.templateId}
-              className="relative bg-white rounded-xl p-6 shadow-lg border border-gray-300 transition-all duration-300 hover:shadow-xl hover:scale-105"
+              className="relative bg-white rounded-xl p-6 shadow-lg border border-gray-300 transition-all duration-300 hover:shadow-xl hover:bg-gray-50"
             >
               {/* Badge Header */}
               <div className="flex items-center gap-4 mb-4">
