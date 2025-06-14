@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useSearchParams, useRouter } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { IJob } from "@/types/job";
 import axios from "@/lib/axios";
 import JobDetail from "./jobDetail";
@@ -20,7 +20,7 @@ type Filters = {
 
 export const JobListingsPage: React.FC = () => {
   const searchParams = useSearchParams();
-  const router = useRouter();
+  // const router = useRouter();
   const jobIdFromQuery = searchParams.get("id");
 
   const [jobs, setJobs] = useState<IJob[]>([]);
@@ -42,7 +42,7 @@ export const JobListingsPage: React.FC = () => {
 
       if (page === 1 && jobList.length > 0 && !selectedJob && !jobIdFromQuery) {
         setSelectedJob(jobList[0]);
-        router.replace(`?id=${jobList[0].id}`);
+        // router.replace(`?id=${jobList[0].id}`);
       }
     } catch (error) {
       console.error("Failed to fetch jobs:", error);
@@ -65,29 +65,26 @@ export const JobListingsPage: React.FC = () => {
   };
 
   useEffect(() => {
-    const city = searchParams.get("city") || undefined;
-    const title = searchParams.get("title") || undefined;
+  const city = searchParams.get("city") || undefined;
+  const title = searchParams.get("title") || undefined;
+  const pageFromQuery = parseInt(searchParams.get("page") || "1");
 
-    setFilters((prev) => ({
-      ...prev,
-      city,
-      title,
-    }));
+  const updatedFilters = {
+    city,
+    title,
+  };
 
-    const pageFromQuery = parseInt(searchParams.get("page") || "1");
-    setPage(pageFromQuery);
-  }, [searchParams]);
+  setFilters(updatedFilters);
+  setPage(pageFromQuery);
+  fetchJobs(pageFromQuery, updatedFilters);
 
-  useEffect(() => {
-    if (jobIdFromQuery) {
-      fetchJobById(jobIdFromQuery);
-    }
-  }, [jobIdFromQuery]);
+  const jobId = searchParams.get("id");
+  if (jobId) {
+    fetchJobById(jobId);
+  }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+}, [searchParams]);
 
-  useEffect(() => {
-    fetchJobs(page, filters);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [page, filters]);
 
   const handleLoadMore = () => {
     if (page < totalPages) {
@@ -97,7 +94,7 @@ export const JobListingsPage: React.FC = () => {
 
   const onJobClick = (job: IJob) => {
     setSelectedJob(job);
-    router.replace(`?id=${job.id}`);
+    // router.replace(`?id=${job.id}`);
   };
 
   return (
@@ -105,7 +102,7 @@ export const JobListingsPage: React.FC = () => {
       <JobSearchHeader />
       <JobFilters filters={filters} setFilters={setFilters} />
       <div className="max-w-7xl mx-auto p-4 grid grid-cols-1 md:grid-cols-3 gap-4">
-        <div className="space-y-2 overflow-y-auto h-screen">
+        <div className="space-y-2 overflow-y-auto max-h-screen">
           {jobs.map((job) => (
             <JobCard
               key={job.id}

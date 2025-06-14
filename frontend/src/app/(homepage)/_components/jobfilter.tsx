@@ -1,28 +1,24 @@
 "use client";
 
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { IoLocationOutline, IoSearchOutline } from "react-icons/io5";
 
 export default function JobFilter() {
-  const [title, setTitle] = useState("");
-  const [city, setCity] = useState("");
+  const searchParams = useSearchParams();
+  const [title, setTitle] = useState(searchParams.get("title") || "");
+  const [city, setCity] = useState(searchParams.get("city") || "");
   const router = useRouter();
 
   const handleSearch = () => {
-    let queryParams = "";
-    
-    if (title && city) {
-      queryParams = `?title=${title}&city=${city}`;
-    } else if (title) {
-      queryParams = `?title=${title}`;
-    } else if (city) {
-      queryParams = `?city=${city}`;
-    }
+    const params = new URLSearchParams();
 
-    router.push(`/job${queryParams}`);
+    if (title) params.set("title", title);
+    if (city) params.set("city", city);
+    params.set("page", "1");
+
+    router.push(`/job?${params.toString()}`);
   };
-
 
   return (
     <div className="w-full px-4 py-10 bg-gray-100 font-sans">
@@ -36,11 +32,10 @@ export default function JobFilter() {
           <input
             type="text"
             placeholder="Job Title"
+            value={title}
             onChange={(e) => setTitle(e.target.value)}
             onKeyDown={(e) => {
-              if (e.key === "Enter") {
-                handleSearch();
-              }
+              if (e.key === "Enter") handleSearch();
             }}
             className="w-full focus:outline-0"
           />
@@ -52,11 +47,10 @@ export default function JobFilter() {
           <input
             type="text"
             placeholder="City"
+            value={city}
             onChange={(e) => setCity(e.target.value)}
             onKeyDown={(e) => {
-              if (e.key === "Enter") {
-                handleSearch();
-              }
+              if (e.key === "Enter") handleSearch();
             }}
             className="w-full focus:outline-0"
           />

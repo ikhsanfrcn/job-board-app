@@ -8,6 +8,7 @@ import LoadingSkeleton from "./_components/loadingSkeleton";
 import { useRouter } from "next/navigation";
 import StartModal from "./_components/startModal";
 import { useSession } from "next-auth/react";
+import Image from "next/image";
 
 export default function SkillAssessment() {
   const [assessments, setAssessments] = useState<IAssessment[]>([]);
@@ -55,10 +56,9 @@ export default function SkillAssessment() {
 
       // If user has standard subscription, check their assessment count
       if (subscriptionType === "STANDARD") {
-        const assessments = await axios.get(
-          "/assessment/user-assessment",
-          { headers: { Authorization: `Bearer ${token}` } }
-        );
+        const assessments = await axios.get("/assessment/user-assessment", {
+          headers: { Authorization: `Bearer ${token}` },
+        });
         const assessmentCount = assessments.data?.userAssessments?.length || 0;
 
         setUserAssessmentCount(assessmentCount);
@@ -109,7 +109,10 @@ export default function SkillAssessment() {
   };
 
   const isButtonDisabled = () => {
-    return checkingLimits || (userSubscriptionType === "STANDARD" && userAssessmentCount >= 2);
+    return (
+      checkingLimits ||
+      (userSubscriptionType === "STANDARD" && userAssessmentCount >= 2)
+    );
   };
 
   return (
@@ -131,6 +134,12 @@ export default function SkillAssessment() {
                   <div className="border-b border-gray-300 text-shadow-sm">
                     {idx + 1}
                   </div>
+                  <Image
+                    src={a.badgeImage}
+                    alt={a.title}
+                    height={40}
+                    width={40}
+                  />
                   <div>
                     <h3 className="text-lg font-semibold">{a.title}</h3>
                     <p className="text-gray-600">{a.description}</p>

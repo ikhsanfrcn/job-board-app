@@ -41,7 +41,7 @@
     "node-cron": "^4.1.0",
     "nodemailer": "^7.0.3",
     "prisma": "^6.8.1",
-    "puppeteer": "^24.10.0",
+    "puppeteer": "^24.10.1",
     "streamifier": "^0.1.1",
     "uuid": "^11.1.0",
     "xendit-node": "^7.0.0",

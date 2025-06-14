@@ -307,7 +307,9 @@ export class SkillAssessmentController {
       const userAssessments = await prisma.skillAssessment.findMany({
         where: { userId },
         include: {
-          template: { select: { title: true, category: true } },
+          template: {
+            select: { title: true, category: true, badgeImage: true },
+          },
           user: {
             select: {
               email: true,
@@ -421,6 +423,73 @@ export class SkillAssessmentController {
     } catch (err) {
       console.log(err);
       res.status(404).send(err);
+
+  async getUserPassedBadges(req: Request, res: Response) {
+    try {
+      const userId = req.user?.id;
+
+      const allTemplates = await prisma.skillAssessmentTemplate.findMany();
+      const passedAssessments = await prisma.skillAssessment.findMany({
+        where: {
+          userId,
+          isPassed: true,
+        },
+        include: {
+          template: true,
+        },
+        // Order by latest completion date to get the most recent passed attempt
+        orderBy: {
+          completedAt: "desc",
+        },
+      });
+
+      // Remove duplicates by templateId (keep only unique badges)
+      const uniqueBadges = passedAssessments.reduce(
+        (
+          acc: Array<{
+            templateId: string;
+            title: string;
+            category: string;
+            badgeImage: string;
+            earnedAt: Date;
+            score: number;
+            totalPoints: number;
+          }>,
+          assessment
+        ) => {
+          // Check if we already have this template in our accumulator
+          const existingBadge = acc.find(
+            (item) => item.templateId === assessment.template.id
+          );
+
+          if (!existingBadge) {
+            acc.push({
+              templateId: assessment.template.id,
+              title: assessment.template.title,
+              category: assessment.template.category,
+              badgeImage: assessment.template.badgeImage ?? "",
+              earnedAt: assessment.completedAt ?? new Date(),
+              score: assessment.score,
+              totalPoints: assessment.totalPoints,
+            });
+          }
+
+          return acc;
+        },
+        []
+      );
+
+      res.status(200).send({
+        message: "User badges fetched successfully✅",
+        badges: uniqueBadges,
+        totalBadges: allTemplates.length,
+      });
+    } catch (err) {
+      console.log(err);
+      res.status(500).send({
+        message: "Error fetching user badges",
+        error: err,
+      });
     }
   }
 }

@@ -73,7 +73,10 @@ export default function ModalEditAssessment({
       if (selectedImage) {
         formData.append("badgeImage", selectedImage);
       }
-      const { data } = await axios.put(`/assessment/${assessment.id}`, formData);
+      const { data } = await axios.put(
+        `/assessment/${assessment.id}`,
+        formData
+      );
       toast.success(data.message || "Assessment updated successfully");
       onSuccess();
       onClose();
@@ -109,7 +112,7 @@ export default function ModalEditAssessment({
               onClick={onClose}
               className="text-gray-500 hover:text-gray-700 hover:bg-gray-200 rounded-full p-2 transition duration-200"
             >
-              <VscChromeClose className="text-2xl"/>
+              <VscChromeClose className="text-2xl" />
             </button>
           </div>
           <Formik
@@ -159,40 +162,38 @@ export default function ModalEditAssessment({
                 >
                   Badge Image
                 </label>
-                <Field
-                  type="file"
-                  name="badgeImage"
-                  className="border border-gray-300 rounded-sm p-3 w-full mt-4 text-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-300"
-                  accept="image/png, image/jpeg, image/webp, image/svg"
-                  onChange={handleImageChange}
-                />
-                {imageError && (
-                  <p className="text-red-500 text-xs mt-1">{imageError}</p>
-                )}
-                {!selectedImage && assessment.badgeImage && (
-                  <div className="mt-4">
-                    <p className="text-sm text-gray-600 mb-2">Current Badge:</p>
-                    <Image
-                      src={assessment.badgeImage}
-                      width={100}
-                      height={100}
-                      alt="Current Badge"
-                      className="rounded-md w-full h-auto"
-                    />
+                <div className="flex gap-3 items-center">
+                  <div className="border border-gray-300 rounded-md p-1 h-12 w-12">
+                    {imageError && (
+                      <p className="text-red-500 text-xs mt-1">{imageError}</p>
+                    )}
+                    {!selectedImage && assessment.badgeImage && (
+                      <Image
+                        src={assessment.badgeImage}
+                        width={100}
+                        height={100}
+                        alt="Current Badge"
+                        className="rounded-md w-full h-full"
+                      />
+                    )}
+                    {selectedImage && (
+                      <Image
+                        src={URL.createObjectURL(selectedImage)}
+                        width={100}
+                        height={100}
+                        alt="Selected Preview"
+                        className="rounded-md w-full h-auto"
+                      />
+                    )}
                   </div>
-                )}
-                {selectedImage && (
-                  <div className="mt-4">
-                    <p className="text-sm text-gray-600 mb-2">New Badge Preview:</p>
-                    <Image
-                      src={URL.createObjectURL(selectedImage)}
-                      width={100}
-                      height={100}
-                      alt="Selected Preview"
-                      className="rounded-md w-full h-auto"
-                    />
-                  </div>
-                )}
+                  <Field
+                    type="file"
+                    name="badgeImage"
+                    className="border border-gray-300 rounded-sm p-3 w-full text-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-300"
+                    accept="image/png, image/jpeg, image/webp, image/svg"
+                    onChange={handleImageChange}
+                  />
+                </div>
                 {values.questions.map((q, index) => (
                   <div
                     key={index}

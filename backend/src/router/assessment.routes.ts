@@ -37,6 +37,11 @@ export class SkillAssessmentRouter {
       this.authMiddleware.verifyToken,
       this.skillAssessmentController.getUserAssessments
     );
+    this.router.get(
+      "/user-badges",
+      this.authMiddleware.verifyToken,
+      this.skillAssessmentController.getUserPassedBadges
+    );
 
     this.router.get(
       "/generate-pdf/:id",

@@ -17,8 +17,19 @@ export const getJobs = async ({
 
   const where: any = { isPublished };
 
-  if (title) where.title = title;
-  if (city) where.city = city;
+  if (title) {
+  where.title = {
+    contains: title,
+    mode: "insensitive",
+  };
+}
+
+if (city) {
+  where.city = {
+    contains: city,
+    mode: "insensitive",
+  };
+}
   if (category) where.category = category;
   if (tags && tags.length > 0) {
     where.tags = { hasEvery: tags };
