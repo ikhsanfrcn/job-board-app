@@ -1,14 +1,18 @@
 import { Modal } from "@/components/atoms/Modal";
 import { FaWhatsapp, FaTwitter, FaLink } from "react-icons/fa";
+import { toast } from "react-toastify";
 
 export const ShareModal = ({
   isOpen,
   onClose,
+  jobId
 }: {
   isOpen: boolean;
   onClose: () => void;
+  jobId: string
 }) => {
-  const shareUrl = typeof window !== "undefined" ? window.location.href : "";
+  // const shareUrl = typeof window !== "undefined" ? window.location.href : "";
+  const shareUrl = `${process.env.NEXT_PUBLIC_FRONTEND_URL}/job?id=${jobId}`;
 
   return (
     <Modal isOpen={isOpen} onClose={onClose} title="Share this Job" size="sm">
@@ -30,9 +34,10 @@ export const ShareModal = ({
           onClick={async () => {
             try {
               await navigator.clipboard.writeText(shareUrl);
-              alert("Link copied!");
+              toast.info("Link copied!");
+              onClose()
             } catch {
-              alert("Failed to copy.");
+              toast.error("Failed to copy.");
             }
           }}
           className="flex items-center gap-2 bg-gray-600 text-white px-4 py-2 rounded w-full hover:bg-gray-700"

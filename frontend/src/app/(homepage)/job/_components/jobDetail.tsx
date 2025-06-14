@@ -81,6 +81,7 @@ export default function JobDetail({ job }: { job: IJob }) {
       <ShareModal
         isOpen={isShareModalOpen}
         onClose={() => setIsShareModalOpen(false)}
+        jobId = {job.id}
       />
 
       <LoginModal
