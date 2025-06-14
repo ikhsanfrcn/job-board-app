@@ -88,7 +88,7 @@ export default function Page() {
             <span>🏠 / Dashboards / Create Assessment </span>
           </nav>
         </div>
-        <div className="max-w-lg mx-auto p-8 border border-gray-300 bg-white shadow-lg rounded-lg my-10 font-sans">
+        <div className="w-full mx-auto p-8 border border-gray-300 shadow-lg rounded-lg my-10 font-sans overflow-y-auto h-[70vh]">
           <h2 className="text-2xl font-semibold mb-6 text-center">
             Create Skill Assessment
           </h2>
@@ -138,27 +138,29 @@ export default function Page() {
                 >
                   Badge Image
                 </label>
-                <Field
-                  type="file"
-                  name="badgeImage"
-                  className="border border-gray-300 rounded-sm p-3 w-full text-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-300"
-                  accept="image/png, image/jpeg, image/webp, image/svg"
-                  onChange={handleImageChange}
-                />
-                {!selectedImage && (
-                  <p className="text-red-500 text-xs mt-1">{imageError}</p>
-                )}
-                {selectedImage && (
-                  <div className="mt-4">
-                    <Image
-                      src={URL.createObjectURL(selectedImage)}
-                      width={100}
-                      height={100}
-                      alt="Selected Preview"
-                      className="rounded-md w-full h-auto"
-                    />
+                <div className="flex gap-3 items-center">
+                  <div className="border border-gray-300 rounded-md p-1 h-12 w-12">
+                    {!selectedImage && (
+                      <p className="text-red-500 text-xs mt-1">{imageError}</p>
+                    )}
+                    {selectedImage && (
+                      <Image
+                        src={URL.createObjectURL(selectedImage)}
+                        width={100}
+                        height={100}
+                        alt="Selected Preview"
+                        className="rounded-md w-full h-full"
+                      />
+                    )}
                   </div>
-                )}
+                  <Field
+                    type="file"
+                    name="badgeImage"
+                    className="border border-gray-300 rounded-sm p-3 w-full text-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-300"
+                    accept="image/png, image/jpeg, image/webp, image/svg"
+                    onChange={handleImageChange}
+                  />
+                </div>
                 {values.questions.map((q, index) => (
                   <div
                     key={index}
