@@ -423,7 +423,8 @@ export class SkillAssessmentController {
     } catch (err) {
       console.log(err);
       res.status(404).send(err);
-
+    }
+  }
   async getUserPassedBadges(req: Request, res: Response) {
     try {
       const userId = req.user?.id;
