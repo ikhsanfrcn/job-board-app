@@ -8,7 +8,7 @@ import {
 } from "react-icons/lu";
 import { IoBarChartOutline } from "react-icons/io5";
 import { FaMoneyCheckDollar, FaRegPenToSquare } from "react-icons/fa6";
-import { MdOutlineCategory, MdOutlinePayments } from "react-icons/md";
+import { MdOutlineCategory } from "react-icons/md";
 import { TbUserQuestion } from "react-icons/tb";
 import { CiViewList } from "react-icons/ci";
 import Link from "next/link";
@@ -19,6 +19,7 @@ import { redirect } from "next/navigation";
 interface MenuItem {
   id: string;
   label: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   icon: React.ComponentType<any>;
   href?: string;
   children?: MenuItem[];
@@ -32,7 +33,6 @@ interface SidebarProps {
 }
 
 export default function Sidebar({
-  className,
   isCollapsed = false,
   onToggle,
   onNavigate,
@@ -67,12 +67,12 @@ export default function Sidebar({
           icon: MdOutlineCategory,
           href: "/dev/dashboard/category",
         },
-        {
-          id: "payment",
-          label: "Payment",
-          icon: MdOutlinePayments,
-          href: "/dev/dashboard/payment",
-        },
+        // {
+        //   id: "payment",
+        //   label: "Payment",
+        //   icon: MdOutlinePayments,
+        //   href: "/dev/dashboard/payment",
+        // },
       ],
     },
     {
@@ -109,15 +109,12 @@ export default function Sidebar({
     );
   };
   const handleMenuItemClick = (item: MenuItem, hasChildren: boolean) => {
-    // Handle navigation for items with href
     if (!hasChildren && item.href && onNavigate) {
       onNavigate(item.href);
     }
-    // Auto-collapse on mobile when clicking menu items
     if (window.innerWidth < 768 && onToggle && !hasChildren) {
-      setTimeout(() => onToggle(), 150); // Small delay for better UX
+      setTimeout(() => onToggle(), 150);
     }
-    // Handle expansion for parent items
     if (!isCollapsed && hasChildren) {
       toggleExpanded(item.id);
     }
