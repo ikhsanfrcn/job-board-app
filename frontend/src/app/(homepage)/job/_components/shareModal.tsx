@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { Modal } from "@/components/atoms/Modal";
 import { FaWhatsapp, FaTwitter, FaLink } from "react-icons/fa";
 import { toast } from "react-toastify";
@@ -9,10 +10,15 @@ export const ShareModal = ({
 }: {
   isOpen: boolean;
   onClose: () => void;
-  jobId: string
+  jobId: string;
 }) => {
-  // const shareUrl = typeof window !== "undefined" ? window.location.href : "";
-  const shareUrl = `${process.env.NEXT_PUBLIC_FRONTEND_URL}/job?id=${jobId}`;
+  const [shareUrl, setShareUrl] = useState("");
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setShareUrl(`${window.location.origin}/job?id=${jobId}`);
+    }
+  }, [jobId]);
 
   return (
     <Modal isOpen={isOpen} onClose={onClose} title="Share this Job" size="sm">
@@ -35,7 +41,7 @@ export const ShareModal = ({
             try {
               await navigator.clipboard.writeText(shareUrl);
               toast.info("Link copied!");
-              onClose()
+              onClose();
             } catch {
               toast.error("Failed to copy.");
             }
