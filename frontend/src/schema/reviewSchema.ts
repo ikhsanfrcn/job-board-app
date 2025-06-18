@@ -1,19 +1,25 @@
 import * as yup from "yup";
 
 export const ReviewSchema = yup.object().shape({
-  rating: yup
+  cultureRating: yup
     .number()
     .min(1, "Please provide at least 1 star rating.")
     .max(5, "Maximum rating is 5 stars.")
-    .required("Overall rating is required."),
+    .required("Culture rating is required."),
 
-  isCurrentEmployee: yup
-    .string()
-    .required("Employment status is required.")
-    .oneOf(
-      ["current", "former"],
-      "Please select current or former employee status."
-    ),
+  workLifeBalanceRating: yup
+    .number()
+    .min(1, "Please provide at least 1 star rating.")
+    .max(5, "Maximum rating is 5 stars.")
+    .required("Work-life balance rating is required."),
+
+  facilitiesRating: yup
+    .number()
+    .min(1, "Please provide at least 1 star rating.")
+    .max(5, "Maximum rating is 5 stars.")
+    .required("Facilities rating is required."),
+
+  salaryEstimate: yup.string().required("Salary estimate is required."),
 
   employmentStatus: yup
     .string()

@@ -47,11 +47,11 @@ export class CompanyRouter {
     this.router.patch(
       "/update-logo",
       uploader("memoryStorage", "logo-").single("image"),
-      // validateUpdateAvatar,
       this.authMiddleware.verifyToken,
       this.companyController.updateLogo
     );
 
+    this.router.get("/:id/jobs", this.companyController.getCompanyJobs);
     this.router.get("/:id", this.companyController.getCompanyDetail);
   }
 

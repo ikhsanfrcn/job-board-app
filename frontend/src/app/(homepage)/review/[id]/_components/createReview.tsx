@@ -22,7 +22,12 @@ export default function CreateReview({ companyId }: IProps) {
 
   const [detail, setDetail] = useState<ICompanyProfile | null>(null);
   const [loading, setLoading] = useState(false);
-  const [hoverRating, setHoverRating] = useState(0);
+  const [hoverCultureRating, setHoverCultureRating] = useState(0);
+  const [hoverWorkLifeBalanceRating, setHoverWorkLifeBalanceRating] =
+    useState(0);
+  const [hoverFacilitiesRating, setHoverFacilitiesRating] = useState(0);
+  const [hoverCareerOpportunitiesRating, setHoverCareerOpportunitiesRating] =
+    useState(0);
   const [submitting, setSubmitting] = useState(false);
 
   const fetchDetail = useCallback(async () => {
@@ -50,12 +55,7 @@ export default function CreateReview({ companyId }: IProps) {
     try {
       const { agreed, ...dataToSend } = values;
 
-      const payload = {
-        ...dataToSend,
-        isCurrentEmployee: dataToSend.isCurrentEmployee === "current",
-      };
-
-      await axios.post(`/reviews/${companyId}`, payload, {
+      await axios.post(`/reviews/${companyId}`, dataToSend, {
         headers: {
           Authorization: `Bearer ${accessToken}`,
         },
@@ -84,8 +84,11 @@ export default function CreateReview({ companyId }: IProps) {
 
       <Formik
         initialValues={{
-          rating: 0,
-          isCurrentEmployee: "",
+          salaryEstimate: 0,
+          cultureRating: 0,
+          workLifeBalanceRating: 0,
+          facilitiesRating: 0,
+          careerOpportunitiesRating: 0,
           employmentStatus: "",
           jobTitle: "",
           headline: "",
@@ -121,54 +124,132 @@ export default function CreateReview({ companyId }: IProps) {
             </div>
 
             <div>
-              <label className="text-xs">Overall Rating*</label>
+              <label className="text-xs">Culture Rating*</label>
               <div className="flex space-x-1 mt-1">
                 {[1, 2, 3, 4, 5].map((i) => {
-                  const filled = i <= (hoverRating || values.rating);
+                  const filled =
+                    i <= (hoverCultureRating || values.cultureRating);
                   return (
                     <IoStar
                       key={i}
                       className={`text-4xl cursor-pointer transition-colors duration-200 ${
                         filled ? "text-green-600" : "text-gray-300"
                       }`}
-                      onClick={() => setFieldValue("rating", i)}
-                      onMouseEnter={() => setHoverRating(i)}
-                      onMouseLeave={() => setHoverRating(0)}
+                      onClick={() => setFieldValue("cultureRating", i)}
+                      onMouseEnter={() => setHoverCultureRating(i)}
+                      onMouseLeave={() => setHoverCultureRating(0)}
                     />
                   );
                 })}
               </div>
-              {errors.rating && touched.rating && (
+              {errors.cultureRating && touched.cultureRating && (
                 <div className="text-red-500 text-xs flex items-center gap-1 mt-1">
                   <VscCircleSlash className="text-base" />
-                  {errors.rating}
+                  {errors.cultureRating}
                 </div>
               )}
             </div>
 
             <div>
-              <label className="text-xs">
-                Are you a current or former employee?*
-              </label>
-              <div className="flex gap-4 mt-1">
-                {["current", "former"].map((status) => (
-                  <label
-                    key={status}
-                    className="flex items-center gap-1 font-semibold text-lg cursor-pointer"
-                  >
-                    <Field
-                      type="radio"
-                      name="isCurrentEmployee"
-                      value={status} // kirim string "current" atau "former"
+              <label className="text-xs">Work Life Balance Rating*</label>
+              <div className="flex space-x-1 mt-1">
+                {[1, 2, 3, 4, 5].map((i) => {
+                  const filled =
+                    i <=
+                    (hoverWorkLifeBalanceRating ||
+                      values.workLifeBalanceRating);
+                  return (
+                    <IoStar
+                      key={i}
+                      className={`text-4xl cursor-pointer transition-colors duration-200 ${
+                        filled ? "text-green-600" : "text-gray-300"
+                      }`}
+                      onClick={() => setFieldValue("workLifeBalanceRating", i)}
+                      onMouseEnter={() => setHoverWorkLifeBalanceRating(i)}
+                      onMouseLeave={() => setHoverWorkLifeBalanceRating(0)}
                     />
-                    {status.charAt(0).toUpperCase() + status.slice(1)}
-                  </label>
-                ))}
+                  );
+                })}
               </div>
-              {errors.isCurrentEmployee && touched.isCurrentEmployee && (
+              {errors.workLifeBalanceRating &&
+                touched.workLifeBalanceRating && (
+                  <div className="text-red-500 text-xs flex items-center gap-1 mt-1">
+                    <VscCircleSlash className="text-base" />
+                    {errors.workLifeBalanceRating}
+                  </div>
+                )}
+            </div>
+
+            <div>
+              <label className="text-xs">Facilities Rating*</label>
+              <div className="flex space-x-1 mt-1">
+                {[1, 2, 3, 4, 5].map((i) => {
+                  const filled =
+                    i <= (hoverFacilitiesRating || values.facilitiesRating);
+                  return (
+                    <IoStar
+                      key={i}
+                      className={`text-4xl cursor-pointer transition-colors duration-200 ${
+                        filled ? "text-green-600" : "text-gray-300"
+                      }`}
+                      onClick={() => setFieldValue("facilitiesRating", i)}
+                      onMouseEnter={() => setHoverFacilitiesRating(i)}
+                      onMouseLeave={() => setHoverFacilitiesRating(0)}
+                    />
+                  );
+                })}
+              </div>
+              {errors.facilitiesRating && touched.facilitiesRating && (
                 <div className="text-red-500 text-xs flex items-center gap-1 mt-1">
                   <VscCircleSlash className="text-base" />
-                  {errors.isCurrentEmployee}
+                  {errors.facilitiesRating}
+                </div>
+              )}
+            </div>
+
+            <div>
+              <label className="text-xs">Career Opportunities Rating*</label>
+              <div className="flex space-x-1 mt-1">
+                {[1, 2, 3, 4, 5].map((i) => {
+                  const filled =
+                    i <=
+                    (hoverCareerOpportunitiesRating ||
+                      values.careerOpportunitiesRating);
+                  return (
+                    <IoStar
+                      key={i}
+                      className={`text-4xl cursor-pointer transition-colors duration-200 ${
+                        filled ? "text-green-600" : "text-gray-300"
+                      }`}
+                      onClick={() =>
+                        setFieldValue("careerOpportunitiesRating", i)
+                      }
+                      onMouseEnter={() => setHoverCareerOpportunitiesRating(i)}
+                      onMouseLeave={() => setHoverCareerOpportunitiesRating(0)}
+                    />
+                  );
+                })}
+              </div>
+              {errors.careerOpportunitiesRating &&
+                touched.careerOpportunitiesRating && (
+                  <div className="text-red-500 text-xs flex items-center gap-1 mt-1">
+                    <VscCircleSlash className="text-base" />
+                    {errors.careerOpportunitiesRating}
+                  </div>
+                )}
+            </div>
+
+            <div>
+              <label className="text-xs">Salary Estimate*</label>
+              <Field
+                name="salaryEstimate"
+                min="0"
+                className="w-full border border-gray-300 rounded-lg px-4 py-2"
+              />
+              {errors.salaryEstimate && touched.salaryEstimate && (
+                <div className="text-red-500 text-xs flex items-center gap-1 mt-1">
+                  <VscCircleSlash className="text-base" />
+                  {errors.salaryEstimate}
                 </div>
               )}
             </div>
@@ -181,10 +262,13 @@ export default function CreateReview({ companyId }: IProps) {
                 className="w-full border border-gray-300 rounded-lg px-4 py-2"
               >
                 <option value="">Select status</option>
-                <option value="full-time">Full-time</option>
-                <option value="part-time">Part-time</option>
-                <option value="intern">Intern</option>
-                <option value="contract">Contract</option>
+                <option value="FULLTIME">Full-time</option>
+                <option value="PARTTIME">Part-time</option>
+                <option value="CONTRACT">Contract</option>
+                <option value="FREELANCE">Freelance</option>
+                <option value="SELFEMPLOYED">Self-employed</option>
+                <option value="SEASONAL">Seasonal</option>
+                <option value="INTERN">Intern</option>
               </Field>
               {errors.employmentStatus && touched.employmentStatus && (
                 <div className="text-red-500 text-xs flex items-center gap-1 mt-1">

@@ -16,6 +16,8 @@ export class ReviewRouter {
   }
 
   private initializeRoute() {
+    this.router.get("/company/:id", this.reviewController.getCompanyReviews);
+
     this.router.post(
       "/:id",
       validateCreateReview,

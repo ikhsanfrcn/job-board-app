@@ -80,7 +80,9 @@ export default function Companies() {
                     </div>
                     <h4 className="text-md font-semibold">{company.name}</h4>
                     <div className="flex items-center space-x-1 text-green-600">
-                      <p className="text-sm font-medium">4.5</p>
+                      <p className="text-sm font-medium">
+                        {company.averageRating ? company.averageRating : "-"}
+                      </p>
                       <IoMdStar className="text-base" />
                     </div>
                   </div>

@@ -8,6 +8,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { IoIosStar } from "react-icons/io";
 import { FaUserSecret } from "react-icons/fa";
+import { IReview } from "@/types/review";
+import Review from "./review";
+import Jobs from "./jobs";
 
 interface IProps {
   id: string;
@@ -55,77 +58,10 @@ export default function Detail({ id }: IProps) {
           </div>
         );
       case "Reviews":
-        return (
-          <div className="mb-5">
-            <h2 className="text-xl font-semibold mb-3">Reviews</h2>
-            {detail.Review && detail.Review.length > 0 ? (
-              <div className="space-y-6">
-                {detail.Review.map((review, index) => (
-                  <div
-                    key={index}
-                    className="p-4 border border-gray-200 rounded-lg shadow-sm"
-                  >
-                    <div className="flex items-center justify-between mb-2">
-                      <div className="flex items-center gap-1 text-black text-sm font-medium">
-                        {Array.from({ length: 5 }).map((_, i) => (
-                          <IoIosStar
-                            key={i}
-                            className={`text-lg ${
-                              i < review.rating ? "text-black" : "text-gray-300"
-                            }`}
-                          />
-                        ))}
-                        <span className="text-gray-700 ml-1">
-                          ({review.rating}/5)
-                        </span>
-                      </div>
-                      <div className="text-sm text-gray-500">
-                        {new Date(review.createdAt).toLocaleDateString(
-                          "id-ID",
-                          {
-                            day: "2-digit",
-                            month: "2-digit",
-                            year: "numeric",
-                          }
-                        )}
-                      </div>
-                    </div>
-                    <div className="flex items-center space-x-2 mb-3">
-                      <div className="w-8 h-8 p-2 bg-white shadow-lg border border-gray-200 rounded-full overflow-hidden">
-                        <FaUserSecret className="w-full h-full object-contain text-gray-600" />
-                      </div>
-                      <h4 className="text-sm font-semibold text-gray-800">
-                        {review.jobTitle}
-                      </h4>
-                    </div>
-                    <div className="mb-3">
-                      <h4 className="text-sm text-green-600 font-semibold mb-1">
-                        Pros
-                      </h4>
-                      <p className="text-sm text-gray-700">{review.pros}</p>
-                    </div>
-                    <div>
-                      <h4 className="text-sm text-red-600 font-semibold mb-1">
-                        Cons
-                      </h4>
-                      <p className="text-sm text-gray-700">{review.cons}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            ) : (
-              <p className="text-sm text-gray-500">No reviews yet.</p>
-            )}
-          </div>
-        );
+        return <Review companyId={id} />;
 
       case "Jobs":
-        return (
-          <div className="mb-5">
-            <h2 className="text-xl font-semibold mb-3">Jobs</h2>
-            <p className="text-sm text-gray-500">No job postings available.</p>
-          </div>
-        );
+        return <Jobs companyId={id} />;
       default:
         return null;
     }
@@ -157,10 +93,6 @@ export default function Detail({ id }: IProps) {
             )}
           </div>
           <div className="flex gap-2">
-            <button className="px-4 py-2 text-white text-sm bg-black rounded-md hover:scale-105 transition duration-300 cursor-pointer">
-              Follow
-            </button>
-
             <Link href={`/review/${id}`}>
               <button className="px-4 py-2 text-white text-sm bg-black rounded-md hover:scale-105 transition duration-300 cursor-pointer">
                 Add a review
@@ -184,7 +116,6 @@ export default function Detail({ id }: IProps) {
             </button>
           ))}
         </div>
-
         {renderTabContent()}
       </div>
     </div>

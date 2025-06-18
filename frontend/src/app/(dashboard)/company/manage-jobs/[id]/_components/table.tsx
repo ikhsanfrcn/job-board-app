@@ -1,6 +1,9 @@
+"use client";
+
 import { IApplication, ITestResult } from "@/types/applicationType";
 import Image from "next/image";
-import { BiPlus } from "react-icons/bi";
+import { useState } from "react";
+import { HiDotsVertical } from "react-icons/hi";
 
 interface IProps {
   applicants: IApplication[];
@@ -16,6 +19,8 @@ export default function Table({
   onViewTestResult,
   onInterviewClick,
 }: IProps) {
+  const [openId, setOpenId] = useState<string | null>(null);
+
   const handleTestResultClick = (app: IApplication) => {
     const testData = app.user.userTest?.[0];
     if (testData && onViewTestResult) {
@@ -104,29 +109,88 @@ export default function Table({
                 <span className="text-gray-400 italic">No Test</span>
               )}
             </td>
-            <td className="p-3 border-b capitalize text-gray-700">
-              {app.status}
+            <td className="p-3 border-b capitalize">
+              <span
+                className={`px-3 py-1 text-xs font-semibold rounded-full
+      ${
+        {
+          PENDING: "bg-yellow-100 text-yellow-800",
+          VIEWED: "bg-gray-100 text-gray-800",
+          SHORTLISTED: "bg-blue-100 text-blue-800",
+          INTERVIEW: "bg-purple-100 text-purple-800",
+          OFFERED: "bg-green-100 text-green-800",
+          REJECTED: "bg-red-100 text-red-800",
+        }[app.status] || "bg-gray-100 text-gray-700"
+      }`}
+              >
+                {app.status.toLowerCase()}
+              </span>
             </td>
-            <td className="p-3 border-b">
-              {["PENDING", "VIEWED"].includes(app.status) && (
-                <button
-                  onClick={() => onUpdateStatus(app.id, "SHORTLISTED")}
-                  className="flex items-center gap-2 mx-auto bg-green-600 hover:bg-green-700 text-white text-sm font-medium px-4 py-1.5 rounded-full shadow transition duration-200"
-                >
-                  <BiPlus className="w-4 h-4" />
-                  Shortlist
-                </button>
-              )}
 
-              {app.status === "SHORTLISTED" && (
+            <td className="p-3 border-b relative">
+              <div className="relative inline-block text-left">
                 <button
-                  onClick={() => onInterviewClick(app.id)}
-                  className="flex items-center gap-2 mx-auto bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium px-4 py-1.5 rounded-full shadow transition duration-200"
+                  onClick={() => setOpenId(app.id === openId ? null : app.id)}
+                  className="p-1.5 rounded-full hover:bg-gray-200 focus:outline-none"
                 >
-                  <BiPlus className="w-4 h-4" />
-                  Interview
+                  <HiDotsVertical className="w-5 h-5 text-gray-600" />
                 </button>
-              )}
+
+                {openId === app.id && (
+                  <div
+                    tabIndex={0}
+                    onBlur={() => setOpenId(null)}
+                    className="absolute z-10 mt-2 right-0 w-40 bg-white border border-gray-200 rounded shadow-lg p-2 space-y-1"
+                  >
+                    {["PENDING", "VIEWED"].includes(app.status) && (
+                      <button
+                        onClick={() => {
+                          onUpdateStatus(app.id, "SHORTLISTED");
+                          setOpenId(null);
+                        }}
+                        className="w-full text-left px-3 py-1.5 text-sm text-gray-700 hover:bg-gray-100 rounded"
+                      >
+                        Mark as Shortlisted
+                      </button>
+                    )}
+
+                    {app.status === "SHORTLISTED" && (
+                      <button
+                        onClick={() => {
+                          onInterviewClick(app.id);
+                          setOpenId(null);
+                        }}
+                        className="w-full text-left px-3 py-1.5 text-sm text-gray-700 hover:bg-gray-100 rounded"
+                      >
+                        Schedule Interview
+                      </button>
+                    )}
+
+                    {app.status === "INTERVIEW" && (
+                      <>
+                        <button
+                          onClick={() => {
+                            onUpdateStatus(app.id, "OFFERED");
+                            setOpenId(null);
+                          }}
+                          className="w-full text-left px-3 py-1.5 text-sm text-gray-700 hover:bg-gray-100 rounded"
+                        >
+                          Mark as Offered
+                        </button>
+                        <button
+                          onClick={() => {
+                            onUpdateStatus(app.id, "REJECTED");
+                            setOpenId(null);
+                          }}
+                          className="w-full text-left px-3 py-1.5 text-sm text-red-600 hover:bg-red-100 rounded"
+                        >
+                          Mark as Rejected
+                        </button>
+                      </>
+                    )}
+                  </div>
+                )}
+              </div>
             </td>
           </tr>
         ))}
