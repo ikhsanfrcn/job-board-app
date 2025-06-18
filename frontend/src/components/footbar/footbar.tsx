@@ -7,7 +7,7 @@ export default function Footbar() {
     <section className="pt-7 pb-8 bg-white border-t border-gray-300 font-sans">
       <div className="px-4 mx-auto sm:px-6 lg:px-8 max-w-7xl text-gray-800">
         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-y-3 gap-x-3 px-8 md:px-20">
-          <div className="col-span-2 md:col-span-4 lg:col-span-2 max-md:mt-5 pl-28 md:pl-40 lg:pl-0 flex flex-col items-center justify-center">
+          <div className="col-span-2 md:col-span-4 lg:col-span-2 max-md:mt-5 flex flex-col items-center justify-center">
             <Image src="/logo.svg" alt="logo-pic" width={400} height={300} />
           </div>
           <div className="mt-7">
@@ -29,14 +29,6 @@ export default function Footbar() {
                   className="flex text-base text-black transition-all duration-200 hover:underline"
                 >
                   Companies
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/salary"
-                  className="flex text-base text-black transition-all duration-200 hover:underline"
-                >
-                  Salaries
                 </Link>
               </li>
               <li>

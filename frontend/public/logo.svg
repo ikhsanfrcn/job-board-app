@@ -1,5 +1,5 @@
 <svg width="300" height="70" viewBox="0 0 300 70" xmlns="http://www.w3.org/2000/svg">
-  <text x="0" y="50" font-family="Segoe UI, sans-serif" font-size="40" font-weight="700" fill="#2E8B57">
+  <text x="50%" y="50" font-family="Segoe UI, sans-serif" font-size="40" font-weight="700" fill="#2E8B57" text-anchor="middle">
     JobsDoors
   </text>
 </svg>
