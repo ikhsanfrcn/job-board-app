@@ -47,12 +47,6 @@ export default function MenuMobile() {
       >
         Companies
       </Link>
-      <Link
-        href={"/salary"}
-        className="block w-full px-4 py-2 mb-2 text-sm hover:bg-gray-200 transition duration-300"
-      >
-        Salaries
-      </Link>
       <div
         className="relative group block w-full px-4 py-2 text-sm hover:bg-gray-200 transition-all duration-300 cursor-pointer"
         onMouseEnter={() => setIsOpen(true)}

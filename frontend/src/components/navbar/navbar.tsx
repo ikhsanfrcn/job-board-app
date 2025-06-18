@@ -34,7 +34,7 @@ export default function Navbar() {
       <div className="w-full mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16 items-center">
           {/* Logo */}
-          <div className="flex">
+          <div className="flex-shrink-0">
             <Link href="/" className="text-xl font-bold text-gray-800">
               <Image
                 src="/logo.svg"
