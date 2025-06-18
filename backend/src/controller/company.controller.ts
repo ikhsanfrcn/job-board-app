@@ -158,63 +158,108 @@ export class CompanyController {
 
       const companies = await prisma.company.findMany({
         where: filters,
-        select: {
-          id: true,
-          name: true,
-          about: true,
-          country: true,
-          state: true,
-          city: true,
-          zipCode: true,
-          regionNumber: true,
-          phoneNumber: true,
-          address: true,
-          website: true,
-          logo: true,
-          industryId: true,
+        include: {
+          Review: {
+            select: {
+              cultureRating: true,
+              workLifeBalanceRating: true,
+              facilitiesRating: true,
+              careerOpportunitiesRating: true,
+            },
+          },
         },
       });
 
-      res.status(200).json({
+      const companiesWithRating = companies.map((company) => {
+        const reviews = company.Review;
+        const totalReviews = reviews.length;
+
+        let totalRatingSum = 0;
+
+        for (const review of reviews) {
+          const averagePerReview =
+            (review.cultureRating +
+              review.workLifeBalanceRating +
+              review.facilitiesRating +
+              review.careerOpportunitiesRating) /
+            4;
+
+          totalRatingSum += averagePerReview;
+        }
+
+        const averageRating =
+          totalReviews > 0 ? totalRatingSum / totalReviews : 0;
+
+        const { Review, ...companyData } = company;
+
+        return {
+          ...companyData,
+          averageRating: parseFloat(averageRating.toFixed(1)),
+        };
+      });
+
+      res.status(200).send({
         message: "Companies fetched successfully ✅",
-        data: companies,
+        data: companiesWithRating,
       });
     } catch (err) {
       console.error(err);
-      res.status(500).json({ error: "Failed to fetch companies" });
+      res.status(500).send(err);
     }
   }
   async getCompanyDetail(req: Request, res: Response) {
     try {
-      const { id } = req.params;
+      const { id: companyId } = req.params;
+
       const company = await prisma.company.findUnique({
-        where: { id },
+        where: { id: companyId },
         include: {
           Review: true,
         },
       });
 
       if (!company) {
-        throw { message: "Company not found" };
+        res.status(404).send({ message: "Company not found" });
+        return;
       }
+
       const totalReviews = company.Review.length;
-      const totalRating = company.Review.reduce(
-        (sum, review) => sum + review.rating,
-        0
-      );
-      const averageRating = totalReviews > 0 ? totalRating / totalReviews : 0;
+
+      let totalRatingSum = 0;
+
+      for (const review of company.Review) {
+        const {
+          cultureRating,
+          workLifeBalanceRating,
+          facilitiesRating,
+          careerOpportunitiesRating,
+        } = review;
+
+        const averagePerReview =
+          (cultureRating +
+            workLifeBalanceRating +
+            facilitiesRating +
+            careerOpportunitiesRating) /
+          4;
+
+        totalRatingSum += averagePerReview;
+      }
+
+      const averageRating =
+        totalReviews > 0 ? totalRatingSum / totalReviews : 0;
+
       const { password, ...companyWithoutPassword } = company;
 
       res.status(200).send({
         message: "Company fetched successfully ✅",
         data: {
           ...companyWithoutPassword,
-          averageRating,
+          averageRating: parseFloat(averageRating.toFixed(1)),
         },
       });
     } catch (err) {
-      console.log(err);
-      res.status(404).send(err);
+      console.error(err);
+      res.status(500).send(err);
     }
   }
 
@@ -241,6 +286,43 @@ export class CompanyController {
     } catch (err) {
       console.log(err);
       res.status(404).send(err);
+    }
+  }
+
+  async getCompanyJobs(req: Request, res: Response) {
+    try {
+      const { id: companyId } = req.params;
+      const page = parseInt(req.query.page as string) || 1;
+      const limit = parseInt(req.query.limit as string) || 10;
+      const skip = (page - 1) * limit;
+
+      const [jobs, total] = await Promise.all([
+        prisma.job.findMany({
+          where: { companyId },
+          skip,
+          take: limit,
+          orderBy: { createdAt: "desc" },
+        }),
+        prisma.job.count({
+          where: { companyId },
+        }),
+      ]);
+
+      const totalPages = Math.ceil(total / limit);
+
+      res.status(200).send({
+        message: "Jobs fetched successfully ✅",
+        jobs,
+        pagination: {
+          total,
+          totalPages,
+          currentPage: page,
+          perPage: limit,
+        },
+      });
+    } catch (err) {
+      console.error(err);
+      res.status(500).send({ message: "Failed to fetch jobs", error: err });
     }
   }
 }

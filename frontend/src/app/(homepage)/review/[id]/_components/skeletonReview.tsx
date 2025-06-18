@@ -8,16 +8,37 @@ export default function SkeletonReview() {
 
       <div className="flex items-center space-x-4">
         <div className={`w-16 h-16 ${skeletonBox}`} />
-        <div className="flex-1">
-          <div className="h-4 w-3/4 bg-gray-200 animate-pulse rounded" />
-          <div className="h-10 w-full bg-gray-200 animate-pulse rounded mt-2" />
+        <div className="flex-1 space-y-2">
+          <div className="h-4 w-1/4 bg-gray-200 animate-pulse rounded" />
+          <div className="h-10 w-full bg-gray-200 animate-pulse rounded" />
         </div>
       </div>
 
-      {[...Array(8)].map((_, i) => (
+      {[...Array(4)].map((_, i) => (
+        <div key={i}>
+          <div className="h-4 w-1/4 bg-gray-200 animate-pulse rounded mb-2" />
+          <div className="flex space-x-2">
+            {[...Array(5)].map((_, j) => (
+              <div
+                key={j}
+                className="w-8 h-8 bg-gray-200 animate-pulse rounded"
+              />
+            ))}
+          </div>
+        </div>
+      ))}
+
+      {[...Array(4)].map((_, i) => (
         <div key={i}>
           <div className="h-4 w-1/4 bg-gray-200 animate-pulse rounded mb-2" />
           <div className="h-10 w-full bg-gray-200 animate-pulse rounded" />
+        </div>
+      ))}
+
+      {[...Array(3)].map((_, i) => (
+        <div key={i}>
+          <div className="h-4 w-1/4 bg-gray-200 animate-pulse rounded mb-2" />
+          <div className="h-20 w-full bg-gray-200 animate-pulse rounded" />
         </div>
       ))}
 

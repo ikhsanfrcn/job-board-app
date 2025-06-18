@@ -26,17 +26,29 @@ export const validateUpdateProfile = [
 ];
 
 export const validateCreateReview = [
-  body("rating")
+  body("cultureRating")
     .notEmpty()
-    .withMessage("Rating is required")
+    .withMessage("Culture Rating is required")
     .isInt({ min: 1, max: 5 })
-    .withMessage("Rating must be between 1 and 5"),
+    .withMessage("Culture Rating must be between 1 and 5"),
 
-  body("isCurrentEmployee")
+  body("workLifeBalanceRating")
     .notEmpty()
-    .withMessage("isCurrentEmployee is required")
-    .isBoolean()
-    .withMessage("isCurrentEmployee must be a boolean"),
+    .withMessage("Work Life Balance Rating is required")
+    .isInt({ min: 1, max: 5 })
+    .withMessage("Work Life Balance Rating must be between 1 and 5"),
+
+  body("facilitiesRating")
+    .notEmpty()
+    .withMessage("Facilities Rating is required")
+    .isInt({ min: 1, max: 5 })
+    .withMessage("Facilities Rating must be between 1 and 5"),
+
+  body("careerOpportunitiesRating")
+    .notEmpty()
+    .withMessage("Career Opportunities Rating is required")
+    .isInt({ min: 1, max: 5 })
+    .withMessage("Career Opportunities Rating must be between 1 and 5"),
 
   body("employmentStatus")
     .notEmpty()
@@ -83,4 +95,3 @@ export const validateCreateReview = [
     next();
   },
 ];
-

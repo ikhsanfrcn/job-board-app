@@ -155,7 +155,8 @@ export const EmploymentType: {
   CONTRACT: 'CONTRACT',
   FREELANCE: 'FREELANCE',
   SELFEMPLOYED: 'SELFEMPLOYED',
-  INTERN: 'INTERN'
+  INTERN: 'INTERN',
+  SEASONAL: 'SEASONAL'
 };
 
 export type EmploymentType = (typeof EmploymentType)[keyof typeof EmploymentType]
@@ -617,7 +618,7 @@ export namespace Prisma {
   export import Exact = $Public.Exact
 
   /**
-   * Prisma Client JS version: 6.8.1
+   * Prisma Client JS version: 6.8.2
    * Query Engine version: 2060c79ba17c6bb9f5823312b6f6b7f4a845738e
    */
   export type PrismaVersion = {
@@ -11572,19 +11573,28 @@ export namespace Prisma {
   }
 
   export type ReviewAvgAggregateOutputType = {
-    rating: number | null
+    cultureRating: number | null
+    workLifeBalanceRating: number | null
+    facilitiesRating: number | null
+    careerOpportunitiesRating: number | null
   }
 
   export type ReviewSumAggregateOutputType = {
-    rating: number | null
+    cultureRating: number | null
+    workLifeBalanceRating: number | null
+    facilitiesRating: number | null
+    careerOpportunitiesRating: number | null
   }
 
   export type ReviewMinAggregateOutputType = {
     id: string | null
     userId: string | null
     companyId: string | null
-    rating: number | null
-    isCurrentEmployee: boolean | null
+    salaryEstimate: string | null
+    cultureRating: number | null
+    workLifeBalanceRating: number | null
+    facilitiesRating: number | null
+    careerOpportunitiesRating: number | null
     employmentStatus: string | null
     jobTitle: string | null
     headline: string | null
@@ -11599,8 +11609,11 @@ export namespace Prisma {
     id: string | null
     userId: string | null
     companyId: string | null
-    rating: number | null
-    isCurrentEmployee: boolean | null
+    salaryEstimate: string | null
+    cultureRating: number | null
+    workLifeBalanceRating: number | null
+    facilitiesRating: number | null
+    careerOpportunitiesRating: number | null
     employmentStatus: string | null
     jobTitle: string | null
     headline: string | null
@@ -11615,8 +11628,11 @@ export namespace Prisma {
     id: number
     userId: number
     companyId: number
-    rating: number
-    isCurrentEmployee: number
+    salaryEstimate: number
+    cultureRating: number
+    workLifeBalanceRating: number
+    facilitiesRating: number
+    careerOpportunitiesRating: number
     employmentStatus: number
     jobTitle: number
     headline: number
@@ -11630,19 +11646,28 @@ export namespace Prisma {
 
 
   export type ReviewAvgAggregateInputType = {
-    rating?: true
+    cultureRating?: true
+    workLifeBalanceRating?: true
+    facilitiesRating?: true
+    careerOpportunitiesRating?: true
   }
 
   export type ReviewSumAggregateInputType = {
-    rating?: true
+    cultureRating?: true
+    workLifeBalanceRating?: true
+    facilitiesRating?: true
+    careerOpportunitiesRating?: true
   }
 
   export type ReviewMinAggregateInputType = {
     id?: true
     userId?: true
     companyId?: true
-    rating?: true
-    isCurrentEmployee?: true
+    salaryEstimate?: true
+    cultureRating?: true
+    workLifeBalanceRating?: true
+    facilitiesRating?: true
+    careerOpportunitiesRating?: true
     employmentStatus?: true
     jobTitle?: true
     headline?: true
@@ -11657,8 +11682,11 @@ export namespace Prisma {
     id?: true
     userId?: true
     companyId?: true
-    rating?: true
-    isCurrentEmployee?: true
+    salaryEstimate?: true
+    cultureRating?: true
+    workLifeBalanceRating?: true
+    facilitiesRating?: true
+    careerOpportunitiesRating?: true
     employmentStatus?: true
     jobTitle?: true
     headline?: true
@@ -11673,8 +11701,11 @@ export namespace Prisma {
     id?: true
     userId?: true
     companyId?: true
-    rating?: true
-    isCurrentEmployee?: true
+    salaryEstimate?: true
+    cultureRating?: true
+    workLifeBalanceRating?: true
+    facilitiesRating?: true
+    careerOpportunitiesRating?: true
     employmentStatus?: true
     jobTitle?: true
     headline?: true
@@ -11776,8 +11807,11 @@ export namespace Prisma {
     id: string
     userId: string
     companyId: string
-    rating: number
-    isCurrentEmployee: boolean
+    salaryEstimate: string
+    cultureRating: number
+    workLifeBalanceRating: number
+    facilitiesRating: number
+    careerOpportunitiesRating: number
     employmentStatus: string
     jobTitle: string
     headline: string
@@ -11811,8 +11845,11 @@ export namespace Prisma {
     id?: boolean
     userId?: boolean
     companyId?: boolean
-    rating?: boolean
-    isCurrentEmployee?: boolean
+    salaryEstimate?: boolean
+    cultureRating?: boolean
+    workLifeBalanceRating?: boolean
+    facilitiesRating?: boolean
+    careerOpportunitiesRating?: boolean
     employmentStatus?: boolean
     jobTitle?: boolean
     headline?: boolean
@@ -11829,8 +11866,11 @@ export namespace Prisma {
     id?: boolean
     userId?: boolean
     companyId?: boolean
-    rating?: boolean
-    isCurrentEmployee?: boolean
+    salaryEstimate?: boolean
+    cultureRating?: boolean
+    workLifeBalanceRating?: boolean
+    facilitiesRating?: boolean
+    careerOpportunitiesRating?: boolean
     employmentStatus?: boolean
     jobTitle?: boolean
     headline?: boolean
@@ -11847,8 +11887,11 @@ export namespace Prisma {
     id?: boolean
     userId?: boolean
     companyId?: boolean
-    rating?: boolean
-    isCurrentEmployee?: boolean
+    salaryEstimate?: boolean
+    cultureRating?: boolean
+    workLifeBalanceRating?: boolean
+    facilitiesRating?: boolean
+    careerOpportunitiesRating?: boolean
     employmentStatus?: boolean
     jobTitle?: boolean
     headline?: boolean
@@ -11865,8 +11908,11 @@ export namespace Prisma {
     id?: boolean
     userId?: boolean
     companyId?: boolean
-    rating?: boolean
-    isCurrentEmployee?: boolean
+    salaryEstimate?: boolean
+    cultureRating?: boolean
+    workLifeBalanceRating?: boolean
+    facilitiesRating?: boolean
+    careerOpportunitiesRating?: boolean
     employmentStatus?: boolean
     jobTitle?: boolean
     headline?: boolean
@@ -11877,7 +11923,7 @@ export namespace Prisma {
     updatedAt?: boolean
   }
 
-  export type ReviewOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "companyId" | "rating" | "isCurrentEmployee" | "employmentStatus" | "jobTitle" | "headline" | "pros" | "cons" | "advice" | "createdAt" | "updatedAt", ExtArgs["result"]["review"]>
+  export type ReviewOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "companyId" | "salaryEstimate" | "cultureRating" | "workLifeBalanceRating" | "facilitiesRating" | "careerOpportunitiesRating" | "employmentStatus" | "jobTitle" | "headline" | "pros" | "cons" | "advice" | "createdAt" | "updatedAt", ExtArgs["result"]["review"]>
   export type ReviewInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
     company?: boolean | CompanyDefaultArgs<ExtArgs>
@@ -11901,8 +11947,11 @@ export namespace Prisma {
       id: string
       userId: string
       companyId: string
-      rating: number
-      isCurrentEmployee: boolean
+      salaryEstimate: string
+      cultureRating: number
+      workLifeBalanceRating: number
+      facilitiesRating: number
+      careerOpportunitiesRating: number
       employmentStatus: string
       jobTitle: string
       headline: string
@@ -12339,8 +12388,11 @@ export namespace Prisma {
     readonly id: FieldRef<"Review", 'String'>
     readonly userId: FieldRef<"Review", 'String'>
     readonly companyId: FieldRef<"Review", 'String'>
-    readonly rating: FieldRef<"Review", 'Int'>
-    readonly isCurrentEmployee: FieldRef<"Review", 'Boolean'>
+    readonly salaryEstimate: FieldRef<"Review", 'String'>
+    readonly cultureRating: FieldRef<"Review", 'Int'>
+    readonly workLifeBalanceRating: FieldRef<"Review", 'Int'>
+    readonly facilitiesRating: FieldRef<"Review", 'Int'>
+    readonly careerOpportunitiesRating: FieldRef<"Review", 'Int'>
     readonly employmentStatus: FieldRef<"Review", 'String'>
     readonly jobTitle: FieldRef<"Review", 'String'>
     readonly headline: FieldRef<"Review", 'String'>
@@ -28617,8 +28669,11 @@ export namespace Prisma {
     id: 'id',
     userId: 'userId',
     companyId: 'companyId',
-    rating: 'rating',
-    isCurrentEmployee: 'isCurrentEmployee',
+    salaryEstimate: 'salaryEstimate',
+    cultureRating: 'cultureRating',
+    workLifeBalanceRating: 'workLifeBalanceRating',
+    facilitiesRating: 'facilitiesRating',
+    careerOpportunitiesRating: 'careerOpportunitiesRating',
     employmentStatus: 'employmentStatus',
     jobTitle: 'jobTitle',
     headline: 'headline',
@@ -29663,8 +29718,11 @@ export namespace Prisma {
     id?: StringFilter<"Review"> | string
     userId?: StringFilter<"Review"> | string
     companyId?: StringFilter<"Review"> | string
-    rating?: IntFilter<"Review"> | number
-    isCurrentEmployee?: BoolFilter<"Review"> | boolean
+    salaryEstimate?: StringFilter<"Review"> | string
+    cultureRating?: IntFilter<"Review"> | number
+    workLifeBalanceRating?: IntFilter<"Review"> | number
+    facilitiesRating?: IntFilter<"Review"> | number
+    careerOpportunitiesRating?: IntFilter<"Review"> | number
     employmentStatus?: StringFilter<"Review"> | string
     jobTitle?: StringFilter<"Review"> | string
     headline?: StringFilter<"Review"> | string
@@ -29681,8 +29739,11 @@ export namespace Prisma {
     id?: SortOrder
     userId?: SortOrder
     companyId?: SortOrder
-    rating?: SortOrder
-    isCurrentEmployee?: SortOrder
+    salaryEstimate?: SortOrder
+    cultureRating?: SortOrder
+    workLifeBalanceRating?: SortOrder
+    facilitiesRating?: SortOrder
+    careerOpportunitiesRating?: SortOrder
     employmentStatus?: SortOrder
     jobTitle?: SortOrder
     headline?: SortOrder
@@ -29703,8 +29764,11 @@ export namespace Prisma {
     NOT?: ReviewWhereInput | ReviewWhereInput[]
     userId?: StringFilter<"Review"> | string
     companyId?: StringFilter<"Review"> | string
-    rating?: IntFilter<"Review"> | number
-    isCurrentEmployee?: BoolFilter<"Review"> | boolean
+    salaryEstimate?: StringFilter<"Review"> | string
+    cultureRating?: IntFilter<"Review"> | number
+    workLifeBalanceRating?: IntFilter<"Review"> | number
+    facilitiesRating?: IntFilter<"Review"> | number
+    careerOpportunitiesRating?: IntFilter<"Review"> | number
     employmentStatus?: StringFilter<"Review"> | string
     jobTitle?: StringFilter<"Review"> | string
     headline?: StringFilter<"Review"> | string
@@ -29721,8 +29785,11 @@ export namespace Prisma {
     id?: SortOrder
     userId?: SortOrder
     companyId?: SortOrder
-    rating?: SortOrder
-    isCurrentEmployee?: SortOrder
+    salaryEstimate?: SortOrder
+    cultureRating?: SortOrder
+    workLifeBalanceRating?: SortOrder
+    facilitiesRating?: SortOrder
+    careerOpportunitiesRating?: SortOrder
     employmentStatus?: SortOrder
     jobTitle?: SortOrder
     headline?: SortOrder
@@ -29745,8 +29812,11 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"Review"> | string
     userId?: StringWithAggregatesFilter<"Review"> | string
     companyId?: StringWithAggregatesFilter<"Review"> | string
-    rating?: IntWithAggregatesFilter<"Review"> | number
-    isCurrentEmployee?: BoolWithAggregatesFilter<"Review"> | boolean
+    salaryEstimate?: StringWithAggregatesFilter<"Review"> | string
+    cultureRating?: IntWithAggregatesFilter<"Review"> | number
+    workLifeBalanceRating?: IntWithAggregatesFilter<"Review"> | number
+    facilitiesRating?: IntWithAggregatesFilter<"Review"> | number
+    careerOpportunitiesRating?: IntWithAggregatesFilter<"Review"> | number
     employmentStatus?: StringWithAggregatesFilter<"Review"> | string
     jobTitle?: StringWithAggregatesFilter<"Review"> | string
     headline?: StringWithAggregatesFilter<"Review"> | string
@@ -31496,8 +31566,11 @@ export namespace Prisma {
 
   export type ReviewCreateInput = {
     id?: string
-    rating: number
-    isCurrentEmployee: boolean
+    salaryEstimate: string
+    cultureRating: number
+    workLifeBalanceRating: number
+    facilitiesRating: number
+    careerOpportunitiesRating: number
     employmentStatus: string
     jobTitle: string
     headline: string
@@ -31514,8 +31587,11 @@ export namespace Prisma {
     id?: string
     userId: string
     companyId: string
-    rating: number
-    isCurrentEmployee: boolean
+    salaryEstimate: string
+    cultureRating: number
+    workLifeBalanceRating: number
+    facilitiesRating: number
+    careerOpportunitiesRating: number
     employmentStatus: string
     jobTitle: string
     headline: string
@@ -31528,8 +31604,11 @@ export namespace Prisma {
 
   export type ReviewUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    rating?: IntFieldUpdateOperationsInput | number
-    isCurrentEmployee?: BoolFieldUpdateOperationsInput | boolean
+    salaryEstimate?: StringFieldUpdateOperationsInput | string
+    cultureRating?: IntFieldUpdateOperationsInput | number
+    workLifeBalanceRating?: IntFieldUpdateOperationsInput | number
+    facilitiesRating?: IntFieldUpdateOperationsInput | number
+    careerOpportunitiesRating?: IntFieldUpdateOperationsInput | number
     employmentStatus?: StringFieldUpdateOperationsInput | string
     jobTitle?: StringFieldUpdateOperationsInput | string
     headline?: StringFieldUpdateOperationsInput | string
@@ -31546,8 +31625,11 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     companyId?: StringFieldUpdateOperationsInput | string
-    rating?: IntFieldUpdateOperationsInput | number
-    isCurrentEmployee?: BoolFieldUpdateOperationsInput | boolean
+    salaryEstimate?: StringFieldUpdateOperationsInput | string
+    cultureRating?: IntFieldUpdateOperationsInput | number
+    workLifeBalanceRating?: IntFieldUpdateOperationsInput | number
+    facilitiesRating?: IntFieldUpdateOperationsInput | number
+    careerOpportunitiesRating?: IntFieldUpdateOperationsInput | number
     employmentStatus?: StringFieldUpdateOperationsInput | string
     jobTitle?: StringFieldUpdateOperationsInput | string
     headline?: StringFieldUpdateOperationsInput | string
@@ -31562,8 +31644,11 @@ export namespace Prisma {
     id?: string
     userId: string
     companyId: string
-    rating: number
-    isCurrentEmployee: boolean
+    salaryEstimate: string
+    cultureRating: number
+    workLifeBalanceRating: number
+    facilitiesRating: number
+    careerOpportunitiesRating: number
     employmentStatus: string
     jobTitle: string
     headline: string
@@ -31576,8 +31661,11 @@ export namespace Prisma {
 
   export type ReviewUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
-    rating?: IntFieldUpdateOperationsInput | number
-    isCurrentEmployee?: BoolFieldUpdateOperationsInput | boolean
+    salaryEstimate?: StringFieldUpdateOperationsInput | string
+    cultureRating?: IntFieldUpdateOperationsInput | number
+    workLifeBalanceRating?: IntFieldUpdateOperationsInput | number
+    facilitiesRating?: IntFieldUpdateOperationsInput | number
+    careerOpportunitiesRating?: IntFieldUpdateOperationsInput | number
     employmentStatus?: StringFieldUpdateOperationsInput | string
     jobTitle?: StringFieldUpdateOperationsInput | string
     headline?: StringFieldUpdateOperationsInput | string
@@ -31592,8 +31680,11 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     companyId?: StringFieldUpdateOperationsInput | string
-    rating?: IntFieldUpdateOperationsInput | number
-    isCurrentEmployee?: BoolFieldUpdateOperationsInput | boolean
+    salaryEstimate?: StringFieldUpdateOperationsInput | string
+    cultureRating?: IntFieldUpdateOperationsInput | number
+    workLifeBalanceRating?: IntFieldUpdateOperationsInput | number
+    facilitiesRating?: IntFieldUpdateOperationsInput | number
+    careerOpportunitiesRating?: IntFieldUpdateOperationsInput | number
     employmentStatus?: StringFieldUpdateOperationsInput | string
     jobTitle?: StringFieldUpdateOperationsInput | string
     headline?: StringFieldUpdateOperationsInput | string
@@ -33315,8 +33406,11 @@ export namespace Prisma {
     id?: SortOrder
     userId?: SortOrder
     companyId?: SortOrder
-    rating?: SortOrder
-    isCurrentEmployee?: SortOrder
+    salaryEstimate?: SortOrder
+    cultureRating?: SortOrder
+    workLifeBalanceRating?: SortOrder
+    facilitiesRating?: SortOrder
+    careerOpportunitiesRating?: SortOrder
     employmentStatus?: SortOrder
     jobTitle?: SortOrder
     headline?: SortOrder
@@ -33328,15 +33422,21 @@ export namespace Prisma {
   }
 
   export type ReviewAvgOrderByAggregateInput = {
-    rating?: SortOrder
+    cultureRating?: SortOrder
+    workLifeBalanceRating?: SortOrder
+    facilitiesRating?: SortOrder
+    careerOpportunitiesRating?: SortOrder
   }
 
   export type ReviewMaxOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
     companyId?: SortOrder
-    rating?: SortOrder
-    isCurrentEmployee?: SortOrder
+    salaryEstimate?: SortOrder
+    cultureRating?: SortOrder
+    workLifeBalanceRating?: SortOrder
+    facilitiesRating?: SortOrder
+    careerOpportunitiesRating?: SortOrder
     employmentStatus?: SortOrder
     jobTitle?: SortOrder
     headline?: SortOrder
@@ -33351,8 +33451,11 @@ export namespace Prisma {
     id?: SortOrder
     userId?: SortOrder
     companyId?: SortOrder
-    rating?: SortOrder
-    isCurrentEmployee?: SortOrder
+    salaryEstimate?: SortOrder
+    cultureRating?: SortOrder
+    workLifeBalanceRating?: SortOrder
+    facilitiesRating?: SortOrder
+    careerOpportunitiesRating?: SortOrder
     employmentStatus?: SortOrder
     jobTitle?: SortOrder
     headline?: SortOrder
@@ -33364,7 +33467,10 @@ export namespace Prisma {
   }
 
   export type ReviewSumOrderByAggregateInput = {
-    rating?: SortOrder
+    cultureRating?: SortOrder
+    workLifeBalanceRating?: SortOrder
+    facilitiesRating?: SortOrder
+    careerOpportunitiesRating?: SortOrder
   }
 
   export type IntWithAggregatesFilter<$PrismaModel = never> = {
@@ -35864,8 +35970,11 @@ export namespace Prisma {
 
   export type ReviewCreateWithoutUserInput = {
     id?: string
-    rating: number
-    isCurrentEmployee: boolean
+    salaryEstimate: string
+    cultureRating: number
+    workLifeBalanceRating: number
+    facilitiesRating: number
+    careerOpportunitiesRating: number
     employmentStatus: string
     jobTitle: string
     headline: string
@@ -35880,8 +35989,11 @@ export namespace Prisma {
   export type ReviewUncheckedCreateWithoutUserInput = {
     id?: string
     companyId: string
-    rating: number
-    isCurrentEmployee: boolean
+    salaryEstimate: string
+    cultureRating: number
+    workLifeBalanceRating: number
+    facilitiesRating: number
+    careerOpportunitiesRating: number
     employmentStatus: string
     jobTitle: string
     headline: string
@@ -36153,8 +36265,11 @@ export namespace Prisma {
     id?: StringFilter<"Review"> | string
     userId?: StringFilter<"Review"> | string
     companyId?: StringFilter<"Review"> | string
-    rating?: IntFilter<"Review"> | number
-    isCurrentEmployee?: BoolFilter<"Review"> | boolean
+    salaryEstimate?: StringFilter<"Review"> | string
+    cultureRating?: IntFilter<"Review"> | number
+    workLifeBalanceRating?: IntFilter<"Review"> | number
+    facilitiesRating?: IntFilter<"Review"> | number
+    careerOpportunitiesRating?: IntFilter<"Review"> | number
     employmentStatus?: StringFilter<"Review"> | string
     jobTitle?: StringFilter<"Review"> | string
     headline?: StringFilter<"Review"> | string
@@ -36414,8 +36529,11 @@ export namespace Prisma {
 
   export type ReviewCreateWithoutCompanyInput = {
     id?: string
-    rating: number
-    isCurrentEmployee: boolean
+    salaryEstimate: string
+    cultureRating: number
+    workLifeBalanceRating: number
+    facilitiesRating: number
+    careerOpportunitiesRating: number
     employmentStatus: string
     jobTitle: string
     headline: string
@@ -36430,8 +36548,11 @@ export namespace Prisma {
   export type ReviewUncheckedCreateWithoutCompanyInput = {
     id?: string
     userId: string
-    rating: number
-    isCurrentEmployee: boolean
+    salaryEstimate: string
+    cultureRating: number
+    workLifeBalanceRating: number
+    facilitiesRating: number
+    careerOpportunitiesRating: number
     employmentStatus: string
     jobTitle: string
     headline: string
@@ -39423,8 +39544,11 @@ export namespace Prisma {
   export type ReviewCreateManyUserInput = {
     id?: string
     companyId: string
-    rating: number
-    isCurrentEmployee: boolean
+    salaryEstimate: string
+    cultureRating: number
+    workLifeBalanceRating: number
+    facilitiesRating: number
+    careerOpportunitiesRating: number
     employmentStatus: string
     jobTitle: string
     headline: string
@@ -39533,8 +39657,11 @@ export namespace Prisma {
 
   export type ReviewUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
-    rating?: IntFieldUpdateOperationsInput | number
-    isCurrentEmployee?: BoolFieldUpdateOperationsInput | boolean
+    salaryEstimate?: StringFieldUpdateOperationsInput | string
+    cultureRating?: IntFieldUpdateOperationsInput | number
+    workLifeBalanceRating?: IntFieldUpdateOperationsInput | number
+    facilitiesRating?: IntFieldUpdateOperationsInput | number
+    careerOpportunitiesRating?: IntFieldUpdateOperationsInput | number
     employmentStatus?: StringFieldUpdateOperationsInput | string
     jobTitle?: StringFieldUpdateOperationsInput | string
     headline?: StringFieldUpdateOperationsInput | string
@@ -39549,8 +39676,11 @@ export namespace Prisma {
   export type ReviewUncheckedUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     companyId?: StringFieldUpdateOperationsInput | string
-    rating?: IntFieldUpdateOperationsInput | number
-    isCurrentEmployee?: BoolFieldUpdateOperationsInput | boolean
+    salaryEstimate?: StringFieldUpdateOperationsInput | string
+    cultureRating?: IntFieldUpdateOperationsInput | number
+    workLifeBalanceRating?: IntFieldUpdateOperationsInput | number
+    facilitiesRating?: IntFieldUpdateOperationsInput | number
+    careerOpportunitiesRating?: IntFieldUpdateOperationsInput | number
     employmentStatus?: StringFieldUpdateOperationsInput | string
     jobTitle?: StringFieldUpdateOperationsInput | string
     headline?: StringFieldUpdateOperationsInput | string
@@ -39564,8 +39694,11 @@ export namespace Prisma {
   export type ReviewUncheckedUpdateManyWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     companyId?: StringFieldUpdateOperationsInput | string
-    rating?: IntFieldUpdateOperationsInput | number
-    isCurrentEmployee?: BoolFieldUpdateOperationsInput | boolean
+    salaryEstimate?: StringFieldUpdateOperationsInput | string
+    cultureRating?: IntFieldUpdateOperationsInput | number
+    workLifeBalanceRating?: IntFieldUpdateOperationsInput | number
+    facilitiesRating?: IntFieldUpdateOperationsInput | number
+    careerOpportunitiesRating?: IntFieldUpdateOperationsInput | number
     employmentStatus?: StringFieldUpdateOperationsInput | string
     jobTitle?: StringFieldUpdateOperationsInput | string
     headline?: StringFieldUpdateOperationsInput | string
@@ -39797,8 +39930,11 @@ export namespace Prisma {
   export type ReviewCreateManyCompanyInput = {
     id?: string
     userId: string
-    rating: number
-    isCurrentEmployee: boolean
+    salaryEstimate: string
+    cultureRating: number
+    workLifeBalanceRating: number
+    facilitiesRating: number
+    careerOpportunitiesRating: number
     employmentStatus: string
     jobTitle: string
     headline: string
@@ -39865,8 +40001,11 @@ export namespace Prisma {
 
   export type ReviewUpdateWithoutCompanyInput = {
     id?: StringFieldUpdateOperationsInput | string
-    rating?: IntFieldUpdateOperationsInput | number
-    isCurrentEmployee?: BoolFieldUpdateOperationsInput | boolean
+    salaryEstimate?: StringFieldUpdateOperationsInput | string
+    cultureRating?: IntFieldUpdateOperationsInput | number
+    workLifeBalanceRating?: IntFieldUpdateOperationsInput | number
+    facilitiesRating?: IntFieldUpdateOperationsInput | number
+    careerOpportunitiesRating?: IntFieldUpdateOperationsInput | number
     employmentStatus?: StringFieldUpdateOperationsInput | string
     jobTitle?: StringFieldUpdateOperationsInput | string
     headline?: StringFieldUpdateOperationsInput | string
@@ -39881,8 +40020,11 @@ export namespace Prisma {
   export type ReviewUncheckedUpdateWithoutCompanyInput = {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
-    rating?: IntFieldUpdateOperationsInput | number
-    isCurrentEmployee?: BoolFieldUpdateOperationsInput | boolean
+    salaryEstimate?: StringFieldUpdateOperationsInput | string
+    cultureRating?: IntFieldUpdateOperationsInput | number
+    workLifeBalanceRating?: IntFieldUpdateOperationsInput | number
+    facilitiesRating?: IntFieldUpdateOperationsInput | number
+    careerOpportunitiesRating?: IntFieldUpdateOperationsInput | number
     employmentStatus?: StringFieldUpdateOperationsInput | string
     jobTitle?: StringFieldUpdateOperationsInput | string
     headline?: StringFieldUpdateOperationsInput | string
@@ -39896,8 +40038,11 @@ export namespace Prisma {
   export type ReviewUncheckedUpdateManyWithoutCompanyInput = {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
-    rating?: IntFieldUpdateOperationsInput | number
-    isCurrentEmployee?: BoolFieldUpdateOperationsInput | boolean
+    salaryEstimate?: StringFieldUpdateOperationsInput | string
+    cultureRating?: IntFieldUpdateOperationsInput | number
+    workLifeBalanceRating?: IntFieldUpdateOperationsInput | number
+    facilitiesRating?: IntFieldUpdateOperationsInput | number
+    careerOpportunitiesRating?: IntFieldUpdateOperationsInput | number
     employmentStatus?: StringFieldUpdateOperationsInput | string
     jobTitle?: StringFieldUpdateOperationsInput | string
     headline?: StringFieldUpdateOperationsInput | string
