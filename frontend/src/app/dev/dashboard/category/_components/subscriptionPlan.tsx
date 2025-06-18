@@ -68,9 +68,16 @@ export const PlanFormModal = ({
         <div className="flex justify-end">
           <button
             type="submit"
-            className="px-4 py-2 bg-blue-600 text-white rounded"
+            className="px-4 py-2 bg-blue-600 text-white rounded disabled:opacity-50"
+            disabled={formik.isSubmitting}
           >
-            {isEdit ? "Update Plan" : "Create Plan"}
+            {formik.isSubmitting
+              ? isEdit
+                ? "Updating..."
+                : "Creating..."
+              : isEdit
+              ? "Update Plan"
+              : "Create Plan"}
           </button>
         </div>
       </form>

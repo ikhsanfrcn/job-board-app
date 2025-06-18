@@ -1,17 +1,22 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Field, ErrorMessage } from "formik";
 
 interface SelectInputProps {
   label: string;
   name: string;
   options: { label: string; value: string }[];
+  value?: string;
   disabled?: boolean;
+  onChange?: (option: any) => void;
 }
 
 export default function SelectInput({
   label,
   name,
   options,
+  value,
   disabled = false,
+  onChange,
 }: SelectInputProps) {
   return (
     <div>
@@ -20,7 +25,13 @@ export default function SelectInput({
         as="select"
         name={name}
         className="border p-2 rounded w-full"
+        value={value}
         disabled={disabled}
+         onChange={(e: { target: { value: any; }; }) => {
+          const selectedValue = e.target.value;
+          const selectedOption = options.find((opt) => opt.value === selectedValue);
+          if (onChange) onChange(selectedOption || { value: selectedValue, label: selectedValue });
+        }}
       >
         <option value="">Select {label}</option>
         {options.map((opt) => (

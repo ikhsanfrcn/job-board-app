@@ -133,7 +133,7 @@ export default function SubscriptionPage() {
       {loadingPlans ? (
         <p className="text-gray-500">Loading plans...</p>
       ) : (
-        <div className="flex flex-col md:flex-row gap-6">
+        <div className="flex flex-wrap gap-6">
           {plans.map((plan) => (
             <SubscriptionCard
               key={plan.name}

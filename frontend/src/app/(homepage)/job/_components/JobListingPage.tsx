@@ -5,9 +5,9 @@ import { useSearchParams } from "next/navigation";
 import { IJob } from "@/types/job";
 import axios from "@/lib/axios";
 import JobDetail from "./jobDetail";
-import JobSearchHeader from "./header";
 import JobFilters from "./jobFilter";
 import JobCard from "./jobCard";
+import JobSearchHeader from "./header";
 
 
 
@@ -20,7 +20,6 @@ type Filters = {
 
 export const JobListingsPage: React.FC = () => {
   const searchParams = useSearchParams();
-  // const router = useRouter();
   const jobIdFromQuery = searchParams.get("id");
 
   const [jobs, setJobs] = useState<IJob[]>([]);
@@ -42,7 +41,6 @@ export const JobListingsPage: React.FC = () => {
 
       if (page === 1 && jobList.length > 0 && !selectedJob && !jobIdFromQuery) {
         setSelectedJob(jobList[0]);
-        // router.replace(`?id=${jobList[0].id}`);
       }
     } catch (error) {
       console.error("Failed to fetch jobs:", error);
@@ -94,7 +92,6 @@ export const JobListingsPage: React.FC = () => {
 
   const onJobClick = (job: IJob) => {
     setSelectedJob(job);
-    // router.replace(`?id=${job.id}`);
   };
 
   return (

@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useEffect, useState } from "react";
 import axios from "@/lib/axios";
 import SelectInput from "@/components/atoms/SelectInput";
@@ -15,6 +14,9 @@ export default function ProvinceCitySelector({
 }: ProvinceCitySelectorProps) {
   const [provinces, setProvinces] = useState<any[]>([]);
   const [cities, setCities] = useState<any[]>([]);
+  const [selectedProvince, setSelectedProvince] = useState<string>(
+    provinceValue || ""
+  );
 
   useEffect(() => {
     axios
@@ -24,15 +26,17 @@ export default function ProvinceCitySelector({
   }, []);
 
   useEffect(() => {
-    if (provinceValue) {
+    if (selectedProvince) {
       axios
-        .get(`https://www.emsifa.com/api-wilayah-indonesia/api/regencies/${provinceValue}.json`)
+        .get(
+          `https://www.emsifa.com/api-wilayah-indonesia/api/regencies/${selectedProvince}.json`
+        )
         .then((res) => setCities(res.data))
         .catch(console.error);
     } else {
       setCities([]);
     }
-  }, [provinceValue]);
+  }, [selectedProvince]);
 
   return (
     <>
@@ -40,12 +44,21 @@ export default function ProvinceCitySelector({
         label="Province"
         name="state"
         options={provinces.map((p) => ({ label: p.name, value: p.id }))}
+        value={selectedProvince}
+        onChange={(option) => {
+          setSelectedProvince(option.value);
+          setFieldValue("state", option.value);
+          setFieldValue("city", "");
+        }}
       />
       <SelectInput
         label="City"
         name="city"
         options={cities.map((c) => ({ label: c.name, value: c.name }))}
         disabled={!cities.length}
+        onChange={(option) => {
+          setFieldValue("city", option.value);
+        }}
       />
     </>
   );
