@@ -87,7 +87,7 @@ export class ApplicationController {
       });
 
       res.status(200).send({
-        message: "Applications fetched successfully✅",
+        message: "Applications fetched successfully",
         applications,
       });
     } catch (err) {
@@ -112,7 +112,7 @@ export class ApplicationController {
       });
       res
         .status(200)
-        .send({ message: "Status updated successfully✅", application });
+        .send({ message: "Status updated successfully", application });
     } catch (err) {
       console.error(err);
       res.status(404).send(err);

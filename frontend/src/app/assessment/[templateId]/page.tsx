@@ -68,18 +68,15 @@ export default function Page({
     if (savedQuestionIndex) setCurrentIndex(parseInt(savedQuestionIndex, 10));
   }, []);
 
-  // Initialize assessment
   useEffect(() => {
     const initializeAssessment = async () => {
       try {
-        // 1. Load assessment template
         const { data: template } = await axios.get<Assessment>(
           `/assessment/${templateId}`,
           { headers: { Authorization: `Bearer ${token}` } }
         );
         setAssessment(template);
 
-        // 2. Start or resume assessment session
         const { data: session } = await axios.post<{
           sessionToken: string;
           answers: Record<number, string>;
@@ -104,13 +101,12 @@ export default function Page({
     if (session?.user) initializeAssessment();
   }, [templateId, session, router]);
 
-  // Save progress to backend
   const saveProgress = useCallback(async () => {
     if (!sessionToken) return;
     const savedIndex = currentIndex + 1;
 
     try {
-      const res = await axios.put(
+      await axios.put(
         "/assessment/progress",
         {
           sessionToken,
@@ -129,19 +125,16 @@ export default function Page({
     }
   }, [sessionToken, answers, currentIndex, timeLeft, token]);
 
-  // Handle answer selection
   const handleAnswer = async (option: string) => {
     const newAnswers = { ...answers, [currentIndex]: option };
     setAnswers(newAnswers);
 
-    // Save progress immediately to localStorage
     localStorage.setItem("assessmentCurrentIndex", currentIndex.toString());
     localStorage.setItem("assessmentTimeLeft", timeLeft.toString());
 
     await saveProgress();
   };
 
-  // Submit assessment
   const submitAssessment = async () => {
     if (!sessionToken || !assessment) return;
 
@@ -165,7 +158,6 @@ export default function Page({
       });
       setCompleted(true);
 
-      // Remove localStorage data after submitting
       localStorage.removeItem("assessmentCurrentIndex");
       localStorage.removeItem("assessmentEndTime");
       localStorage.removeItem("assessmentTimeLeft");

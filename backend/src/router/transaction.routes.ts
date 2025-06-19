@@ -17,7 +17,6 @@ export class TransactionRouter {
   private initializeRoute() {
     this.router.post("/", this.authMiddleware.verifyToken, this.transactionController.createTransaction);
     this.router.post("/webhook", this.transactionController.handleWebhook);
-    // this.router.get("/", this.authMiddleware.verifyToken, this.subscriberController.getSubscriberByUser)
     this.router.get("/:id", this.transactionController.getTransactionById);
     this.router.patch("/cancel", this.transactionController.cancelPayment);
 

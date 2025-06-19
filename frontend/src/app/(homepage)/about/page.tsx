@@ -1,7 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { FaFacebook, FaInstagram, FaLinkedinIn } from "react-icons/fa";
-import { FaXTwitter } from "react-icons/fa6";
+import { FaInstagram, FaLinkedinIn } from "react-icons/fa";
 
 export default function Teams() {
   return (
@@ -14,7 +13,7 @@ export default function Teams() {
           <hr className="border-2 my-8 mx-8 border-gray-300" />
           <p className="text-left px-8">
             At Jobsdoors, we believe that job seekers are the foundation of
-            innovation and progress. Whether you're a skilled developer, a
+            innovation and progress. Whether you&apos;re a skilled developer, a
             creative designer, or an ambitious entrepreneur, we know that every
             professional brings unique talents and aspirations to the table.
             That&apos;s why we strive to create opportunities that align with

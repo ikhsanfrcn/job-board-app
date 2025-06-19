@@ -6,8 +6,12 @@ import { requestPasswordReset } from "../services/company/requestReset";
 import { passwordReset } from "../services/company/passwordReset";
 import { registerCompanySchema } from "../validation/authValidation";
 import { getCompanyProfile } from "../services/company/profile";
-import prisma from "../prisma";
-import { cloudinaryUpload } from "../helpers/cloudinary";
+import { updateProfileSchema } from "../validation/companyValidation";
+import updateCompanyProfile from "../services/company/updateProfile";
+import { getAllCompaniesService } from "../services/company/getAllCompany";
+import { getCompanyDetailService } from "../services/company/getCompanyDetail";
+import { updateCompanyLogoService } from "../services/company/updateLogo";
+import { getCompanyJobsService } from "../services/company/getCompanyJobs";
 
 export class CompanyController {
   async register(req: Request, res: Response) {
@@ -19,17 +23,19 @@ export class CompanyController {
       const result = await registerCompany(validateData);
 
       res.status(201).json(result);
-    } catch (err: any) {
-      res.status(err.status || 500).json({ message: err.message });
+    } catch (error: any) {
+      res.status(error.status || 500).json({ message: error.message });
     }
   }
 
   async verify(req: Request, res: Response) {
     try {
-      const result = await verifyCompanyAccount(req.company?.id);
+      console.log(req.user?.id);
+      
+      const result = await verifyCompanyAccount(req.user?.id);
       res.status(200).json(result);
-    } catch (err: any) {
-      res.status(err.status || 500).json({ message: err.message });
+    } catch (error: any) {
+      res.status(error.status || 500).json({ message: error.message });
     }
   }
 
@@ -38,8 +44,8 @@ export class CompanyController {
       const { email, password } = req.body;
       const result = await loginCompany(email, password);
       res.status(200).json(result);
-    } catch (err: any) {
-      res.status(err.status || 500).json({ message: err.message });
+    } catch (error: any) {
+      res.status(error.status || 500).json({ message: error.message });
     }
   }
 
@@ -82,61 +88,36 @@ export class CompanyController {
     try {
       const profile = await getCompanyProfile(req.company?.id!);
       res.status(200).send({
-        message: "Profile fetched successfully✅",
+        message: "Profile fetched successfully",
         profile,
       });
-    } catch (err) {
-      console.log(err);
-      res.status(404).send(err);
+    } catch (error: any) {
+      res
+        .status(error.status || 500)
+        .json({ message: error.message || "Internal server error" });
     }
   }
 
   async updateProfile(req: Request, res: Response) {
     try {
       const companyId = req.company?.id;
-      const {
-        name,
-        about,
-        country,
-        state,
-        city,
-        zipCode,
-        regionNumber,
-        phoneNumber,
-        address,
-        website,
-        logo,
-        latitude,
-        longitude,
-        industryId,
-      } = req.body;
+      if (!companyId) throw { statusCode: 400, message: "Unauthorized" };
 
-      const updated = await prisma.company.update({
-        where: { id: companyId },
-        data: {
-          name,
-          about,
-          country,
-          state,
-          city,
-          zipCode,
-          regionNumber,
-          phoneNumber,
-          address,
-          website,
-          logo,
-          latitude,
-          longitude,
-          industryId,
-        },
+      const validatedData = await updateProfileSchema.validate(req.body, {
+        abortEarly: false,
+        stripUnknown: true,
       });
 
+      const updated = await updateCompanyProfile(companyId, validatedData);
+
+      res.status(200).json({
+        message: "Profile updated successfully",
+        data: updated,
+      });
+    } catch (error: any) {
       res
-        .status(200)
-        .send({ message: "Profile updated successfully ✅", data: updated });
-    } catch (err) {
-      console.log(err);
-      res.status(404).send(err);
+        .status(error.status || 500)
+        .json({ message: error.message || "Internal server error" });
     }
   }
 
@@ -144,122 +125,41 @@ export class CompanyController {
     try {
       const { name, city, industryId } = req.query;
 
-      const filters: any = {};
-
-      if (name) {
-        filters.name = { contains: name as string, mode: "insensitive" };
-      }
-      if (city) {
-        filters.city = { contains: city as string, mode: "insensitive" };
-      }
-      if (industryId) {
-        filters.industryId = industryId as string;
-      }
-
-      const companies = await prisma.company.findMany({
-        where: filters,
-        include: {
-          Review: {
-            select: {
-              cultureRating: true,
-              workLifeBalanceRating: true,
-              facilitiesRating: true,
-              careerOpportunitiesRating: true,
-            },
-          },
-        },
-      });
-
-      const companiesWithRating = companies.map((company) => {
-        const reviews = company.Review;
-        const totalReviews = reviews.length;
-
-        let totalRatingSum = 0;
-
-        for (const review of reviews) {
-          const averagePerReview =
-            (review.cultureRating +
-              review.workLifeBalanceRating +
-              review.facilitiesRating +
-              review.careerOpportunitiesRating) /
-            4;
-
-          totalRatingSum += averagePerReview;
-        }
-
-        const averageRating =
-          totalReviews > 0 ? totalRatingSum / totalReviews : 0;
-
-        const { Review, ...companyData } = company;
-
-        return {
-          ...companyData,
-          averageRating: parseFloat(averageRating.toFixed(1)),
-        };
+      const companies = await getAllCompaniesService({
+        name: name as string,
+        city: city as string,
+        industryId: industryId as string,
       });
 
       res.status(200).send({
-        message: "Companies fetched successfully ✅",
-        data: companiesWithRating,
+        message: "Companies fetched successfully",
+        data: companies,
       });
-    } catch (err) {
-      console.error(err);
-      res.status(500).send(err);
+    } catch (error: any) {
+      res
+        .status(error.status || 500)
+        .json({ message: error.message || "Internal server error" });
     }
   }
   async getCompanyDetail(req: Request, res: Response) {
     try {
       const { id: companyId } = req.params;
 
-      const company = await prisma.company.findUnique({
-        where: { id: companyId },
-        include: {
-          Review: true,
-        },
-      });
+      const company = await getCompanyDetailService(companyId);
 
       if (!company) {
         res.status(404).send({ message: "Company not found" });
         return;
       }
 
-      const totalReviews = company.Review.length;
-
-      let totalRatingSum = 0;
-
-      for (const review of company.Review) {
-        const {
-          cultureRating,
-          workLifeBalanceRating,
-          facilitiesRating,
-          careerOpportunitiesRating,
-        } = review;
-
-        const averagePerReview =
-          (cultureRating +
-            workLifeBalanceRating +
-            facilitiesRating +
-            careerOpportunitiesRating) /
-          4;
-
-        totalRatingSum += averagePerReview;
-      }
-
-      const averageRating =
-        totalReviews > 0 ? totalRatingSum / totalReviews : 0;
-
-      const { password, ...companyWithoutPassword } = company;
-
       res.status(200).send({
-        message: "Company fetched successfully ✅",
-        data: {
-          ...companyWithoutPassword,
-          averageRating: parseFloat(averageRating.toFixed(1)),
-        },
+        message: "Company fetched successfully",
+        data: company,
       });
-    } catch (err) {
-      console.error(err);
-      res.status(500).send(err);
+    } catch (error: any) {
+      res
+        .status(error.status || 500)
+        .json({ message: error.message || "Internal server error" });
     }
   }
 
@@ -267,25 +167,20 @@ export class CompanyController {
     try {
       const companyId = req.company?.id;
 
-      if (!req.file) throw { message: "Logo is required" };
-      const { secure_url } = await cloudinaryUpload(
-        req.file,
-        "jobsdoors",
-        "image"
-      );
+      if (!companyId) {
+        res.status(400).send({ message: "Unauthorized" });
+        return;
+      }
 
-      await prisma.company.update({
-        where: { id: companyId },
-        data: {
-          logo: secure_url,
-        },
-      });
+      const secure_url = await updateCompanyLogoService(companyId, req.file!);
+
       res
         .status(200)
-        .send({ message: "Logo updated successfully ✅", secure_url });
-    } catch (err) {
-      console.log(err);
-      res.status(404).send(err);
+        .send({ message: "Logo updated successfully", secure_url });
+    } catch (error: any) {
+      res
+        .status(error.status || 500)
+        .json({ message: error.message || "Internal server error" });
     }
   }
 
@@ -294,35 +189,18 @@ export class CompanyController {
       const { id: companyId } = req.params;
       const page = parseInt(req.query.page as string) || 1;
       const limit = parseInt(req.query.limit as string) || 10;
-      const skip = (page - 1) * limit;
 
-      const [jobs, total] = await Promise.all([
-        prisma.job.findMany({
-          where: { companyId },
-          skip,
-          take: limit,
-          orderBy: { createdAt: "desc" },
-        }),
-        prisma.job.count({
-          where: { companyId },
-        }),
-      ]);
-
-      const totalPages = Math.ceil(total / limit);
+      const result = await getCompanyJobsService({ companyId, page, limit });
 
       res.status(200).send({
-        message: "Jobs fetched successfully ✅",
-        jobs,
-        pagination: {
-          total,
-          totalPages,
-          currentPage: page,
-          perPage: limit,
-        },
+        message: "Jobs fetched successfully",
+        jobs: result.jobs,
+        pagination: result.pagination,
       });
-    } catch (err) {
-      console.error(err);
-      res.status(500).send({ message: "Failed to fetch jobs", error: err });
+    } catch (error: any) {
+      res
+        .status(error.status || 500)
+        .json({ message: error.message || "Internal server error" });
     }
   }
 }

@@ -2,6 +2,7 @@
 
 import axios from "@/lib/axios";
 import { useSession } from "next-auth/react";
+import Image from "next/image";
 import { useState, useEffect } from "react";
 import {
   FaTrophy,
@@ -150,7 +151,7 @@ export default function BadgeInterface() {
               <div className="flex items-center gap-4 mb-4">
                 <div className="w-16 h-16 flex items-center justify-center text-2xl font-bold text-white">
                   {badge.badgeImage ? (
-                    <img 
+                    <Image 
                       src={badge.badgeImage} 
                       alt={badge.title}
                       className="w-full h-full object-cover"

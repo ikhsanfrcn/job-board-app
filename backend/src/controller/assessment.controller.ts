@@ -30,7 +30,7 @@ export class SkillAssessmentController {
 
       res
         .status(201)
-        .json({ message: "Skill assessment created ✅", newAssessment });
+        .json({ message: "Skill assessment created", newAssessment });
     } catch (err) {
       console.log(err);
       res.status(400).json(err);
@@ -104,7 +104,7 @@ export class SkillAssessmentController {
       });
 
       res.status(200).json({
-        message: "Assessment updated successfully✅",
+        message: "Assessment updated successfully",
         updatedAssessment,
       });
     } catch (err) {
@@ -123,7 +123,7 @@ export class SkillAssessmentController {
 
       await prisma.skillAssessmentTemplate.delete({ where: { id } });
 
-      res.status(200).json({ message: "Assessment deleted successfully✅" });
+      res.status(200).json({ message: "Assessment deleted successfully" });
     } catch (err) {
       console.log(err);
       res.status(400).json(err);
@@ -321,7 +321,7 @@ export class SkillAssessmentController {
         },
       });
       res.status(200).send({
-        message: "User assessments fetched successfully✅",
+        message: "User assessments fetched successfully",
         userAssessments,
       });
     } catch (err) {
@@ -417,7 +417,7 @@ export class SkillAssessmentController {
       }
 
       res.status(200).send({
-        message: "Assessment verified successfully✅",
+        message: "Assessment verified successfully",
         assessment,
       });
     } catch (err) {
@@ -438,13 +438,11 @@ export class SkillAssessmentController {
         include: {
           template: true,
         },
-        // Order by latest completion date to get the most recent passed attempt
         orderBy: {
           completedAt: "desc",
         },
       });
 
-      // Remove duplicates by templateId (keep only unique badges)
       const uniqueBadges = passedAssessments.reduce(
         (
           acc: Array<{
@@ -458,7 +456,6 @@ export class SkillAssessmentController {
           }>,
           assessment
         ) => {
-          // Check if we already have this template in our accumulator
           const existingBadge = acc.find(
             (item) => item.templateId === assessment.template.id
           );
@@ -481,7 +478,7 @@ export class SkillAssessmentController {
       );
 
       res.status(200).send({
-        message: "User badges fetched successfully✅",
+        message: "User badges fetched successfully",
         badges: uniqueBadges,
         totalBadges: allTemplates.length,
       });

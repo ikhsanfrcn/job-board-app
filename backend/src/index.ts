@@ -7,7 +7,7 @@ import { UserRouter } from "./router/user.routes";
 import { JobRouter } from "./router/job.routes";
 import { ApplicationRouter } from "./router/application.routes";
 import { ReviewRouter } from "./router/review.routes";
-import { TestRouter } from "./router/test.router";
+import { TestRouter } from "./router/test.routes";
 import { InterviewRouter } from "./router/interview.routes";
 import { DeveloperRouter } from "./router/developer.routes";
 import { SubscriberRouter } from "./router/subscriber.routes";

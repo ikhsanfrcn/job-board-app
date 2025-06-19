@@ -1,6 +1,7 @@
 generator client {
-  provider = "prisma-client-js"
-  output   = "./generated/prisma"
+  provider      = "prisma-client-js"
+  output        = "./generated/prisma"
+  binaryTargets = ["native", "windows", "rhel-openssl-3.0.x"]
 }
 
 datasource db {
@@ -148,7 +149,7 @@ enum ApplicationStatus {
 }
 
 model Review {
-  id                        String   @id @default(uuid())
+  id                        String         @id @default(uuid())
   userId                    String
   companyId                 String
   salaryEstimate            String
@@ -156,14 +157,14 @@ model Review {
   workLifeBalanceRating     Int
   facilitiesRating          Int
   careerOpportunitiesRating Int
-  employmentStatus          String
+  employmentStatus          EmploymentType
   jobTitle                  String
   headline                  String
   pros                      String
   cons                      String
   advice                    String
-  createdAt                 DateTime @default(now())
-  updatedAt                 DateTime @updatedAt
+  createdAt                 DateTime       @default(now())
+  updatedAt                 DateTime       @updatedAt
 
   user    User    @relation(fields: [userId], references: [id])
   company Company @relation(fields: [companyId], references: [id])

@@ -57,7 +57,7 @@ export default function VerifyCompany({ token }: { token: string }) {
 
   useEffect(() => {
     if (countdown === 0 && isSuccess) {
-      router.push("/login");
+      router.push("/company/login");
     }
   }, [countdown, isSuccess, router]);
 

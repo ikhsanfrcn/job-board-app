@@ -77,7 +77,7 @@ export class ReviewController {
       });
 
       res.status(201).send({
-        message: "Review created successfully ✅",
+        message: "Review created successfully",
         result: review,
       });
     } catch (err) {
@@ -129,7 +129,7 @@ export class ReviewController {
       });
 
       res.status(200).send({
-        message: "Reviews fetched successfully ✅",
+        message: "Reviews fetched successfully",
         reviews: reviewsWithAverage,
         total: totalReviews,
         currentPage: page,

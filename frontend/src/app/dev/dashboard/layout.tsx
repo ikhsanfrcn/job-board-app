@@ -10,13 +10,12 @@ export default function DashboardLayout({
 }>) {
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
 
-  // Auto-collapse on mobile
   useEffect(() => {
     const handleResize = () => {
       setIsSidebarCollapsed(window.innerWidth < 768);
     };
 
-    handleResize(); // Check on mount
+    handleResize(); 
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);

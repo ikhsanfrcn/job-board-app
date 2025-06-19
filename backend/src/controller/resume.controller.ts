@@ -81,7 +81,7 @@ export class ResumeController {
 
       res
         .status(200)
-        .send({ message: "Resume created successfully ✅", resume });
+        .send({ message: "Resume created successfully", resume });
     } catch (err) {
       console.error(err);
       res.status(400).send(err);
@@ -106,7 +106,7 @@ export class ResumeController {
       });
       res
         .status(200)
-        .send({ message: "Resume fetched successfully✅", resume });
+        .send({ message: "Resume fetched successfully", resume });
     } catch (err) {
       console.log(err);
       res.status(400).send(err);
@@ -189,7 +189,7 @@ export class ResumeController {
       });
 
       res.status(200).send({
-        message: "Resume updated successfully ✅",
+        message: "Resume updated successfully",
         resume,
       });
     } catch (err) {

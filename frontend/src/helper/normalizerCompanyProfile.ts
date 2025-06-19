@@ -24,5 +24,9 @@ export function normalizeCompanyProfile(
     industryId: profile.industryId,
     latitude: profile.latitude ?? "",
     longitude: profile.longitude ?? "",
+    createdAt: profile.createdAt ?? new Date(),
+    updatedAt: profile.updatedAt ?? new Date(),
+    averageRating: profile.averageRating ?? 0,
+    Review: profile.Review ?? [],
   };
 }

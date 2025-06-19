@@ -7,8 +7,6 @@ import SkeletonDetail from "./skeletonDetail";
 import Image from "next/image";
 import Link from "next/link";
 import { IoIosStar } from "react-icons/io";
-import { FaUserSecret } from "react-icons/fa";
-import { IReview } from "@/types/review";
 import Review from "./review";
 import Jobs from "./jobs";
 

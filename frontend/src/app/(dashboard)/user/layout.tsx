@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import SideBar from "./_components/sidebar";
-// import Bowls from "./_components/bowls";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -21,9 +20,6 @@ export default function RootLayout({
         <div className="w-full md:w-9/12">
           <div>{children}</div>
         </div>
-        {/* <div className="w-full md:w-3/12">
-          <Bowls />
-        </div> */}
       </div>
     </main>
   );

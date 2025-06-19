@@ -75,7 +75,7 @@ export class TestController {
       return test;
     });
 
-      res.status(201).json({ message: "Test created ✅", test: result });
+      res.status(201).json({ message: "Test created", test: result });
     } catch (err) {
       console.log(err);
       res.status(400).send(err);

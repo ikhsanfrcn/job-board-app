@@ -54,7 +54,6 @@ export default function SkillAssessment() {
       const subscriptionType = user.type || null;
       setUserSubscriptionType(subscriptionType);
 
-      // If user has standard subscription, check their assessment count
       if (subscriptionType === "STANDARD") {
         const assessments = await axios.get("/assessment/user-assessment", {
           headers: { Authorization: `Bearer ${token}` },
@@ -62,7 +61,6 @@ export default function SkillAssessment() {
         const assessmentCount = assessments.data?.userAssessments?.length || 0;
 
         setUserAssessmentCount(assessmentCount);
-        // Check if user has reached the limit (2 for standard)
         if (assessmentCount >= 2) {
           toast.warning(
             "You have reached your assessment limit (2/2). Please upgrade to Professional Plan for unlimited assessments."

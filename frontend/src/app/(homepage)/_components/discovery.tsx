@@ -15,7 +15,7 @@ export default function Discovery({city}: {city?: string}) {
     const fetchJobs = async () => {
       try {
         const res = await axios.get("/jobs", {
-          params: city ? { city } : {}, // ✅ Fetch jobs based on city
+          params: city ? { city } : {},
         });
 
         const sortedJobs = res.data.data.jobs
@@ -26,7 +26,7 @@ export default function Discovery({city}: {city?: string}) {
       } catch (error) {
         console.error("Error fetching jobs:", error);
       } finally {
-        setLoading(false); // ✅ Stop loading after data is fetched
+        setLoading(false);
       }
     };
 

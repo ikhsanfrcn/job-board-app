@@ -16,7 +16,7 @@ export default function Jobs({ companyId }: IProps) {
   const [jobs, setJobs] = useState<IJob[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
-  const limit = 5; // jobs per page
+  const limit = 5;
 
   const fetchCompanyJobs = useCallback(
     async (page = 1) => {

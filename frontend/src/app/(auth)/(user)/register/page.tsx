@@ -12,9 +12,11 @@ import { useState } from "react";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import { FcGoogle } from "react-icons/fc";
 import { toast } from "react-toastify";
+import EmailVerificationModal from "../../../../components/atoms/emailVerification";
 
 export default function Page() {
   const [showPassword, setShowPassword] = useState(false);
+  const [showModal, setShowModal] = useState(false);
   const router = useRouter();
 
   const initialValues: IRegForm = {
@@ -28,10 +30,9 @@ export default function Page() {
     action: FormikHelpers<IRegForm>
   ) => {
     try {
-      const { data } = await axios.post("/auth/register", value);
+      await axios.post("/auth/register", value);
       action.resetForm();
-      toast.success(data.message);
-      router.push("/login");
+      setShowModal(true);
     } catch (err) {
       if (err instanceof AxiosError) {
         toast.error(err.response?.data?.message);
@@ -151,21 +152,21 @@ export default function Page() {
           }}
         </Formik>
         <div className="relative w-[77%] md:w-[80%] mt-5">
-                  <hr className="text-gray-400 w-full" />
-                  <label
-                    htmlFor="or"
-                    className="absolute -top-2.5 left-[47%] bg-white px-2 text-sm"
-                  >
-                    or
-                  </label>
-                </div>
-                <button
-                  onClick={() => signIn("google", {redirectTo: "/"})}
-                  className="flex justify-between items-center border w-[77%] md:w-[80%] my-5 py-2 px-3 font-semibold text-md text-shadow-sm rounded-sm cursor-pointer hover:border-green-600"
-                >
-                  <FcGoogle className="text-2xl" />
-                  Continue with Google<span>&nbsp;</span>
-                </button>
+          <hr className="text-gray-400 w-full" />
+          <label
+            htmlFor="or"
+            className="absolute -top-2.5 left-[47%] bg-white px-2 text-sm"
+          >
+            or
+          </label>
+        </div>
+        <button
+          onClick={() => signIn("google", { redirectTo: "/" })}
+          className="flex justify-between items-center border w-[77%] md:w-[80%] my-5 py-2 px-3 font-semibold text-md text-shadow-sm rounded-sm cursor-pointer hover:border-green-600"
+        >
+          <FcGoogle className="text-2xl" />
+          Continue with Google<span>&nbsp;</span>
+        </button>
         <div className="my-5 text-xs">
           Already have an account?&nbsp;
           <Link
@@ -176,6 +177,14 @@ export default function Page() {
           </Link>
         </div>
       </div>
+
+      <EmailVerificationModal
+        isOpen={showModal}
+        onClose={() => {
+          setShowModal(false);
+          router.push("/login");
+        }}
+      />
     </div>
   );
 }

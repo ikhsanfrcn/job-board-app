@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Field, FieldArray } from "formik";
 
 export default function CreateEducation({ values }: any) {

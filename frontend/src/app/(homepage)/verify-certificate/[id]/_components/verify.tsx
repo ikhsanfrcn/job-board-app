@@ -5,7 +5,6 @@ import { IUserAssessment } from "@/types/assessment";
 import { AxiosError } from "axios";
 import { useCallback, useEffect, useState } from "react";
 import { AiOutlineCheckCircle, AiOutlineCloseCircle } from "react-icons/ai";
-import QRCode from "react-qr-code";
 import { toast } from "react-toastify";
 
 interface IProps {
@@ -130,16 +129,6 @@ export default function Verify({ id }: IProps) {
                 <p>{new Date(certificate.completedAt).toLocaleString()}</p>
               </div>
             </div>
-
-            {/* <div className="flex flex-col items-center gap-2">
-              <div className="bg-white p-3 border rounded-lg shadow-sm">
-                <QRCode
-                  value={`https://yourdomain.com/verify/${id}`}
-                  size={100}
-                />
-              </div>
-              <p className="text-xs text-gray-400">Scan QR to verify</p>
-            </div> */}
 
             <footer className="text-center text-xs text-gray-400 pt-6 border-t">
               © {new Date().getFullYear()} JobsDoors

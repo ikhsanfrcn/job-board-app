@@ -23,9 +23,9 @@ export default function ModalEditAssessment({
   assessment,
   onSuccess,
 }: EditAssessmentProps) {
-  if (!isOpen || !assessment) return null;
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
   const [imageError, setImageError] = useState<string>("");
+  if (!isOpen || !assessment) return null;
 
   const initialValues = {
     title: assessment.title || "",

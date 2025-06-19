@@ -12,19 +12,16 @@ export default function HomePage() {
   const [showModal, setShowModal] = useState<boolean>(false);
 
   useEffect(() => {
-    // Check if user has already made a choice in this session
     const savedPreference = sessionStorage.getItem("jobPreference");
     const savedCity = sessionStorage.getItem("userCity");
 
     if (savedPreference) {
-      // User has already made a choice, apply it
       setJobType(savedPreference as "latest" | "nearby");
       if (savedPreference === "nearby" && savedCity) {
         setUserCity(savedCity);
       }
-      setShowModal(false); // Don't show modal
+      setShowModal(false);
     } else {
-      // No preference saved, show modal
       setShowModal(true);
     }
   }, []);

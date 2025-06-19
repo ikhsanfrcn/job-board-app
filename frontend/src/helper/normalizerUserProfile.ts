@@ -1,7 +1,10 @@
 import { IUserProfile } from "@/types/userProfile";
 
-export function normalizeProfile(profile: IUserProfile): IUserProfile {
+export function normalizeProfile(profile: Partial<IUserProfile>): IUserProfile {
   return {
+    id: profile.id ?? 0,
+    role: profile.role ?? "",
+    avatar: profile.avatar ?? "",
     email: profile.email ?? "",
     username: profile.username ?? "",
     firstName: profile.firstName ?? "",
@@ -17,3 +20,4 @@ export function normalizeProfile(profile: IUserProfile): IUserProfile {
     phoneNumber: profile.phoneNumber ?? "",
   };
 }
+

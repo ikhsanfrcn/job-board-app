@@ -21,7 +21,6 @@ export default function Page() {
   const { data: session } = useSession();
   const token = session?.accessToken;
 
-  // Fetch assessments
   const fetchAssessments = async () => {
     try {
       setLoading(true);
@@ -35,7 +34,6 @@ export default function Page() {
     }
   };
 
-  // Fetch single assessment with questions for editing
   const editAssessment = async (id: string) => {
     try {
       const { data } = await axios.get(`/assessment/${id}`, {
@@ -49,13 +47,11 @@ export default function Page() {
     }
   };
 
-  // Open delete modal
   const openDeleteModal = (assessment: IAssessment) => {
     setSelectedAssessment(assessment);
     setIsDeleteModalOpen(true);
   };
 
-  // Close modals
   const closeEditModal = () => {
     setIsEditModalOpen(false);
     setSelectedAssessment(null);
@@ -66,13 +62,12 @@ export default function Page() {
     setSelectedAssessment(null);
   };
 
-  // Handle success callbacks
   const handleEditSuccess = () => {
-    fetchAssessments(); // Refresh the list
+    fetchAssessments(); 
   };
 
   const handleDeleteSuccess = () => {
-    fetchAssessments(); // Refresh the list
+    fetchAssessments(); 
   };
 
   useEffect(() => {

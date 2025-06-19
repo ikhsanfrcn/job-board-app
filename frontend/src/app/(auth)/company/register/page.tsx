@@ -11,6 +11,7 @@ import { toast } from "react-toastify";
 import { IndustrySelectorModal } from "./_components/IndustrySelector";
 import { CompanyRegisterSchema } from "@/schema/companySchema";
 import { ICompanyRegisterForm } from "@/types/companyType";
+import EmailVerificationModal from "@/components/atoms/emailVerification";
 
 export default function Page() {
   const [showPassword, setShowPassword] = useState(false);
@@ -19,6 +20,7 @@ export default function Page() {
     name: string;
   } | null>(null);
   const [isIndustryModalOpen, setIndustryModalOpen] = useState(false);
+  const [showModal, setShowModal] = useState(false);
 
   const router = useRouter();
 
@@ -34,10 +36,9 @@ export default function Page() {
     action: FormikHelpers<ICompanyRegisterForm>
   ) => {
     try {
-      const { data } = await axios.post("/company/register", value);
+      await axios.post("/company/register", value);
       action.resetForm();
-      toast.success(data.message);
-      router.push("/company/login");
+      setShowModal(true);
     } catch (err) {
       if (err instanceof AxiosError) {
         toast.error(err.response?.data?.message);
@@ -190,6 +191,14 @@ export default function Page() {
           </Link>
         </div>
       </div>
+
+      <EmailVerificationModal
+        isOpen={showModal}
+        onClose={() => {
+          setShowModal(false);
+          router.push("/login");
+        }}
+      />
     </div>
   );
 }

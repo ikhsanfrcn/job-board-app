@@ -91,3 +91,20 @@ export interface UserParams {
   regionNumber?: string;
   phoneNumber?: string;
 }
+
+export interface CompanyParams {
+  name?: string;
+  about?: string;
+  country?: string;
+  state?: string;
+  city?: string;
+  zipCode?: string;
+  regionNumber?: string;
+  phoneNumber?: string;
+  address?: string;
+  website?: string;
+  logo?: string;
+  latitude?: string;
+  longitude?: string;
+  industryId?: string;
+}

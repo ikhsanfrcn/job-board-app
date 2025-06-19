@@ -67,12 +67,6 @@ export default function Sidebar({
           icon: MdOutlineCategory,
           href: "/dev/dashboard/category",
         },
-        // {
-        //   id: "payment",
-        //   label: "Payment",
-        //   icon: MdOutlinePayments,
-        //   href: "/dev/dashboard/payment",
-        // },
       ],
     },
     {
@@ -136,7 +130,6 @@ export default function Sidebar({
             onClick={() => handleMenuItemClick(item, !!hasChildren)}
           >
             <Icon className="w-5 h-5 flex-shrink-0" />
-            {/* Label - with smooth width transition */}
             {!isCollapsed && (
               <div className="ml-3 overflow-hidden transition-all duration-300 ease-in-out">
                 <span className="whitespace-nowrap transition-opacity duration-300">
@@ -144,7 +137,6 @@ export default function Sidebar({
                 </span>
               </div>
             )}
-            {/* Expand/Collapse arrow - with smooth transition */}
             {hasChildren && !isCollapsed && (
               <div className="ml-auto transition-all duration-300 ease-in-out">
                 <div className={`transform transition-transform duration-300`}>
@@ -168,7 +160,6 @@ export default function Sidebar({
             onClick={() => handleMenuItemClick(item, !!hasChildren)}
           >
             <Icon className="w-5 h-5 flex-shrink-0" />
-            {/* Label - with smooth width transition */}
             {!isCollapsed && (
               <div className="ml-3 overflow-hidden transition-all duration-300 ease-in-out">
                 <span className="whitespace-nowrap transition-opacity duration-300">
@@ -178,7 +169,6 @@ export default function Sidebar({
             )}
           </Link>
         )}
-        {/* Children - with smooth slide down animation */}
         {!isCollapsed && (
           <div
             className={`

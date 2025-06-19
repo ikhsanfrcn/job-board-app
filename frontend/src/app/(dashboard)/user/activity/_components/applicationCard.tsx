@@ -9,7 +9,7 @@ type Props = {
 
 export const ApplicationCard = ({ application }: Props) => {
   const job = application.job;
-  const createdDate = application.createdAt.split("T")[0]; // ambil bagian "2025-05-31"
+  const createdDate = application.createdAt.split("T")[0];
 
   return (
     <div className="border p-4 rounded-2xl shadow-sm mb-4 bg-white">

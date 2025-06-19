@@ -6,13 +6,13 @@ export default function LocationModal({ setJobType, setUserCity, onClose }: { se
   const [step, setStep] = useState<"choice" | "requesting">("choice");
 
   const handleShowLatest = () => {
-    setJobType("latest"); // ✅ Load latest jobs
+    setJobType("latest");
     sessionStorage.setItem("jobPreference", "latest");
     onClose();
   };
 
   const handleShowNearby = () => {
-    setStep("requesting"); // ✅ Show modal requesting location
+    setStep("requesting");
 
     if ("geolocation" in navigator) {
       navigator.geolocation.getCurrentPosition(
@@ -24,23 +24,22 @@ export default function LocationModal({ setJobType, setUserCity, onClose }: { se
           const data = await res.json();
           const cityName = data.city || "Unknown";
 
-          setUserCity(cityName); // ✅ Set city for location-based job search
+          setUserCity(cityName);
           setJobType("nearby");
-          // Store the choice and city in sessionStorage
           sessionStorage.setItem("jobPreference", "nearby");
           sessionStorage.setItem("userCity", cityName);
-          onClose(); // Close the modal
+          onClose();
         },
         () => {
-          setJobType("latest"); // ✅ Default to latest jobs if denied
+          setJobType("latest");
           sessionStorage.setItem("jobPreference", "latest");
-          onClose(); // Close the modal
+          onClose();
         }
       );
     } else {
-      setJobType("latest"); // ✅ Handle geolocation unavailable case
+      setJobType("latest"); 
       sessionStorage.setItem("jobPreference", "latest");
-      onClose(); // Close the modal
+      onClose(); 
     }
   };
 
@@ -63,8 +62,8 @@ export default function LocationModal({ setJobType, setUserCity, onClose }: { se
         ) : (
           <>
             <h2 className="text-xl font-bold mb-4">Requesting Location</h2>
-            <p className="text-gray-600 mb-4">Please respond to the browser's location request prompt.</p>
-            <p className="text-gray-500">If you deny access, we'll show you the latest jobs instead.</p>
+            <p className="text-gray-600 mb-4">Please respond to the browser&apos;s location request prompt.</p>
+            <p className="text-gray-500">If you deny access, we&apos;ll show you the latest jobs instead.</p>
           </>
         )}
       </div>

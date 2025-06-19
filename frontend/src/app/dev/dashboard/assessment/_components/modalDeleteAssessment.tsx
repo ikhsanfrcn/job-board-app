@@ -57,7 +57,7 @@ export default function ModalDeleteAssessment({
                 Delete Assessment
               </h3>
               <p className="text-sm text-gray-500 mt-1">
-                Are you sure you want to delete "{assessment.title}"? This action cannot be undone.
+                Are you sure you want to delete &quot;{assessment.title}&quot;? This action cannot be undone.
               </p>
             </div>
           </div>
