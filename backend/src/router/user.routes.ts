@@ -37,6 +37,12 @@ export class UserRouter {
       this.authMiddleware.verifyToken,
       this.userController.updateAvatar
     );
+
+    this.router.get(
+      "/is-employee/:id",
+      this.authMiddleware.verifyToken,
+      this.userController.isEmployee
+    );
   }
   getRouter(): Router {
     return this.router;

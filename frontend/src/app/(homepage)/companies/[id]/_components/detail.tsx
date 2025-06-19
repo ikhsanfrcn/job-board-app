@@ -9,13 +9,18 @@ import Link from "next/link";
 import { IoIosStar } from "react-icons/io";
 import Review from "./review";
 import Jobs from "./jobs";
+import { useSession } from "next-auth/react";
 
 interface IProps {
   id: string;
 }
 
 export default function Detail({ id }: IProps) {
+  const { data: user } = useSession();
+  const accessToken = user?.accessToken;
   const [loading, setLoading] = useState(false);
+  const [isEmployee, setIsEmployee] = useState(false);
+
   const [detail, setDetail] = useState<ICompanyProfile | null>(null);
   const [activeTab, setActiveTab] = useState<"Overview" | "Reviews" | "Jobs">(
     "Overview"
@@ -34,9 +39,24 @@ export default function Detail({ id }: IProps) {
     }
   }, [id]);
 
+  const fetchIsEmployee = useCallback(async () => {
+    try {
+      if (!accessToken) return;
+      const { data } = await axios.get(`/users/is-employee/${id}`, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+      setIsEmployee(data.isEmployee);
+    } catch (err) {
+      console.log(err);
+    }
+  }, [accessToken, id]);
+
   useEffect(() => {
     fetchDetail();
-  }, [fetchDetail]);
+    fetchIsEmployee();
+  }, [fetchDetail, fetchIsEmployee]);
 
   if (loading || !detail) return <SkeletonDetail />;
 
@@ -48,7 +68,7 @@ export default function Detail({ id }: IProps) {
             <div className="flex items-center gap-2 mb-3">
               <h2 className="text-xl font-semibold">{detail.name} Overview</h2>
               <div className="flex items-center gap-1 text-xl font-semibold">
-                <p>{detail.averageRating}</p>
+                <p>{detail.averageRating === 0 ? "-" : detail.averageRating}</p>
                 <IoIosStar />
               </div>
             </div>
@@ -91,11 +111,29 @@ export default function Detail({ id }: IProps) {
             )}
           </div>
           <div className="flex gap-2">
-            <Link href={`/review/${id}`}>
-              <button className="px-4 py-2 text-white text-sm bg-black rounded-md hover:scale-105 transition duration-300 cursor-pointer">
+            {accessToken ? (
+              isEmployee ? (
+                <Link href={`/review/${id}`}>
+                  <button className="px-4 py-2 text-white text-sm bg-black rounded-md hover:scale-105 transition duration-300 cursor-pointer">
+                    Add a review
+                  </button>
+                </Link>
+              ) : (
+                <button
+                  className="px-4 py-2 text-white text-sm bg-black/50 rounded-md cursor-not-allowed"
+                  title="Only employees can add a review"
+                >
+                  Add a review
+                </button>
+              )
+            ) : (
+              <button
+                className="px-4 py-2 text-white text-sm bg-black/50 rounded-md cursor-not-allowed"
+                title="You must be logged in to add a review"
+              >
                 Add a review
               </button>
-            </Link>
+            )}
           </div>
         </div>
 
