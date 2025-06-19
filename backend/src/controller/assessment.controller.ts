@@ -32,7 +32,6 @@ export class SkillAssessmentController {
         .status(201)
         .json({ message: "Skill assessment created", newAssessment });
     } catch (err) {
-      console.log(err);
       res.status(400).json(err);
     }
   }
@@ -45,7 +44,6 @@ export class SkillAssessmentController {
 
       res.status(200).json(assessments);
     } catch (err) {
-      console.error(err);
       res.status(400).json(err);
     }
   }
@@ -61,7 +59,6 @@ export class SkillAssessmentController {
 
       res.status(200).json(assessment);
     } catch (err) {
-      console.error(err);
       res.status(400).json(err);
     }
   }
@@ -108,7 +105,6 @@ export class SkillAssessmentController {
         updatedAssessment,
       });
     } catch (err) {
-      console.log(err);
       res.status(400).json(err);
     }
   }
@@ -125,7 +121,6 @@ export class SkillAssessmentController {
 
       res.status(200).json({ message: "Assessment deleted successfully" });
     } catch (err) {
-      console.log(err);
       res.status(400).json(err);
     }
   }
@@ -141,7 +136,6 @@ export class SkillAssessmentController {
 
       res.status(200).json(assessment);
     } catch (err) {
-      console.error(err);
       res.status(400).json(err);
     }
   }
@@ -200,7 +194,6 @@ export class SkillAssessmentController {
         answers: {},
       });
     } catch (err) {
-      console.error(err);
       res.status(400).json(err);
     }
   }
@@ -230,7 +223,6 @@ export class SkillAssessmentController {
 
       res.status(201).json(updateSession);
     } catch (err) {
-      console.error(err);
       res.status(400).json(err);
     }
   }
@@ -295,7 +287,6 @@ export class SkillAssessmentController {
         result,
       });
     } catch (err) {
-      console.log(err);
       res.status(400).json(err);
     }
   }
@@ -325,7 +316,6 @@ export class SkillAssessmentController {
         userAssessments,
       });
     } catch (err) {
-      console.log(err);
       res.status(404).send(err);
     }
   }
@@ -388,7 +378,6 @@ export class SkillAssessmentController {
 
       res.status(200).send(pdfBuffer);
     } catch (err) {
-      console.error(err);
       res.status(500).send(err);
     }
   }
@@ -421,7 +410,6 @@ export class SkillAssessmentController {
         assessment,
       });
     } catch (err) {
-      console.log(err);
       res.status(404).send(err);
     }
   }
@@ -483,7 +471,6 @@ export class SkillAssessmentController {
         totalBadges: allTemplates.length,
       });
     } catch (err) {
-      console.log(err);
       res.status(500).send({
         message: "Error fetching user badges",
         error: err,

@@ -36,10 +36,8 @@ export default function Page() {
     } catch (err) {
       if (err instanceof AxiosError) {
         toast.error(err.response?.data?.message);
-        console.log(err);
       } else {
         toast.error("Register Failed !");
-        console.log(err);
       }
     }
   };

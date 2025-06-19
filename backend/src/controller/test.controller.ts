@@ -11,9 +11,8 @@ export class TestController {
   async getAllTest(req: Request, res: Response) {
     try {
       const tests = await prisma.test.findMany();
-      res.status(200).send({ tests })
+      res.status(200).send({ tests });
     } catch (err) {
-      console.log(err);
       res.status(400).send(err);
     }
   }
@@ -44,7 +43,6 @@ export class TestController {
 
       res.status(200).json(parsedTest);
     } catch (err) {
-      console.log(err);
       res.status(400).send(err);
     }
   }
@@ -57,27 +55,26 @@ export class TestController {
       if (existingTest) throw { message: "Test already exists for this job!" };
 
       const result = await prisma.$transaction(async (tx) => {
-      const test = await tx.test.create({
-        data: { 
-          jobId, 
-          title, 
-          description, 
-          questions,
-          isActive: true
-        },
-      });
+        const test = await tx.test.create({
+          data: {
+            jobId,
+            title,
+            description,
+            questions,
+            isActive: true,
+          },
+        });
 
-      await tx.job.update({
-        where: { id: jobId },
-        data: { isTestActive: true }
-      });
+        await tx.job.update({
+          where: { id: jobId },
+          data: { isTestActive: true },
+        });
 
-      return test;
-    });
+        return test;
+      });
 
       res.status(201).json({ message: "Test created", test: result });
     } catch (err) {
-      console.log(err);
       res.status(400).send(err);
     }
   }
@@ -167,7 +164,6 @@ export class TestController {
 
       return res.status(200).send({ message: "Test activated successfully" });
     } catch (err) {
-      console.log(err);
       res.status(400).send(err);
     }
   }
@@ -198,8 +194,22 @@ export class TestController {
 
       return res.status(200).send({ message: "Test deactivate successfully" });
     } catch (err) {
-      console.log(err);
       res.status(400).send(err);
+    }
+  }
+
+  async checkIsTestActive(req: Request, res: Response) {
+    try {
+      const { id } = req.params;
+      const test = await prisma.job.findUnique({
+        where: {
+          id,
+          isTestActive: true,
+        },
+      });
+      res.status(200).json({ isTestActive: !!test });
+    } catch (error: any) {
+      res.status(error.status || 500).json({ message: error.message });
     }
   }
 }

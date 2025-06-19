@@ -108,7 +108,6 @@ export class ResumeController {
         .status(200)
         .send({ message: "Resume fetched successfully", resume });
     } catch (err) {
-      console.log(err);
       res.status(400).send(err);
     }
   }

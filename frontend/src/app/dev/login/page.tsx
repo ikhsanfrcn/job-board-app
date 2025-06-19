@@ -37,10 +37,8 @@ export default function Page() {
         accessToken: data.access_token,
       });
     } catch (err) {
-      console.log(err);
       if (err instanceof AxiosError) {
         toast.error(err.response?.data?.message || "Login failed");
-        console.log(err);
       } else {
         toast.error("An unexpected error occurred");
         console.error(err);

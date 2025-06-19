@@ -83,10 +83,8 @@ export default function ModalEditAssessment({
     } catch (err) {
       if (err instanceof AxiosError) {
         toast.error(err.response?.data.message || "Update failed");
-        console.log(err);
       } else {
         toast.error("Update assessment failed!");
-        console.log(err);
       }
     }
   };

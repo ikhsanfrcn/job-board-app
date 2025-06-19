@@ -1,6 +1,5 @@
 import { NextFunction, Request, Response } from "express";
 import { verify } from "jsonwebtoken";
-import { UserPayLoad } from "../custom";
 
 export class AuthMiddleware {
   verifyToken(req: Request, res: Response, next: NextFunction) {
@@ -39,7 +38,6 @@ export class AuthMiddleware {
       }
       next();
     } catch (error) {
-      console.log(error);
       res.status(500).send(error);
     }
   }

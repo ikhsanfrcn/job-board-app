@@ -24,8 +24,6 @@ export class SubscriberController {
         result,
       });
     } catch (error: any) {
-      console.log(error);
-
       res.status(error.status || 500).json({ message: error.message });
     }
   }

@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import { useState, useEffect } from "react";
@@ -10,6 +9,7 @@ import { JobContent } from "./jobContent";
 import { ApplyModal } from "./applyModal";
 import { ShareModal } from "./shareModal";
 import { LoginModal } from "./loginModal";
+import { TestConfirmModal } from "./testModal";
 
 export default function JobDetail({ job }: { job: IJob }) {
   const [isApplyModalOpen, setIsApplyModalOpen] = useState(false);
@@ -17,6 +17,7 @@ export default function JobDetail({ job }: { job: IJob }) {
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const [hasApplied, setHasApplied] = useState(false);
   const [isChecking, setIsChecking] = useState(true);
+  const [showTestConfirmModal, setShowTestConfirmModal] = useState(false);
 
   const { data: session } = useSession();
   const token = session?.accessToken;
@@ -35,6 +36,7 @@ export default function JobDetail({ job }: { job: IJob }) {
           headers: { Authorization: `Bearer ${token}` },
         });
         const applied = res.data.applications.some(
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           (app: any) => app.jobId === job.id
         );
         setHasApplied(applied);
@@ -47,12 +49,42 @@ export default function JobDetail({ job }: { job: IJob }) {
     checkIfApplied();
   }, [job.id, token]);
 
-  const handleApplyClick = () => {
+  const checkIfTestActive = async (): Promise<boolean> => {
+    try {
+      const res = await axios.get(`/test/check/${job.id}`, {
+        headers: token ? { Authorization: `Bearer ${token}` } : {},
+      });
+      
+      return res.data?.isTestActive === true;
+    } catch (err) {
+      console.error("Error checking test status:", err);
+      return false;
+    }
+  };
+
+  const checkIfTestCompleted = (): boolean => {
+    return localStorage.getItem(`test-${job.id}-completed`) === "true";
+  };
+
+  const handleApplyClick = async () => {
     if (!token) {
       setIsLoginModalOpen(true);
+      return;
+    }
+
+    const isTestActive = await checkIfTestActive();
+    const isTestDone = checkIfTestCompleted();
+
+    if (isTestActive && !isTestDone) {
+      setShowTestConfirmModal(true);
     } else {
       setIsApplyModalOpen(true);
     }
+  };
+
+  const handleProceedToTest = () => {
+    setShowTestConfirmModal(false);
+    window.location.href = `/usertest/${job.id}`;
   };
 
   return (
@@ -81,12 +113,18 @@ export default function JobDetail({ job }: { job: IJob }) {
       <ShareModal
         isOpen={isShareModalOpen}
         onClose={() => setIsShareModalOpen(false)}
-        jobId = {job.id}
+        jobId={job.id}
       />
 
       <LoginModal
         isOpen={isLoginModalOpen}
         onClose={() => setIsLoginModalOpen(false)}
+      />
+
+      <TestConfirmModal
+        isOpen={showTestConfirmModal}
+        onClose={() => setShowTestConfirmModal(false)}
+        onProceed={handleProceedToTest}
       />
     </div>
   );

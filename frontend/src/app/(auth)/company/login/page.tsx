@@ -39,10 +39,8 @@ export default function Page() {
         accessToken: data.access_token,
       });
     } catch (err) {
-      console.log(err);
       if (err instanceof AxiosError) {
         toast.error(err.response?.data?.message || "Login failed");
-        console.log(err);
       } else {
         toast.error("An unexpected error occurred");
         console.error(err);
@@ -85,7 +83,9 @@ export default function Page() {
                   <h2 className="text-3xl text-shadow-sm font-bold">
                     Welcome Back
                   </h2>
-                  <p className="text-sm mb-3">Login to access your company account</p>
+                  <p className="text-sm mb-3">
+                    Login to access your company account
+                  </p>
                   <div>
                     <label htmlFor="email" className="text-xs tracking-wide">
                       Email
@@ -148,7 +148,7 @@ export default function Page() {
             );
           }}
         </Formik>
-        
+
         <div className="mt-5 text-xs">
           Don&apos;t have an company account?&nbsp;
           <Link

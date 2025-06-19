@@ -169,7 +169,8 @@ export default function Page({
         selected,
       })),
     });
-
+    
+    localStorage.setItem(`test-${jobId}-completed`, "true");
     setScore({ correct: correctCount, total, percentage });
     setCompleted(true);
   };

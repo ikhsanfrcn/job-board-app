@@ -45,7 +45,6 @@ export default function BadgeInterface() {
     fetchData();
   }, [token]);
 
-  // Calculate derived values
   const earnedCount = badges.length;
   const completionPercentage = totalBadges > 0 ? Math.round((earnedCount / totalBadges) * 100) : 0;
 

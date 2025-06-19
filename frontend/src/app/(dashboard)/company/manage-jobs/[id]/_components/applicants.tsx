@@ -82,7 +82,6 @@ export default function Applicants({ jobId }: IProps) {
         prev.map((app) => (app.id === id ? { ...app, status } : app))
       );
     } catch (err) {
-      console.log(err);
       if (err instanceof Error)
         toast.error(err.message || "Failed to update status");
     }

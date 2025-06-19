@@ -40,10 +40,8 @@ export default function Page() {
         accessToken: data.access_token,
       });
     } catch (err) {
-      console.log(err);
       if (err instanceof AxiosError) {
         toast.error(err.response?.data?.message || "Login failed");
-        console.log(err);
       } else {
         toast.error("An unexpected error occurred");
         console.error(err);
@@ -159,7 +157,7 @@ export default function Page() {
           </label>
         </div>
         <button
-          onClick={() => signIn("google", {redirectTo: "/"})}
+          onClick={() => signIn("google", { redirectTo: "/" })}
           className="flex justify-between items-center border w-[77%] md:w-[80%] my-5 py-2 px-3 font-semibold text-md text-shadow-sm rounded-sm cursor-pointer hover:border-green-600"
         >
           <FcGoogle className="text-2xl" />

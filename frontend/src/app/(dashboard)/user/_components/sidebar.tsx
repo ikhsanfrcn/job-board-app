@@ -71,9 +71,7 @@ export default function SideBar() {
       setIsModalOpen(false);
       toast.success("Avatar updated successfully");
     } catch (err) {
-      console.log(err);
       if (err instanceof AxiosError) {
-        console.log("Error Response:", err.response);
         toast.error(err.response?.data?.message || "Failed to update avatar");
       }
     }

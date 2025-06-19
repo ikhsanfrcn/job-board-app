@@ -30,8 +30,6 @@ export class CompanyController {
 
   async verify(req: Request, res: Response) {
     try {
-      console.log(req.user?.id);
-      
       const result = await verifyCompanyAccount(req.user?.id);
       res.status(200).json(result);
     } catch (error: any) {

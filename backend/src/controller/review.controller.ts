@@ -136,7 +136,6 @@ export class ReviewController {
         totalPages: Math.ceil(totalReviews / limit),
       });
     } catch (err) {
-      console.log(err);
       res.status(500).send({ message: "Failed to fetch reviews", error: err });
     }
   }

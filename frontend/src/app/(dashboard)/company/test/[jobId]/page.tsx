@@ -44,17 +44,17 @@ export default function Page({
     } catch (err) {
       if (err instanceof AxiosError) {
         toast.error(err.response?.data.message);
-        console.log(err);
       } else {
         toast.error("Create test failed!");
-        console.log(err);
       }
     }
   };
 
   return (
     <div className="max-w-lg mx-auto p-8 border border-gray-300 bg-white shadow-lg rounded-lg my-10 font-sans">
-      <h2 className="text-2xl font-semibold mb-6 text-center">Create Pre Selection Test</h2>
+      <h2 className="text-2xl font-semibold mb-6 text-center">
+        Create Pre Selection Test
+      </h2>
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
