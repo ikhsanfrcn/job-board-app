@@ -48,13 +48,11 @@ export default function CreateReview({ companyId }: IProps) {
     fetchDetail();
   }, [fetchDetail]);
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleSubmit = async (values: any) => {
     if (!accessToken) return;
     setSubmitting(true);
 
     try {
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { agreed, ...dataToSend } = values;
 
       await axios.post(`/reviews/${companyId}`, dataToSend, {

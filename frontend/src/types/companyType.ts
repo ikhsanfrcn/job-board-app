@@ -42,5 +42,7 @@ export interface ICompanyProfile {
   createdAt: Date;
   updatedAt: Date;
   averageRating: number;
+  totalJobs: number;
+  totalApplicants: number;
   Review: IReview[];
 }

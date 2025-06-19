@@ -4,6 +4,7 @@ import updateUser from "../services/user/updateUser";
 import getUserByEmail from "../services/user/getUserByEmail";
 import updateAvatar from "../services/user/updateAvatar";
 import { updateUserSchema } from "../validation/userValidation";
+import prisma from "../prisma";
 
 export class UserController {
   async getUserProfile(req: Request, res: Response) {
@@ -48,6 +49,35 @@ export class UserController {
         .send({ message: "Avatar updated successfully", secure_url: url });
     } catch (error: any) {
       res.status(error.status || 500).json({ message: error.message });
+    }
+  }
+
+  async isEmployee(req: Request, res: Response) {
+    try {
+      const userId = req.user?.id as string;
+      const { id: companyId } = req.params;
+
+      if (!userId || !companyId) {
+        res.status(400).send({ message: "Missing user or company ID." });
+        return;
+      }
+
+      const offeredApplication = await prisma.application.findFirst({
+        where: {
+          userId: userId,
+          status: "OFFERED",
+          job: {
+            companyId: companyId,
+          },
+        },
+        select: { id: true },
+      });
+
+      const isEmployee = !!offeredApplication;
+      res.status(200).send({ isEmployee });
+    } catch (err) {
+      console.error(err);
+      res.status(500).send(err);
     }
   }
 }

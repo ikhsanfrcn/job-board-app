@@ -59,92 +59,86 @@ export default function Jobs({ companyId }: IProps) {
         <>
           <ul className="space-y-4 w-full">
             {jobs.map((job) => (
-              <li
+              <Link
                 key={job.id}
-                className="flex flex-col gap-4 p-6 border border-gray-200 rounded-2xl shadow-sm hover:shadow-md transition duration-200 bg-white w-full"
+                href={`/job?id=${job.id}`}
+                className="block transform"
               >
-                {/* Title + Link */}
-                <div className="flex justify-between items-start flex-wrap">
-                  <Link
-                    href={`/job?id=${job.id}`}
-                    className="text-green-700 hover:underline text-xl font-semibold"
-                  >
-                    {job.title}
-                  </Link>
+                <li className="flex flex-col gap-4 p-6 border border-gray-200 rounded-2xl shadow-sm hover:shadow-md hover:bg-gray-50 bg-white w-full">
+                  <div className="flex justify-between items-start flex-wrap">
+                    <p className="text-green-700 hover:underline text-xl font-semibold">
+                      {job.title}
+                    </p>
 
-                  {job.isTestActive && (
-                    <span className="px-2 py-0.5 bg-green-100 text-green-700 text-xs font-semibold rounded-md">
-                      TEST
-                    </span>
-                  )}
-                </div>
-
-                {/* Basic Info */}
-                <div className="flex flex-wrap gap-4 text-sm text-gray-600">
-                  <div className="flex items-center gap-1">
-                    <FaMapMarkerAlt className="text-gray-400" />
-                    <span>{job.city}</span>
-                  </div>
-
-                  <div className="flex items-center gap-1">
-                    <FaTags className="text-gray-400" />
-                    <span className="bg-gray-100 px-2 py-0.5 rounded-full text-gray-700 text-xs font-medium">
-                      {job.category}
-                    </span>
-                  </div>
-
-                  <div className="flex items-center gap-1">
-                    <FaRegClock className="text-gray-400" />
-                    <span className="text-gray-700 font-medium">
-                      Deadline:{" "}
-                      {new Date(job.deadline).toLocaleDateString("id-ID", {
-                        day: "2-digit",
-                        month: "short",
-                        year: "numeric",
-                      })}
-                    </span>
-                  </div>
-                </div>
-
-                {/* Tags */}
-                {job.tags.length > 0 && (
-                  <div className="flex flex-wrap gap-2 mt-1">
-                    {job.tags.map((tag) => (
-                      <span
-                        key={tag}
-                        className="bg-gray-100 text-gray-700 text-xs px-2 py-0.5 rounded-full font-medium"
-                      >
-                        #{tag}
+                    {job.isTestActive && (
+                      <span className="px-2 py-0.5 bg-green-100 text-green-700 text-xs font-semibold rounded-md">
+                        TEST
                       </span>
-                    ))}
+                    )}
                   </div>
-                )}
 
-                {/* Salary Info */}
-                {(job.salaryMin || job.salaryMax) && (
-                  <div className="text-sm text-gray-700">
-                    Salary Range:{" "}
-                    <span className="font-semibold">
-                      Rp{job.salaryMin?.toLocaleString("id-ID") ?? "-"} – Rp
-                      {job.salaryMax?.toLocaleString("id-ID") ?? "-"}
-                    </span>
+                  <div className="flex flex-wrap gap-4 text-sm text-gray-600">
+                    <div className="flex items-center gap-1">
+                      <FaMapMarkerAlt className="text-gray-400" />
+                      <span>{job.city}</span>
+                    </div>
+
+                    <div className="flex items-center gap-1">
+                      <FaTags className="text-gray-400" />
+                      <span className="bg-gray-100 px-2 py-0.5 rounded-full text-gray-700 text-xs font-medium">
+                        {job.category}
+                      </span>
+                    </div>
+
+                    <div className="flex items-center gap-1">
+                      <FaRegClock className="text-gray-400" />
+                      <span className="text-gray-700 font-medium">
+                        Deadline:{" "}
+                        {new Date(job.deadline).toLocaleDateString("id-ID", {
+                          day: "2-digit",
+                          month: "short",
+                          year: "numeric",
+                        })}
+                      </span>
+                    </div>
                   </div>
-                )}
 
-                {/* Created At */}
-                <div className="text-xs text-gray-400">
-                  Posted on:{" "}
-                  {new Date(job.createdAt).toLocaleDateString("id-ID", {
-                    day: "2-digit",
-                    month: "short",
-                    year: "numeric",
-                  })}
-                </div>
-              </li>
+                  {job.tags.length > 0 && (
+                    <div className="flex flex-wrap gap-2 mt-1">
+                      {job.tags.map((tag) => (
+                        <span
+                          key={tag}
+                          className="bg-gray-100 text-gray-700 text-xs px-2 py-0.5 rounded-full font-medium"
+                        >
+                          #{tag}
+                        </span>
+                      ))}
+                    </div>
+                  )}
+
+                  {(job.salaryMin || job.salaryMax) && (
+                    <div className="text-sm text-gray-700">
+                      Salary Range:{" "}
+                      <span className="font-semibold">
+                        Rp{job.salaryMin?.toLocaleString("id-ID") ?? "-"} – Rp
+                        {job.salaryMax?.toLocaleString("id-ID") ?? "-"}
+                      </span>
+                    </div>
+                  )}
+
+                  <div className="text-xs text-gray-400">
+                    Posted on:{" "}
+                    {new Date(job.createdAt).toLocaleDateString("id-ID", {
+                      day: "2-digit",
+                      month: "short",
+                      year: "numeric",
+                    })}
+                  </div>
+                </li>
+              </Link>
             ))}
           </ul>
 
-          {/* Pagination */}
           <div className="flex justify-center items-center gap-4 mt-6">
             <button
               onClick={handlePrev}

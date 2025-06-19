@@ -121,17 +121,19 @@ export class CompanyController {
 
   async getAllCompanies(req: Request, res: Response) {
     try {
-      const { name, city, industryId } = req.query;
+      const { name, city, sort, page = "1", limit = "10" } = req.query;
 
       const companies = await getAllCompaniesService({
         name: name as string,
         city: city as string,
-        industryId: industryId as string,
+        sort: sort as "name_asc" | "name_desc" | "rating_asc" | "rating_desc",
+        page: parseInt(page as string),
+        limit: parseInt(limit as string),
       });
 
       res.status(200).send({
         message: "Companies fetched successfully",
-        data: companies,
+        ...companies,
       });
     } catch (error: any) {
       res
@@ -139,6 +141,7 @@ export class CompanyController {
         .json({ message: error.message || "Internal server error" });
     }
   }
+
   async getCompanyDetail(req: Request, res: Response) {
     try {
       const { id: companyId } = req.params;

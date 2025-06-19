@@ -14,6 +14,7 @@ export interface IJob {
   createdAt: string;
   company: {
     name: string;
+    logo: string;
   };
 }
 
