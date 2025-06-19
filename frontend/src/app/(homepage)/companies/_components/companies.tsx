@@ -32,7 +32,7 @@ export default function Companies() {
           ...(cityQuery && { city: cityQuery }),
           ...(sortQuery && { sort: sortQuery }),
           page: pageQuery,
-          limit: 6, // you can adjust this
+          limit: 6, 
         },
       });
       setCompanies(data.data);
@@ -54,7 +54,7 @@ export default function Companies() {
     if (newPage > 1) {
       params.set("page", String(newPage));
     } else {
-      params.delete("page"); // cleaner URL for page 1
+      params.delete("page");
     }
 
     router.push(`/companies?${params.toString()}`);
