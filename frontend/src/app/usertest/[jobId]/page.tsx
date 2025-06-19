@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "@/lib/axios";
 import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 export default function Page({
   params,
@@ -11,6 +12,7 @@ export default function Page({
 }) {
   const { jobId } = React.use(params);
   const { data: session } = useSession();
+  const router = useRouter();
 
   const [test, setTest] = useState<{
     id: string;
@@ -187,6 +189,12 @@ export default function Page({
           Correct Answers: {score.correct} / {score.total}
         </p>
         <p className="text-lg mt-2">Score: {score.percentage}%</p>
+        <button
+            onClick={() => router.push(`/job?id=${jobId}`)}
+            className="mt-5 bg-white border px-4 py-2 rounded-md hover:bg-green-600 transition duration-200 hover:text-white cursor-pointer"
+          >
+            Back to Job Page
+          </button>
       </div>
     );
   }
