@@ -85,26 +85,34 @@ model Industry {
 }
 
 model Job {
-  id           String   @id @default(uuid())
-  title        String
-  description  String
-  city         String
-  category     String
-  tags         String[]
-  salaryMin    Int?
-  salaryMax    Int?
-  deadline     String
-  companyId    String
-  isPublished  Boolean  @default(false)
-  isTestActive Boolean  @default(false)
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
+  id               String          @id @default(uuid())
+  title            String
+  description      String
+  city             String
+  category         String?
+  employmentStatus EmploymentType?
+  worksite         WorksiteType?
+  tags             String[]
+  salaryMin        Int?
+  salaryMax        Int?
+  deadline         String
+  companyId        String
+  isPublished      Boolean         @default(false)
+  isTestActive     Boolean         @default(false)
+  createdAt        DateTime        @default(now())
+  updatedAt        DateTime        @updatedAt
 
   company Company @relation(fields: [companyId], references: [id])
 
   Application Application[]
   test        Test?
   userTest    UserTest[]
+}
+
+enum WorksiteType {
+  ONSITE
+  HYBRID
+  REMOTE
 }
 
 model Jobdesc {
@@ -187,7 +195,7 @@ model Test {
 
 model UserTest {
   id              String   @id @default(uuid())
-  userId          String   @unique
+  userId          String
   jobId           String
   correctAnswers  Int
   totalQuestions  Int

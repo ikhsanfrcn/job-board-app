@@ -179,6 +179,8 @@ exports.Prisma.JobScalarFieldEnum = {
   description: 'description',
   city: 'city',
   category: 'category',
+  employmentStatus: 'employmentStatus',
+  worksite: 'worksite',
   tags: 'tags',
   salaryMin: 'salaryMin',
   salaryMax: 'salaryMax',
@@ -416,15 +418,6 @@ exports.Gender = exports.$Enums.Gender = {
   Female: 'Female'
 };
 
-exports.ApplicationStatus = exports.$Enums.ApplicationStatus = {
-  PENDING: 'PENDING',
-  VIEWED: 'VIEWED',
-  SHORTLISTED: 'SHORTLISTED',
-  INTERVIEW: 'INTERVIEW',
-  OFFERED: 'OFFERED',
-  REJECTED: 'REJECTED'
-};
-
 exports.EmploymentType = exports.$Enums.EmploymentType = {
   FULLTIME: 'FULLTIME',
   PARTTIME: 'PARTTIME',
@@ -433,6 +426,21 @@ exports.EmploymentType = exports.$Enums.EmploymentType = {
   SELFEMPLOYED: 'SELFEMPLOYED',
   INTERN: 'INTERN',
   SEASONAL: 'SEASONAL'
+};
+
+exports.WorksiteType = exports.$Enums.WorksiteType = {
+  ONSITE: 'ONSITE',
+  HYBRID: 'HYBRID',
+  REMOTE: 'REMOTE'
+};
+
+exports.ApplicationStatus = exports.$Enums.ApplicationStatus = {
+  PENDING: 'PENDING',
+  VIEWED: 'VIEWED',
+  SHORTLISTED: 'SHORTLISTED',
+  INTERVIEW: 'INTERVIEW',
+  OFFERED: 'OFFERED',
+  REJECTED: 'REJECTED'
 };
 
 exports.AdditionalCategory = exports.$Enums.AdditionalCategory = {
