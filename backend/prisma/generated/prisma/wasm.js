@@ -120,9 +120,364 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
   Serializable: 'Serializable'
 });
 
+exports.Prisma.UserScalarFieldEnum = {
+  id: 'id',
+  username: 'username',
+  email: 'email',
+  role: 'role',
+  password: 'password',
+  firstName: 'firstName',
+  lastName: 'lastName',
+  gender: 'gender',
+  dob: 'dob',
+  education: 'education',
+  country: 'country',
+  state: 'state',
+  city: 'city',
+  zipCode: 'zipCode',
+  regionNumber: 'regionNumber',
+  phoneNumber: 'phoneNumber',
+  avatar: 'avatar',
+  isVerify: 'isVerify',
+  verificationSent: 'verificationSent',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.CompanyScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  email: 'email',
+  role: 'role',
+  password: 'password',
+  about: 'about',
+  country: 'country',
+  state: 'state',
+  city: 'city',
+  zipCode: 'zipCode',
+  regionNumber: 'regionNumber',
+  phoneNumber: 'phoneNumber',
+  address: 'address',
+  website: 'website',
+  logo: 'logo',
+  isVerify: 'isVerify',
+  industryId: 'industryId',
+  latitude: 'latitude',
+  longitude: 'longitude',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.IndustryScalarFieldEnum = {
+  id: 'id',
+  name: 'name'
+};
+
+exports.Prisma.JobScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  description: 'description',
+  city: 'city',
+  category: 'category',
+  tags: 'tags',
+  salaryMin: 'salaryMin',
+  salaryMax: 'salaryMax',
+  deadline: 'deadline',
+  companyId: 'companyId',
+  isPublished: 'isPublished',
+  isTestActive: 'isTestActive',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.JobdescScalarFieldEnum = {
+  id: 'id',
+  name: 'name'
+};
+
+exports.Prisma.DeveloperScalarFieldEnum = {
+  id: 'id',
+  email: 'email',
+  role: 'role',
+  password: 'password',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.ApplicationScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  jobId: 'jobId',
+  status: 'status',
+  cvUrl: 'cvUrl',
+  expectedSalary: 'expectedSalary',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.ReviewScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  companyId: 'companyId',
+  salaryEstimate: 'salaryEstimate',
+  cultureRating: 'cultureRating',
+  workLifeBalanceRating: 'workLifeBalanceRating',
+  facilitiesRating: 'facilitiesRating',
+  careerOpportunitiesRating: 'careerOpportunitiesRating',
+  employmentStatus: 'employmentStatus',
+  jobTitle: 'jobTitle',
+  headline: 'headline',
+  pros: 'pros',
+  cons: 'cons',
+  advice: 'advice',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.TestScalarFieldEnum = {
+  id: 'id',
+  jobId: 'jobId',
+  title: 'title',
+  description: 'description',
+  questions: 'questions',
+  isActive: 'isActive',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.UserTestScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  jobId: 'jobId',
+  correctAnswers: 'correctAnswers',
+  totalQuestions: 'totalQuestions',
+  scorePercentage: 'scorePercentage',
+  completedAt: 'completedAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.InterviewScalarFieldEnum = {
+  id: 'id',
+  applicationId: 'applicationId',
+  date: 'date',
+  time: 'time',
+  location: 'location'
+};
+
+exports.Prisma.UserResumeScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  summary: 'summary'
+};
+
+exports.Prisma.WorkExperienceScalarFieldEnum = {
+  id: 'id',
+  userResumeId: 'userResumeId',
+  company: 'company',
+  jobdescId: 'jobdescId',
+  description: 'description',
+  employmentType: 'employmentType',
+  startDate: 'startDate',
+  endDate: 'endDate'
+};
+
+exports.Prisma.EducationScalarFieldEnum = {
+  id: 'id',
+  userResumeId: 'userResumeId',
+  schoolName: 'schoolName',
+  degree: 'degree',
+  fieldOfStudy: 'fieldOfStudy',
+  startDate: 'startDate',
+  endDate: 'endDate'
+};
+
+exports.Prisma.LeadershipScalarFieldEnum = {
+  id: 'id',
+  userResumeId: 'userResumeId',
+  organization: 'organization',
+  role: 'role',
+  startDate: 'startDate',
+  endDate: 'endDate',
+  description: 'description'
+};
+
+exports.Prisma.AdditionalScalarFieldEnum = {
+  id: 'id',
+  userResumeId: 'userResumeId',
+  category: 'category',
+  items: 'items',
+  description: 'description'
+};
+
+exports.Prisma.SubscriptionScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  type: 'type',
+  price: 'price',
+  features: 'features',
+  userId: 'userId'
+};
+
+exports.Prisma.TransactionScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  type: 'type',
+  amount: 'amount',
+  status: 'status',
+  invoiceUrl: 'invoiceUrl',
+  createdAt: 'createdAt',
+  expiredAt: 'expiredAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.SubscriberScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  type: 'type',
+  startDate: 'startDate',
+  endDate: 'endDate',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  transactionId: 'transactionId'
+};
+
+exports.Prisma.SkillAssessmentTemplateScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  description: 'description',
+  category: 'category',
+  questions: 'questions',
+  passingScore: 'passingScore',
+  totalPoints: 'totalPoints',
+  timeLimit: 'timeLimit',
+  isActive: 'isActive',
+  badgeImage: 'badgeImage',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.SkillAssessmentScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  templateId: 'templateId',
+  score: 'score',
+  totalPoints: 'totalPoints',
+  isPassed: 'isPassed',
+  timeSpent: 'timeSpent',
+  answers: 'answers',
+  startedAt: 'startedAt',
+  completedAt: 'completedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.AssessmentSessionScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  templateId: 'templateId',
+  sessionToken: 'sessionToken',
+  timeRemaining: 'timeRemaining',
+  currentQuestionIndex: 'currentQuestionIndex',
+  answers: 'answers',
+  isActive: 'isActive',
+  expiresAt: 'expiresAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.SortOrder = {
+  asc: 'asc',
+  desc: 'desc'
+};
+
+exports.Prisma.JsonNullValueInput = {
+  JsonNull: Prisma.JsonNull
+};
+
+exports.Prisma.QueryMode = {
+  default: 'default',
+  insensitive: 'insensitive'
+};
+
+exports.Prisma.NullsOrder = {
+  first: 'first',
+  last: 'last'
+};
+
+exports.Prisma.JsonNullValueFilter = {
+  DbNull: Prisma.DbNull,
+  JsonNull: Prisma.JsonNull,
+  AnyNull: Prisma.AnyNull
+};
+exports.Gender = exports.$Enums.Gender = {
+  PreferNotToSay: 'PreferNotToSay',
+  Male: 'Male',
+  Female: 'Female'
+};
+
+exports.ApplicationStatus = exports.$Enums.ApplicationStatus = {
+  PENDING: 'PENDING',
+  VIEWED: 'VIEWED',
+  SHORTLISTED: 'SHORTLISTED',
+  INTERVIEW: 'INTERVIEW',
+  OFFERED: 'OFFERED',
+  REJECTED: 'REJECTED'
+};
+
+exports.EmploymentType = exports.$Enums.EmploymentType = {
+  FULLTIME: 'FULLTIME',
+  PARTTIME: 'PARTTIME',
+  CONTRACT: 'CONTRACT',
+  FREELANCE: 'FREELANCE',
+  SELFEMPLOYED: 'SELFEMPLOYED',
+  INTERN: 'INTERN',
+  SEASONAL: 'SEASONAL'
+};
+
+exports.AdditionalCategory = exports.$Enums.AdditionalCategory = {
+  TECHNICAL: 'TECHNICAL',
+  LANGUAGE: 'LANGUAGE',
+  INTERPERSONAL: 'INTERPERSONAL'
+};
+
+exports.PaymentStatus = exports.$Enums.PaymentStatus = {
+  PENDING: 'PENDING',
+  PAID: 'PAID',
+  EXPIRED: 'EXPIRED',
+  CANCELED: 'CANCELED'
+};
+
+exports.SubscriberStatus = exports.$Enums.SubscriberStatus = {
+  PENDING: 'PENDING',
+  ACTIVE: 'ACTIVE',
+  EXPIRED: 'EXPIRED',
+  CANCELED: 'CANCELED'
+};
 
 exports.Prisma.ModelName = {
-
+  User: 'User',
+  Company: 'Company',
+  Industry: 'Industry',
+  Job: 'Job',
+  Jobdesc: 'Jobdesc',
+  Developer: 'Developer',
+  Application: 'Application',
+  Review: 'Review',
+  Test: 'Test',
+  UserTest: 'UserTest',
+  Interview: 'Interview',
+  UserResume: 'UserResume',
+  WorkExperience: 'WorkExperience',
+  Education: 'Education',
+  Leadership: 'Leadership',
+  Additional: 'Additional',
+  Subscription: 'Subscription',
+  Transaction: 'Transaction',
+  Subscriber: 'Subscriber',
+  SkillAssessmentTemplate: 'SkillAssessmentTemplate',
+  SkillAssessment: 'SkillAssessment',
+  AssessmentSession: 'AssessmentSession'
 };
 
 /**

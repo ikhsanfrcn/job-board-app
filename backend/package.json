@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "tsc",
+    "build": "prisma generate && tsc && cpx \"src/templates/**/*\" dist/templates",
     "start": "tsc && node./dist/index.js",
     "dev": "ts-node-dev ./src/index.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -14,16 +14,38 @@
   "license": "ISC",
   "type": "commonjs",
   "devDependencies": {
+    "@types/bcrypt": "^5.0.2",
     "@types/cors": "^2.8.18",
+    "@types/ejs": "^3.1.5",
     "@types/express": "^5.0.1",
+    "@types/jsonwebtoken": "^9.0.9",
+    "@types/multer": "^1.4.12",
     "@types/node": "^22.15.18",
+    "@types/nodemailer": "^6.4.17",
+    "@types/puppeteer": "^7.0.4",
+    "@types/streamifier": "^0.1.2",
     "ts-node-dev": "^2.0.0",
     "typescript": "^5.8.3"
   },
   "dependencies": {
     "@prisma/client": "^6.8.1",
+    "bcrypt": "^6.0.0",
+    "cloudinary": "^2.6.1",
     "cors": "^2.8.5",
+    "cpx": "^1.5.0",
+    "ejs": "^3.1.10",
     "express": "^5.1.0",
-    "prisma": "^6.8.1"
+    "express-validator": "^7.2.1",
+    "handlebars": "^4.7.8",
+    "jsonwebtoken": "^9.0.2",
+    "multer": "^2.0.0",
+    "node-cron": "^4.1.0",
+    "nodemailer": "^7.0.3",
+    "prisma": "^6.8.1",
+    "puppeteer": "^24.10.1",
+    "streamifier": "^0.1.1",
+    "uuid": "^11.1.0",
+    "xendit-node": "^7.0.0",
+    "yup": "^1.6.1"
   }
 }

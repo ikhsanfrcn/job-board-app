@@ -1,16 +1,390 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
-  provider = "prisma-client-js"
-  output   = "./generated/prisma"
+  provider      = "prisma-client-js"
+  output        = "./generated/prisma"
+  binaryTargets = ["native", "windows", "rhel-openssl-3.0.x"]
 }
 
 datasource db {
   provider  = "postgresql"
   url       = env("DATABASE_URL")
   directUrl = env("DIRECT_URL")
+}
+
+model User {
+  id           String  @id @default(uuid())
+  username     String  @unique
+  email        String  @unique
+  role         String  @default("user")
+  password     String
+  firstName    String?
+  lastName     String?
+  gender       Gender? @default(PreferNotToSay)
+  dob          String?
+  education    String?
+  country      String?
+  state        String?
+  city         String?
+  zipCode      String?
+  regionNumber String?
+  phoneNumber  String?
+  avatar       String? @default("https://res.cloudinary.com/dbq88i6pk/image/upload/v1744257650/profile-default-icon-512x511-v4sw4m29_cyf3m5.png")
+
+  isVerify         Boolean  @default(false)
+  verificationSent DateTime @default(now())
+
+  createdAt          DateTime            @default(now())
+  updatedAt          DateTime            @updatedAt
+  Application        Application[]
+  Review             Review[]
+  userTest           UserTest[]
+  userResume         UserResume[]
+  Subscriber         Subscriber[]
+  skillAssessments   SkillAssessment[]
+  assessmentSessions AssessmentSession[]
+  Transaction        Transaction[]
+}
+
+enum Gender {
+  PreferNotToSay
+  Male
+  Female
+}
+
+model Company {
+  id           String   @id @default(uuid())
+  name         String
+  email        String   @unique
+  role         String   @default("company")
+  password     String
+  about        String?
+  country      String?
+  state        String?
+  city         String?
+  zipCode      String?
+  regionNumber String?
+  phoneNumber  String?
+  address      String?
+  website      String?  @unique
+  logo         String?  @default("https://res.cloudinary.com/dbq88i6pk/image/upload/v1744257650/profile-default-icon-512x511-v4sw4m29_cyf3m5.png")
+  isVerify     Boolean  @default(false)
+  industryId   String
+  latitude     String?
+  longitude    String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  industry Industry @relation(fields: [industryId], references: [id])
+  jobs     Job[]
+  Review   Review[]
+}
+
+model Industry {
+  id      String    @id @default(uuid())
+  name    String    @unique
+  Company Company[]
+}
+
+model Job {
+  id           String   @id @default(uuid())
+  title        String
+  description  String
+  city         String
+  category     String
+  tags         String[]
+  salaryMin    Int?
+  salaryMax    Int?
+  deadline     String
+  companyId    String
+  isPublished  Boolean  @default(false)
+  isTestActive Boolean  @default(false)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  company Company @relation(fields: [companyId], references: [id])
+
+  Application Application[]
+  test        Test?
+  userTest    UserTest[]
+}
+
+model Jobdesc {
+  id   String @id @default(uuid())
+  name String @unique
+
+  experiences WorkExperience[]
+}
+
+model Developer {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  role      String   @default("developer")
+  password  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Application {
+  id             String            @id @default(uuid())
+  userId         String
+  jobId          String
+  status         ApplicationStatus @default(PENDING)
+  cvUrl          String
+  expectedSalary String?
+  createdAt      DateTime          @default(now())
+  updatedAt      DateTime          @updatedAt
+
+  user User @relation(fields: [userId], references: [id])
+  job  Job  @relation(fields: [jobId], references: [id])
+
+  Interview Interview[]
+}
+
+enum ApplicationStatus {
+  PENDING
+  VIEWED
+  SHORTLISTED
+  INTERVIEW
+  OFFERED
+  REJECTED
+}
+
+model Review {
+  id                        String         @id @default(uuid())
+  userId                    String
+  companyId                 String
+  salaryEstimate            String
+  cultureRating             Int
+  workLifeBalanceRating     Int
+  facilitiesRating          Int
+  careerOpportunitiesRating Int
+  employmentStatus          EmploymentType
+  jobTitle                  String
+  headline                  String
+  pros                      String
+  cons                      String
+  advice                    String
+  createdAt                 DateTime       @default(now())
+  updatedAt                 DateTime       @updatedAt
+
+  user    User    @relation(fields: [userId], references: [id])
+  company Company @relation(fields: [companyId], references: [id])
+
+  @@unique([userId, companyId])
+}
+
+model Test {
+  id          String   @id @default(uuid())
+  jobId       String   @unique
+  title       String
+  description String
+  questions   Json
+  isActive    Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  job Job @relation(fields: [jobId], references: [id])
+}
+
+model UserTest {
+  id              String   @id @default(uuid())
+  userId          String   @unique
+  jobId           String
+  correctAnswers  Int
+  totalQuestions  Int
+  scorePercentage Float
+  completedAt     DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id])
+  job  Job  @relation(fields: [jobId], references: [id])
+}
+
+model Interview {
+  id            String @id @default(uuid())
+  applicationId String
+  date          String
+  time          String
+  location      String
+
+  application Application @relation(fields: [applicationId], references: [id])
+}
+
+model UserResume {
+  id      String  @id @default(uuid())
+  userId  String  @unique
+  summary String?
+
+  user           User             @relation(fields: [userId], references: [id])
+  workExperience WorkExperience[]
+  education      Education[]
+  leadership     Leadership[]
+  additional     Additional[]
+}
+
+model WorkExperience {
+  id             String         @id @default(uuid())
+  userResumeId   String
+  company        String
+  jobdescId      String
+  description    String
+  employmentType EmploymentType
+  startDate      String
+  endDate        String?
+
+  userResume UserResume @relation(fields: [userResumeId], references: [id])
+  jobdesc    Jobdesc    @relation(fields: [jobdescId], references: [id])
+}
+
+enum EmploymentType {
+  FULLTIME
+  PARTTIME
+  CONTRACT
+  FREELANCE
+  SELFEMPLOYED
+  INTERN
+  SEASONAL
+}
+
+model Education {
+  id           String  @id @default(uuid())
+  userResumeId String
+  schoolName   String
+  degree       String
+  fieldOfStudy String
+  startDate    String
+  endDate      String?
+
+  userResume UserResume @relation(fields: [userResumeId], references: [id])
+}
+
+model Leadership {
+  id           String @id @default(uuid())
+  userResumeId String
+  organization String
+  role         String
+  startDate    String
+  endDate      String
+  description  String
+
+  userResume UserResume @relation(fields: [userResumeId], references: [id])
+}
+
+model Additional {
+  id           String             @id @default(uuid())
+  userResumeId String
+  category     AdditionalCategory
+  items        String[]
+  description  String?
+
+  userResume UserResume @relation(fields: [userResumeId], references: [id])
+}
+
+enum AdditionalCategory {
+  TECHNICAL
+  LANGUAGE
+  INTERPERSONAL
+}
+
+model Subscription {
+  id       String   @id @default(uuid())
+  name     String
+  type     String
+  price    Int
+  features String[]
+  userId   String?
+}
+
+model Transaction {
+  id         String        @id @default(uuid())
+  userId     String
+  user       User          @relation(fields: [userId], references: [id])
+  type       String
+  amount     Int
+  status     PaymentStatus @default(PENDING)
+  invoiceUrl String?
+  createdAt  DateTime      @default(now())
+  expiredAt  DateTime
+  updatedAt  DateTime      @updatedAt
+  Subscriber Subscriber[]
+}
+
+enum PaymentStatus {
+  PENDING
+  PAID
+  EXPIRED
+  CANCELED
+}
+
+model Subscriber {
+  id            String           @id @default(uuid())
+  userId        String           @unique
+  user          User             @relation(fields: [userId], references: [id])
+  type          String
+  startDate     DateTime?
+  endDate       DateTime?
+  status        SubscriberStatus @default(PENDING)
+  createdAt     DateTime         @default(now())
+  updatedAt     DateTime         @updatedAt
+  transactionId String?
+  transaction   Transaction?     @relation(fields: [transactionId], references: [id])
+}
+
+enum SubscriberStatus {
+  PENDING
+  ACTIVE
+  EXPIRED
+  CANCELED
+}
+
+model SkillAssessmentTemplate {
+  id           String   @id @default(uuid())
+  title        String
+  description  String
+  category     String
+  questions    Json
+  passingScore Int      @default(75)
+  totalPoints  Int      @default(100)
+  timeLimit    Int      @default(1800)
+  isActive     Boolean  @default(true)
+  badgeImage   String?  @default("https://res.cloudinary.com/dyjsmoxmq/image/upload/v1749704951/samrxrnas1uzvtiw1uvt.svg")
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  skillAssessments  SkillAssessment[]
+  assessmentSession AssessmentSession[]
+}
+
+model SkillAssessment {
+  id          String    @id @default(uuid())
+  userId      String
+  templateId  String
+  score       Int
+  totalPoints Int
+  isPassed    Boolean
+  timeSpent   Int
+  answers     Json
+  startedAt   DateTime
+  completedAt DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  user     User                    @relation(fields: [userId], references: [id])
+  template SkillAssessmentTemplate @relation(fields: [templateId], references: [id])
+}
+
+model AssessmentSession {
+  id                   String   @id @default(uuid())
+  userId               String
+  templateId           String
+  sessionToken         String   @unique
+  timeRemaining        Int
+  currentQuestionIndex Int      @default(0)
+  answers              Json
+  isActive             Boolean  @default(true)
+  expiresAt            DateTime
+  createdAt            DateTime @default(now())
+  updatedAt            DateTime @updatedAt
+
+  user     User                    @relation(fields: [userId], references: [id])
+  template SkillAssessmentTemplate @relation(fields: [templateId], references: [id])
 }
