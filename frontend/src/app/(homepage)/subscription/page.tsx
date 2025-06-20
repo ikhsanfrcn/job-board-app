@@ -180,7 +180,7 @@ export default function SubscriptionPage() {
       }
     );
 
-    const transactionId = response.data.transaction.data.id;
+    const transactionId = response.data.transaction.data.externalId;
     router.push(`/subscription/${transactionId}`);
   } catch (err: any) {
     toast.error(err.response?.data?.message || "Subscription failed");

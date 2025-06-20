@@ -12,7 +12,7 @@ import { normalizeCompanyProfile } from "@/helper/normalizerCompanyProfile";
 import { companyProfileSchema } from "@/schema/companySchema";
 import TextInput from "@/components/atoms/textInput";
 import ProvinceCitySelector from "@/components/atoms/provinceCitySelector";
-import TextAreaInput from "@/components/atoms/TextAreaInput";
+import { RichTextInput } from "@/components/atoms/richTextInput";
 
 const MapWithNoSSR = dynamic(() => import("./profileMap"), { ssr: false });
 
@@ -35,8 +35,7 @@ export default function ProfileForm({
     try {
       const updatedValues = {
         ...values,
-        state:
-          values.state || "",
+        state: values.state || "",
         latitude: values.latitude?.toString?.() || "",
         longitude: values.longitude?.toString?.() || "",
       };
@@ -103,7 +102,10 @@ export default function ProfileForm({
             </div>
 
             <TextInput label="Website" name="website" />
-            <TextAreaInput label="About" name="about" />
+            <RichTextInput
+              value={values.about}
+              onChange={(content) => setFieldValue("about", content)}
+            />
 
             <div className="flex justify-between mt-6 gap-4">
               <button

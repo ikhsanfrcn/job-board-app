@@ -106,7 +106,10 @@ export default function Companies() {
                     {company.city && <p>{company.city}</p>}
                   </div>
                   {company.about && (
-                    <p className="line-clamp-2 mb-2">{company.about}</p>
+                    <div
+                      className="line-clamp-2 mb-2 prose max-w-none"
+                      dangerouslySetInnerHTML={{ __html: company.about }}
+                    />
                   )}
 
                   <div className="flex items-center space-x-4 text-sm">

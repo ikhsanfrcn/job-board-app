@@ -2,7 +2,7 @@ import prisma from "../../prisma";
 
 export const getTransactionById = async (id: string) => {
   return await prisma.transaction.findUnique({
-    where: { id },
+    where: { externalId: id },
     include: {
       user: {
         select: {

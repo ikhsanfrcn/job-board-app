@@ -19,6 +19,7 @@ type TransactionData = {
     email: string;
   };
   invoiceUrl: string;
+  externalId: string;
 };
 
 export default function TransactionDetailPage() {
@@ -129,7 +130,7 @@ export default function TransactionDetailPage() {
           Transaction Detail
         </h1>
         <div className="space-y-2 text-sm">
-          <Info label="Transaction ID" value={transaction.id} />
+          <Info label="Transaction ID" value={transaction.externalId} />
           <Info label="User Email" value={transaction.user.email} />
           <Info label="Subscription" value={transaction.type} />
           <Info

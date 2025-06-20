@@ -1,5 +1,4 @@
 import { Request, Response } from "express";
-import { handleInvoiceStatusUpdate } from "../services/transaction/invoiceUpdate";
 import { createSubscriber } from "../services/subscriber/createSubs";
 import { getSubscriberById } from "../services/subscriber/getSubsById";
 import { getSubscriberByUser } from "../services/subscriber/getSubsByUser";

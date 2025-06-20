@@ -7,7 +7,7 @@ export const cancelPayment = async (id: string) => {
   });
 
   await prisma.subscriber.updateMany({
-    where: { transactionId: tnx.id},
+    where: { transactionId: tnx.externalId},
     data: { status: "CANCELED" },
   });
   return { message: "Payment canceled", tnx };

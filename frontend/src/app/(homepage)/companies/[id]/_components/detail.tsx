@@ -72,7 +72,10 @@ export default function Detail({ id }: IProps) {
                 <IoIosStar />
               </div>
             </div>
-            <p className="text-sm">{detail.about}</p>
+            <div
+              className="text-sm"
+              dangerouslySetInnerHTML={{ __html: detail.about }}
+            />
           </div>
         );
       case "Reviews":
