@@ -20,6 +20,7 @@ enum ApplicationStatus {
   SHORTLISTED = "SHORTLISTED",
   INTERVIEW = "INTERVIEW",
   OFFERED = "OFFERED",
+  ACCEPTED = "ACCEPTED",
   REJECTED = "REJECTED",
 }
 
@@ -108,7 +109,7 @@ export default function Applicants({ jobId }: IProps) {
           },
         }
       );
-      toast.success("Interview scheduled");
+      // toast.success("Interview scheduled");
       setInterviewModalData(null);
       handleUpdateStatus(applicationId, "INTERVIEW");
     } catch (error) {
@@ -143,7 +144,7 @@ export default function Applicants({ jobId }: IProps) {
   if (loading) return <div className="p-4">Loading...</div>;
 
   return (
-    <div className="w-full overflow-auto p-6">
+    <div className="w-full p-6">
       <div className="flex items-center justify-end mb-4">
         <select
           value={statusFilter}

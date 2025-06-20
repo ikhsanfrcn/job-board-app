@@ -188,6 +188,28 @@ export default function Table({
                         </button>
                       </>
                     )}
+                    {app.status === "OFFERED" && (
+                      <>
+                        <button
+                          onClick={() => {
+                            onUpdateStatus(app.id, "ACCEPTED");
+                            setOpenId(null);
+                          }}
+                          className="w-full text-left px-3 py-1.5 text-sm text-gray-700 hover:bg-gray-100 rounded"
+                        >
+                          Mark as Accepted
+                        </button>
+                        <button
+                          onClick={() => {
+                            onUpdateStatus(app.id, "REJECTED");
+                            setOpenId(null);
+                          }}
+                          className="w-full text-left px-3 py-1.5 text-sm text-red-600 hover:bg-red-100 rounded"
+                        >
+                          Mark as Rejected
+                        </button>
+                      </>
+                    )}
                   </div>
                 )}
               </div>
