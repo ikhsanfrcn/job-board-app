@@ -152,6 +152,7 @@ export const ApplicationStatus: {
   SHORTLISTED: 'SHORTLISTED',
   INTERVIEW: 'INTERVIEW',
   OFFERED: 'OFFERED',
+  ACCEPTED: 'ACCEPTED',
   REJECTED: 'REJECTED'
 };
 
@@ -631,7 +632,7 @@ export namespace Prisma {
   export import Exact = $Public.Exact
 
   /**
-   * Prisma Client JS version: 6.8.1
+   * Prisma Client JS version: 6.8.2
    * Query Engine version: 2060c79ba17c6bb9f5823312b6f6b7f4a845738e
    */
   export type PrismaVersion = {
@@ -7146,6 +7147,7 @@ export namespace Prisma {
     companyId: string | null
     isPublished: boolean | null
     isTestActive: boolean | null
+    isDeleted: boolean | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -7165,6 +7167,7 @@ export namespace Prisma {
     companyId: string | null
     isPublished: boolean | null
     isTestActive: boolean | null
+    isDeleted: boolean | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -7185,6 +7188,7 @@ export namespace Prisma {
     companyId: number
     isPublished: number
     isTestActive: number
+    isDeleted: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -7216,6 +7220,7 @@ export namespace Prisma {
     companyId?: true
     isPublished?: true
     isTestActive?: true
+    isDeleted?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -7235,6 +7240,7 @@ export namespace Prisma {
     companyId?: true
     isPublished?: true
     isTestActive?: true
+    isDeleted?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -7255,6 +7261,7 @@ export namespace Prisma {
     companyId?: true
     isPublished?: true
     isTestActive?: true
+    isDeleted?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -7362,6 +7369,7 @@ export namespace Prisma {
     companyId: string
     isPublished: boolean
     isTestActive: boolean
+    isDeleted: boolean
     createdAt: Date
     updatedAt: Date
     _count: JobCountAggregateOutputType | null
@@ -7401,6 +7409,7 @@ export namespace Prisma {
     companyId?: boolean
     isPublished?: boolean
     isTestActive?: boolean
+    isDeleted?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     company?: boolean | CompanyDefaultArgs<ExtArgs>
@@ -7426,6 +7435,7 @@ export namespace Prisma {
     companyId?: boolean
     isPublished?: boolean
     isTestActive?: boolean
+    isDeleted?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     company?: boolean | CompanyDefaultArgs<ExtArgs>
@@ -7447,6 +7457,7 @@ export namespace Prisma {
     companyId?: boolean
     isPublished?: boolean
     isTestActive?: boolean
+    isDeleted?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     company?: boolean | CompanyDefaultArgs<ExtArgs>
@@ -7468,11 +7479,12 @@ export namespace Prisma {
     companyId?: boolean
     isPublished?: boolean
     isTestActive?: boolean
+    isDeleted?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type JobOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "province" | "city" | "category" | "employmentStatus" | "worksite" | "tags" | "salaryMin" | "salaryMax" | "deadline" | "companyId" | "isPublished" | "isTestActive" | "createdAt" | "updatedAt", ExtArgs["result"]["job"]>
+  export type JobOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "province" | "city" | "category" | "employmentStatus" | "worksite" | "tags" | "salaryMin" | "salaryMax" | "deadline" | "companyId" | "isPublished" | "isTestActive" | "isDeleted" | "createdAt" | "updatedAt", ExtArgs["result"]["job"]>
   export type JobInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     company?: boolean | CompanyDefaultArgs<ExtArgs>
     Application?: boolean | Job$ApplicationArgs<ExtArgs>
@@ -7511,6 +7523,7 @@ export namespace Prisma {
       companyId: string
       isPublished: boolean
       isTestActive: boolean
+      isDeleted: boolean
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["job"]>
@@ -7955,6 +7968,7 @@ export namespace Prisma {
     readonly companyId: FieldRef<"Job", 'String'>
     readonly isPublished: FieldRef<"Job", 'Boolean'>
     readonly isTestActive: FieldRef<"Job", 'Boolean'>
+    readonly isDeleted: FieldRef<"Job", 'Boolean'>
     readonly createdAt: FieldRef<"Job", 'DateTime'>
     readonly updatedAt: FieldRef<"Job", 'DateTime'>
   }
@@ -28692,6 +28706,7 @@ export namespace Prisma {
     companyId: 'companyId',
     isPublished: 'isPublished',
     isTestActive: 'isTestActive',
+    isDeleted: 'isDeleted',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -29529,6 +29544,7 @@ export namespace Prisma {
     companyId?: StringFilter<"Job"> | string
     isPublished?: BoolFilter<"Job"> | boolean
     isTestActive?: BoolFilter<"Job"> | boolean
+    isDeleted?: BoolFilter<"Job"> | boolean
     createdAt?: DateTimeFilter<"Job"> | Date | string
     updatedAt?: DateTimeFilter<"Job"> | Date | string
     company?: XOR<CompanyScalarRelationFilter, CompanyWhereInput>
@@ -29553,6 +29569,7 @@ export namespace Prisma {
     companyId?: SortOrder
     isPublished?: SortOrder
     isTestActive?: SortOrder
+    isDeleted?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     company?: CompanyOrderByWithRelationInput
@@ -29580,6 +29597,7 @@ export namespace Prisma {
     companyId?: StringFilter<"Job"> | string
     isPublished?: BoolFilter<"Job"> | boolean
     isTestActive?: BoolFilter<"Job"> | boolean
+    isDeleted?: BoolFilter<"Job"> | boolean
     createdAt?: DateTimeFilter<"Job"> | Date | string
     updatedAt?: DateTimeFilter<"Job"> | Date | string
     company?: XOR<CompanyScalarRelationFilter, CompanyWhereInput>
@@ -29604,6 +29622,7 @@ export namespace Prisma {
     companyId?: SortOrder
     isPublished?: SortOrder
     isTestActive?: SortOrder
+    isDeleted?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: JobCountOrderByAggregateInput
@@ -29632,6 +29651,7 @@ export namespace Prisma {
     companyId?: StringWithAggregatesFilter<"Job"> | string
     isPublished?: BoolWithAggregatesFilter<"Job"> | boolean
     isTestActive?: BoolWithAggregatesFilter<"Job"> | boolean
+    isDeleted?: BoolWithAggregatesFilter<"Job"> | boolean
     createdAt?: DateTimeWithAggregatesFilter<"Job"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Job"> | Date | string
   }
@@ -31371,6 +31391,7 @@ export namespace Prisma {
     deadline: string
     isPublished?: boolean
     isTestActive?: boolean
+    isDeleted?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     company: CompanyCreateNestedOneWithoutJobsInput
@@ -31395,6 +31416,7 @@ export namespace Prisma {
     companyId: string
     isPublished?: boolean
     isTestActive?: boolean
+    isDeleted?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     Application?: ApplicationUncheckedCreateNestedManyWithoutJobInput
@@ -31417,6 +31439,7 @@ export namespace Prisma {
     deadline?: StringFieldUpdateOperationsInput | string
     isPublished?: BoolFieldUpdateOperationsInput | boolean
     isTestActive?: BoolFieldUpdateOperationsInput | boolean
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     company?: CompanyUpdateOneRequiredWithoutJobsNestedInput
@@ -31441,6 +31464,7 @@ export namespace Prisma {
     companyId?: StringFieldUpdateOperationsInput | string
     isPublished?: BoolFieldUpdateOperationsInput | boolean
     isTestActive?: BoolFieldUpdateOperationsInput | boolean
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     Application?: ApplicationUncheckedUpdateManyWithoutJobNestedInput
@@ -31464,6 +31488,7 @@ export namespace Prisma {
     companyId: string
     isPublished?: boolean
     isTestActive?: boolean
+    isDeleted?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -31483,6 +31508,7 @@ export namespace Prisma {
     deadline?: StringFieldUpdateOperationsInput | string
     isPublished?: BoolFieldUpdateOperationsInput | boolean
     isTestActive?: BoolFieldUpdateOperationsInput | boolean
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -31503,6 +31529,7 @@ export namespace Prisma {
     companyId?: StringFieldUpdateOperationsInput | string
     isPublished?: BoolFieldUpdateOperationsInput | boolean
     isTestActive?: BoolFieldUpdateOperationsInput | boolean
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -33350,6 +33377,7 @@ export namespace Prisma {
     companyId?: SortOrder
     isPublished?: SortOrder
     isTestActive?: SortOrder
+    isDeleted?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -33374,6 +33402,7 @@ export namespace Prisma {
     companyId?: SortOrder
     isPublished?: SortOrder
     isTestActive?: SortOrder
+    isDeleted?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -33393,6 +33422,7 @@ export namespace Prisma {
     companyId?: SortOrder
     isPublished?: SortOrder
     isTestActive?: SortOrder
+    isDeleted?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -36716,6 +36746,7 @@ export namespace Prisma {
     deadline: string
     isPublished?: boolean
     isTestActive?: boolean
+    isDeleted?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     Application?: ApplicationCreateNestedManyWithoutJobInput
@@ -36738,6 +36769,7 @@ export namespace Prisma {
     deadline: string
     isPublished?: boolean
     isTestActive?: boolean
+    isDeleted?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     Application?: ApplicationUncheckedCreateNestedManyWithoutJobInput
@@ -36857,6 +36889,7 @@ export namespace Prisma {
     companyId?: StringFilter<"Job"> | string
     isPublished?: BoolFilter<"Job"> | boolean
     isTestActive?: BoolFilter<"Job"> | boolean
+    isDeleted?: BoolFilter<"Job"> | boolean
     createdAt?: DateTimeFilter<"Job"> | Date | string
     updatedAt?: DateTimeFilter<"Job"> | Date | string
   }
@@ -37388,6 +37421,7 @@ export namespace Prisma {
     deadline: string
     isPublished?: boolean
     isTestActive?: boolean
+    isDeleted?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     company: CompanyCreateNestedOneWithoutJobsInput
@@ -37411,6 +37445,7 @@ export namespace Prisma {
     companyId: string
     isPublished?: boolean
     isTestActive?: boolean
+    isDeleted?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     test?: TestUncheckedCreateNestedOneWithoutJobInput
@@ -37545,6 +37580,7 @@ export namespace Prisma {
     deadline?: StringFieldUpdateOperationsInput | string
     isPublished?: BoolFieldUpdateOperationsInput | boolean
     isTestActive?: BoolFieldUpdateOperationsInput | boolean
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     company?: CompanyUpdateOneRequiredWithoutJobsNestedInput
@@ -37568,6 +37604,7 @@ export namespace Prisma {
     companyId?: StringFieldUpdateOperationsInput | string
     isPublished?: BoolFieldUpdateOperationsInput | boolean
     isTestActive?: BoolFieldUpdateOperationsInput | boolean
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     test?: TestUncheckedUpdateOneWithoutJobNestedInput
@@ -37872,6 +37909,7 @@ export namespace Prisma {
     deadline: string
     isPublished?: boolean
     isTestActive?: boolean
+    isDeleted?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     company: CompanyCreateNestedOneWithoutJobsInput
@@ -37895,6 +37933,7 @@ export namespace Prisma {
     companyId: string
     isPublished?: boolean
     isTestActive?: boolean
+    isDeleted?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     Application?: ApplicationUncheckedCreateNestedManyWithoutJobInput
@@ -37932,6 +37971,7 @@ export namespace Prisma {
     deadline?: StringFieldUpdateOperationsInput | string
     isPublished?: BoolFieldUpdateOperationsInput | boolean
     isTestActive?: BoolFieldUpdateOperationsInput | boolean
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     company?: CompanyUpdateOneRequiredWithoutJobsNestedInput
@@ -37955,6 +37995,7 @@ export namespace Prisma {
     companyId?: StringFieldUpdateOperationsInput | string
     isPublished?: BoolFieldUpdateOperationsInput | boolean
     isTestActive?: BoolFieldUpdateOperationsInput | boolean
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     Application?: ApplicationUncheckedUpdateManyWithoutJobNestedInput
@@ -38043,6 +38084,7 @@ export namespace Prisma {
     deadline: string
     isPublished?: boolean
     isTestActive?: boolean
+    isDeleted?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     company: CompanyCreateNestedOneWithoutJobsInput
@@ -38066,6 +38108,7 @@ export namespace Prisma {
     companyId: string
     isPublished?: boolean
     isTestActive?: boolean
+    isDeleted?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     Application?: ApplicationUncheckedCreateNestedManyWithoutJobInput
@@ -38176,6 +38219,7 @@ export namespace Prisma {
     deadline?: StringFieldUpdateOperationsInput | string
     isPublished?: BoolFieldUpdateOperationsInput | boolean
     isTestActive?: BoolFieldUpdateOperationsInput | boolean
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     company?: CompanyUpdateOneRequiredWithoutJobsNestedInput
@@ -38199,6 +38243,7 @@ export namespace Prisma {
     companyId?: StringFieldUpdateOperationsInput | string
     isPublished?: BoolFieldUpdateOperationsInput | boolean
     isTestActive?: BoolFieldUpdateOperationsInput | boolean
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     Application?: ApplicationUncheckedUpdateManyWithoutJobNestedInput
@@ -40201,6 +40246,7 @@ export namespace Prisma {
     deadline: string
     isPublished?: boolean
     isTestActive?: boolean
+    isDeleted?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -40238,6 +40284,7 @@ export namespace Prisma {
     deadline?: StringFieldUpdateOperationsInput | string
     isPublished?: BoolFieldUpdateOperationsInput | boolean
     isTestActive?: BoolFieldUpdateOperationsInput | boolean
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     Application?: ApplicationUpdateManyWithoutJobNestedInput
@@ -40260,6 +40307,7 @@ export namespace Prisma {
     deadline?: StringFieldUpdateOperationsInput | string
     isPublished?: BoolFieldUpdateOperationsInput | boolean
     isTestActive?: BoolFieldUpdateOperationsInput | boolean
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     Application?: ApplicationUncheckedUpdateManyWithoutJobNestedInput
@@ -40282,6 +40330,7 @@ export namespace Prisma {
     deadline?: StringFieldUpdateOperationsInput | string
     isPublished?: BoolFieldUpdateOperationsInput | boolean
     isTestActive?: BoolFieldUpdateOperationsInput | boolean
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }

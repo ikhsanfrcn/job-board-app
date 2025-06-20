@@ -3,6 +3,7 @@ import { cloudinaryUpload } from "../helpers/cloudinary";
 import { createApplication } from "../services/application/createApplication";
 import { getUserApplications } from "../services/application/getApplication";
 import prisma from "../prisma";
+import { sendApplicationStatusEmail } from "../utils/mailer";
 
 export class ApplicationController {
   async createApplication(req: Request, res: Response) {
@@ -100,22 +101,75 @@ export class ApplicationController {
     try {
       const { id } = req.params;
       const companyId = req.company?.id;
-      const { status } = req.body;
-      const application = await prisma.application.update({
-        where: {
-          id,
+      const { status, reason } = req.body;
+
+      const existingApplication = await prisma.application.findUnique({
+        where: { id },
+        include: {
           job: {
-            companyId,
+            include: {
+              company: true,
+            },
           },
         },
-        data: { status },
       });
-      res
-        .status(200)
-        .send({ message: "Status updated successfully", application });
+
+      if (!existingApplication) {
+        res.status(404).json({ message: "Application not found" });
+        return;
+      }
+
+      if (existingApplication.job.company.id !== companyId) {
+        res.status(403).json({ message: "Unauthorized" });
+        return;
+      }
+
+      if (status === "REJECTED" && !reason) {
+        res.status(400).json({ message: "Reason is required for rejection" });
+        return;
+      }
+
+      const updatedApplication = await prisma.application.update({
+        where: { id },
+        data: { status },
+        include: {
+          user: true,
+          job: {
+            include: { company: true },
+          },
+        },
+      });
+
+      if (["OFFERED", "ACCEPTED", "REJECTED"].includes(status)) {
+        const email = updatedApplication.user.email;
+        const subject = `Your application has been ${status.toLowerCase()}`;
+        const templateName = status.toLowerCase();
+
+        const templateData: Record<string, string> = {
+          name: updatedApplication.user.username,
+          jobTitle: updatedApplication.job.title,
+          companyName: updatedApplication.job.company.name,
+        };
+
+        if (status === "REJECTED") {
+          templateData.reason = reason || "No reason provided";
+        }
+
+        await sendApplicationStatusEmail({
+          email,
+          subject,
+          templateName,
+          templateData,
+        });
+      }
+
+      res.status(200).json({
+        message: "Status updated successfully",
+        application: updatedApplication,
+      });
     } catch (err) {
       console.error(err);
-      res.status(404).send(err);
+      res.status(500).json({ message: "An error occurred", error: err });
     }
   }
 }
