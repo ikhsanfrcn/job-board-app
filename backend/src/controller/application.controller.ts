@@ -101,27 +101,34 @@ export class ApplicationController {
     try {
       const { id } = req.params;
       const companyId = req.company?.id;
-      const { status } = req.body;
+      const { status, reason } = req.body;
 
-      // Step 1: Validasi bahwa aplikasi ditemukan dan job-nya milik company
       const existingApplication = await prisma.application.findUnique({
         where: { id },
         include: {
-          job: true,
+          job: {
+            include: {
+              company: true,
+            },
+          },
         },
       });
 
-      if (
-        !existingApplication ||
-        existingApplication.job.companyId !== companyId
-      ) {
-        res.status(403).json({
-          message: "You are not authorized to update this application.",
-        });
+      if (!existingApplication) {
+        res.status(404).json({ message: "Application not found" });
         return;
       }
 
-      // Step 2: Lakukan update setelah validasi
+      if (existingApplication.job.company.id !== companyId) {
+        res.status(403).json({ message: "Unauthorized" });
+        return;
+      }
+
+      if (status === "REJECTED" && !reason) {
+        res.status(400).json({ message: "Reason is required for rejection" });
+        return;
+      }
+
       const updatedApplication = await prisma.application.update({
         where: { id },
         data: { status },
@@ -133,16 +140,20 @@ export class ApplicationController {
         },
       });
 
-      // Step 3: Kirim email jika status termasuk OFFERED, ACCEPTED, REJECTED
       if (["OFFERED", "ACCEPTED", "REJECTED"].includes(status)) {
         const email = updatedApplication.user.email;
         const subject = `Your application has been ${status.toLowerCase()}`;
         const templateName = status.toLowerCase();
-        const templateData = {
+
+        const templateData: Record<string, string> = {
           name: updatedApplication.user.username,
           jobTitle: updatedApplication.job.title,
           companyName: updatedApplication.job.company.name,
         };
+
+        if (status === "REJECTED") {
+          templateData.reason = reason || "No reason provided";
+        }
 
         await sendApplicationStatusEmail({
           email,

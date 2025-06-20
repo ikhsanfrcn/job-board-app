@@ -1,40 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Offer Accepted</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background-color: #f4f4f4;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f4f6f9;
       margin: 0;
       padding: 0;
     }
     .email-container {
-      width: 100%;
       max-width: 600px;
-      margin: 0 auto;
+      margin: 40px auto;
       background-color: #ffffff;
-      padding: 20px;
-      border-radius: 8px;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
     }
     .email-header {
       text-align: center;
-      padding-bottom: 20px;
+      margin-bottom: 20px;
     }
     .email-header h1 {
-      color: #333;
+      font-size: 24px;
+      color: #2c3e50;
+      margin: 0;
     }
     .email-body {
       font-size: 16px;
-      line-height: 1.5;
-      color: #555;
+      line-height: 1.7;
+      color: #34495e;
+    }
+    .email-body p {
+      margin-bottom: 16px;
     }
     .footer {
       text-align: center;
-      font-size: 14px;
-      color: #888;
+      font-size: 13px;
+      color: #95a5a6;
       margin-top: 30px;
     }
   </style>
@@ -42,12 +47,14 @@
 <body>
   <div class="email-container">
     <div class="email-header">
-      <h1>Offer Accepted 🎉</h1>
+      <h1>Offer Accepted Confirmation</h1>
     </div>
     <div class="email-body">
-      <p>Hello <strong>{{name}}</strong>,</p>
-      <p>We're thrilled to confirm that you have <strong>accepted</strong> the position of <strong>{{jobTitle}}</strong> at <strong>{{companyName}}</strong>.</p>
-      <p>We look forward to having you onboard!</p>
+      <p>Dear <strong>{{name}}</strong>,</p>
+      <p>We’re delighted to confirm that you have <strong>officially accepted</strong> the position of <strong>{{jobTitle}}</strong> at <strong>{{companyName}}</strong>.</p>
+      <p>Our team is excited to welcome you aboard and will be in touch soon with further details about onboarding, required documents, and your start date.</p>
+      <p>If you have any questions in the meantime, feel free to reach out to our HR team.</p>
+      <p>Welcome to the team — we look forward to a successful journey together!</p>
     </div>
     <div class="footer">
       <p>&copy; 2025 {{companyName}}. All rights reserved.</p>
