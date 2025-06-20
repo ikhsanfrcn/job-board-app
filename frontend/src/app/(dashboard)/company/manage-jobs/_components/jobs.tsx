@@ -34,7 +34,6 @@ export default function Jobs() {
 
   const searchParams = useSearchParams();
 
-  // State page lokal (diperbarui saat URL page berubah)
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
 

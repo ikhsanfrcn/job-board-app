@@ -3,7 +3,6 @@
 import { useRouter, useSearchParams } from "next/navigation";
 import React, { useState, useEffect } from "react";
 import { FaSearch, FaRedo } from "react-icons/fa";
-import { MdSort } from "react-icons/md";
 
 export default function JobFilters() {
   const searchParams = useSearchParams();
