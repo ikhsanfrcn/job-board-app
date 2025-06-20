@@ -36,6 +36,10 @@ export interface GetCompanyJobsParams {
   companyId: string;
   page?: number;
   size?: number;
+  title?: string;
+  category?: string;
+  sortBy?: "createdAt" | "title" | "category";
+  sortOrder?: "asc" | "desc";
 }
 
 export interface GetJobsParams {
@@ -81,7 +85,7 @@ export interface UserParams {
   username?: string;
   firstName?: string;
   lastName?: string;
-  gender?: Gender; 
+  gender?: Gender;
   dob?: string;
   education?: string;
   country?: string;

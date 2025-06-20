@@ -88,6 +88,7 @@ model Job {
   id               String          @id @default(uuid())
   title            String
   description      String
+  province         String?
   city             String
   category         String?
   employmentStatus EmploymentType?

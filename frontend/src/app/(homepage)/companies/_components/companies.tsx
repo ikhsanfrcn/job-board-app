@@ -32,7 +32,7 @@ export default function Companies() {
           ...(cityQuery && { city: cityQuery }),
           ...(sortQuery && { sort: sortQuery }),
           page: pageQuery,
-          limit: 6, 
+          limit: 6,
         },
       });
       setCompanies(data.data);

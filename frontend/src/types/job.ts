@@ -5,6 +5,8 @@ export interface IJob {
   province: string;
   city: string;
   category: string;
+  employmentStatus: string;
+  worksite: string;
   tags: string[];
   salaryMin?: number;
   salaryMax?: number;
@@ -19,14 +21,17 @@ export interface IJob {
 }
 
 export interface IMJob {
-  id: string;
+  id?: string;
   title: string;
   description: string;
+  employmentStatus: string;
+  worksite: string;
+  province: string;
   city: string;
   category: string;
   tags: string[];
   salaryMin?: number | null;
-  salaryMax?: number| null;
+  salaryMax?: number | null;
   deadline: string;
   isPublished: boolean;
   isTestActive: boolean;
