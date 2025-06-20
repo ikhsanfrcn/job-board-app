@@ -28,5 +28,7 @@ export function normalizeCompanyProfile(
     updatedAt: profile.updatedAt ?? new Date(),
     averageRating: profile.averageRating ?? 0,
     Review: profile.Review ?? [],
+    totalJobs: profile.totalJobs ?? 0,
+    totalApplicants: profile.totalApplicants ?? 0,
   };
 }

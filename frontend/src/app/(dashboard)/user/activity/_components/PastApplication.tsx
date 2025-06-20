@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
 import axios from "@/lib/axios";
 import { Application } from "@/types/applicationType";
+import CvPreviewModal from "./cvPreviewModal";
 
 export default function PastApplications() {
   const { data: session } = useSession();
@@ -12,6 +13,7 @@ export default function PastApplications() {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [loading, setLoading] = useState(false);
+  const [selectedCvUrl, setSelectedCvUrl] = useState<string | null>(null);
 
   const fetchApplications = async (page = 1) => {
     if (!session?.user) return;
@@ -51,10 +53,16 @@ export default function PastApplications() {
     }
   };
 
+  const handleViewDetail = (cvUrl: string) => {
+    setSelectedCvUrl(cvUrl);
+  };
+
+  const handleCloseModal = () => {
+    setSelectedCvUrl(null);
+  };
+
   return (
     <div className="p-6">
-      <h1 className="text-2xl font-semibold mb-6">Applications</h1>
-
       {loading ? (
         <p>Loading...</p>
       ) : applications.length === 0 ? (
@@ -68,25 +76,25 @@ export default function PastApplications() {
             >
               <div className="flex justify-between items-center mb-2">
                 <h2 className="text-lg font-semibold">{app.job.title}</h2>
-                <span className="text-sm bg-blue-100 text-blue-700 px-2 py-1 rounded-full">
+                <span className="text-sm bg-green-100 text-blue-700 px-2 py-1 rounded-full">
                   {app.status}
                 </span>
               </div>
               <p className="text-sm text-gray-600">{app.job.city}</p>
               <p className="text-sm">
-                Salary: {app.job.salaryMin || "Not mentioned"} {app.job.salaryMax || "-"} | Expected: {app.expectedSalary || "-"}
+                Salary: {app.job.salaryMin || "Not mentioned"}{" "}
+                {app.job.salaryMax || "-"} | Expected:{" "}
+                {app.expectedSalary || "-"}
               </p>
               <p className="text-sm text-gray-400">
                 Application Date: {app.createdAt.split("T")[0]}
               </p>
-              <a
-                href={app.cvUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-sm text-blue-600 hover:underline"
+              <button
+                onClick={() => handleViewDetail(app.cvUrl)}
+                className="text-sm text-green-600 hover:underline mt-2 cursor-pointer"
               >
                 View CV
-              </a>
+              </button>
             </div>
           ))}
         </div>
@@ -111,6 +119,10 @@ export default function PastApplications() {
           Next
         </button>
       </div>
+
+      {selectedCvUrl && (
+        <CvPreviewModal url={selectedCvUrl} onClose={handleCloseModal} />
+      )}
     </div>
   );
 }

@@ -631,7 +631,7 @@ export namespace Prisma {
   export import Exact = $Public.Exact
 
   /**
-   * Prisma Client JS version: 6.8.1
+   * Prisma Client JS version: 6.8.2
    * Query Engine version: 2060c79ba17c6bb9f5823312b6f6b7f4a845738e
    */
   export type PrismaVersion = {
@@ -7135,6 +7135,7 @@ export namespace Prisma {
     id: string | null
     title: string | null
     description: string | null
+    province: string | null
     city: string | null
     category: string | null
     employmentStatus: $Enums.EmploymentType | null
@@ -7153,6 +7154,7 @@ export namespace Prisma {
     id: string | null
     title: string | null
     description: string | null
+    province: string | null
     city: string | null
     category: string | null
     employmentStatus: $Enums.EmploymentType | null
@@ -7171,6 +7173,7 @@ export namespace Prisma {
     id: number
     title: number
     description: number
+    province: number
     city: number
     category: number
     employmentStatus: number
@@ -7202,6 +7205,7 @@ export namespace Prisma {
     id?: true
     title?: true
     description?: true
+    province?: true
     city?: true
     category?: true
     employmentStatus?: true
@@ -7220,6 +7224,7 @@ export namespace Prisma {
     id?: true
     title?: true
     description?: true
+    province?: true
     city?: true
     category?: true
     employmentStatus?: true
@@ -7238,6 +7243,7 @@ export namespace Prisma {
     id?: true
     title?: true
     description?: true
+    province?: true
     city?: true
     category?: true
     employmentStatus?: true
@@ -7344,6 +7350,7 @@ export namespace Prisma {
     id: string
     title: string
     description: string
+    province: string | null
     city: string
     category: string | null
     employmentStatus: $Enums.EmploymentType | null
@@ -7382,6 +7389,7 @@ export namespace Prisma {
     id?: boolean
     title?: boolean
     description?: boolean
+    province?: boolean
     city?: boolean
     category?: boolean
     employmentStatus?: boolean
@@ -7406,6 +7414,7 @@ export namespace Prisma {
     id?: boolean
     title?: boolean
     description?: boolean
+    province?: boolean
     city?: boolean
     category?: boolean
     employmentStatus?: boolean
@@ -7426,6 +7435,7 @@ export namespace Prisma {
     id?: boolean
     title?: boolean
     description?: boolean
+    province?: boolean
     city?: boolean
     category?: boolean
     employmentStatus?: boolean
@@ -7446,6 +7456,7 @@ export namespace Prisma {
     id?: boolean
     title?: boolean
     description?: boolean
+    province?: boolean
     city?: boolean
     category?: boolean
     employmentStatus?: boolean
@@ -7461,7 +7472,7 @@ export namespace Prisma {
     updatedAt?: boolean
   }
 
-  export type JobOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "city" | "category" | "employmentStatus" | "worksite" | "tags" | "salaryMin" | "salaryMax" | "deadline" | "companyId" | "isPublished" | "isTestActive" | "createdAt" | "updatedAt", ExtArgs["result"]["job"]>
+  export type JobOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "province" | "city" | "category" | "employmentStatus" | "worksite" | "tags" | "salaryMin" | "salaryMax" | "deadline" | "companyId" | "isPublished" | "isTestActive" | "createdAt" | "updatedAt", ExtArgs["result"]["job"]>
   export type JobInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     company?: boolean | CompanyDefaultArgs<ExtArgs>
     Application?: boolean | Job$ApplicationArgs<ExtArgs>
@@ -7488,6 +7499,7 @@ export namespace Prisma {
       id: string
       title: string
       description: string
+      province: string | null
       city: string
       category: string | null
       employmentStatus: $Enums.EmploymentType | null
@@ -7931,6 +7943,7 @@ export namespace Prisma {
     readonly id: FieldRef<"Job", 'String'>
     readonly title: FieldRef<"Job", 'String'>
     readonly description: FieldRef<"Job", 'String'>
+    readonly province: FieldRef<"Job", 'String'>
     readonly city: FieldRef<"Job", 'String'>
     readonly category: FieldRef<"Job", 'String'>
     readonly employmentStatus: FieldRef<"Job", 'EmploymentType'>
@@ -28654,6 +28667,7 @@ export namespace Prisma {
     id: 'id',
     title: 'title',
     description: 'description',
+    province: 'province',
     city: 'city',
     category: 'category',
     employmentStatus: 'employmentStatus',
@@ -29489,6 +29503,7 @@ export namespace Prisma {
     id?: StringFilter<"Job"> | string
     title?: StringFilter<"Job"> | string
     description?: StringFilter<"Job"> | string
+    province?: StringNullableFilter<"Job"> | string | null
     city?: StringFilter<"Job"> | string
     category?: StringNullableFilter<"Job"> | string | null
     employmentStatus?: EnumEmploymentTypeNullableFilter<"Job"> | $Enums.EmploymentType | null
@@ -29512,6 +29527,7 @@ export namespace Prisma {
     id?: SortOrder
     title?: SortOrder
     description?: SortOrder
+    province?: SortOrderInput | SortOrder
     city?: SortOrder
     category?: SortOrderInput | SortOrder
     employmentStatus?: SortOrderInput | SortOrder
@@ -29538,6 +29554,7 @@ export namespace Prisma {
     NOT?: JobWhereInput | JobWhereInput[]
     title?: StringFilter<"Job"> | string
     description?: StringFilter<"Job"> | string
+    province?: StringNullableFilter<"Job"> | string | null
     city?: StringFilter<"Job"> | string
     category?: StringNullableFilter<"Job"> | string | null
     employmentStatus?: EnumEmploymentTypeNullableFilter<"Job"> | $Enums.EmploymentType | null
@@ -29561,6 +29578,7 @@ export namespace Prisma {
     id?: SortOrder
     title?: SortOrder
     description?: SortOrder
+    province?: SortOrderInput | SortOrder
     city?: SortOrder
     category?: SortOrderInput | SortOrder
     employmentStatus?: SortOrderInput | SortOrder
@@ -29588,6 +29606,7 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"Job"> | string
     title?: StringWithAggregatesFilter<"Job"> | string
     description?: StringWithAggregatesFilter<"Job"> | string
+    province?: StringNullableWithAggregatesFilter<"Job"> | string | null
     city?: StringWithAggregatesFilter<"Job"> | string
     category?: StringNullableWithAggregatesFilter<"Job"> | string | null
     employmentStatus?: EnumEmploymentTypeNullableWithAggregatesFilter<"Job"> | $Enums.EmploymentType | null
@@ -31322,6 +31341,7 @@ export namespace Prisma {
     id?: string
     title: string
     description: string
+    province?: string | null
     city: string
     category?: string | null
     employmentStatus?: $Enums.EmploymentType | null
@@ -31344,6 +31364,7 @@ export namespace Prisma {
     id?: string
     title: string
     description: string
+    province?: string | null
     city: string
     category?: string | null
     employmentStatus?: $Enums.EmploymentType | null
@@ -31366,6 +31387,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
+    province?: NullableStringFieldUpdateOperationsInput | string | null
     city?: StringFieldUpdateOperationsInput | string
     category?: NullableStringFieldUpdateOperationsInput | string | null
     employmentStatus?: NullableEnumEmploymentTypeFieldUpdateOperationsInput | $Enums.EmploymentType | null
@@ -31388,6 +31410,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
+    province?: NullableStringFieldUpdateOperationsInput | string | null
     city?: StringFieldUpdateOperationsInput | string
     category?: NullableStringFieldUpdateOperationsInput | string | null
     employmentStatus?: NullableEnumEmploymentTypeFieldUpdateOperationsInput | $Enums.EmploymentType | null
@@ -31410,6 +31433,7 @@ export namespace Prisma {
     id?: string
     title: string
     description: string
+    province?: string | null
     city: string
     category?: string | null
     employmentStatus?: $Enums.EmploymentType | null
@@ -31429,6 +31453,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
+    province?: NullableStringFieldUpdateOperationsInput | string | null
     city?: StringFieldUpdateOperationsInput | string
     category?: NullableStringFieldUpdateOperationsInput | string | null
     employmentStatus?: NullableEnumEmploymentTypeFieldUpdateOperationsInput | $Enums.EmploymentType | null
@@ -31447,6 +31472,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
+    province?: NullableStringFieldUpdateOperationsInput | string | null
     city?: StringFieldUpdateOperationsInput | string
     category?: NullableStringFieldUpdateOperationsInput | string | null
     employmentStatus?: NullableEnumEmploymentTypeFieldUpdateOperationsInput | $Enums.EmploymentType | null
@@ -33286,6 +33312,7 @@ export namespace Prisma {
     id?: SortOrder
     title?: SortOrder
     description?: SortOrder
+    province?: SortOrder
     city?: SortOrder
     category?: SortOrder
     employmentStatus?: SortOrder
@@ -33310,6 +33337,7 @@ export namespace Prisma {
     id?: SortOrder
     title?: SortOrder
     description?: SortOrder
+    province?: SortOrder
     city?: SortOrder
     category?: SortOrder
     employmentStatus?: SortOrder
@@ -33328,6 +33356,7 @@ export namespace Prisma {
     id?: SortOrder
     title?: SortOrder
     description?: SortOrder
+    province?: SortOrder
     city?: SortOrder
     category?: SortOrder
     employmentStatus?: SortOrder
@@ -36644,6 +36673,7 @@ export namespace Prisma {
     id?: string
     title: string
     description: string
+    province?: string | null
     city: string
     category?: string | null
     employmentStatus?: $Enums.EmploymentType | null
@@ -36665,6 +36695,7 @@ export namespace Prisma {
     id?: string
     title: string
     description: string
+    province?: string | null
     city: string
     category?: string | null
     employmentStatus?: $Enums.EmploymentType | null
@@ -36782,6 +36813,7 @@ export namespace Prisma {
     id?: StringFilter<"Job"> | string
     title?: StringFilter<"Job"> | string
     description?: StringFilter<"Job"> | string
+    province?: StringNullableFilter<"Job"> | string | null
     city?: StringFilter<"Job"> | string
     category?: StringNullableFilter<"Job"> | string | null
     employmentStatus?: EnumEmploymentTypeNullableFilter<"Job"> | $Enums.EmploymentType | null
@@ -37313,6 +37345,7 @@ export namespace Prisma {
     id?: string
     title: string
     description: string
+    province?: string | null
     city: string
     category?: string | null
     employmentStatus?: $Enums.EmploymentType | null
@@ -37334,6 +37367,7 @@ export namespace Prisma {
     id?: string
     title: string
     description: string
+    province?: string | null
     city: string
     category?: string | null
     employmentStatus?: $Enums.EmploymentType | null
@@ -37468,6 +37502,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
+    province?: NullableStringFieldUpdateOperationsInput | string | null
     city?: StringFieldUpdateOperationsInput | string
     category?: NullableStringFieldUpdateOperationsInput | string | null
     employmentStatus?: NullableEnumEmploymentTypeFieldUpdateOperationsInput | $Enums.EmploymentType | null
@@ -37489,6 +37524,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
+    province?: NullableStringFieldUpdateOperationsInput | string | null
     city?: StringFieldUpdateOperationsInput | string
     category?: NullableStringFieldUpdateOperationsInput | string | null
     employmentStatus?: NullableEnumEmploymentTypeFieldUpdateOperationsInput | $Enums.EmploymentType | null
@@ -37793,6 +37829,7 @@ export namespace Prisma {
     id?: string
     title: string
     description: string
+    province?: string | null
     city: string
     category?: string | null
     employmentStatus?: $Enums.EmploymentType | null
@@ -37814,6 +37851,7 @@ export namespace Prisma {
     id?: string
     title: string
     description: string
+    province?: string | null
     city: string
     category?: string | null
     employmentStatus?: $Enums.EmploymentType | null
@@ -37851,6 +37889,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
+    province?: NullableStringFieldUpdateOperationsInput | string | null
     city?: StringFieldUpdateOperationsInput | string
     category?: NullableStringFieldUpdateOperationsInput | string | null
     employmentStatus?: NullableEnumEmploymentTypeFieldUpdateOperationsInput | $Enums.EmploymentType | null
@@ -37872,6 +37911,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
+    province?: NullableStringFieldUpdateOperationsInput | string | null
     city?: StringFieldUpdateOperationsInput | string
     category?: NullableStringFieldUpdateOperationsInput | string | null
     employmentStatus?: NullableEnumEmploymentTypeFieldUpdateOperationsInput | $Enums.EmploymentType | null
@@ -37960,6 +38000,7 @@ export namespace Prisma {
     id?: string
     title: string
     description: string
+    province?: string | null
     city: string
     category?: string | null
     employmentStatus?: $Enums.EmploymentType | null
@@ -37981,6 +38022,7 @@ export namespace Prisma {
     id?: string
     title: string
     description: string
+    province?: string | null
     city: string
     category?: string | null
     employmentStatus?: $Enums.EmploymentType | null
@@ -38091,6 +38133,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
+    province?: NullableStringFieldUpdateOperationsInput | string | null
     city?: StringFieldUpdateOperationsInput | string
     category?: NullableStringFieldUpdateOperationsInput | string | null
     employmentStatus?: NullableEnumEmploymentTypeFieldUpdateOperationsInput | $Enums.EmploymentType | null
@@ -38112,6 +38155,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
+    province?: NullableStringFieldUpdateOperationsInput | string | null
     city?: StringFieldUpdateOperationsInput | string
     category?: NullableStringFieldUpdateOperationsInput | string | null
     employmentStatus?: NullableEnumEmploymentTypeFieldUpdateOperationsInput | $Enums.EmploymentType | null
@@ -40106,6 +40150,7 @@ export namespace Prisma {
     id?: string
     title: string
     description: string
+    province?: string | null
     city: string
     category?: string | null
     employmentStatus?: $Enums.EmploymentType | null
@@ -40142,6 +40187,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
+    province?: NullableStringFieldUpdateOperationsInput | string | null
     city?: StringFieldUpdateOperationsInput | string
     category?: NullableStringFieldUpdateOperationsInput | string | null
     employmentStatus?: NullableEnumEmploymentTypeFieldUpdateOperationsInput | $Enums.EmploymentType | null
@@ -40163,6 +40209,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
+    province?: NullableStringFieldUpdateOperationsInput | string | null
     city?: StringFieldUpdateOperationsInput | string
     category?: NullableStringFieldUpdateOperationsInput | string | null
     employmentStatus?: NullableEnumEmploymentTypeFieldUpdateOperationsInput | $Enums.EmploymentType | null
@@ -40184,6 +40231,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
+    province?: NullableStringFieldUpdateOperationsInput | string | null
     city?: StringFieldUpdateOperationsInput | string
     category?: NullableStringFieldUpdateOperationsInput | string | null
     employmentStatus?: NullableEnumEmploymentTypeFieldUpdateOperationsInput | $Enums.EmploymentType | null

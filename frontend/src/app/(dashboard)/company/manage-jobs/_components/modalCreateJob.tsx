@@ -5,6 +5,9 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { createJobSchema } from "@/schema/jobSchema";
 import { IMJob } from "@/types/job";
+import { employmentType } from "@/types/employmentType";
+import { worksiteType } from "@/types/worksiteType";
+import FormatCurrencyInput from "@/helper/formatCurencyInput";
 
 interface IProps {
   isOpen: boolean;
@@ -62,13 +65,15 @@ export default function ModalCreateJob({
       className="fixed inset-0 z-50 flex items-center justify-center p-4"
     >
       <div className="fixed inset-0 bg-black/50 backdrop-blur-sm" />
-      <div className="bg-white rounded-lg shadow-lg p-6 z-50 w-full max-w-md">
+      <div className="bg-white rounded-lg shadow-lg z-50 w-full max-w-md max-h-[90vh] overflow-y-auto p-6">
         <h3 className="text-lg font-medium mb-4">Create Job</h3>
         <Formik
           initialValues={{
             title: "",
             description: "",
             province: "",
+            employmentStatus: "",
+            worksite: "",
             city: "",
             category: "",
             tags: "",
@@ -80,9 +85,11 @@ export default function ModalCreateJob({
           validationSchema={createJobSchema}
           onSubmit={(values, { resetForm }) => {
             const newJob: IMJob = {
-              id: crypto.randomUUID(),
               title: values.title,
               description: values.description,
+              employmentStatus: values.employmentStatus,
+              worksite: values.worksite,
+              province: values.province,
               city: values.city,
               category: values.category,
               tags: values.tags
@@ -135,12 +142,54 @@ export default function ModalCreateJob({
               <div>
                 <Field
                   as="select"
+                  name="employmentStatus"
+                  className="w-full border px-3 py-2 rounded"
+                >
+                  <option value="">Select Employment Type</option>
+                  {employmentType.map((type) => (
+                    <option key={type} value={type}>
+                      {type.charAt(0).toUpperCase() +
+                        type.slice(1).toLowerCase()}
+                    </option>
+                  ))}
+                </Field>
+                <ErrorMessage
+                  name="employmentStatus"
+                  component="div"
+                  className="text-red-500 text-sm"
+                />
+              </div>
+
+              <div>
+                <Field
+                  as="select"
+                  name="worksite"
+                  className="w-full border px-3 py-2 rounded"
+                >
+                  <option value="">Select Worksite Type</option>
+                  {worksiteType.map((type) => (
+                    <option key={type} value={type}>
+                      {type.charAt(0).toUpperCase() +
+                        type.slice(1).toLowerCase()}
+                    </option>
+                  ))}
+                </Field>
+                <ErrorMessage
+                  name="worksite"
+                  component="div"
+                  className="text-red-500 text-sm"
+                />
+              </div>
+
+              <div>
+                <Field
+                  as="select"
                   name="province"
                   className="w-full border px-3 py-2 rounded"
                   onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
                     const selectedId = e.target.value;
                     const selectedName =
-                      provinces.find((p) => p.id === selectedId)?.name || "";
+                      provinces.find((p) => p.id === selectedId)?.id || "";
                     setFieldValue("province", selectedName);
                     setFieldValue("city", "");
                     setSelectedProvinceId(selectedId);
@@ -211,9 +260,8 @@ export default function ModalCreateJob({
               </div>
 
               <div>
-                <Field
+                <FormatCurrencyInput
                   name="salaryMin"
-                  type="number"
                   className="w-full border px-3 py-2 rounded"
                   placeholder="Salary Start"
                 />
@@ -225,9 +273,8 @@ export default function ModalCreateJob({
               </div>
 
               <div>
-                <Field
+                <FormatCurrencyInput
                   name="salaryMax"
-                  type="number"
                   className="w-full border px-3 py-2 rounded"
                   placeholder="Salary End"
                 />
@@ -239,6 +286,9 @@ export default function ModalCreateJob({
               </div>
 
               <div>
+                <label className="text-xs font-medium capitalize mb-1">
+                  Deadline:
+                </label>
                 <Field
                   name="deadline"
                   type="date"

@@ -7,6 +7,9 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { createJobSchema } from "@/schema/jobSchema";
+import { employmentType } from "@/types/employmentType";
+import { worksiteType } from "@/types/worksiteType";
+import FormatCurrencyInput from "@/helper/formatCurencyInput";
 
 interface IProps {
   editJob: IMJob | null;
@@ -66,20 +69,22 @@ export default function ModalEditJob({
       className="fixed inset-0 z-50 flex items-center justify-center p-4"
     >
       <div className="fixed inset-0 bg-black/50 backdrop-blur-sm" />
-      <div className="bg-white rounded-lg shadow-lg p-6 z-50 w-full max-w-md">
+      <div className="bg-white rounded-lg shadow-lg z-50 w-full max-w-md max-h-[90vh] overflow-y-auto p-6">
         <h3 className="text-lg font-medium mb-4">Edit Job</h3>
         <Formik
           initialValues={{
             title: editJob.title,
             description: editJob.description,
-            province: "", // optional
+            province: editJob.province,
             city: editJob.city,
             category: editJob.category,
             tags: editJob.tags.join(", "),
-            salaryMin: editJob.salaryMin,
-            salaryMax: editJob.salaryMax,
+            salaryMin: editJob.salaryMin ?? "",
+            salaryMax: editJob.salaryMax ?? "",
             deadline: editJob.deadline,
             isPublished: editJob.isPublished,
+            employmentStatus: editJob.employmentStatus ?? "",
+            worksite: editJob.worksite ?? "",
           }}
           validationSchema={createJobSchema}
           onSubmit={(values) => {
@@ -87,14 +92,17 @@ export default function ModalEditJob({
               ...editJob,
               title: values.title,
               description: values.description,
+              province: values.province,
               city: values.city,
               category: values.category,
+              employmentStatus: values.employmentStatus,
+              worksite: values.worksite,
               tags: values.tags
                 .split(",")
                 .map((tag) => tag.trim())
                 .filter(Boolean),
-              salaryMin: values.salaryMin,
-              salaryMax: values.salaryMax,
+              salaryMin: Number(values.salaryMin),
+              salaryMax: Number(values.salaryMax),
               deadline: values.deadline,
               isPublished: values.isPublished,
             };
@@ -127,6 +135,48 @@ export default function ModalEditJob({
                 />
                 <ErrorMessage
                   name="description"
+                  component="div"
+                  className="text-red-500 text-sm"
+                />
+              </div>
+
+              <div>
+                <Field
+                  as="select"
+                  name="employmentStatus"
+                  className="w-full border px-3 py-2 rounded"
+                >
+                  <option value="">Select Employment Type</option>
+                  {employmentType.map((type) => (
+                    <option key={type} value={type}>
+                      {type.charAt(0).toUpperCase() +
+                        type.slice(1).toLowerCase()}
+                    </option>
+                  ))}
+                </Field>
+                <ErrorMessage
+                  name="employmentStatus"
+                  component="div"
+                  className="text-red-500 text-sm"
+                />
+              </div>
+
+              <div>
+                <Field
+                  as="select"
+                  name="worksite"
+                  className="w-full border px-3 py-2 rounded"
+                >
+                  <option value="">Select Worksite Type</option>
+                  {worksiteType.map((type) => (
+                    <option key={type} value={type}>
+                      {type.charAt(0).toUpperCase() +
+                        type.slice(1).toLowerCase()}
+                    </option>
+                  ))}
+                </Field>
+                <ErrorMessage
+                  name="worksite"
                   component="div"
                   className="text-red-500 text-sm"
                 />
@@ -212,9 +262,8 @@ export default function ModalEditJob({
               </div>
 
               <div>
-                <Field
+                <FormatCurrencyInput
                   name="salaryMin"
-                  type="number"
                   className="w-full border px-3 py-2 rounded"
                   placeholder="Salary Start"
                 />
@@ -226,9 +275,8 @@ export default function ModalEditJob({
               </div>
 
               <div>
-                <Field
+                <FormatCurrencyInput
                   name="salaryMax"
-                  type="number"
                   className="w-full border px-3 py-2 rounded"
                   placeholder="Salary End"
                 />
@@ -240,6 +288,7 @@ export default function ModalEditJob({
               </div>
 
               <div>
+                <label className="text-sm font-medium">Deadline:</label>
                 <Field
                   name="deadline"
                   type="date"

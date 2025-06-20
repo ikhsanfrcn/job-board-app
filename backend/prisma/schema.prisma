@@ -1,6 +1,6 @@
 generator client {
-  provider = "prisma-client-js"
-  output   = "./generated/prisma"
+  provider      = "prisma-client-js"
+  output        = "./generated/prisma"
   binaryTargets = ["native", "windows", "rhel-openssl-3.0.x"]
 }
 
@@ -88,6 +88,7 @@ model Job {
   id               String          @id @default(uuid())
   title            String
   description      String
+  province         String?
   city             String
   category         String?
   employmentStatus EmploymentType?

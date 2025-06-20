@@ -81,10 +81,21 @@ export class JobController {
       const companyId = req.company?.id;
       if (!companyId) throw { status: 401, message: "Unauthorized" };
 
-      const { page = "1", size = "10" } = req.query;
+      const {
+        title,
+        category,
+        sortBy = "createdAt",
+        sortOrder = "desc",
+        page = "1",
+        size = "6",
+      } = req.query;
 
       const result = await getCompanyJobs({
         companyId,
+        title: title as string,
+        category: category as string,
+        sortBy: sortBy as "createdAt" | "title" | "category",
+        sortOrder: sortOrder as "asc" | "desc",
         page: parseInt(page as string),
         size: parseInt(size as string),
       });
@@ -148,8 +159,8 @@ export class JobController {
 
       const job = await deleteJob(id, companyId);
       res.status(200).json(job);
-    } catch (error: any) {
-      res.status(error.status || 500).json({ message: error.message });
+    } catch (err) {
+      res.status(500).json(err);
     }
   }
 }
