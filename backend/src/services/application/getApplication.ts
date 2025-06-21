@@ -36,10 +36,26 @@ export async function getCompanyApplicationsService({
   jobId,
   companyId,
   status,
+  userFirstName,
+  usereducation,
+  expectedSalary,
+  sortBy,
+  sortOrder,
   page,
   limit,
-}: IGetCompanyParams) {
-  const filter: Prisma.ApplicationWhereInput = {};
+}: IGetCompanyParams & {
+  userFirstName?: string;
+  usereducation?: string;
+  expectedSalary?: number;
+  sortBy?: string;
+  sortOrder?: "asc" | "desc";
+}) {
+  const filter: Prisma.ApplicationWhereInput = {
+    jobId,
+    job: {
+      companyId,
+    },
+  };
 
   if (
     status &&
@@ -50,17 +66,33 @@ export async function getCompanyApplicationsService({
     throw new Error(`Invalid status value: ${status}`);
   }
 
+  if (expectedSalary) {
+    filter.expectedSalary = {
+      lte: expectedSalary,
+    };
+  }
+
+  if (userFirstName || usereducation) {
+    filter.user = {};
+    if (userFirstName) {
+      filter.user.firstName = {
+        contains: userFirstName,
+        mode: "insensitive",
+      };
+    }
+    if (usereducation) {
+      filter.user.education = {
+        contains: usereducation,
+        mode: "insensitive",
+      };
+    }
+  }
+
   const skip = (page - 1) * limit;
 
   const [applications, total] = await Promise.all([
     prisma.application.findMany({
-      where: {
-        ...filter,
-        jobId,
-        job: {
-          companyId,
-        },
-      },
+      where: filter,
       include: {
         user: {
           include: {
@@ -80,21 +112,16 @@ export async function getCompanyApplicationsService({
         },
       },
       orderBy: {
-        createdAt: "asc",
+        [sortBy ?? "createdAt"]: sortOrder ?? "asc",
       },
       skip,
       take: limit,
     }),
     prisma.application.count({
-      where: {
-        ...filter,
-        jobId,
-        job: {
-          companyId,
-        },
-      },
+      where: filter,
     }),
   ]);
 
   return { applications, total };
 }
+

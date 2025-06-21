@@ -57,7 +57,7 @@ export interface GetJobsParams {
 export interface CreateApplicationParams {
   userId: string;
   jobId: string;
-  expectedSalary: string;
+  expectedSalary: number;
   cvUrl: string;
 }
 
