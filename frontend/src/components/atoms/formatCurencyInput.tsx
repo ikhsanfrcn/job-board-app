@@ -2,7 +2,7 @@
 
 import React from "react";
 import { useFormikContext } from "formik";
-import { formatCurrency, parseCurrency } from "./formatCurrency";
+import { formatCurrency, parseCurrency } from "../../helper/formatCurrency";
 
 interface Props {
   name: string;

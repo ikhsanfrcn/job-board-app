@@ -4,7 +4,7 @@ export interface Application {
   id: string;
   status: string;
   cvUrl: string;
-  expectedSalary?: string;
+  expectedSalary?: number;
   createdAt: string;
   job: {
     title: string;

@@ -139,7 +139,7 @@ model Application {
   jobId          String
   status         ApplicationStatus @default(PENDING)
   cvUrl          String
-  expectedSalary String?
+  expectedSalary Int?
   createdAt      DateTime          @default(now())
   updatedAt      DateTime          @updatedAt
 

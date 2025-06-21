@@ -1,7 +1,10 @@
 import { Request, Response } from "express";
 import { cloudinaryUpload } from "../helpers/cloudinary";
 import { createApplication } from "../services/application/createApplication";
-import { getUserApplications } from "../services/application/getApplication";
+import {
+  getCompanyApplicationsService,
+  getUserApplications,
+} from "../services/application/getApplication";
 import prisma from "../prisma";
 import { sendApplicationStatusEmail } from "../utils/mailer";
 
@@ -10,19 +13,27 @@ export class ApplicationController {
     try {
       const userId = req.user?.id;
       if (!req.file) throw { status: 400, message: "Resume file is required" };
+
       const { jobId, expectedSalary } = req.body;
+
+      const parsedSalary = parseInt(expectedSalary, 10);
+      if (isNaN(parsedSalary)) {
+        throw { status: 400, message: "Expected salary must be a number" };
+      }
 
       const { secure_url } = await cloudinaryUpload(
         req.file,
         "JobsDoors",
         "raw"
       );
+
       const applicationData = {
         userId: userId as string,
         jobId,
-        expectedSalary,
+        expectedSalary: parsedSalary,
         cvUrl: secure_url,
       };
+
       const application = await createApplication(applicationData);
       res.status(200).json({ application, secure_url });
     } catch (error: any) {
@@ -49,51 +60,55 @@ export class ApplicationController {
     try {
       const { id: jobId } = req.params;
       const companyId = req.company?.id;
-      const { status } = req.query;
-      const filter: any = {};
 
-      if (status) {
-        filter.status = status as string;
+      const {
+        userFirstName,
+        usereducation,
+        expectedSalary,
+        status,
+        sortBy = "createdAt",
+        sortOrder = "asc",
+        page = "1",
+        limit = "10",
+      } = req.query;
+
+      if (!companyId) {
+        res.status(400).json({ message: "Company ID is missing" });
+        return;
       }
 
-      const applications = await prisma.application.findMany({
-        where: {
-          ...filter,
-          jobId,
-          job: {
-            companyId: companyId,
-          },
-        },
-        include: {
-          user: {
-            include: {
-              userTest: {
-                where: {
-                  jobId: jobId,
-                },
-                select: {
-                  id: true,
-                  correctAnswers: true,
-                  totalQuestions: true,
-                  scorePercentage: true,
-                  completedAt: true,
-                },
-              },
-            },
-          },
-        },
-        orderBy: {
-          createdAt: "desc",
-        },
+      const pageNumber = parseInt(page as string, 10);
+      const limitNumber = parseInt(limit as string, 10);
+
+      const { applications, total } = await getCompanyApplicationsService({
+        jobId,
+        companyId,
+        status: status as string,
+        userFirstName: userFirstName as string,
+        usereducation: usereducation as string,
+        expectedSalary: expectedSalary
+          ? parseInt(expectedSalary as string, 10)
+          : undefined,
+        sortBy: sortBy as string,
+        sortOrder: sortOrder as "asc" | "desc",
+        page: pageNumber,
+        limit: limitNumber,
       });
 
       res.status(200).send({
         message: "Applications fetched successfully",
         applications,
+        total,
+        page: pageNumber,
+        limit: limitNumber,
+        totalPages: Math.ceil(total / limitNumber),
       });
     } catch (err) {
       console.error(err);
-      res.status(404).send(err);
+      res.status(500).send({
+        message: "Failed to fetch applications",
+        error: err,
+      });
     }
   }
 

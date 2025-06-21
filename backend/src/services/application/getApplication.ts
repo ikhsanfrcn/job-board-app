@@ -1,5 +1,8 @@
+import { ApplicationStatus, Prisma } from "../../../prisma/generated/prisma";
 import prisma from "../../prisma";
-import { GetApplicationsParams } from "../../types/type";
+import { GetApplicationsParams, IGetCompanyParams } from "../../types/type";
+
+
 
 export const getUserApplications = async ({
   userId,
@@ -29,19 +32,96 @@ export const getUserApplications = async ({
   };
 };
 
-export async function getCompanyApplicationsService(
-  jobId: string,
-  companyId: string
-) {
-  return prisma.application.findMany({
-    where: {
-      jobId,
-      job: {
-        companyId: companyId,
+export async function getCompanyApplicationsService({
+  jobId,
+  companyId,
+  status,
+  userFirstName,
+  usereducation,
+  expectedSalary,
+  sortBy,
+  sortOrder,
+  page,
+  limit,
+}: IGetCompanyParams & {
+  userFirstName?: string;
+  usereducation?: string;
+  expectedSalary?: number;
+  sortBy?: string;
+  sortOrder?: "asc" | "desc";
+}) {
+  const filter: Prisma.ApplicationWhereInput = {
+    jobId,
+    job: {
+      companyId,
+    },
+  };
+
+  if (
+    status &&
+    Object.values(ApplicationStatus).includes(status as ApplicationStatus)
+  ) {
+    filter.status = status as ApplicationStatus;
+  } else if (status) {
+    throw new Error(`Invalid status value: ${status}`);
+  }
+
+  if (expectedSalary) {
+    filter.expectedSalary = {
+      lte: expectedSalary,
+    };
+  }
+
+  if (userFirstName || usereducation) {
+    filter.user = {};
+    if (userFirstName) {
+      filter.user.firstName = {
+        contains: userFirstName,
+        mode: "insensitive",
+      };
+    }
+    if (usereducation) {
+      filter.user.education = {
+        contains: usereducation,
+        mode: "insensitive",
+      };
+    }
+  }
+
+  const skip = (page - 1) * limit;
+
+  const [applications, total] = await Promise.all([
+    prisma.application.findMany({
+      where: filter,
+      include: {
+        user: {
+          include: {
+            userTest: {
+              where: {
+                jobId,
+              },
+              select: {
+                id: true,
+                correctAnswers: true,
+                totalQuestions: true,
+                scorePercentage: true,
+                completedAt: true,
+              },
+            },
+          },
+        },
       },
-    },
-    include: {
-      user: true,
-    },
-  });
+      orderBy: {
+        [sortBy ?? "createdAt"]: sortOrder ?? "asc",
+      },
+      skip,
+      take: limit,
+    }),
+    prisma.application.count({
+      where: filter,
+    }),
+  ]);
+
+  return { applications, total };
 }
+

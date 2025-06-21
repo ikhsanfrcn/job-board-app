@@ -13,13 +13,14 @@ import JobsCard from "./jobsCard";
 import { useRouter, useSearchParams } from "next/navigation";
 import { ITest } from "@/types/test";
 import ModalCreateTest from "./modalCreateTest";
-import Pagination from "./pagination";
 import JobFilters from "./filter";
+import Pagination from "@/components/atoms/pagination";
 
 export default function Jobs() {
   const { data: company } = useSession();
   const token = company?.accessToken;
   const router = useRouter();
+  const searchParams = useSearchParams();
 
   const [jobs, setJobs] = useState<IMJob[]>([]);
   const [tests, setTests] = useState<ITest[]>([]);
@@ -32,14 +33,12 @@ export default function Jobs() {
   );
   const [loading, setLoading] = useState(false);
 
-  const searchParams = useSearchParams();
-
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
 
   useEffect(() => {
-    const page = parseInt(searchParams.get("page") || "1", 10);
-    setCurrentPage(page);
+    const pageFromUrl = parseInt(searchParams.get("page") || "1", 10);
+    if (pageFromUrl !== currentPage) setCurrentPage(pageFromUrl);
   }, [searchParams]);
 
   const fetchJobs = useCallback(async () => {
@@ -53,17 +52,15 @@ export default function Jobs() {
       params.set("size", "6");
 
       const { data } = await axios.get("/jobs/admin", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+        headers: { Authorization: `Bearer ${token}` },
         params: Object.fromEntries(params.entries()),
       });
 
       setJobs(data.data.jobs);
       setTotalPages(data.data.pagination.totalPages);
 
-      const response = await axios.get("/test");
-      setTests(response.data.tests);
+      const testResponse = await axios.get("/test");
+      setTests(testResponse.data.tests);
     } catch (err) {
       console.error("Failed to fetch jobs", err);
     } finally {
@@ -75,13 +72,18 @@ export default function Jobs() {
     fetchJobs();
   }, [fetchJobs]);
 
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+    const query = new URLSearchParams(searchParams.toString());
+    query.set("page", page.toString());
+    router.push(`/company/manage-jobs?${query.toString()}`);
+  };
+
   const handleDelete = async () => {
     if (!deleteJob || !token) return;
     try {
       await axios.delete(`/jobs/${deleteJob.id}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+        headers: { Authorization: `Bearer ${token}` },
       });
       setJobs((prev) => prev.filter((job) => job.id !== deleteJob.id));
       setDeleteJob(null);
@@ -97,11 +99,8 @@ export default function Jobs() {
     if (!token) return;
     try {
       await axios.patch(`/jobs/${updatedJob.id}`, updatedJob, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+        headers: { Authorization: `Bearer ${token}` },
       });
-
       setJobs((prev) =>
         prev.map((job) => (job.id === updatedJob.id ? updatedJob : job))
       );
@@ -117,9 +116,7 @@ export default function Jobs() {
   const handleCreate = async (newJob: IMJob) => {
     try {
       await axios.post("/jobs", newJob, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+        headers: { Authorization: `Bearer ${token}` },
       });
       fetchJobs();
       setIsCreateOpen(false);
@@ -137,11 +134,11 @@ export default function Jobs() {
       const existingTest = tests.find((test) => test.jobId === job.id);
       if (existingTest) {
         const newActiveState = !existingTest.isActive;
-        const endPoint = newActiveState
+        const endpoint = newActiveState
           ? `/test/${job.id}/activate`
           : `/test/${job.id}/deactivate`;
 
-        await axios.patch(endPoint);
+        await axios.patch(endpoint);
 
         setTests((prev) =>
           prev.map((test) =>
@@ -182,13 +179,12 @@ export default function Jobs() {
     setSelectedJobForTest(null);
   };
 
-  if (loading) {
-    return <JobCardSkeleton />;
-  }
+  if (loading) return <JobCardSkeleton />;
 
   return (
     <div className="w-full p-6 space-y-4">
       <JobFilters />
+
       <div className="w-full flex justify-end">
         <button
           onClick={() => setIsCreateOpen(true)}
@@ -208,11 +204,7 @@ export default function Jobs() {
       <Pagination
         currentPage={currentPage}
         totalPages={totalPages}
-        onPageChange={(page) => {
-          const params = new URLSearchParams(searchParams.toString());
-          params.set("page", page.toString());
-          router.push(`/company/manage-jobs?${params.toString()}`);
-        }}
+        onPageChange={handlePageChange}
       />
 
       <ModalEditJob

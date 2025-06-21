@@ -10,7 +10,13 @@ interface Props {
   onSuccess: () => void;
 }
 
-export const ApplyModal = ({ isOpen, onClose, jobId, token, onSuccess }: Props) => {
+export const ApplyModal = ({
+  isOpen,
+  onClose,
+  jobId,
+  token,
+  onSuccess,
+}: Props) => {
   const [expectedSalary, setExpectedSalary] = useState("");
   const [cvFile, setCvFile] = useState<File | null>(null);
   const [status, setStatus] = useState("");
@@ -22,13 +28,19 @@ export const ApplyModal = ({ isOpen, onClose, jobId, token, onSuccess }: Props) 
       return;
     }
 
+    const salary = Number(expectedSalary);
+    if (isNaN(salary)) {
+      setStatus("Expected salary must be a number.");
+      return;
+    }
+
     setIsSubmitting(true);
     setStatus("");
 
     try {
       const formData = new FormData();
       formData.append("jobId", jobId);
-      formData.append("expectedSalary", expectedSalary);
+      formData.append("expectedSalary", String(salary));
       formData.append("cvUrl", cvFile);
 
       const config = {
@@ -50,10 +62,17 @@ export const ApplyModal = ({ isOpen, onClose, jobId, token, onSuccess }: Props) 
   };
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} title="Apply for this Job" size="md">
+    <Modal
+      isOpen={isOpen}
+      onClose={onClose}
+      title="Apply for this Job"
+      size="md"
+    >
       <div className="space-y-4">
         <div>
-          <label className="block text-sm font-medium mb-1">Expected Salary</label>
+          <label className="block text-sm font-medium mb-1">
+            Expected Salary
+          </label>
           <input
             type="number"
             value={expectedSalary}
@@ -63,7 +82,9 @@ export const ApplyModal = ({ isOpen, onClose, jobId, token, onSuccess }: Props) 
         </div>
 
         <div>
-          <label className="block text-sm font-medium mb-1">Upload CV (PDF)</label>
+          <label className="block text-sm font-medium mb-1">
+            Upload CV (PDF)
+          </label>
           <input
             type="file"
             accept=".pdf"

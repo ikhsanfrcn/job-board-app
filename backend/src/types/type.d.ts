@@ -57,7 +57,7 @@ export interface GetJobsParams {
 export interface CreateApplicationParams {
   userId: string;
   jobId: string;
-  expectedSalary: string;
+  expectedSalary: number;
   cvUrl: string;
 }
 
@@ -65,6 +65,14 @@ export interface GetApplicationsParams {
   userId: string;
   page?: number;
   pageSize?: number;
+}
+
+export interface IGetCompanyParams {
+  jobId: string;
+  companyId: string;
+  status?: string;
+  page: number;
+  limit: number;
 }
 
 export interface CreateInterviewParams {

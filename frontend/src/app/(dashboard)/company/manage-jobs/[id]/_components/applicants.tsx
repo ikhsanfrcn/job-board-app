@@ -9,6 +9,12 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { toast } from "react-toastify";
 import TestResultModal from "./testResultModal";
 import InterviewScheduleModal from "./interviewScheduleModal";
+import RejectModal from "./rejectModal";
+import Pagination from "@/components/atoms/pagination";
+import SkeletonApplicant from "./skeletonApplicant";
+import { IUserProfile } from "@/types/userProfile";
+import UserDetailModal from "./userDetailModal";
+import Filter from "./filter";
 
 interface IProps {
   jobId: string;
@@ -33,51 +39,78 @@ export default function Applicants({ jobId }: IProps) {
 
   const [loading, setLoading] = useState(false);
   const [applicants, setApplicants] = useState<IApplication[]>([]);
-  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+  const [viewCv, setViewCv] = useState<string | null>(null);
+  const [userDetail, setUserDetail] = useState<IUserProfile | null>(null);
   const [testResult, setTestResult] = useState<ITestResult | null>(null);
   const [testFullName, setTestFullName] = useState<string>("");
-  const [statusFilter, setStatusFilter] = useState<string>("");
 
+  const [page, setPage] = useState(1);
+  const [limit] = useState(10);
+  const [totalPages, setTotalPages] = useState(1);
   const [interviewModalData, setInterviewModalData] = useState<{
+    applicationId: string;
+  } | null>(null);
+  const [rejectModalData, setRejectModalData] = useState<{
     applicationId: string;
   } | null>(null);
 
   useEffect(() => {
-    const statusFromUrl = searchParams.get("status") || "";
-    if (statusFromUrl !== statusFilter) {
-      setStatusFilter(statusFromUrl);
-    }
+    const pageFromUrl = parseInt(searchParams.get("page") || "1");
+    if (pageFromUrl !== page) setPage(pageFromUrl);
   }, [searchParams]);
 
   const fetchApplicants = useCallback(async () => {
     if (!token) return;
     try {
       setLoading(true);
+
+      const status = searchParams.get("status") || "";
+      const userFirstName = searchParams.get("userFirstName") || "";
+      const usereducation = searchParams.get("usereducation") || "";
+      const expectedSalary = searchParams.get("expectedSalary") || "";
+      const currentPage = parseInt(searchParams.get("page") || "1");
+
       const { data } = await axios.get(`/applications/company/${jobId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
-        params: statusFilter ? { status: statusFilter } : {},
+        params: {
+          status: status || undefined,
+          userFirstName: userFirstName || undefined,
+          usereducation: usereducation || undefined,
+          expectedSalary: expectedSalary || undefined,
+          page: currentPage,
+          limit,
+        },
       });
+
       setApplicants(data.applications);
+      setTotalPages(data.totalPages);
+      setPage(currentPage);
     } catch (err) {
       console.log(err);
     } finally {
       setLoading(false);
     }
-  }, [token, jobId, statusFilter]);
+  }, [token, jobId, searchParams]);
 
-  const handleUpdateStatus = async (id: string, status: string) => {
+  const handleUpdateStatus = async (
+    id: string,
+    status: string,
+    reason?: string
+  ) => {
     try {
-      await axios.patch(
-        `/applications/${id}/status`,
-        { status }, // payload
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const payload = {
+        status,
+        ...(reason ? { reason } : {}),
+      };
+
+      await axios.patch(`/applications/${id}/status`, payload, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
       toast.success("Status updated successfully");
       setApplicants((prev) =>
         prev.map((app) => (app.id === id ? { ...app, status } : app))
@@ -109,7 +142,6 @@ export default function Applicants({ jobId }: IProps) {
           },
         }
       );
-      // toast.success("Interview scheduled");
       setInterviewModalData(null);
       handleUpdateStatus(applicationId, "INTERVIEW");
     } catch (error) {
@@ -131,47 +163,42 @@ export default function Applicants({ jobId }: IProps) {
     setTestFullName("");
   };
 
-  const filter = (status: string) => {
-    setStatusFilter(status);
-    const query = status ? `?status=${status}` : "";
-    router.push(`/company/manage-jobs/${jobId}${query}`);
+  const goToPage = (pageNumber: number) => {
+    const query = new URLSearchParams(searchParams.toString());
+    query.set("page", pageNumber.toString());
+    router.push(`/company/manage-jobs/${jobId}?${query.toString()}`);
   };
 
   useEffect(() => {
     fetchApplicants();
   }, [fetchApplicants]);
 
-  if (loading) return <div className="p-4">Loading...</div>;
+  if (loading) return <SkeletonApplicant />;
 
   return (
     <div className="w-full p-6">
-      <div className="flex items-center justify-end mb-4">
-        <select
-          value={statusFilter}
-          onChange={(e) => filter(e.target.value)}
-          className="border p-2 rounded"
-        >
-          <option value="">All Status</option>
-          {Object.values(ApplicationStatus).map((status) => (
-            <option key={status} value={status}>
-              {status}
-            </option>
-          ))}
-        </select>
-      </div>
+      <Filter jobId={jobId} statusOptions={Object.values(ApplicationStatus)} />
 
       <Table
         applicants={applicants}
-        setPreviewUrl={setPreviewUrl}
+        onViewCv={setViewCv}
+        onViewUserDetail={setUserDetail}
         onUpdateStatus={handleUpdateStatus}
         onViewTestResult={handleViewTestResult}
         onInterviewClick={(applicationId) =>
           setInterviewModalData({ applicationId })
         }
+        onRejectClick={(applicationId) => setRejectModalData({ applicationId })}
       />
 
-      {previewUrl && (
-        <CvPreviewModal url={previewUrl} onClose={() => setPreviewUrl(null)} />
+      <Pagination
+        currentPage={page}
+        totalPages={totalPages}
+        onPageChange={goToPage}
+      />
+
+      {viewCv && (
+        <CvPreviewModal url={viewCv} onClose={() => setViewCv(null)} />
       )}
 
       {testResult && (
@@ -182,11 +209,29 @@ export default function Applicants({ jobId }: IProps) {
         />
       )}
 
+      {userDetail && (
+        <UserDetailModal
+          userDetail={userDetail}
+          onClose={() => setUserDetail(null)}
+        />
+      )}
+
       {interviewModalData && (
         <InterviewScheduleModal
           applicationId={interviewModalData.applicationId}
           onClose={() => setInterviewModalData(null)}
           onSubmit={handleCreateInterviewSchedule}
+        />
+      )}
+
+      {rejectModalData && (
+        <RejectModal
+          applicationId={rejectModalData.applicationId}
+          onClose={() => setRejectModalData(null)}
+          onSubmit={(applicationId, reason) => {
+            handleUpdateStatus(applicationId, "REJECTED", reason);
+            setRejectModalData(null);
+          }}
         />
       )}
     </div>
