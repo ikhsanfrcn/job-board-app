@@ -14,6 +14,7 @@ import Pagination from "@/components/atoms/pagination";
 import SkeletonApplicant from "./skeletonApplicant";
 import { IUserProfile } from "@/types/userProfile";
 import UserDetailModal from "./userDetailModal";
+import Filter from "./filter";
 
 interface IProps {
   jobId: string;
@@ -42,7 +43,7 @@ export default function Applicants({ jobId }: IProps) {
   const [userDetail, setUserDetail] = useState<IUserProfile | null>(null);
   const [testResult, setTestResult] = useState<ITestResult | null>(null);
   const [testFullName, setTestFullName] = useState<string>("");
-  const [statusFilter, setStatusFilter] = useState<string>("");
+
   const [page, setPage] = useState(1);
   const [limit] = useState(10);
   const [totalPages, setTotalPages] = useState(1);
@@ -54,10 +55,7 @@ export default function Applicants({ jobId }: IProps) {
   } | null>(null);
 
   useEffect(() => {
-    const statusFromUrl = searchParams.get("status") || "";
     const pageFromUrl = parseInt(searchParams.get("page") || "1");
-
-    if (statusFromUrl !== statusFilter) setStatusFilter(statusFromUrl);
     if (pageFromUrl !== page) setPage(pageFromUrl);
   }, [searchParams]);
 
@@ -65,25 +63,36 @@ export default function Applicants({ jobId }: IProps) {
     if (!token) return;
     try {
       setLoading(true);
+
+      const status = searchParams.get("status") || "";
+      const userFirstName = searchParams.get("userFirstName") || "";
+      const usereducation = searchParams.get("usereducation") || "";
+      const expectedSalary = searchParams.get("expectedSalary") || "";
+      const currentPage = parseInt(searchParams.get("page") || "1");
+
       const { data } = await axios.get(`/applications/company/${jobId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
         params: {
-          status: statusFilter || undefined,
-          page,
+          status: status || undefined,
+          userFirstName: userFirstName || undefined,
+          usereducation: usereducation || undefined,
+          expectedSalary: expectedSalary || undefined,
+          page: currentPage,
           limit,
         },
       });
 
       setApplicants(data.applications);
       setTotalPages(data.totalPages);
+      setPage(currentPage);
     } catch (err) {
       console.log(err);
     } finally {
       setLoading(false);
     }
-  }, [token, jobId, statusFilter, page, limit]);
+  }, [token, jobId, searchParams]);
 
   const handleUpdateStatus = async (
     id: string,
@@ -154,19 +163,8 @@ export default function Applicants({ jobId }: IProps) {
     setTestFullName("");
   };
 
-  const handleFilterChange = (status: string) => {
-    setStatusFilter(status);
-    setPage(1);
-    const query = new URLSearchParams();
-    if (status) query.set("status", status);
-    query.set("page", "1");
-    router.push(`/company/manage-jobs/${jobId}?${query.toString()}`);
-  };
-
   const goToPage = (pageNumber: number) => {
-    setPage(pageNumber);
     const query = new URLSearchParams(searchParams.toString());
-    if (statusFilter) query.set("status", statusFilter);
     query.set("page", pageNumber.toString());
     router.push(`/company/manage-jobs/${jobId}?${query.toString()}`);
   };
@@ -179,20 +177,7 @@ export default function Applicants({ jobId }: IProps) {
 
   return (
     <div className="w-full p-6">
-      <div className="flex items-center justify-end mb-4">
-        <select
-          value={statusFilter}
-          onChange={(e) => handleFilterChange(e.target.value)}
-          className="border p-2 rounded"
-        >
-          <option value="">All Status</option>
-          {Object.values(ApplicationStatus).map((status) => (
-            <option key={status} value={status}>
-              {status}
-            </option>
-          ))}
-        </select>
-      </div>
+      <Filter jobId={jobId} statusOptions={Object.values(ApplicationStatus)} />
 
       <Table
         applicants={applicants}
@@ -224,7 +209,7 @@ export default function Applicants({ jobId }: IProps) {
         />
       )}
 
-      {userDetail &&(
+      {userDetail && (
         <UserDetailModal
           userDetail={userDetail}
           onClose={() => setUserDetail(null)}

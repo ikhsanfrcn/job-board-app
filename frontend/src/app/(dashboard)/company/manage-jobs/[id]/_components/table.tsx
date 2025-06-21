@@ -1,6 +1,5 @@
 "use client";
 
-import { formatCurrency } from "@/helper/formatCurrency";
 import { IApplication, ITestResult } from "@/types/applicationType";
 import { IUserProfile } from "@/types/userProfile";
 import Image from "next/image";
@@ -100,7 +99,11 @@ export default function Table({
                 {app.user.education}
               </td>
               <td className="p-3 border-b text-gray-600">
-                {formatCurrency(app.expectedSalary ?? "-")}
+                {Intl.NumberFormat("id-ID", {
+                  style: "currency",
+                  currency: "IDR",
+                  maximumFractionDigits: 0,
+                }).format(Number(app.expectedSalary))}
               </td>
               <td className="p-3 border-b text-gray-600">
                 {new Intl.DateTimeFormat("id-ID", {
