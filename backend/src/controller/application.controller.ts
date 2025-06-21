@@ -1,7 +1,10 @@
 import { Request, Response } from "express";
 import { cloudinaryUpload } from "../helpers/cloudinary";
 import { createApplication } from "../services/application/createApplication";
-import { getUserApplications } from "../services/application/getApplication";
+import {
+  getCompanyApplicationsService,
+  getUserApplications,
+} from "../services/application/getApplication";
 import prisma from "../prisma";
 import { sendApplicationStatusEmail } from "../utils/mailer";
 
@@ -49,51 +52,39 @@ export class ApplicationController {
     try {
       const { id: jobId } = req.params;
       const companyId = req.company?.id;
-      const { status } = req.query;
-      const filter: any = {};
 
-      if (status) {
-        filter.status = status as string;
+      const { status, page = "1", limit = "10" } = req.query;
+
+      if (!companyId) {
+        res.status(400).json({ message: "Company ID is missing" });
+        return;
       }
 
-      const applications = await prisma.application.findMany({
-        where: {
-          ...filter,
-          jobId,
-          job: {
-            companyId: companyId,
-          },
-        },
-        include: {
-          user: {
-            include: {
-              userTest: {
-                where: {
-                  jobId: jobId,
-                },
-                select: {
-                  id: true,
-                  correctAnswers: true,
-                  totalQuestions: true,
-                  scorePercentage: true,
-                  completedAt: true,
-                },
-              },
-            },
-          },
-        },
-        orderBy: {
-          createdAt: "desc",
-        },
+      const pageNumber = parseInt(page as string, 10);
+      const limitNumber = parseInt(limit as string, 10);
+
+      const { applications, total } = await getCompanyApplicationsService({
+        jobId,
+        companyId,
+        status: status as string,
+        page: pageNumber,
+        limit: limitNumber,
       });
 
       res.status(200).send({
         message: "Applications fetched successfully",
         applications,
+        total,
+        page: pageNumber,
+        limit: limitNumber,
+        totalPages: Math.ceil(total / limitNumber),
       });
     } catch (err) {
       console.error(err);
-      res.status(404).send(err);
+      res.status(500).send({
+        message: "Failed to fetch applications",
+        error: err,
+      });
     }
   }
 

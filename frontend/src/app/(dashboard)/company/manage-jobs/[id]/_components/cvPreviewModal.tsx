@@ -1,5 +1,9 @@
-import React from "react";
+"use client";
+
+import { Dialog, Transition } from "@headlessui/react";
+import { Fragment, useState } from "react";
 import { BiX } from "react-icons/bi";
+import { ImSpinner2 } from "react-icons/im";
 
 interface CvPreviewModalProps {
   url: string;
@@ -7,25 +11,62 @@ interface CvPreviewModalProps {
 }
 
 export default function CvPreviewModal({ url, onClose }: CvPreviewModalProps) {
-  return (
-    <div className="fixed inset-0 bg-black/50 backdrop-blur-lg flex items-center justify-center z-50 p-4">
-      <div className="relative w-full max-w-4xl h-[90vh]">
-        <button
-          onClick={onClose}
-          className="absolute -top-4 -right-4 lg:-top-6 lg:-right-10 z-50"
-          title="Close"
-        >
-          <BiX className="text-3xl text-white hover:text-gray-300 transition duration-300 cursor-pointer" />
-        </button>
+  const [isLoading, setIsLoading] = useState(true);
 
-        <div className="bg-white w-full h-full rounded-lg overflow-hidden shadow-lg">
-          <iframe
-            src={`https://docs.google.com/gview?url=${encodeURIComponent(url)}&embedded=true`}
-            className="w-full h-full"
-            title="CV Preview"
-          />
+  return (
+    <Transition appear show={true} as={Fragment}>
+      <Dialog as="div" className="relative z-50" onClose={onClose}>
+        <Transition.Child
+          as={Fragment}
+          enter="ease-out duration-200"
+          enterFrom="opacity-0"
+          enterTo="opacity-100"
+          leave="ease-in duration-150"
+          leaveFrom="opacity-100"
+          leaveTo="opacity-0"
+        >
+          <div className="fixed inset-0 bg-black/60 backdrop-blur-sm" />
+        </Transition.Child>
+
+        <div className="fixed inset-0 overflow-y-auto">
+          <div className="flex min-h-full items-center justify-center p-4">
+            <Transition.Child
+              as={Fragment}
+              enter="ease-out duration-200"
+              enterFrom="opacity-0 scale-95"
+              enterTo="opacity-100 scale-100"
+              leave="ease-in duration-150"
+              leaveFrom="opacity-100 scale-100"
+              leaveTo="opacity-0 scale-95"
+            >
+              <Dialog.Panel className="relative w-full max-w-6xl h-[85vh] bg-white rounded-2xl shadow-2xl overflow-hidden">
+                <button
+                  onClick={onClose}
+                  className="absolute top-4 left-4 z-50 text-white bg-gray-900/80 hover:bg-gray-800 focus:outline-none rounded-full p-2 transition cursor-pointer"
+                  aria-label="Close CV preview"
+                >
+                  <BiX className="text-2xl" />
+                </button>
+
+                {isLoading && (
+                  <div className="absolute inset-0 z-40 flex items-center justify-center bg-white/80">
+                    <ImSpinner2 className="text-gray-500 text-4xl animate-spin" />
+                  </div>
+                )}
+
+                <iframe
+                  src={`https://docs.google.com/gview?url=${encodeURIComponent(
+                    url
+                  )}&embedded=true`}
+                  className="w-full h-full"
+                  title="CV Preview"
+                  onLoad={() => setIsLoading(false)}
+                />
+              </Dialog.Panel>
+            </Transition.Child>
+          </div>
         </div>
-      </div>
-    </div>
+      </Dialog>
+    </Transition>
   );
 }

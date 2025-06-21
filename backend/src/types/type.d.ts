@@ -67,6 +67,14 @@ export interface GetApplicationsParams {
   pageSize?: number;
 }
 
+export interface IGetCompanyParams {
+  jobId: string;
+  companyId: string;
+  status?: string;
+  page: number;
+  limit: number;
+}
+
 export interface CreateInterviewParams {
   applicationId: string;
   date: string;

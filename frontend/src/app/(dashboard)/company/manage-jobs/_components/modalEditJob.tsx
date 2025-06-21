@@ -9,7 +9,7 @@ import axios from "axios";
 import { createJobSchema } from "@/schema/jobSchema";
 import { employmentType } from "@/types/employmentType";
 import { worksiteType } from "@/types/worksiteType";
-import FormatCurrencyInput from "@/helper/formatCurencyInput";
+import FormatCurrencyInput from "@/components/atoms/formatCurencyInput";
 
 interface IProps {
   editJob: IMJob | null;
