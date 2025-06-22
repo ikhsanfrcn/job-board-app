@@ -46,10 +46,11 @@ export default function BadgeInterface() {
   }, [token]);
 
   const earnedCount = badges.length;
-  const completionPercentage = totalBadges > 0 ? Math.round((earnedCount / totalBadges) * 100) : 0;
+  const completionPercentage =
+    totalBadges > 0 ? Math.round((earnedCount / totalBadges) * 100) : 0;
 
   return (
-    <div className="max-w-6xl mx-auto p-6 min-h-screen">
+    <div className="max-w-6xl mx-auto p-6">
       {/* Header */}
       <div className="mb-8">
         <div className="flex items-center gap-3 mb-4">
@@ -150,9 +151,11 @@ export default function BadgeInterface() {
               <div className="flex items-center gap-4 mb-4">
                 <div className="w-16 h-16 flex items-center justify-center text-2xl font-bold text-white">
                   {badge.badgeImage ? (
-                    <Image 
-                      src={badge.badgeImage} 
+                    <Image
+                      src={badge.badgeImage}
                       alt={badge.title}
+                      width={100}
+                      height={100}
                       className="w-full h-full object-cover"
                     />
                   ) : (

@@ -25,11 +25,8 @@ export default function SideBar() {
 
   const menuItems = [
     { label: "Profile", path: "/user/profile" },
-    { label: "Job Preferences", path: "/user/preferences" },
     { label: "Job Activity", path: "/user/activity" },
     { label: "Assessment History", path: "/user/assessments" },
-    { label: "Following", path: "/user/following" },
-    { label: "Notifications", path: "/user/notifications" },
     { label: "Subscribe", path: "/user/subscribe" },
     { label: "Badges", path: "/user/badges" },
   ];

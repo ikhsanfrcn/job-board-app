@@ -68,6 +68,7 @@ export default function Applicants({ jobId }: IProps) {
       const userFirstName = searchParams.get("userFirstName") || "";
       const usereducation = searchParams.get("usereducation") || "";
       const expectedSalary = searchParams.get("expectedSalary") || "";
+      const age = searchParams.get("age") || "";
       const currentPage = parseInt(searchParams.get("page") || "1");
 
       const { data } = await axios.get(`/applications/company/${jobId}`, {
@@ -79,6 +80,9 @@ export default function Applicants({ jobId }: IProps) {
           userFirstName: userFirstName || undefined,
           usereducation: usereducation || undefined,
           expectedSalary: expectedSalary || undefined,
+          age: age || undefined,
+          sortBy: searchParams.get("sortBy") || "createdAt",
+          sortOrder: searchParams.get("sortOrder") || "asc",
           page: currentPage,
           limit,
         },
@@ -173,23 +177,26 @@ export default function Applicants({ jobId }: IProps) {
     fetchApplicants();
   }, [fetchApplicants]);
 
-  if (loading) return <SkeletonApplicant />;
-
   return (
     <div className="w-full p-6">
       <Filter jobId={jobId} statusOptions={Object.values(ApplicationStatus)} />
-
-      <Table
-        applicants={applicants}
-        onViewCv={setViewCv}
-        onViewUserDetail={setUserDetail}
-        onUpdateStatus={handleUpdateStatus}
-        onViewTestResult={handleViewTestResult}
-        onInterviewClick={(applicationId) =>
-          setInterviewModalData({ applicationId })
-        }
-        onRejectClick={(applicationId) => setRejectModalData({ applicationId })}
-      />
+      {loading ? (
+        <SkeletonApplicant />
+      ) : (
+        <Table
+          applicants={applicants}
+          onViewCv={setViewCv}
+          onViewUserDetail={setUserDetail}
+          onUpdateStatus={handleUpdateStatus}
+          onViewTestResult={handleViewTestResult}
+          onInterviewClick={(applicationId) =>
+            setInterviewModalData({ applicationId })
+          }
+          onRejectClick={(applicationId) =>
+            setRejectModalData({ applicationId })
+          }
+        />
+      )}
 
       <Pagination
         currentPage={page}
