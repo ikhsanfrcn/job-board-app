@@ -86,7 +86,7 @@ const searchParams = useSearchParams();
   };
 
   return (
-    <div className="container mx-auto flex flex-wrap gap-4 px-4 py-4 items-center relative">
+    <div className="max-w-7xl container mx-auto flex flex-wrap gap-4 px-4 py-4 items-center relative">
       <button
         onClick={handleRemoteToggle}
         className={`px-4 py-2 rounded-full text-sm transition ${
