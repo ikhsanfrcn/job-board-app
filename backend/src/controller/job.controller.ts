@@ -48,6 +48,16 @@ export class JobController {
 
       const parsedTags = typeof tags === "string" ? tags.split(",") : [];
 
+      const worksiteParam = (
+        req.query.worksite as string | undefined
+      )?.toUpperCase();
+
+      const allowedWorksites = ["REMOTE", "HYBRID", "ONSITE"] as const;
+
+      const worksite = allowedWorksites.includes(worksiteParam as any)
+        ? (worksiteParam as "REMOTE" | "HYBRID" | "ONSITE")
+        : undefined;
+
       const jobsResult = await getJobs({
         title: title as string,
         city: city as string,
@@ -58,6 +68,7 @@ export class JobController {
         size: parseInt(size as string),
         minSalary: minSalary ? parseInt(minSalary as string) : undefined,
         maxSalary: maxSalary ? parseInt(maxSalary as string) : undefined,
+        worksite,
       });
 
       res.status(200).json(jobsResult);

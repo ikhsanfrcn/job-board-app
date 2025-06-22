@@ -16,6 +16,7 @@ type Filters = {
   city?: string;
   minSalary?: number;
   maxSalary?: number;
+  worksite?: string;
 };
 
 export const JobListingsPage: React.FC = () => {
@@ -65,18 +66,29 @@ export const JobListingsPage: React.FC = () => {
   useEffect(() => {
   const city = searchParams.get("city") || undefined;
   const title = searchParams.get("title") || undefined;
+  const worksite = searchParams.get("worksite") || undefined;
+  const minSalary = searchParams.get("minSalary")
+    ? Number(searchParams.get("minSalary"))
+    : undefined;
+  const maxSalary = searchParams.get("maxSalary")
+    ? Number(searchParams.get("maxSalary"))
+    : undefined;
   const pageFromQuery = parseInt(searchParams.get("page") || "1");
 
-  const updatedFilters = {
+  const updatedFilters: Filters = {
     city,
     title,
+    worksite,
+    minSalary,
+    maxSalary,
   };
+
+  const jobId = searchParams.get("id");
 
   setFilters(updatedFilters);
   setPage(pageFromQuery);
   fetchJobs(pageFromQuery, updatedFilters);
 
-  const jobId = searchParams.get("id");
   if (jobId) {
     fetchJobById(jobId);
   }

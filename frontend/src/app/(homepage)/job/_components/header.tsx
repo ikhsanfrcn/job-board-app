@@ -40,7 +40,7 @@ export default function JobSearchHeader() {
           <span className="text-gray-500 mr-2">📍</span>
           <input
             type="text"
-            placeholder='City, state, zipcode, or "remote"'
+            placeholder='City'
             value={city}
             onChange={(e) => setCity(e.target.value)}
             onKeyDown={(e) => {

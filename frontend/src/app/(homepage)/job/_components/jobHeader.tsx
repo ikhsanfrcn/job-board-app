@@ -20,7 +20,10 @@ export const JobHeader = ({
       <p className="text-black">{job.company.name}</p>
       <h2 className="text-xl font-bold">{job.title}</h2>
       <p className="text-gray-700">
-        {job.city} {job.salaryMin && `• IDR ${job.salaryMin}`}{" "}
+        {job.city} {job.worksite && (`• ${job.worksite}`)}
+      </p>
+      <p className="text-gray-700">
+        {job.salaryMin && `IDR ${job.salaryMin}`}{" "}
         {job.salaryMax && ` - ${job.salaryMax}`}
       </p>
     </div>

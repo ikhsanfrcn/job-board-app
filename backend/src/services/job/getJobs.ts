@@ -11,6 +11,7 @@ export const getJobs = async ({
   size = 10,
   minSalary,
   maxSalary,
+  worksite,
 }: GetJobsParams) => {
   const skip = (page - 1) * size;
   const take = size;
@@ -18,23 +19,28 @@ export const getJobs = async ({
   const where: any = { isPublished };
 
   if (title) {
-  where.title = {
-    contains: title,
-    mode: "insensitive",
-  };
-}
+    where.title = {
+      contains: title,
+      mode: "insensitive",
+    };
+  }
 
-if (city) {
-  where.city = {
-    contains: city,
-    mode: "insensitive",
-  };
-}
+  if (city) {
+    where.city = {
+      contains: city,
+      mode: "insensitive",
+    };
+  }
+
+  if (worksite) {
+    where.worksite = worksite;
+  }
+
   if (category) where.category = category;
   if (tags && tags.length > 0) {
     where.tags = { hasEvery: tags };
   }
-   if (minSalary) {
+  if (minSalary) {
     where.salaryMin = { gte: minSalary };
   }
   if (maxSalary) {

@@ -52,6 +52,7 @@ export interface GetJobsParams {
   size?: number;
   minSalary?: number;
   maxSalary?: number;
+  worksite?: "REMOTE" | "HYBRID" | "ONSITE";
 }
 
 export interface CreateApplicationParams {

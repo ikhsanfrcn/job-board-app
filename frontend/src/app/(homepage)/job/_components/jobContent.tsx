@@ -9,6 +9,7 @@ export const JobContent = ({ job }: { job: IJob }) => (
       )}
       <p><strong>Deadline:</strong> {job.deadline}</p>
       <p><strong>Company:</strong> {job.company.name}</p>
+      {job.employmentStatus && (<p><strong>Employment Type:</strong> {job.employmentStatus}</p>)}
       <p><strong>Description:</strong> {job.description}</p>
     </div>
 
