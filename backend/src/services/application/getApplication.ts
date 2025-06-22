@@ -2,8 +2,6 @@ import { ApplicationStatus, Prisma } from "../../../prisma/generated/prisma";
 import prisma from "../../prisma";
 import { GetApplicationsParams, IGetCompanyParams } from "../../types/type";
 
-
-
 export const getUserApplications = async ({
   userId,
   page = 1,
@@ -39,6 +37,7 @@ export async function getCompanyApplicationsService({
   userFirstName,
   usereducation,
   expectedSalary,
+  age,
   sortBy,
   sortOrder,
   page,
@@ -47,6 +46,7 @@ export async function getCompanyApplicationsService({
   userFirstName?: string;
   usereducation?: string;
   expectedSalary?: number;
+  age?: number;
   sortBy?: string;
   sortOrder?: "asc" | "desc";
 }) {
@@ -55,6 +55,7 @@ export async function getCompanyApplicationsService({
     job: {
       companyId,
     },
+    user: {},
   };
 
   if (
@@ -72,18 +73,31 @@ export async function getCompanyApplicationsService({
     };
   }
 
-  if (userFirstName || usereducation) {
+  if (userFirstName || usereducation || age !== undefined) {
     filter.user = {};
+
     if (userFirstName) {
       filter.user.firstName = {
         contains: userFirstName,
         mode: "insensitive",
       };
     }
+
     if (usereducation) {
       filter.user.education = {
         contains: usereducation,
         mode: "insensitive",
+      };
+    }
+
+    if (age !== undefined) {
+      const today = new Date();
+      const minAllowedDob = new Date(today);
+      minAllowedDob.setFullYear(minAllowedDob.getFullYear() - age - 1);
+      minAllowedDob.setDate(minAllowedDob.getDate() + 1);
+
+      filter.user.dob = {
+        gte: minAllowedDob.toISOString().split("T")[0],
       };
     }
   }
@@ -124,4 +138,3 @@ export async function getCompanyApplicationsService({
 
   return { applications, total };
 }
-

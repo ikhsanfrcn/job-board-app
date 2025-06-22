@@ -3,7 +3,6 @@ import React, { useCallback, useEffect, useState } from "react";
 import ModalDeleteJob from "./modalDeleteJob";
 import ModalEditJob from "./modalEditJob";
 import ModalCreateJob from "./modalCreateJob";
-import JobCardSkeleton from "./skeletonJob";
 import { IMJob } from "@/types/job";
 import { AxiosError } from "axios";
 import { toast } from "react-toastify";
@@ -15,6 +14,7 @@ import { ITest } from "@/types/test";
 import ModalCreateTest from "./modalCreateTest";
 import JobFilters from "./filter";
 import Pagination from "@/components/atoms/pagination";
+import SkeltonJob from "./skeletonJob";
 
 export default function Jobs() {
   const { data: company } = useSession();
@@ -179,8 +179,6 @@ export default function Jobs() {
     setSelectedJobForTest(null);
   };
 
-  if (loading) return <JobCardSkeleton />;
-
   return (
     <div className="w-full p-6 space-y-4">
       <JobFilters />
@@ -194,12 +192,16 @@ export default function Jobs() {
         </button>
       </div>
 
-      <JobsCard
-        jobs={jobs}
-        setEditJob={setEditJob}
-        setDeleteJob={setDeleteJob}
-        onTestToggle={handleTestToggle}
-      />
+      {loading ? (
+        <SkeltonJob />
+      ) : (
+        <JobsCard
+          jobs={jobs}
+          setEditJob={setEditJob}
+          setDeleteJob={setDeleteJob}
+          onTestToggle={handleTestToggle}
+        />
+      )}
 
       <Pagination
         currentPage={currentPage}

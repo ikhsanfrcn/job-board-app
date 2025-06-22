@@ -66,6 +66,7 @@ export class ApplicationController {
         usereducation,
         expectedSalary,
         status,
+        age,
         sortBy = "createdAt",
         sortOrder = "asc",
         page = "1",
@@ -89,6 +90,7 @@ export class ApplicationController {
         expectedSalary: expectedSalary
           ? parseInt(expectedSalary as string, 10)
           : undefined,
+        age: age ? parseInt(age as string, 10) : undefined,
         sortBy: sortBy as string,
         sortOrder: sortOrder as "asc" | "desc",
         page: pageNumber,
