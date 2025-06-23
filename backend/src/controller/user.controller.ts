@@ -5,6 +5,7 @@ import getUserByEmail from "../services/user/getUserByEmail";
 import updateAvatar from "../services/user/updateAvatar";
 import { updateUserSchema } from "../validation/userValidation";
 import prisma from "../prisma";
+import { isSubscribeService } from "../services/user/isSubscribe";
 
 export class UserController {
   async getUserProfile(req: Request, res: Response) {
@@ -78,6 +79,21 @@ export class UserController {
     } catch (err) {
       console.error(err);
       res.status(500).send(err);
+    }
+  }
+
+  async isSubscribe(req: Request, res: Response) {
+    try {
+      const userId = req.user?.id;
+      if (!userId) {
+        res.status(400).json(false);
+        return;
+      }
+      const result = await isSubscribeService(userId);
+      res.json({ message: "isSubscribe result", result });
+    } catch (err) {
+      console.error(err);
+      res.status(500).json(err);
     }
   }
 }

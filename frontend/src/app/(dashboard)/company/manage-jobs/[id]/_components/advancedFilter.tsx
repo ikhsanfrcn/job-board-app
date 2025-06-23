@@ -30,7 +30,6 @@ export default function AdvancedFilter({
   return (
     <div className="border-t border-gray-200 pt-4">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-
         <div>
           <label
             htmlFor="status"
@@ -193,7 +192,7 @@ export default function AdvancedFilter({
           <span>Apply Filters</span>
         </button>
         <button
-          type="button"
+          type="submit"
           onClick={() => {
             setFieldValue("status", "");
             setFieldValue("userFirstName", "");

@@ -43,6 +43,12 @@ export class UserRouter {
       this.authMiddleware.verifyToken,
       this.userController.isEmployee
     );
+
+    this.router.get(
+      "/is-subscribe",
+      this.authMiddleware.verifyToken,
+      this.userController.isSubscribe
+    );
   }
   getRouter(): Router {
     return this.router;

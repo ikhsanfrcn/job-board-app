@@ -10,6 +10,8 @@ import ResumeForm from "./resumeForm";
 import ResumeSkeleton from "./resumeSkeleton";
 import { toast } from "react-toastify";
 import { AxiosError } from "axios";
+import { Tooltip } from "react-tooltip";
+import "react-tooltip/dist/react-tooltip.css";
 
 export default function Resume() {
   const { data: user } = useSession();
@@ -19,6 +21,21 @@ export default function Resume() {
   const [isEditing, setIsEditing] = useState(false);
   const [isCreating, setIsCreating] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [isSubscribe, setIsSubscribe] = useState(false);
+
+  const checkIsSubscribe = useCallback(async () => {
+    if (!token) return;
+    try {
+      const { data } = await axios.get("/users/is-subscribe", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      setIsSubscribe(data.result.isValid);
+    } catch (err) {
+      console.log(err);
+    }
+  }, [token]);
 
   const fetchResume = useCallback(async () => {
     if (!token) return;
@@ -68,7 +85,8 @@ export default function Resume() {
 
   useEffect(() => {
     fetchResume();
-  }, [fetchResume]);
+    checkIsSubscribe();
+  }, [fetchResume, checkIsSubscribe]);
 
   if (loading) {
     return (
@@ -96,12 +114,39 @@ export default function Resume() {
             />
           )}
         </div>
-        <button
-          onClick={handleDownloadPdf}
-          className="text-sm px-4 py-2 bg-gray-200 rounded-md cursor-pointer hover:bg-gray-300 hover:scale-105 transition duration-300"
-        >
-          Download PDF
-        </button>
+        <div>
+          <button
+            onClick={() => {
+              if (isSubscribe) {
+                handleDownloadPdf();
+              }
+            }}
+            disabled={!isSubscribe}
+            data-tooltip-id={!isSubscribe ? "pdf-tooltip" : undefined}
+            data-tooltip-content="You must subscribe to generate CV"
+            className={`text-sm px-4 py-2 rounded-md transition duration-300 ${
+              isSubscribe
+                ? "bg-green-600 text-white hover:bg-green-700 hover:scale-105 cursor-pointer"
+                : "bg-gray-200 text-gray-500 cursor-not-allowed"
+            }`}
+          >
+            Generate CV
+          </button>
+
+          {!isSubscribe && (
+            <Tooltip
+              id="pdf-tooltip"
+              place="top"
+              style={{
+                backgroundColor: "#1f2937",
+                color: "white",
+                fontSize: "0.75rem",
+                borderRadius: "6px",
+                padding: "6px 10px",
+              }}
+            />
+          )}
+        </div>
       </div>
 
       <p className="text-sm text-gray-600 mb-6">
