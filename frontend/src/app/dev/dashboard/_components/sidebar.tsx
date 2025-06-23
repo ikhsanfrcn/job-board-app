@@ -191,7 +191,7 @@ export default function Sidebar({
 
   return (
     <div
-      className={`relative bg-white border-r border-gray-200 h-screen overflow-y-auto transition-all duration-300 ease-in-out`}
+      className={`relative bg-white border border-gray-200 h-screen overflow-y-auto transition-all duration-300 ease-in-out`}
     >
       {/* Header - Clickable to toggle sidebar */}
       <div
