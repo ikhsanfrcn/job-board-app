@@ -1,7 +1,7 @@
 "use client";
 
 import axios from "@/lib/axios";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import LoadingSkeleton from "./_components/loadingSkeleton";
 import { IAssessment } from "@/types/assessment";
@@ -10,6 +10,8 @@ import ModalDeleteAssessment from "./_components/modalDeleteAssessment";
 import { LuPencil, LuTrash2 } from "react-icons/lu";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
+import { useRouter, useSearchParams } from "next/navigation";
+import Pagination from "@/components/atoms/pagination";
 
 export default function Page() {
   const [assessments, setAssessments] = useState<IAssessment[]>([]);
@@ -19,19 +21,36 @@ export default function Page() {
     useState<IAssessment | null>(null);
   const [loading, setLoading] = useState(true);
   const { data: session } = useSession();
+  const router = useRouter();
   const token = session?.accessToken;
+  const searchParams = useSearchParams();
 
-  const fetchAssessments = async () => {
+  const currentPage = parseInt(searchParams.get("page") || "1");
+  const [totalPages, setTotalPages] = useState(1);
+
+  const fetchAssessments = useCallback(async () => {
     try {
       setLoading(true);
-      const { data } = await axios.get("/assessment");
-      setAssessments(data);
+      const params = new URLSearchParams(searchParams.toString());
+      params.set("page", currentPage.toString());
+      params.set("size", "5");
+      const { data } = await axios.get("/assessment", {
+        params: Object.fromEntries(params.entries()),
+      });
+      setAssessments(data.assessments || []);
+      setTotalPages(data.totalPages || 1);
     } catch (error) {
       toast.error("Failed to fetch assessments");
       console.error(error);
     } finally {
       setLoading(false);
     }
+  }, [searchParams, currentPage]);
+
+  const handlePageChange = (page: number) => {
+    const query = new URLSearchParams(searchParams.toString());
+    query.set("page", page.toString());
+    router.push(`/dev/dashboard/assessment?${query.toString()}`);
   };
 
   const editAssessment = async (id: string) => {
@@ -63,19 +82,19 @@ export default function Page() {
   };
 
   const handleEditSuccess = () => {
-    fetchAssessments(); 
+    fetchAssessments();
   };
 
   const handleDeleteSuccess = () => {
-    fetchAssessments(); 
+    fetchAssessments();
   };
 
   useEffect(() => {
     fetchAssessments();
-  }, []);
+  }, [fetchAssessments]);
 
   return (
-    <div className="flex-1 overflow-auto">
+    <div className="flex-1 overflow-auto mb-18">
       <div className="p-6">
         <div className="mb-6">
           <h1 className="text-2xl font-bold text-gray-800 mb-2">Dashboard</h1>
@@ -97,7 +116,7 @@ export default function Page() {
               >
                 <div className="flex items-center gap-5">
                   <div className="border-b border-gray-300 text-shadow-sm">
-                    {idx + 1}
+                    {(currentPage - 1) * 5 + idx + 1}
                   </div>
                   <Image
                     src={a.badgeImage}
@@ -151,6 +170,12 @@ export default function Page() {
         onClose={closeDeleteModal}
         assessment={selectedAssessment}
         onSuccess={handleDeleteSuccess}
+      />
+
+      <Pagination
+        currentPage={currentPage}
+        totalPages={totalPages}
+        onPageChange={handlePageChange}
       />
     </div>
   );

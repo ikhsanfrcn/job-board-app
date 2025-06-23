@@ -38,11 +38,22 @@ export class SkillAssessmentController {
 
   async getAllAssessment(req: Request, res: Response) {
     try {
-      const assessments = await prisma.skillAssessmentTemplate.findMany({
-        orderBy: { createdAt: "asc" },
-      });
+      const page = parseInt(req.query.page as string) || 1;
+      const limit = parseInt(req.query.limit as string) || 5;
+      const skip = (page - 1) * limit;
 
-      res.status(200).json(assessments);
+      const assessments = await prisma.skillAssessmentTemplate.findMany({
+        skip,
+        take: limit,
+        orderBy: { createdAt: "desc" },
+      });
+      const totalAssessments = await prisma.skillAssessmentTemplate.count();
+
+      res.status(200).json({
+        assessments,
+        currentPage: page,
+        totalPages: Math.ceil(totalAssessments / limit),
+      });
     } catch (err) {
       res.status(400).json(err);
     }
