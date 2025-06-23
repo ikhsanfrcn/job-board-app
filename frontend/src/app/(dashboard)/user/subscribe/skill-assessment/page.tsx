@@ -5,10 +5,11 @@ import { IAssessment } from "@/types/assessment";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import LoadingSkeleton from "./_components/loadingSkeleton";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import StartModal from "./_components/startModal";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
+import Pagination from "@/components/atoms/pagination";
 
 export default function SkillAssessment() {
   const [assessments, setAssessments] = useState<IAssessment[]>([]);
@@ -24,13 +25,23 @@ export default function SkillAssessment() {
   const router = useRouter();
   const { data: session } = useSession();
   const token = session?.accessToken;
+  const searchParams = useSearchParams();
+
+  const currentPage = parseInt(searchParams.get("page") || "1");
+  const [totalPages, setTotalPages] = useState(1);
 
   useEffect(() => {
     const fetchAssessments = async () => {
       try {
         setLoading(true);
-        const { data } = await axios.get("/assessment");
-        setAssessments(data);
+        const params = new URLSearchParams(searchParams.toString());
+        params.set("page", currentPage.toString());
+        params.set("size", "5");
+        const { data } = await axios.get("/assessment", {
+          params: Object.fromEntries(params.entries()),
+        });
+        setAssessments(data.assessments || []);
+        setTotalPages(data.totalPages || 1);
       } catch (error) {
         toast.error("Failed to fetch assessments");
         console.error(error);
@@ -39,7 +50,13 @@ export default function SkillAssessment() {
       }
     };
     fetchAssessments();
-  }, []);
+  }, [searchParams, currentPage]);
+
+  const handlePageChange = (page: number) => {
+    const query = new URLSearchParams(searchParams.toString());
+    query.set("page", page.toString());
+    router.push(`/user/subscribe/skill-assessment?${query.toString()}`);
+  };
 
   const checkUserLimits = async () => {
     if (checkingLimits) return false;
@@ -116,7 +133,7 @@ export default function SkillAssessment() {
   return (
     <div className="w-full px-8">
       <div className="mt-3 p-3 border border-gray-200 h-full rounded-xl shadow-sm font-sans">
-        <div className="w-full flex flex-col font-sans">
+        <div className="w-full flex flex-col font-sans mb-7">
           <h2 className="flex justify-center font-semibold text-xl my-7">
             Skill Assessment
           </h2>
@@ -130,7 +147,7 @@ export default function SkillAssessment() {
               >
                 <div className="flex items-center gap-5">
                   <div className="border-b border-gray-300 text-shadow-sm">
-                    {idx + 1}
+                    {(currentPage - 1) * 5 + idx + 1}
                   </div>
                   <Image
                     src={a.badgeImage}
@@ -164,6 +181,11 @@ export default function SkillAssessment() {
           ) : (
             <p>No Skill Assessment</p>
           )}
+          <Pagination
+            currentPage={currentPage}
+            totalPages={totalPages}
+            onPageChange={handlePageChange}
+          />
         </div>
       </div>
       <StartModal

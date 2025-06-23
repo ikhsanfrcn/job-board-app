@@ -129,7 +129,7 @@ export default function SideBar() {
                         "No Badge Earned!"
                       )}
                     </div>
-                    <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-2 py-1 bg-sky-100/95 text-black text-xs rounded opacity-0 group-hover:opacity-100 transition-all z-10 whitespace-nowrap duration-500">
+                    <div className="absolute bottom-full left-10 transform -translate-x-1/2 mb-2 px-2 py-1 bg-sky-100/95 text-black text-xs rounded opacity-0 group-hover:opacity-100 transition-all z-10 whitespace-nowrap duration-500">
                       <div className="font-semibold">{b.title}</div>
                       <div className="text-gray-700">{b.category}</div>
                       <div className="text-gray-700">

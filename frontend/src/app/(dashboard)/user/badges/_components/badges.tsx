@@ -130,7 +130,7 @@ export default function Badges() {
       </div>
 
       {/* Badge Grid */}
-      <div className="grid grid-cols-1 space-y-3 overflow-y-auto">
+      <div className="grid grid-cols-1 space-y-3">
         {badges.length === 0 ? (
           <div className="col-span-full text-center py-12">
             <div className="text-gray-400 text-6xl mb-4">🏆</div>
