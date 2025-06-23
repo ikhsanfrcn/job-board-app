@@ -2,8 +2,18 @@
 
 import { useRouter, useSearchParams } from "next/navigation";
 import { Formik, Form, Field } from "formik";
-import { FaSearch, FaRedo, FaSort } from "react-icons/fa";
+import {
+  FaSearch,
+  FaRedo,
+  FaFilter,
+  FaChevronDown,
+  FaChevronUp,
+  FaTimes,
+} from "react-icons/fa";
+import { useState } from "react";
 import FormatCurrencyInput from "@/components/atoms/formatCurencyInput";
+import ActiveFilterDisplay from "./activeFilterDisplay";
+import AdvancedFilter from "./advancedFilter";
 
 interface Props {
   jobId: string;
@@ -13,6 +23,7 @@ interface Props {
 export default function Filter({ jobId, statusOptions }: Props) {
   const searchParams = useSearchParams();
   const router = useRouter();
+  const [showAdvanced, setShowAdvanced] = useState(false);
 
   const initialValues = {
     status: searchParams.get("status") || "",
@@ -30,6 +41,16 @@ export default function Filter({ jobId, statusOptions }: Props) {
     { value: "expectedSalary", label: "Expected Salary" },
     { value: "user.firstName", label: "First Name" },
     { value: "user.education", label: "Education" },
+  ];
+
+  const educationOptions = [
+    { value: "", label: "All Education" },
+    { value: "High School", label: "High School" },
+    { value: "Diploma", label: "Diploma" },
+    { value: "Bachelor", label: "Bachelor" },
+    { value: "Master", label: "Master" },
+    { value: "Doctorate", label: "Doctorate" },
+    { value: "Other", label: "Other" },
   ];
 
   const handleSubmit = (values: typeof initialValues) => {
@@ -53,6 +74,33 @@ export default function Filter({ jobId, statusOptions }: Props) {
     router.push(
       `/company/manage-jobs/${jobId}?page=1&sortBy=createdAt&sortOrder=asc`
     );
+    setShowAdvanced(false);
+  };
+
+  const clearFilter = (field: string, values: any, setFieldValue: any) => {
+    setFieldValue(field, "");
+    const newValues = { ...values, [field]: "" };
+    handleSubmit(newValues);
+  };
+
+  const hasActiveFilters = (values: any) => {
+    return (
+      values.status ||
+      values.userFirstName ||
+      values.usereducation ||
+      values.expectedSalary ||
+      values.age
+    );
+  };
+
+  const getActiveFiltersCount = (values: any) => {
+    let count = 0;
+    if (values.status) count++;
+    if (values.userFirstName) count++;
+    if (values.usereducation) count++;
+    if (values.expectedSalary) count++;
+    if (values.age) count++;
+    return count;
   };
 
   return (
@@ -62,189 +110,120 @@ export default function Filter({ jobId, statusOptions }: Props) {
       enableReinitialize
     >
       {({ values, setFieldValue }) => (
-        <Form className="flex flex-col gap-4 mb-6 text-sm">
-          <div className="grid grid-cols-1 md:grid-cols-5 gap-4 w-full">
-            <div className="flex flex-col gap-1">
-              <label htmlFor="status" className="text-sm font-medium">
-                Status
-              </label>
-              <Field
-                as="select"
-                id="status"
-                name="status"
-                className="border p-2 rounded w-full text-sm"
-              >
-                <option value="">All Status</option>
-                {statusOptions.map((s) => (
-                  <option key={s} value={s}>
-                    {s}
-                  </option>
-                ))}
-              </Field>
-            </div>
+        <div className="bg-white border border-gray-200 rounded-lg mb-6">
+          <div className="p-4">
+            <Form>
+              <div className="flex flex-col sm:flex-row gap-4 items-end">
+                <div className="flex-1 min-w-0">
+                  <label
+                    htmlFor="sortBy"
+                    className="block text-sm font-medium text-gray-700 mb-2"
+                  >
+                    Sort By
+                  </label>
+                  <Field
+                    as="select"
+                    id="sortBy"
+                    name="sortBy"
+                    className="w-full text-sm border border-gray-300 px-3 py-2 rounded-md focus:border-green-500 transition-colors"
+                    onChange={(e: any) => {
+                      setFieldValue("sortBy", e.target.value);
+                      handleSubmit({ ...values, sortBy: e.target.value });
+                    }}
+                  >
+                    {sortOptions.map((option) => (
+                      <option key={option.value} value={option.value}>
+                        {option.label}
+                      </option>
+                    ))}
+                  </Field>
+                </div>
 
-            <div className="flex flex-col gap-1">
-              <label htmlFor="age" className="text-sm font-medium">
-                Age (≤)
-              </label>
-              <Field
-                id="age"
-                name="age"
-                type="number"
-                min="1"
-                placeholder="Max age"
-                className="border p-2 rounded w-full text-sm"
-              />
-            </div>
+                <div className="flex-1 min-w-0">
+                  <label
+                    htmlFor="sortOrder"
+                    className="block text-sm font-medium text-gray-700 mb-2"
+                  >
+                    Order
+                  </label>
+                  <Field
+                    as="select"
+                    id="sortOrder"
+                    name="sortOrder"
+                    className="w-full text-sm border border-gray-300 px-3 py-2 rounded-md focus:border-green-500 transition-colors"
+                    onChange={(e: any) => {
+                      setFieldValue("sortOrder", e.target.value);
+                      handleSubmit({ ...values, sortOrder: e.target.value });
+                    }}
+                  >
+                    <option value="asc">Ascending (A-Z)</option>
+                    <option value="desc">Descending (Z-A)</option>
+                  </Field>
+                </div>
 
-            <div className="flex flex-col gap-1">
-              <label htmlFor="usereducation" className="text-sm font-medium">
-                Education
-              </label>
-              <Field
-                as="select"
-                id="usereducation"
-                name="usereducation"
-                className="border p-2 rounded w-full text-sm"
-              >
-                <option value="">All Education</option>
-                <option value="High School">High School</option>
-                <option value="Diploma">Diploma</option>
-                <option value="Bachelor">Bachelor</option>
-                <option value="Master">Master</option>
-                <option value="Doctorate">Doctorate</option>
-                <option value="Other">Other</option>
-              </Field>
-            </div>
+                <div className="flex gap-2">
+                  <button
+                    type="button"
+                    onClick={() => setShowAdvanced(!showAdvanced)}
+                    className={`flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-md border transition-all duration-200 ${
+                      showAdvanced || hasActiveFilters(values)
+                        ? "bg-green-50 border-green-200 text-green-700 hover:bg-green-100"
+                        : "bg-white border-gray-300 text-gray-700 hover:bg-gray-50"
+                    }`}
+                  >
+                    <FaFilter className="text-xs" />
+                    <span>Advanced</span>
+                    {showAdvanced ? (
+                      <FaChevronUp className="text-xs" />
+                    ) : (
+                      <FaChevronDown className="text-xs" />
+                    )}
+                    {hasActiveFilters(values) && (
+                      <span className="bg-green-500 text-white text-xs rounded-full px-1.5 py-0.5 min-w-[18px] h-[18px] flex items-center justify-center">
+                        {getActiveFiltersCount(values)}
+                      </span>
+                    )}
+                  </button>
 
-            <div className="flex flex-col gap-1">
-              <label htmlFor="userFirstName" className="text-sm font-medium">
-                First Name
-              </label>
-              <Field
-                id="userFirstName"
-                name="userFirstName"
-                type="text"
-                placeholder="First Name"
-                className="border p-2 rounded w-full text-sm"
-              />
-            </div>
-
-            <div className="flex flex-col gap-1">
-              <label htmlFor="expectedSalary" className="text-sm font-medium">
-                Expected Salary (≤)
-              </label>
-              <FormatCurrencyInput
-                name="expectedSalary"
-                className="border p-2 rounded w-full text-sm"
-                placeholder="Max salary"
-              />
-            </div>
-          </div>
-
-          <div className="flex flex-col md:flex-row gap-4 items-start md:items-end">
-            <div className="flex flex-col md:flex-row gap-4 flex-1 w-full">
-              <div className="flex flex-col gap-1 w-full md:w-auto">
-                <label
-                  htmlFor="sortBy"
-                  className="block text-sm font-medium text-gray-700 mb-1"
-                >
-                  Sort By
-                </label>
-                <Field
-                  as="select"
-                  id="sortBy"
-                  name="sortBy"
-                  className="border p-2 rounded w-full md:w-48 text-sm"
-                >
-                  {sortOptions.map((option) => (
-                    <option key={option.value} value={option.value}>
-                      {option.label}
-                    </option>
-                  ))}
-                </Field>
+                  {hasActiveFilters(values) && (
+                    <button
+                      type="button"
+                      onClick={handleReset}
+                      className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-gray-600 bg-gray-100 border border-gray-300 rounded-md hover:bg-gray-200 transition-colors"
+                    >
+                      <FaRedo className="text-xs" />
+                      <span>Reset</span>
+                    </button>
+                  )}
+                </div>
               </div>
 
-              <div className="flex flex-col gap-1 w-full md:w-auto">
-                <label htmlFor="sortOrder" className="text-sm font-medium mb-1">
-                  Order
-                </label>
-                <Field
-                  as="select"
-                  id="sortOrder"
-                  name="sortOrder"
-                  className="border p-2 rounded w-full md:w-32 text-sm"
-                >
-                  <option value="asc">Ascending</option>
-                  <option value="desc">Descending</option>
-                </Field>
+              <div
+                className={`transition-all duration-300 ease-in-out overflow-hidden ${
+                  showAdvanced
+                    ? "max-h-[600px] opacity-100 mt-4"
+                    : "max-h-0 opacity-0"
+                }`}
+              >
+                <AdvancedFilter
+                  values={values}
+                  setFieldValue={setFieldValue}
+                  statusOptions={statusOptions}
+                  clearFilter={clearFilter}
+                />
               </div>
-            </div>
-
-            <div className="flex gap-2 w-full md:w-auto">
-              <button
-                type="submit"
-                className="flex-1 md:flex-none flex items-center justify-center gap-2 bg-green-600 text-white px-6 py-2 rounded-md hover:bg-green-700 transition text-sm"
-              >
-                <FaSearch />
-                <span>Apply</span>
-              </button>
-              <button
-                type="button"
-                onClick={handleReset}
-                className="flex-1 md:flex-none flex items-center justify-center gap-2 bg-gray-200 text-gray-700 px-6 py-2 rounded-md hover:bg-gray-300 transition text-sm"
-              >
-                <FaRedo />
-                <span>Reset</span>
-              </button>
-            </div>
+            </Form>
           </div>
 
-          {(values.status ||
-            values.userFirstName ||
-            values.usereducation ||
-            values.expectedSalary ||
-            values.age) && (
-            <div className="text-xs text-gray-600 bg-gray-50 p-2 rounded border-l-4 border-green-400">
-              <span className="font-medium">Active filters:</span>
-              {values.status && (
-                <span className="ml-2 bg-green-100 px-2 py-1 rounded">
-                  Status: {values.status}
-                </span>
-              )}
-              {values.age && (
-                <span className="ml-2 bg-green-100 px-2 py-1 rounded">
-                  Age ≤ {values.age}
-                </span>
-              )}
-              {values.usereducation && (
-                <span className="ml-2 bg-green-100 px-2 py-1 rounded">
-                  Education: {values.usereducation}
-                </span>
-              )}
-              {values.userFirstName && (
-                <span className="ml-2 bg-green-100 px-2 py-1 rounded">
-                  Name: {values.userFirstName}
-                </span>
-              )}
-              {values.expectedSalary && (
-                <span className="ml-2 bg-green-100 px-2 py-1 rounded">
-                  Salary ≤{" "}
-                  {Intl.NumberFormat("id-ID", {
-                    style: "currency",
-                    currency: "IDR",
-                    maximumFractionDigits: 0,
-                  }).format(Number(values.expectedSalary))}
-                </span>
-              )}
-              <span className="ml-4 text-gray-500">
-                | Sorted by{" "}
-                {sortOptions.find((o) => o.value === values.sortBy)?.label} (
-                {values.sortOrder === "asc" ? "A-Z" : "Z-A"})
-              </span>
-            </div>
+          {hasActiveFilters(values) && (
+            <ActiveFilterDisplay
+              values={values}
+              clearFilter={clearFilter}
+              setFieldValue={setFieldValue}
+              sortOptions={sortOptions}
+            />
           )}
-        </Form>
+        </div>
       )}
     </Formik>
   );
