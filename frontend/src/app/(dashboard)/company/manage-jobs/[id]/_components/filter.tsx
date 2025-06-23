@@ -125,7 +125,7 @@ export default function Filter({ jobId, statusOptions }: Props) {
                     as="select"
                     id="sortBy"
                     name="sortBy"
-                    className="w-full text-sm border border-gray-300 px-3 py-2 rounded-md focus:border-green-500 transition-colors"
+                    className="w-full text-sm border border-gray-300 px-3 py-2 rounded-md focus:border-green-500 transition-colors outline-none"
                     onChange={(e: any) => {
                       setFieldValue("sortBy", e.target.value);
                       handleSubmit({ ...values, sortBy: e.target.value });
@@ -150,7 +150,7 @@ export default function Filter({ jobId, statusOptions }: Props) {
                     as="select"
                     id="sortOrder"
                     name="sortOrder"
-                    className="w-full text-sm border border-gray-300 px-3 py-2 rounded-md focus:border-green-500 transition-colors"
+                    className="w-full text-sm border border-gray-300 px-3 py-2 rounded-md focus:border-green-500 transition-colors outline-none"
                     onChange={(e: any) => {
                       setFieldValue("sortOrder", e.target.value);
                       handleSubmit({ ...values, sortOrder: e.target.value });
