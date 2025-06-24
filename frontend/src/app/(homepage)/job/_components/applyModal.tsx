@@ -1,6 +1,8 @@
 import { Modal } from "@/components/atoms/Modal";
+import { formatCurrency, parseCurrency } from "@/helper/formatCurrency";
 import axios from "@/lib/axios";
 import { useState } from "react";
+import { toast } from "react-toastify";
 
 interface Props {
   isOpen: boolean;
@@ -28,9 +30,9 @@ export const ApplyModal = ({
       return;
     }
 
-    const salary = Number(expectedSalary);
-    if (isNaN(salary)) {
-      setStatus("Expected salary must be a number.");
+    const salary = parseCurrency(expectedSalary);
+    if (!salary || isNaN(salary)) {
+      setStatus("Expected salary must be a valid amount.");
       return;
     }
 
@@ -50,12 +52,13 @@ export const ApplyModal = ({
       };
 
       await axios.post("/applications", formData, config);
-
       setStatus("Applied successfully!");
+      toast.success("Applied successfully!");
       onSuccess();
     } catch (err) {
       console.error(err);
       setStatus("Failed to apply.");
+      toast.error("Failed to apply.");
     } finally {
       setIsSubmitting(false);
     }
@@ -74,9 +77,10 @@ export const ApplyModal = ({
             Expected Salary
           </label>
           <input
-            type="number"
+            type="text"
             value={expectedSalary}
-            onChange={(e) => setExpectedSalary(e.target.value)}
+            onChange={(e) => setExpectedSalary(formatCurrency(e.target.value))}
+            placeholder="e.g Rp 10.000.000"
             className="border px-3 py-2 rounded w-full"
           />
         </div>

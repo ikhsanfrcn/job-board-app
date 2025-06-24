@@ -1,4 +1,5 @@
-import React, { ReactNode, useEffect } from "react";
+import React, { Fragment, ReactNode, useEffect } from "react";
+import { Dialog, Transition } from "@headlessui/react";
 
 interface ModalProps {
   isOpen: boolean;
@@ -8,7 +9,13 @@ interface ModalProps {
   size?: "sm" | "md" | "lg";
 }
 
-export const Modal: React.FC<ModalProps> = ({ isOpen, onClose, title, children, size = "md" }) => {
+export const Modal: React.FC<ModalProps> = ({
+  isOpen,
+  onClose,
+  title,
+  children,
+  size = "md",
+}) => {
   useEffect(() => {
     if (isOpen) {
       document.body.classList.add("overflow-hidden");
@@ -21,30 +28,58 @@ export const Modal: React.FC<ModalProps> = ({ isOpen, onClose, title, children, 
     };
   }, [isOpen]);
 
-  if (!isOpen) return null;
-
   const sizeClass = {
-    sm: "w-[300px]",
-    md: "w-[500px]",
-    lg: "w-[700px]",
+    sm: "max-w-sm",
+    md: "max-w-md",
+    lg: "max-w-lg",
   }[size];
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/30">
-      <div className={`bg-white rounded shadow-md p-6 ${sizeClass}`}>
-        {title && (
-          <div className="flex items-center justify-between mb-4">
-            <h2 className="text-lg font-semibold">{title}</h2>
-            <button
-              onClick={onClose}
-              className="text-gray-500 text-2xl leading-none cursor-pointer hover:text-gray-800"
+    <Transition.Root show={isOpen} as={Fragment}>
+      <Dialog as="div" className="relative z-50" onClose={onClose}>
+        <Transition.Child
+          as={Fragment}
+          enter="ease-out duration-200"
+          enterFrom="opacity-0"
+          enterTo="opacity-100"
+          leave="ease-in duration-150"
+          leaveFrom="opacity-100"
+          leaveTo="opacity-0"
+        >
+          <div className="fixed inset-0 bg-black/50 backdrop-blur-sm transition-opacity" />
+        </Transition.Child>
+
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+          <Transition.Child
+            as={Fragment}
+            enter="ease-out duration-200"
+            enterFrom="opacity-0 scale-95"
+            enterTo="opacity-100 scale-100"
+            leave="ease-in duration-150"
+            leaveFrom="opacity-100 scale-100"
+            leaveTo="opacity-0 scale-95"
+          >
+            <Dialog.Panel
+              className={`bg-white rounded-lg shadow-md p-6 ${sizeClass} w-full max-w-full transform transition-all`}
             >
-              ×
-            </button>
-          </div>
-        )}
-        <div>{children}</div>
-      </div>
-    </div>
+              {title && (
+                <div className="flex items-center justify-between mb-4">
+                  <Dialog.Title className="text-lg font-semibold text-gray-900">
+                    {title}
+                  </Dialog.Title>
+                  <button
+                    onClick={onClose}
+                    className="text-gray-500 text-2xl leading-none hover:text-gray-800"
+                  >
+                    ×
+                  </button>
+                </div>
+              )}
+              <div>{children}</div>
+            </Dialog.Panel>
+          </Transition.Child>
+        </div>
+      </Dialog>
+    </Transition.Root>
   );
 };

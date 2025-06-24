@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import SideBar from "./_components/sidebar";
+import NavbarMobile from "../_components/navbarMobile";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -13,6 +14,7 @@ export default function RootLayout({
 }>) {
   return (
     <main className="xl:px-32">
+      <NavbarMobile />
       <div className="w-full flex flex-wrap">
         <div className="hidden md:block w-full md:w-3/12 sticky top-0 h-screen p-4">
           <SideBar />

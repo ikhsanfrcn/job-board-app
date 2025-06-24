@@ -4,12 +4,12 @@ import { useState, useEffect } from "react";
 import { IJob } from "@/types/job";
 import { useSession } from "next-auth/react";
 import axios from "@/lib/axios";
-import { JobHeader } from "./jobHeader";
 import { JobContent } from "./jobContent";
 import { ApplyModal } from "./applyModal";
-import { ShareModal } from "./shareModal";
-import { LoginModal } from "./loginModal";
+import ShareModal from "./shareModal";
 import { TestConfirmModal } from "./testModal";
+import JobHeader from "./jobHeader";
+import LoginModal from "./loginModal";
 
 export default function JobDetail({ job }: { job: IJob }) {
   const [isApplyModalOpen, setIsApplyModalOpen] = useState(false);
@@ -54,7 +54,7 @@ export default function JobDetail({ job }: { job: IJob }) {
       const res = await axios.get(`/test/check/${job.id}`, {
         headers: token ? { Authorization: `Bearer ${token}` } : {},
       });
-      
+
       return res.data?.isTestActive === true;
     } catch (err) {
       console.error("Error checking test status:", err);
@@ -86,6 +86,7 @@ export default function JobDetail({ job }: { job: IJob }) {
     setShowTestConfirmModal(false);
     window.location.href = `/usertest/${job.id}`;
   };
+  
 
   return (
     <div className="border rounded-lg max-h-screen overflow-y-auto">

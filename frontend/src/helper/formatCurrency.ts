@@ -16,9 +16,12 @@ export const formatRupiah = (
 ): string => {
   if (!value || isNaN(Number(value))) return "-";
 
-  return new Intl.NumberFormat("id-ID", {
+  const formatted = new Intl.NumberFormat("id-ID", {
     style: "currency",
     currency: "IDR",
     maximumFractionDigits: 0,
   }).format(Number(value));
+
+  return formatted.replace("Rp", "Rp.");
 };
+

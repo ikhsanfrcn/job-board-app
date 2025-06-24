@@ -72,7 +72,7 @@ export default function ProfileForm({
             <TextInput label="Name" name="name" />
             <TextInput label="Email" name="email" readOnly />
             <TextInput label="Phone Number" name="phoneNumber" />
-
+            <TextInput label="Country" name="country" readOnly />
             <ProvinceCitySelector
               setFieldValue={(field, value) => {
                 if (field === "state") setProvinceValue(value);

@@ -30,6 +30,7 @@ export const JobListingsPage: React.FC = () => {
   const [totalPages, setTotalPages] = useState(1);
   const [filters, setFilters] = useState<Filters>({});
   const [loading, setLoading] = useState(false);
+  const [initialLoad, setInitialLoad] = useState(true);
   const jobListRef = useRef<HTMLDivElement>(null);
 
   const fetchJobs = async (page: number, filters: Filters) => {
@@ -38,14 +39,20 @@ export const JobListingsPage: React.FC = () => {
       const response = await axios.get("/jobs", {
         params: { ...filters, page },
       });
+
       const jobList = response.data.data.jobs;
       const pagination = response.data.data.pagination;
 
-      setJobs(page === 1 ? jobList : (prev) => [...prev, ...jobList]);
+      setJobs((prev) => (page === 1 ? jobList : [...prev, ...jobList]));
       setTotalPages(pagination.totalPages);
 
-      if (page === 1 && jobList.length > 0 && !selectedJob && !jobIdFromQuery) {
-        setSelectedJob(jobList[0]);
+      // Auto select first job if none selected and not coming from query
+      if (page === 1) {
+        if (jobList.length > 0 && !jobIdFromQuery) {
+          setSelectedJob(jobList[0]);
+        } else if (jobList.length === 0) {
+          setSelectedJob(null);
+        }
       }
     } catch (error) {
       console.error("Failed to fetch jobs:", error);
@@ -56,7 +63,6 @@ export const JobListingsPage: React.FC = () => {
 
   const fetchJobById = async (id: string) => {
     try {
-      setLoading(true);
       const response = await axios.get(`/jobs/${id}`);
       const job = response.data.data;
       setSelectedJob(job);
@@ -67,11 +73,10 @@ export const JobListingsPage: React.FC = () => {
       });
     } catch (error) {
       console.error("Failed to fetch job by ID:", error);
-    } finally {
-      setLoading(false);
     }
   };
 
+  // Re-run when searchParams change
   useEffect(() => {
     const city = searchParams.get("city") || undefined;
     const titleOrCategory = searchParams.get("titleOrCategory") || undefined;
@@ -93,62 +98,82 @@ export const JobListingsPage: React.FC = () => {
       minSalary,
       maxSalary,
       date,
-      sort
+      sort,
     };
-
-    const jobId = searchParams.get("id");
 
     setFilters(updatedFilters);
     setPage(pageFromQuery);
-    fetchJobs(pageFromQuery, updatedFilters);
-
-    if (jobId) {
-      fetchJobById(jobId);
-    }
+    setInitialLoad(true);
   }, [searchParams]);
 
+  // Fetch jobs when filters or page change (debounced by initialLoad flag)
   useEffect(() => {
-    fetchJobs(page, filters);
-  }, [page, filters]);
+    if (initialLoad) {
+      fetchJobs(page, filters);
+      setInitialLoad(false);
+    }
+  }, [initialLoad]);
+
+  // Fetch specific job by ID from query
+  useEffect(() => {
+    if (jobIdFromQuery) {
+      fetchJobById(jobIdFromQuery);
+    }
+  }, [jobIdFromQuery]);
 
   useEffect(() => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    window.scrollTo({ top: 200, behavior: "smooth" });
   }, [selectedJob]);
 
   const handleLoadMore = () => {
     if (page < totalPages) {
       setPage((prevPage) => prevPage + 1);
+      setInitialLoad(true);
     }
   };
 
   const onJobClick = (job: IJob) => {
     setSelectedJob(job);
+    window.history.replaceState(null, "", `?id=${job.id}`);
   };
 
   return (
     <div className="mt-5">
       <JobSearchHeader />
       <JobFilters filters={filters} setFilters={setFilters} />
-      {loading ? (
+
+      {loading && jobs.length === 0 ? (
         <Loading />
       ) : (
         <div className="max-w-7xl mx-auto p-4 flex flex-col md:grid md:grid-cols-3 gap-4">
           <div className="md:col-span-2 order-1 md:order-2">
-            {selectedJob && <JobDetail job={selectedJob} />}
+            {selectedJob ? (
+              <JobDetail job={selectedJob} />
+            ) : (
+              <div className="p-4 text-center text-gray-500 border border-dashed rounded">
+                No job selected.
+              </div>
+            )}
           </div>
 
           <div
             ref={jobListRef}
             className="space-y-2 overflow-y-auto max-h-screen order-2 md:order-1"
           >
-            {jobs.map((job) => (
-              <JobCard
-                key={job.id}
-                job={job}
-                onClick={() => onJobClick(job)}
-                isSelected={selectedJob?.id === job.id}
-              />
-            ))}
+            {jobs.length > 0 ? (
+              jobs.map((job) => (
+                <JobCard
+                  key={job.id}
+                  job={job}
+                  onClick={() => onJobClick(job)}
+                  isSelected={selectedJob?.id === job.id}
+                />
+              ))
+            ) : (
+              <div className="p-4 text-center text-sm text-gray-500 border border-dashed border-gray-300 rounded">
+                No jobs found for the selected filters.
+              </div>
+            )}
             {page < totalPages && (
               <button
                 onClick={handleLoadMore}
