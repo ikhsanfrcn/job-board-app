@@ -40,7 +40,7 @@ export default function ProfileFormFields({
           { label: "Other", value: "Other" },
         ]}
       />
-      <TextInput label="Country" name="country" />
+      <TextInput label="Country" name="country" readOnly />
       <ProvinceCitySelector
         setFieldValue={setFieldValue}
         provinceValue={provinceValue}

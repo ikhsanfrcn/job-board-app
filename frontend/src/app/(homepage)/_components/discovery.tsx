@@ -6,6 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { FcMoneyTransfer } from "react-icons/fc";
 import { useEffect, useState } from "react";
+import { formatRupiah } from "@/helper/formatCurrency";
 
 export default function Discovery({city}: {city?: string}) {
   const [jobs, setJobs] = useState<IDiscover[]>([]);
@@ -106,7 +107,7 @@ export default function Discovery({city}: {city?: string}) {
                 <div className="flex gap-2 items-center">
                   <FcMoneyTransfer className="text-sm" />
                   <span className="my-5">
-                    IDR {job.salaryMin.toLocaleString()} - {job.salaryMax.toLocaleString()}
+                    {formatRupiah(job.salaryMin)} - {formatRupiah(job.salaryMax)}
                   </span>
                 </div>
 

@@ -1,6 +1,8 @@
 "use client";
 import { Dialog, Transition } from "@headlessui/react";
-import React, { Fragment, useState } from "react";
+import { useFormik } from "formik";
+import * as yup from "yup";
+import React, { Fragment } from "react";
 
 interface Props {
   applicationId: string;
@@ -13,19 +15,28 @@ interface Props {
   }) => void;
 }
 
+const validationSchema = yup.object().shape({
+  date: yup.string().required("Date is required"),
+  time: yup.string().required("Time is required"),
+  location: yup.string().required("Location is required"),
+});
+
 export default function InterviewScheduleModal({
   applicationId,
   onClose,
   onSubmit,
 }: Props) {
-  const [date, setDate] = useState("");
-  const [time, setTime] = useState("");
-  const [location, setLocation] = useState("");
-
-  const handleSubmit = () => {
-    if (!date || !time || !location) return alert("Please fill all fields.");
-    onSubmit({ applicationId, date, time, location });
-  };
+  const formik = useFormik({
+    initialValues: {
+      date: "",
+      time: "",
+      location: "",
+    },
+    validationSchema,
+    onSubmit: (values) => {
+      onSubmit({ ...values, applicationId });
+    },
+  });
 
   return (
     <Transition appear show={true} as={Fragment}>
@@ -58,51 +69,81 @@ export default function InterviewScheduleModal({
                   Schedule Interview
                 </Dialog.Title>
 
-                <div className="mb-4">
-                  <label className="block text-sm font-medium mb-1">Date</label>
-                  <input
-                    type="date"
-                    value={date}
-                    onChange={(e) => setDate(e.target.value)}
-                    className="w-full border p-2 rounded"
-                  />
-                </div>
+                <form onSubmit={formik.handleSubmit} className="mt-4">
+                  <div className="mb-4">
+                    <label className="block text-sm font-medium mb-1">
+                      Date
+                    </label>
+                    <input
+                      type="date"
+                      name="date"
+                      value={formik.values.date}
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      className="w-full border p-2 rounded"
+                    />
+                    {formik.touched.date && formik.errors.date && (
+                      <p className="text-red-500 text-sm mt-1">
+                        {formik.errors.date}
+                      </p>
+                    )}
+                  </div>
 
-                <div className="mb-4">
-                  <label className="block text-sm font-medium mb-1">Time</label>
-                  <input
-                    type="time"
-                    value={time}
-                    onChange={(e) => setTime(e.target.value)}
-                    className="w-full border p-2 rounded"
-                  />
-                </div>
+                  <div className="mb-4">
+                    <label className="block text-sm font-medium mb-1">
+                      Time
+                    </label>
+                    <input
+                      type="time"
+                      name="time"
+                      value={formik.values.time}
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      className="w-full border p-2 rounded"
+                    />
+                    {formik.touched.time && formik.errors.time && (
+                      <p className="text-red-500 text-sm mt-1">
+                        {formik.errors.time}
+                      </p>
+                    )}
+                  </div>
 
-                <div className="mb-4">
-                  <label className="block text-sm font-medium mb-1">Location</label>
-                  <input
-                    type="text"
-                    value={location}
-                    onChange={(e) => setLocation(e.target.value)}
-                    className="w-full border p-2 rounded"
-                    placeholder="e.g. Zoom, Google Meet, Office"
-                  />
-                </div>
+                  <div className="mb-4">
+                    <label className="block text-sm font-medium mb-1">
+                      Location
+                    </label>
+                    <input
+                      type="text"
+                      name="location"
+                      value={formik.values.location}
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      placeholder="e.g. Zoom, Google Meet, Office"
+                      className="w-full border p-2 rounded"
+                    />
+                    {formik.touched.location && formik.errors.location && (
+                      <p className="text-red-500 text-sm mt-1">
+                        {formik.errors.location}
+                      </p>
+                    )}
+                  </div>
 
-                <div className="flex justify-end gap-2 mt-6">
-                  <button
-                    onClick={onClose}
-                    className="px-4 py-2 text-sm bg-gray-300 hover:bg-gray-400 rounded"
-                  >
-                    Cancel
-                  </button>
-                  <button
-                    onClick={handleSubmit}
-                    className="px-4 py-2 text-sm bg-blue-600 hover:bg-blue-700 text-white rounded"
-                  >
-                    Create
-                  </button>
-                </div>
+                  <div className="flex justify-end gap-2 mt-6">
+                    <button
+                      type="button"
+                      onClick={onClose}
+                      className="px-4 py-2 text-sm bg-gray-300 hover:bg-gray-400 rounded"
+                    >
+                      Cancel
+                    </button>
+                    <button
+                      type="submit"
+                      className="px-4 py-2 text-sm bg-gray-600 hover:bg-gray-700 text-white rounded"
+                    >
+                      Create
+                    </button>
+                  </div>
+                </form>
               </Dialog.Panel>
             </Transition.Child>
           </div>
