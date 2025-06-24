@@ -2,7 +2,7 @@
 
 import axios from "@/lib/axios";
 import { IAssessment } from "@/types/assessment";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import LoadingSkeleton from "./_components/loadingSkeleton";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -22,6 +22,7 @@ export default function SkillAssessment() {
     string | null
   >(null);
   const [checkingLimits, setCheckingLimits] = useState(false);
+  const [isSubscribe, setIsSubscribe] = useState(false);
   const router = useRouter();
   const { data: session } = useSession();
   const token = session?.accessToken;
@@ -30,27 +31,49 @@ export default function SkillAssessment() {
   const currentPage = parseInt(searchParams.get("page") || "1");
   const [totalPages, setTotalPages] = useState(1);
 
-  useEffect(() => {
-    const fetchAssessments = async () => {
-      try {
-        setLoading(true);
-        const params = new URLSearchParams(searchParams.toString());
-        params.set("page", currentPage.toString());
-        params.set("size", "5");
-        const { data } = await axios.get("/assessment", {
-          params: Object.fromEntries(params.entries()),
-        });
-        setAssessments(data.assessments || []);
-        setTotalPages(data.totalPages || 1);
-      } catch (error) {
-        toast.error("Failed to fetch assessments");
-        console.error(error);
-      } finally {
-        setLoading(false);
+  const fetchAssessments = async () => {
+    try {
+      setLoading(true);
+      const params = new URLSearchParams(searchParams.toString());
+      params.set("page", currentPage.toString());
+      params.set("size", "5");
+      const { data } = await axios.get("/assessment", {
+        params: Object.fromEntries(params.entries()),
+      });
+      setAssessments(data.assessments || []);
+      setTotalPages(data.totalPages || 1);
+    } catch (error) {
+      toast.error("Failed to fetch assessments");
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const checkIsSubscribe = useCallback(async () => {
+    if (!token) return;
+    try {
+      const { data } = await axios.get("/users/is-subscribe", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      const isValid = data.result.isValid;
+      setIsSubscribe(isValid);
+
+      if (!isValid) {
+        router.replace("/user/subscribe");
       }
-    };
+    } catch (err) {
+      console.log(err);
+    }
+  }, [token, router]);
+
+  useEffect(() => {
     fetchAssessments();
-  }, [searchParams, currentPage]);
+    checkIsSubscribe();
+  }, [searchParams, token]);
 
   const handlePageChange = (page: number) => {
     const query = new URLSearchParams(searchParams.toString());
@@ -129,6 +152,8 @@ export default function SkillAssessment() {
       (userSubscriptionType === "STANDARD" && userAssessmentCount >= 2)
     );
   };
+
+  if (!isSubscribe) return null;
 
   return (
     <div className="w-full px-8">

@@ -321,7 +321,8 @@ export class SkillAssessmentController {
       const assessments = await getUserAssessments({
         userId,
         title: title as string,
-        isPassed: isPassed === "true",
+        isPassed:
+          isPassed === "true" ? true : isPassed === "false" ? false : undefined,
         sortBy: sortBy as "createdAt" | "title" | "isPassed",
         sortOrder: sortOrder as "asc" | "desc",
         page: parseInt(page as string),

@@ -66,7 +66,7 @@ export default function Jobs() {
     } finally {
       setLoading(false);
     }
-  }, [token, currentPage, searchParams]);
+  }, [token, searchParams]);
 
   useEffect(() => {
     fetchJobs();

@@ -24,7 +24,6 @@ export default function SideBar() {
     { label: "Profile", path: "/company/profile" },
     { label: "Manage Jobs", path: "/company/manage-jobs" },
     { label: "Account Settings", path: "/company/settings" },
-    { label: "Notifications", path: "/company/notifications" },
   ];
 
   const isActive = (path: string) =>
@@ -127,7 +126,7 @@ export default function SideBar() {
             <HiOutlineLogout className="text-2xl" />
           </div>
 
-          <Link href="/help">
+          <Link href="/company/help-center">
             <button className="w-full font-medium px-4 py-2 border rounded-lg cursor-pointer">
               Help Center
             </button>
