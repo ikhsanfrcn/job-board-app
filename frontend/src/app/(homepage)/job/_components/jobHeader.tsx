@@ -15,12 +15,17 @@ export const JobHeader = ({
   onApplyClick,
   onShareClick,
 }: JobHeaderProps) => (
-  <div className="flex justify-between border-b items-center p-6">
+  <div className="relative flex justify-between border-b items-center p-6">
     <div>
+      {job.isTestActive && (
+        <div className="absolute right-0 top-0 rounded-bl-lg rounded-tr-lg bg-green-600 text-white px-3 py-2">
+          TEST reqiured
+        </div>
+      )}
       <p className="text-black">{job.company.name}</p>
       <h2 className="text-xl font-bold">{job.title}</h2>
       <p className="text-gray-700">
-        {job.city} {job.worksite && (`• ${job.worksite}`)}
+        {job.city} {job.worksite && `• ${job.worksite}`}
       </p>
       <p className="text-gray-700">
         {job.salaryMin && `IDR ${job.salaryMin}`}{" "}

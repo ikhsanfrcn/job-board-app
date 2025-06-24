@@ -12,11 +12,13 @@ import JobSearchHeader from "./header";
 import Loading from "@/app/loading";
 
 type Filters = {
-  title?: string;
+  titleOrCategory?: string;
   city?: string;
   minSalary?: number;
   maxSalary?: number;
   worksite?: string;
+  date?: string;
+  sort?: string;
 };
 
 export const JobListingsPage: React.FC = () => {
@@ -72,7 +74,7 @@ export const JobListingsPage: React.FC = () => {
 
   useEffect(() => {
     const city = searchParams.get("city") || undefined;
-    const title = searchParams.get("title") || undefined;
+    const titleOrCategory = searchParams.get("titleOrCategory") || undefined;
     const worksite = searchParams.get("worksite") || undefined;
     const minSalary = searchParams.get("minSalary")
       ? Number(searchParams.get("minSalary"))
@@ -81,13 +83,17 @@ export const JobListingsPage: React.FC = () => {
       ? Number(searchParams.get("maxSalary"))
       : undefined;
     const pageFromQuery = parseInt(searchParams.get("page") || "1");
+    const date = searchParams.get("date") || undefined;
+    const sort = searchParams.get("sort") || undefined;
 
     const updatedFilters: Filters = {
       city,
-      title,
+      titleOrCategory,
       worksite,
       minSalary,
       maxSalary,
+      date,
+      sort
     };
 
     const jobId = searchParams.get("id");

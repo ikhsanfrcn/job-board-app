@@ -53,7 +53,7 @@ export default function Discovery({city}: {city?: string}) {
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
         {loading
-          ? // ✅ Skeleton Loader
+          ?
             Array.from({ length: 6 }).map((_, index) => (
               <div
                 key={index}
