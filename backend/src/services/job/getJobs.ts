@@ -2,7 +2,7 @@ import prisma from "../../prisma";
 import { GetJobsParams } from "../../types/type";
 
 export const getJobs = async ({
-  title,
+  titleOrCategory,
   city,
   category,
   tags,
@@ -12,17 +12,29 @@ export const getJobs = async ({
   minSalary,
   maxSalary,
   worksite,
+  date,
+  sort,
 }: GetJobsParams) => {
   const skip = (page - 1) * size;
   const take = size;
 
   const where: any = { isPublished };
 
-  if (title) {
-    where.title = {
-      contains: title,
-      mode: "insensitive",
-    };
+  if (titleOrCategory) {
+    where.OR = [
+      {
+        title: {
+          contains: titleOrCategory,
+          mode: "insensitive",
+        },
+      },
+      {
+        category: {
+          contains: titleOrCategory,
+          mode: "insensitive",
+        },
+      },
+    ];
   }
 
   if (city) {
@@ -47,12 +59,27 @@ export const getJobs = async ({
     where.salaryMax = { lte: maxSalary };
   }
 
+  if (date === "7days") {
+    where.createdAt = {
+      gte: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000),
+    };
+  } else if (date === "1month") {
+    where.createdAt = {
+      gte: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000),
+    };
+  }
+
+  let orderBy: any = { createdAt: "desc" };
+  if (sort === "oldest") {
+    orderBy = { createdAt: "asc" };
+  }
+
   const [jobs, total] = await Promise.all([
     prisma.job.findMany({
       where,
       skip,
       take,
-      orderBy: { createdAt: "desc" },
+      orderBy,
       include: {
         company: {
           select: {
