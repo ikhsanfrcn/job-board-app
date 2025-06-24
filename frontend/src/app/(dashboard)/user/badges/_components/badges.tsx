@@ -58,12 +58,11 @@ export default function Badges() {
             <FaTrophy className="w-6 h-6" />
           </div>
           <div>
-            <h1 className="text-3xl font-bold text-gray-900">Skill Badges</h1>
             <p className="text-gray-600">
               Track your achievements and unlock new milestones
             </p>
           </div>
-        </div>
+        </div> 
 
         {/* Stats */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">

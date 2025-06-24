@@ -44,5 +44,6 @@ export interface ICompanyProfile {
   averageRating: number;
   totalJobs: number;
   totalApplicants: number;
+  totalEmployees: number;
   Review: IReview[];
 }

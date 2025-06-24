@@ -9,6 +9,7 @@ import Link from "next/link";
 import SkeletonCard from "./skeletonCard";
 import { useSearchParams, useRouter } from "next/navigation";
 import Image from "next/image";
+import { toSlug } from "@/helper/toSlug";
 
 export default function Companies() {
   const searchParams = useSearchParams();
@@ -35,6 +36,7 @@ export default function Companies() {
           limit: 6,
         },
       });
+      console.log(data);
       setCompanies(data.data);
       setTotalPages(data.totalPages);
     } catch (err) {
@@ -73,7 +75,10 @@ export default function Companies() {
         ) : (
           <>
             {companies.map((company) => (
-              <Link href={`/companies/${company.id}`} key={company.id}>
+              <Link
+                href={`/companies/${toSlug(company.name)}`}
+                key={company.id}
+              >
                 <div className="w-full p-4 rounded-lg hover:bg-gray-100 mb-5 cursor-pointer">
                   <div className="flex items-center space-x-4 mb-2">
                     <div className="w-16 h-16 flex-shrink-0 border border-gray-200 overflow-hidden">
@@ -101,7 +106,12 @@ export default function Companies() {
                   </div>
 
                   <div className="flex items-center space-x-4 text-sm mb-2">
-                    <p>1000+ employees</p>
+                    <p>
+                      {company.totalEmployees === 0
+                        ? "-"
+                        : company.totalEmployees}{" "}
+                      employees
+                    </p>
                     <span className="h-1 w-1 bg-black rounded-full" />
                     {company.city && <p>{company.city}</p>}
                   </div>

@@ -1,9 +1,15 @@
+import { fromSlug } from "../../helpers/fromSlug";
 import { Company } from "../../../prisma/generated/prisma";
 import prisma from "../../prisma";
 
-export const getCompanyDetailService = async (companyId: string) => {
-  const company = await prisma.company.findUnique({
-    where: { id: companyId },
+export const getCompanyDetailService = async (companyName: string) => {
+  const company = await prisma.company.findFirst({
+    where: {
+      name: {
+        equals: fromSlug(companyName),
+        mode: "insensitive",
+      },
+    },
     include: {
       Review: true,
     },
@@ -29,15 +35,17 @@ export const getCompanyDetailService = async (companyId: string) => {
       (cultureRating +
         workLifeBalanceRating +
         facilitiesRating +
-        careerOpportunitiesRating) / 4;
+        careerOpportunitiesRating) /
+      4;
 
     totalRatingSum += averagePerReview;
   }
 
-  const averageRating =
-    totalReviews > 0 ? totalRatingSum / totalReviews : 0;
+  const averageRating = totalReviews > 0 ? totalRatingSum / totalReviews : 0;
 
-  const { password, ...companyWithoutPassword } = company as Company & { password?: string };
+  const { password, ...companyWithoutPassword } = company as Company & {
+    password?: string;
+  };
 
   return {
     ...companyWithoutPassword,
