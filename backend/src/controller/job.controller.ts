@@ -33,49 +33,51 @@ export class JobController {
   }
 
   async getJobs(req: Request, res: Response) {
-    try {
-      const {
-        title,
-        city,
-        category,
-        tags,
-        isPublished,
-        page = "1",
-        size = "10",
-        minSalary,
-        maxSalary,
-      } = req.query;
+  try {
+    const {
+      titleOrCategory,
+      city,
+      category,
+      tags,
+      isPublished,
+      page = "1",
+      size = "10",
+      minSalary,
+      maxSalary,
+      worksite,
+      date,
+      sort,
+    } = req.query;
 
-      const parsedTags = typeof tags === "string" ? tags.split(",") : [];
+    const parsedTags = typeof tags === "string" ? tags.split(",") : [];
 
-      const worksiteParam = (
-        req.query.worksite as string | undefined
-      )?.toUpperCase();
+    const worksiteParam = (worksite as string | undefined)?.toUpperCase();
+    const allowedWorksites = ["REMOTE", "HYBRID", "ONSITE"] as const;
 
-      const allowedWorksites = ["REMOTE", "HYBRID", "ONSITE"] as const;
+    const normalizedWorksite = allowedWorksites.includes(worksiteParam as any)
+      ? (worksiteParam as "REMOTE" | "HYBRID" | "ONSITE")
+      : undefined;
 
-      const worksite = allowedWorksites.includes(worksiteParam as any)
-        ? (worksiteParam as "REMOTE" | "HYBRID" | "ONSITE")
-        : undefined;
+    const jobsResult = await getJobs({
+      titleOrCategory: titleOrCategory as string,
+      city: city as string,
+      category: category as string,
+      tags: parsedTags,
+      isPublished: isPublished === "false" ? false : true,
+      page: parseInt(page as string),
+      size: parseInt(size as string),
+      minSalary: minSalary ? parseInt(minSalary as string) : undefined,
+      maxSalary: maxSalary ? parseInt(maxSalary as string) : undefined,
+      worksite: normalizedWorksite,
+      date: date as string,
+      sort: sort as string,
+    });
 
-      const jobsResult = await getJobs({
-        title: title as string,
-        city: city as string,
-        category: category as string,
-        tags: parsedTags as string[],
-        isPublished: isPublished === "false" ? false : true,
-        page: parseInt(page as string),
-        size: parseInt(size as string),
-        minSalary: minSalary ? parseInt(minSalary as string) : undefined,
-        maxSalary: maxSalary ? parseInt(maxSalary as string) : undefined,
-        worksite,
-      });
-
-      res.status(200).json(jobsResult);
-    } catch (error: any) {
-      res.status(error.status || 500).json({ message: error.message });
-    }
+    res.status(200).json(jobsResult);
+  } catch (error: any) {
+    res.status(error.status || 500).json({ message: error.message });
   }
+}
 
   async getById(req: Request, res: Response) {
     try {

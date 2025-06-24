@@ -10,11 +10,10 @@ interface JobFiltersProps {
   }) => void;
 }
 
-export default function JobFilters({ filters, }: JobFiltersProps) {
+export default function JobFilters({ filters }: JobFiltersProps) {
   const [isSalaryOpen, setIsSalaryOpen] = useState(false);
   const router = useRouter();
-const searchParams = useSearchParams();
-
+  const searchParams = useSearchParams();
 
   const [minSalary, setMinSalary] = useState<string>(
     filters.minSalary !== undefined ? filters.minSalary.toString() : "0"
@@ -26,36 +25,35 @@ const searchParams = useSearchParams();
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   const handleRemoteToggle = () => {
-  const params = new URLSearchParams(searchParams.toString());
-  if (params.get("worksite") === "remote") {
-    params.delete("worksite");
-  } else {
-    params.set("worksite", "remote");
-  }
-  params.set("page", "1");
-  router.push(`/job?${params.toString()}`);
-};
+    const params = new URLSearchParams(searchParams.toString());
+    if (params.get("worksite") === "remote") {
+      params.delete("worksite");
+    } else {
+      params.set("worksite", "remote");
+    }
+    params.set("page", "1");
+    router.push(`/job?${params.toString()}`);
+  };
 
   const handleSalarySubmit = () => {
-  const params = new URLSearchParams(searchParams.toString());
+    const params = new URLSearchParams(searchParams.toString());
 
-  if (minSalary && !isNaN(Number(minSalary))) {
-    params.set("minSalary", minSalary);
-  } else {
-    params.delete("minSalary");
-  }
+    if (minSalary && !isNaN(Number(minSalary))) {
+      params.set("minSalary", minSalary);
+    } else {
+      params.delete("minSalary");
+    }
 
-  if (maxSalary && !isNaN(Number(maxSalary))) {
-    params.set("maxSalary", maxSalary);
-  } else {
-    params.delete("maxSalary");
-  }
+    if (maxSalary && !isNaN(Number(maxSalary))) {
+      params.set("maxSalary", maxSalary);
+    } else {
+      params.delete("maxSalary");
+    }
 
-  params.set("page", "1");
-  router.push(`/job?${params.toString()}`);
-  setIsSalaryOpen(false);
-};
-
+    params.set("page", "1");
+    router.push(`/job?${params.toString()}`);
+    setIsSalaryOpen(false);
+  };
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -81,7 +79,7 @@ const searchParams = useSearchParams();
     );
   }, [filters.minSalary, filters.maxSalary]);
 
-   const handleResetFilters = () => {
+  const handleResetFilters = () => {
     router.push(`/job`);
   };
 
@@ -200,6 +198,46 @@ const searchParams = useSearchParams();
           </div>
         )}
       </div>
+      <select
+        onChange={(e) => {
+          const params = new URLSearchParams(searchParams.toString());
+          const value = e.target.value;
+
+          if (value) {
+            params.set("date", value);
+          } else {
+            params.delete("date");
+          }
+          params.set("page", "1");
+          router.push(`/job?${params.toString()}`);
+        }}
+        defaultValue={searchParams.get("date") || ""}
+        className="px-4 py-2 rounded-full text-sm bg-gray-100 text-black hover:bg-gray-200 cursor-pointer"
+      >
+        <option value="">All Time</option>
+        <option value="7days">Last 7 Days</option>
+        <option value="1month">Last 1 Month</option>
+      </select>
+      <select
+        onChange={(e) => {
+          const params = new URLSearchParams(searchParams.toString());
+          const value = e.target.value;
+
+          if (value) {
+            params.set("sort", value);
+          } else {
+            params.delete("sort");
+          }
+          params.set("page", "1");
+          router.push(`/job?${params.toString()}`);
+        }}
+        defaultValue={searchParams.get("sort") || ""}
+        className="px-4 py-2 rounded-full text-sm bg-gray-100 text-black hover:bg-gray-200 cursor-pointer"
+      >
+        <option value="newest">Newest</option>
+        <option value="oldest">Oldest</option>
+      </select>
+
       <button
         onClick={handleResetFilters}
         className="px-4 py-2 rounded-full text-sm bg-gray-100 text-black hover:bg-gray-200 cursor-pointer"

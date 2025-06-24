@@ -43,7 +43,7 @@ export interface GetCompanyJobsParams {
 }
 
 export interface GetJobsParams {
-  title?: string;
+  titleOrCategory?: string;
   city?: string;
   category?: string;
   tags?: string[];
@@ -53,6 +53,8 @@ export interface GetJobsParams {
   minSalary?: number;
   maxSalary?: number;
   worksite?: "REMOTE" | "HYBRID" | "ONSITE";
+  date?: string;
+  sort?: string;
 }
 
 export interface CreateApplicationParams {
