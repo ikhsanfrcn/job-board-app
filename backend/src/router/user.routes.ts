@@ -49,6 +49,8 @@ export class UserRouter {
       this.authMiddleware.verifyToken,
       this.userController.isSubscribe
     );
+
+    this.router.patch("/change-password", this.authMiddleware.verifyToken, this.userController.passwordChange);
   }
   getRouter(): Router {
     return this.router;
