@@ -64,8 +64,13 @@ export interface CreateApplicationParams {
 
 export interface GetApplicationsParams {
   userId: string;
+  title?: string;
+  company?: string;
+  status?: string;
+  sortBy?: string;
+  sortOrder?: string;
   page?: number;
-  pageSize?: number;
+  limit?: number;
 }
 
 export interface IGetCompanyParams {
@@ -120,4 +125,14 @@ export interface CompanyParams {
   latitude?: string;
   longitude?: string;
   industryId?: string;
+}
+
+export interface GetUserAssessmentsParams {
+  userId: string;
+  title?: string;
+  isPassed?: boolean;
+  sortBy?: string;
+  sortOrder?: string;
+  page?: number;
+  limit?: number;
 }

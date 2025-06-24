@@ -45,10 +45,29 @@ export class ApplicationController {
     try {
       const userId = req.user?.id as string;
 
-      const page = parseInt(req.query.page as string) || 1;
-      const pageSize = parseInt(req.query.pageSize as string) || 10;
+      const {
+        title,
+        company,
+        status,
+        sortBy = "createdAt",
+        sortOrder = "asc",
+        page = "1",
+        limit = "10",
+      } = req.query;
 
-      const application = await getUserApplications({ userId, page, pageSize });
+      const pageNumber = parseInt(page as string) || 1;
+      const limitNumber = parseInt(limit as string) || 10;
+
+      const application = await getUserApplications({
+        userId,
+        title: title as string,
+        company: company as string,
+        status: status as string,
+        sortBy: sortBy as string,
+        sortOrder: sortOrder as "asc" | "desc",
+        page: pageNumber,
+        limit: limitNumber,
+      });
 
       res.status(200).json(application);
     } catch (error: any) {

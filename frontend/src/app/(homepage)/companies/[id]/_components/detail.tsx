@@ -10,6 +10,8 @@ import { IoIosStar } from "react-icons/io";
 import Review from "./review";
 import Jobs from "./jobs";
 import { useSession } from "next-auth/react";
+import { Tooltip } from "react-tooltip";
+import "react-tooltip/dist/react-tooltip.css";
 
 interface IProps {
   id: string;
@@ -122,20 +124,50 @@ export default function Detail({ id }: IProps) {
                   </button>
                 </Link>
               ) : (
+                <>
+                  <button
+                    data-tooltip-id="review-tooltip"
+                    data-tooltip-content="Only employees can add a review"
+                    className="px-4 py-2 text-white text-sm bg-black/50 rounded-md cursor-not-allowed"
+                    disabled
+                  >
+                    Add a review
+                  </button>
+                  <Tooltip
+                    id="review-tooltip"
+                    place="top"
+                    style={{
+                      backgroundColor: "black",
+                      color: "white",
+                      fontSize: "0.75rem",
+                      borderRadius: "6px",
+                      padding: "6px 10px",
+                    }}
+                  />
+                </>
+              )
+            ) : (
+              <>
                 <button
+                  data-tooltip-id="login-tooltip"
+                  data-tooltip-content="You must be logged in to add a review"
                   className="px-4 py-2 text-white text-sm bg-black/50 rounded-md cursor-not-allowed"
-                  title="Only employees can add a review"
+                  disabled
                 >
                   Add a review
                 </button>
-              )
-            ) : (
-              <button
-                className="px-4 py-2 text-white text-sm bg-black/50 rounded-md cursor-not-allowed"
-                title="You must be logged in to add a review"
-              >
-                Add a review
-              </button>
+                <Tooltip
+                  id="login-tooltip"
+                  place="top"
+                  style={{
+                    backgroundColor: "black",
+                    color: "white",
+                    fontSize: "0.75rem",
+                    borderRadius: "6px",
+                    padding: "6px 10px",
+                  }}
+                />
+              </>
             )}
           </div>
         </div>

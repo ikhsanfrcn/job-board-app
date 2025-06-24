@@ -1,57 +1,19 @@
-import axios from "@/lib/axios";
 import { IUserAssessment } from "@/types/assessment";
-import { AxiosError } from "axios";
 import { formatDistanceToNow } from "date-fns";
-import { useSession } from "next-auth/react";
-import { toast } from "react-toastify";
+import { Tooltip } from "react-tooltip";
+import "react-tooltip/dist/react-tooltip.css";
 
 interface IProps {
   assessments: IUserAssessment[];
+  handleDownloadPdf: (assessmentId: string) => void;
+  isSubscribe?: boolean;
 }
 
-export default function Card({ assessments }: IProps) {
-  const { data: user } = useSession();
-  const token = user?.accessToken;
-
-  const handleDownloadPdf = async (assessmentId: string, token?: string) => {
-    if (!token) {
-      toast.error("You must be logged in to download the certificate.");
-      return;
-    }
-
-    try {
-      const { data } = await axios.get(
-        `/assessment/generate-pdf/${assessmentId}`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-          responseType: "blob",
-        }
-      );
-
-      const blob = new Blob([data], { type: "application/pdf" });
-      const url = window.URL.createObjectURL(blob);
-
-      const link = document.createElement("a");
-      link.href = url;
-      link.setAttribute("download", `certificate.pdf`);
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-      window.URL.revokeObjectURL(url);
-    } catch (err) {
-      console.error(err);
-      if (err instanceof AxiosError) {
-        toast.error(
-          err.response?.data?.message || "Failed to download certificate."
-        );
-      } else {
-        toast.error("An unexpected error occurred.");
-      }
-    }
-  };
-
+export default function Card({
+  assessments,
+  handleDownloadPdf,
+  isSubscribe,
+}: IProps) {
   return (
     <div className="w-full p-2">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
@@ -102,12 +64,39 @@ export default function Card({ assessments }: IProps) {
               </p>
 
               {item.isPassed && (
-                <button
-                  onClick={() => handleDownloadPdf(item.id, token)}
-                  className="mt-4 text-sm bg-green-600 hover:bg-green-700 text-white px-3 py-1.5 rounded shadow"
-                >
-                  Download Certificate
-                </button>
+                <>
+                  <button
+                    data-tooltip-id="download-tooltip"
+                    data-tooltip-content="You must subscribe to download the certificate"
+                    onClick={() => {
+                      if (isSubscribe) {
+                        handleDownloadPdf(item.id);
+                      }
+                    }}
+                    disabled={!isSubscribe}
+                    className={`mt-4 text-sm px-3 py-1.5 rounded shadow ${
+                      isSubscribe
+                        ? "bg-green-600 hover:bg-green-700 text-white cursor-pointer"
+                        : "bg-gray-300 text-gray-600 cursor-not-allowed"
+                    }`}
+                  >
+                    Download Certificate
+                  </button>
+
+                  {!isSubscribe && (
+                    <Tooltip
+                      id="download-tooltip"
+                      place="bottom"
+                      style={{
+                        backgroundColor: "black",
+                        color: "white",
+                        fontSize: "0.75rem",
+                        borderRadius: "6px",
+                        padding: "6px 10px",
+                      }}
+                    />
+                  )}
+                </>
               )}
             </div>
           );

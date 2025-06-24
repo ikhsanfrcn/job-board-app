@@ -3,7 +3,6 @@ import axios from "@/lib/axios";
 import { IApplication, ITestResult } from "@/types/applicationType";
 import { useSession } from "next-auth/react";
 import React, { useCallback, useEffect, useState } from "react";
-import CvPreviewModal from "./cvPreviewModal";
 import Table from "./table";
 import { useRouter, useSearchParams } from "next/navigation";
 import { toast } from "react-toastify";
@@ -15,6 +14,7 @@ import SkeletonApplicant from "./skeletonApplicant";
 import { IUserProfile } from "@/types/userProfile";
 import UserDetailModal from "./userDetailModal";
 import Filter from "./filter";
+import CvPreviewModal from "@/components/atoms/cvPreviewModal";
 
 interface IProps {
   jobId: string;

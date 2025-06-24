@@ -11,6 +11,10 @@ export interface Application {
     city: string;
     salaryMin: string | null;
     salaryMax: string | null;
+    company: {
+      name: string;
+      logo: string;
+    };
   };
 }
 

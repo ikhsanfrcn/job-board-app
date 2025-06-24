@@ -5,6 +5,7 @@ import path from "path";
 import ejs from "ejs";
 import puppeteer from "puppeteer";
 import { cloudinaryUpload } from "../helpers/cloudinary";
+import { getUserAssessments } from "../services/assessment/getUserAssessment";
 
 export class SkillAssessmentController {
   async createAssessment(req: Request, res: Response) {
@@ -306,26 +307,28 @@ export class SkillAssessmentController {
     try {
       const userId = req.user?.id;
 
-      const userAssessments = await prisma.skillAssessment.findMany({
-        where: { userId },
-        include: {
-          template: {
-            select: { title: true, category: true, badgeImage: true },
-          },
-          user: {
-            select: {
-              email: true,
-              username: true,
-              firstName: true,
-              lastName: true,
-            },
-          },
-        },
+      if (!userId) throw { message: "Unauthorized" };
+
+      const {
+        title,
+        isPassed,
+        sortBy = "createdAt",
+        sortOrder = "asc",
+        page = 1,
+        limit = 10,
+      } = req.query;
+
+      const assessments = await getUserAssessments({
+        userId,
+        title: title as string,
+        isPassed: isPassed === "true",
+        sortBy: sortBy as "createdAt" | "title" | "isPassed",
+        sortOrder: sortOrder as "asc" | "desc",
+        page: parseInt(page as string),
+        limit: parseInt(limit as string),
       });
-      res.status(200).send({
-        message: "User assessments fetched successfully",
-        userAssessments,
-      });
+
+      res.status(200).json(assessments);
     } catch (err) {
       res.status(404).send(err);
     }
