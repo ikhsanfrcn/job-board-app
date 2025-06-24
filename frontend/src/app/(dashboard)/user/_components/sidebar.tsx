@@ -175,7 +175,7 @@ export default function SideBar() {
             </button>
             <HiOutlineLogout className="text-2xl" />
           </div>
-          <Link href="/help">
+          <Link href="/user/help-center">
             <button className="w-full font-medium px-4 py-2 border rounded-lg cursor-pointer">
               Help Center
             </button>

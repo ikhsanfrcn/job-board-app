@@ -33,7 +33,7 @@ export default function PastApplications() {
     if (session?.user) {
       fetchApplications(currentPage);
     }
-  }, [session, currentPage, searchParams]);
+  }, [session, searchParams]);
 
   const fetchApplications = async (page = 1) => {
     if (!session?.user) return;

@@ -2,7 +2,12 @@
 
 import { useRouter, useSearchParams } from "next/navigation";
 import { Formik, Form, Field } from "formik";
-import { FaRedo, FaFilter, FaChevronDown, FaChevronUp } from "react-icons/fa";
+import {
+  FaRedo,
+  FaFilter,
+  FaChevronDown,
+  FaChevronUp,
+} from "react-icons/fa";
 import { useState } from "react";
 import AdvancedFilter from "./advancedFilter";
 import ActiveFiltersDisplay from "./activeFilterDisplay";
@@ -14,7 +19,7 @@ export default function Filter() {
 
   const initialValues = {
     title: searchParams.get("title") || "",
-    company: searchParams.get("company") || "",
+    isPassed: searchParams.get("isPassed") || "",
     sortBy: searchParams.get("sortBy") || "createdAt",
     sortOrder: searchParams.get("sortOrder") || "desc",
   };
@@ -28,17 +33,17 @@ export default function Filter() {
     const params = new URLSearchParams();
 
     if (values.title) params.set("title", values.title);
-    if (values.company) params.set("company", values.company);
+    if (values.isPassed) params.set("isPassed", values.isPassed);
 
     if (values.sortBy) params.set("sortBy", values.sortBy);
     if (values.sortOrder) params.set("sortOrder", values.sortOrder);
 
     params.set("page", "1");
-    router.push(`/user/activity?${params.toString()}`);
+    router.push(`/user/assessments?${params.toString()}`);
   };
 
   const handleReset = () => {
-    router.push("/user/activity?page=1&sortBy=createdAt&sortOrder=desc");
+    router.push("/user/assessments?page=1&sortBy=createdAt&sortOrder=desc");
     setShowAdvanced(false);
   };
 
@@ -49,7 +54,7 @@ export default function Filter() {
   };
 
   const hasActiveFilters = (values: any) => {
-    return values.title || values.company;
+    return values.title || values.isPassed;
   };
 
   return (
@@ -129,7 +134,7 @@ export default function Filter() {
                     )}
                     {hasActiveFilters(values) && (
                       <span className="bg-green-500 text-white text-xs rounded-full px-1.5 py-0.5 min-w-[18px] h-[18px] flex items-center justify-center">
-                        {(values.title ? 1 : 0) + (values.company ? 1 : 0)}
+                        {(values.title ? 1 : 0) + (values.isPassed ? 1 : 0)}
                       </span>
                     )}
                   </button>

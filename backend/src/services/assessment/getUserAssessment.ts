@@ -24,7 +24,7 @@ export const getUserAssessments = async ({
 
   const filter: Prisma.SkillAssessmentWhereInput = {
     userId,
-    ...(isPassed && { isPassed }),
+    ...(typeof isPassed === "boolean" && { isPassed }),
     ...(title && {
       template: {
         title: {

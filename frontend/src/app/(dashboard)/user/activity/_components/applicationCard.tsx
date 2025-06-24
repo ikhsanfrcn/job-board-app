@@ -35,13 +35,13 @@ export default function ApplicationCard({
   if (applications.length === 0) {
     return (
       <div className="flex flex-col items-center justify-center py-20 text-center">
-
-        <h3 className="text-xl font-semibold text-gray-800 mb-2">
-          No Applications Yet
+        <h3 className="text-lg font-semibold text-gray-800 mb-2">
+          No Job Applications Found
         </h3>
-        <p className="text-gray-500 max-w-sm">
-          You haven't applied to any jobs yet. Start browsing opportunities and
-          submit your first application!
+        <p className="text-sm text-gray-500 max-w-sm">
+          It looks like you haven't applied to any jobs yet, or no results match
+          your current filters. Start exploring opportunities and submit your
+          first application!
         </p>
       </div>
     );
