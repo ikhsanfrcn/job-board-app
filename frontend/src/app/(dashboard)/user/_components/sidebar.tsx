@@ -29,6 +29,7 @@ export default function SideBar() {
     { label: "Assessment History", path: "/user/assessments" },
     { label: "Subscribe", path: "/user/subscribe" },
     { label: "Badges", path: "/user/badges" },
+    { label: "Settings", path: "/user/settings" },
   ];
 
   const isActive = (path: string) =>

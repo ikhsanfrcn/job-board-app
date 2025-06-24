@@ -12,6 +12,7 @@ import { getAllCompaniesService } from "../services/company/getAllCompany";
 import { getCompanyDetailService } from "../services/company/getCompanyDetail";
 import { updateCompanyLogoService } from "../services/company/updateLogo";
 import { getCompanyJobsService } from "../services/company/getCompanyJobs";
+import { companyPasswordChange } from "../services/company/passwordChange";
 
 export class CompanyController {
   async register(req: Request, res: Response) {
@@ -204,4 +205,21 @@ export class CompanyController {
         .json({ message: error.message || "Internal server error" });
     }
   }
+
+  async passwordChange(req: Request, res: Response) {
+        try {
+          const companyId = req.company?.id
+          const { currentPassword, newPassword } = req.body;
+      
+          if (!companyId) {
+            res.status(400).json({ message: "Authorization token is missing or invalid" });
+            return;
+          }
+      
+          const result = await companyPasswordChange(companyId, currentPassword, newPassword);
+          res.status(200).json(result);
+        } catch (error: any) {        
+          res.status(error.status || 500).json({ message: error.message || "Internal server error" });
+        }
+      }
 }
