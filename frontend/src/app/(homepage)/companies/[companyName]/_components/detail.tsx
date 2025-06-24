@@ -14,10 +14,10 @@ import { Tooltip } from "react-tooltip";
 import "react-tooltip/dist/react-tooltip.css";
 
 interface IProps {
-  id: string;
+  companyName: string;
 }
 
-export default function Detail({ id }: IProps) {
+export default function Detail({ companyName }: IProps) {
   const { data: user } = useSession();
   const accessToken = user?.accessToken;
   const [loading, setLoading] = useState(false);
@@ -30,8 +30,9 @@ export default function Detail({ id }: IProps) {
 
   const fetchDetail = useCallback(async () => {
     try {
+      if (!companyName) return;
       setLoading(true);
-      const { data } = await axios.get(`/company/${id}`);
+      const { data } = await axios.get(`/company/${companyName}`);
       setDetail(data.data);
     } catch (err) {
       console.error("Error fetching company detail:", err);
@@ -39,12 +40,12 @@ export default function Detail({ id }: IProps) {
     } finally {
       setLoading(false);
     }
-  }, [id]);
+  }, [companyName]);
 
   const fetchIsEmployee = useCallback(async () => {
     try {
       if (!accessToken) return;
-      const { data } = await axios.get(`/users/is-employee/${id}`, {
+      const { data } = await axios.get(`/users/is-employee/${detail?.id}`, {
         headers: {
           Authorization: `Bearer ${accessToken}`,
         },
@@ -53,12 +54,17 @@ export default function Detail({ id }: IProps) {
     } catch (err) {
       console.log(err);
     }
-  }, [accessToken, id]);
+  }, [accessToken, detail?.id]);
 
   useEffect(() => {
     fetchDetail();
-    fetchIsEmployee();
-  }, [fetchDetail, fetchIsEmployee]);
+  }, [fetchDetail]);
+
+  useEffect(() => {
+    if (detail?.id && accessToken) {
+      fetchIsEmployee();
+    }
+  }, [detail?.id, accessToken, fetchIsEmployee]);
 
   if (loading || !detail) return <SkeletonDetail />;
 
@@ -81,10 +87,10 @@ export default function Detail({ id }: IProps) {
           </div>
         );
       case "Reviews":
-        return <Review companyId={id} />;
+        return <Review companyId={detail.id} />;
 
       case "Jobs":
-        return <Jobs companyId={id} />;
+        return <Jobs companyId={detail.id} />;
       default:
         return null;
     }
@@ -118,7 +124,7 @@ export default function Detail({ id }: IProps) {
           <div className="flex gap-2">
             {accessToken ? (
               isEmployee ? (
-                <Link href={`/review/${id}`}>
+                <Link href={`/review/${detail.id}`}>
                   <button className="px-4 py-2 text-white text-sm bg-black rounded-md hover:scale-105 transition duration-300 cursor-pointer">
                     Add a review
                   </button>

@@ -144,9 +144,9 @@ export class CompanyController {
 
   async getCompanyDetail(req: Request, res: Response) {
     try {
-      const { id: companyId } = req.params;
+      const { companyName } = req.params;
 
-      const company = await getCompanyDetailService(companyId);
+      const company = await getCompanyDetailService(companyName);
 
       if (!company) {
         res.status(404).send({ message: "Company not found" });

@@ -19,12 +19,15 @@ interface iActiveSubscription {
 
 export default function Subscribe() {
   const [subscribe, setSubscribe] = useState<ISubscribe>();
+  const [loading, setLoading] = useState(true);
+
   const { data } = useSession();
   const token = data?.accessToken;
 
   const fetchSubscribe = useCallback(async () => {
     if (!token) return;
     try {
+      setLoading(true);
       const { data } = await axios.get("/users/is-subscribe", {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -43,6 +46,8 @@ export default function Subscribe() {
       console.log(result);
     } catch (err) {
       console.log(err);
+    } finally {
+      setLoading(false);
     }
   }, [token]);
 
@@ -59,7 +64,16 @@ export default function Subscribe() {
       minute: "2-digit",
     });
   }
-
+  if (loading) {
+    return (
+      <div className="flex flex-col items-center justify-center h-[60vh] gap-4 text-gray-600">
+        <div className="w-10 h-10 border-4 border-gray-300 border-t-green-500 rounded-full animate-spin" />
+        <p className="text-sm font-medium">
+          Loading subscription information...
+        </p>
+      </div>
+    );
+  }
   return (
     <div className="w-full md:px-8">
       <div className="mt-3 p-3 h-full font-sans">

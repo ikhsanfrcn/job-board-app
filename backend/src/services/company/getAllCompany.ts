@@ -36,7 +36,14 @@ export const getAllCompaniesService = async (params: GetAllCompaniesParams) => {
     orderBy,
     skip,
     take: limit,
-    include: {
+    select: {
+      id: true,
+      name: true,
+      about: true,
+      city: true,
+      logo: true,
+      createdAt: true,
+      updatedAt: true,
       Review: {
         select: {
           cultureRating: true,
@@ -51,6 +58,7 @@ export const getAllCompaniesService = async (params: GetAllCompaniesParams) => {
           Application: {
             select: {
               id: true,
+              status: true,
             },
           },
         },
@@ -76,10 +84,12 @@ export const getAllCompaniesService = async (params: GetAllCompaniesParams) => {
 
     const totalJobs = company.jobs.length;
 
-    const totalApplicants = company.jobs.reduce(
-      (sum, job) => sum + job.Application.length,
-      0
-    );
+    const allApplications = company.jobs.flatMap((job) => job.Application);
+    const totalApplicants = allApplications.length;
+
+    const totalAcceptedApplicants = allApplications.filter(
+      (app) => app.status === "ACCEPTED"
+    ).length;
 
     const { Review, jobs, ...companyData } = company;
 
@@ -88,6 +98,7 @@ export const getAllCompaniesService = async (params: GetAllCompaniesParams) => {
       averageRating: parseFloat(averageRating.toFixed(1)),
       totalJobs,
       totalApplicants,
+      totalEmployees: totalAcceptedApplicants, // jumlah karyawan berdasarkan status "ACCEPTED"
     };
   });
 

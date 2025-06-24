@@ -29437,12 +29437,12 @@ export namespace Prisma {
 
   export type CompanyWhereUniqueInput = Prisma.AtLeast<{
     id?: string
+    name?: string
     email?: string
     website?: string
     AND?: CompanyWhereInput | CompanyWhereInput[]
     OR?: CompanyWhereInput[]
     NOT?: CompanyWhereInput | CompanyWhereInput[]
-    name?: StringFilter<"Company"> | string
     role?: StringFilter<"Company"> | string
     password?: StringFilter<"Company"> | string
     about?: StringNullableFilter<"Company"> | string | null
@@ -29463,7 +29463,7 @@ export namespace Prisma {
     industry?: XOR<IndustryScalarRelationFilter, IndustryWhereInput>
     jobs?: JobListRelationFilter
     Review?: ReviewListRelationFilter
-  }, "id" | "email" | "website">
+  }, "id" | "name" | "email" | "website">
 
   export type CompanyOrderByWithAggregationInput = {
     id?: SortOrder

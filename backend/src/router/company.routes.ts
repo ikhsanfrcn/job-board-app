@@ -52,7 +52,7 @@ export class CompanyRouter {
     );
 
     this.router.get("/:id/jobs", this.companyController.getCompanyJobs);
-    this.router.get("/:id", this.companyController.getCompanyDetail);
+    this.router.get("/:companyName", this.companyController.getCompanyDetail);
   }
 
   getRouter(): Router {
