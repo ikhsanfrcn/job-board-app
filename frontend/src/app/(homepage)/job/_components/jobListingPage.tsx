@@ -30,8 +30,21 @@ export const JobListingsPage: React.FC = () => {
   const [totalPages, setTotalPages] = useState(1);
   const [filters, setFilters] = useState<Filters>({});
   const [loading, setLoading] = useState(false);
-  const [initialLoad, setInitialLoad] = useState(true);
   const jobListRef = useRef<HTMLDivElement>(null);
+
+  const getFiltersFromParams = (): Filters => ({
+    city: searchParams.get("city") || undefined,
+    titleOrCategory: searchParams.get("titleOrCategory") || undefined,
+    worksite: searchParams.get("worksite") || undefined,
+    minSalary: searchParams.get("minSalary")
+      ? Number(searchParams.get("minSalary"))
+      : undefined,
+    maxSalary: searchParams.get("maxSalary")
+      ? Number(searchParams.get("maxSalary"))
+      : undefined,
+    date: searchParams.get("date") || undefined,
+    sort: searchParams.get("sort") || undefined,
+  });
 
   const fetchJobs = async (page: number, filters: Filters) => {
     try {
@@ -74,42 +87,15 @@ export const JobListingsPage: React.FC = () => {
       console.error("Failed to fetch job by ID:", error);
     }
   };
-  
-  useEffect(() => {
-    const city = searchParams.get("city") || undefined;
-    const titleOrCategory = searchParams.get("titleOrCategory") || undefined;
-    const worksite = searchParams.get("worksite") || undefined;
-    const minSalary = searchParams.get("minSalary")
-      ? Number(searchParams.get("minSalary"))
-      : undefined;
-    const maxSalary = searchParams.get("maxSalary")
-      ? Number(searchParams.get("maxSalary"))
-      : undefined;
-    const pageFromQuery = parseInt(searchParams.get("page") || "1");
-    const date = searchParams.get("date") || undefined;
-    const sort = searchParams.get("sort") || undefined;
 
-    const updatedFilters: Filters = {
-      city,
-      titleOrCategory,
-      worksite,
-      minSalary,
-      maxSalary,
-      date,
-      sort,
-    };
+  useEffect(() => {
+    const updatedFilters = getFiltersFromParams();
+    const pageFromQuery = parseInt(searchParams.get("page") || "1");
 
     setFilters(updatedFilters);
     setPage(pageFromQuery);
-    setInitialLoad(true);
+    fetchJobs(pageFromQuery, updatedFilters);
   }, [searchParams]);
-
-  useEffect(() => {
-    if (initialLoad) {
-      fetchJobs(page, filters);
-      setInitialLoad(false);
-    }
-  }, [initialLoad]);
 
   useEffect(() => {
     if (jobIdFromQuery) {
@@ -118,13 +104,18 @@ export const JobListingsPage: React.FC = () => {
   }, [jobIdFromQuery]);
 
   useEffect(() => {
-    window.scrollTo({ top: 200, behavior: "smooth" });
+    if (page > 1) {
+      fetchJobs(page, filters);
+    }
+  }, [page]);
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
   }, [selectedJob]);
 
   const handleLoadMore = () => {
     if (page < totalPages) {
       setPage((prevPage) => prevPage + 1);
-      setInitialLoad(true);
     }
   };
 
@@ -169,6 +160,7 @@ export const JobListingsPage: React.FC = () => {
                 No jobs found for the selected filters.
               </div>
             )}
+
             {page < totalPages && (
               <button
                 onClick={handleLoadMore}

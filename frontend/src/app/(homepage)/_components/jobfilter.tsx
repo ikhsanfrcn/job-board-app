@@ -6,14 +6,14 @@ import { IoLocationOutline, IoSearchOutline } from "react-icons/io5";
 
 export default function JobFilter() {
   const searchParams = useSearchParams();
-  const [title, setTitle] = useState(searchParams.get("title") || "");
+  const [titleOrCategory, setTitleOrCategory] = useState(searchParams.get("titleOrCategory") || "");
   const [city, setCity] = useState(searchParams.get("city") || "");
   const router = useRouter();
 
   const handleSearch = () => {
     const params = new URLSearchParams();
 
-    if (title) params.set("title", title);
+    if (titleOrCategory) params.set("titleOrCategory", titleOrCategory);
     if (city) params.set("city", city);
     params.set("page", "1");
 
@@ -32,8 +32,8 @@ export default function JobFilter() {
           <input
             type="text"
             placeholder="Job Title"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
+            value={titleOrCategory}
+            onChange={(e) => setTitleOrCategory(e.target.value)}
             onKeyDown={(e) => {
               if (e.key === "Enter") handleSearch();
             }}
