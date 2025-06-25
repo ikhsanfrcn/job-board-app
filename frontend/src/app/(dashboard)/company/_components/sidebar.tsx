@@ -19,6 +19,7 @@ export default function SideBar() {
   const [logo, setLogo] = useState<string>("");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [isUploading, setIsUploading] = useState(false);
 
   const menuItems = [
     { label: "Profile", path: "/company/profile" },
@@ -48,6 +49,7 @@ export default function SideBar() {
   const handleUpdateLogo = async () => {
     if (!selectedFile || !token) return;
 
+    setIsUploading(true);
     const formData = new FormData();
     formData.append("image", selectedFile);
 
@@ -66,8 +68,10 @@ export default function SideBar() {
     } catch (err) {
       if (err instanceof AxiosError) {
         console.log("Error Response:", err.response);
-        toast.error(err.response?.data?.message || "Failde to update logo !");
+        toast.error(err.response?.data?.message || "Failed to update logo!");
       }
+    } finally {
+      setIsUploading(false);
     }
   };
 
@@ -145,6 +149,7 @@ export default function SideBar() {
         selectedFile={selectedFile}
         setSelectedFile={setSelectedFile}
         onUpload={handleUpdateLogo}
+        isUploading={isUploading}
       />
     </>
   );

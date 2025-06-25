@@ -5,7 +5,7 @@ export const handleInvoiceStatusUpdate = async (
   externalId: string
 ) => {
   const transaction = await prisma.transaction.findUnique({
-    where: { id: externalId },
+    where: { externalId: externalId },
   });
 
   if (!transaction) {
@@ -18,7 +18,7 @@ export const handleInvoiceStatusUpdate = async (
     endDate.setMonth(endDate.getMonth() + 1);
 
     await prisma.transaction.update({
-      where: { id: externalId },
+      where: { externalId: externalId },
       data: {
         status: "PAID",
       },
@@ -30,12 +30,12 @@ export const handleInvoiceStatusUpdate = async (
         status: "ACTIVE",
         startDate: now,
         endDate,
-        transactionId: transaction.id,
+        transactionId: transaction.externalId,
       },
     });
   } else if (status === "EXPIRED") {
     await prisma.transaction.update({
-      where: { id: externalId },
+      where: { externalId: externalId },
       data: { status: "EXPIRED" },
     });
   }
