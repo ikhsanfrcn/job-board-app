@@ -39,7 +39,7 @@ export default function ApplicationCard({
           No Job Applications Found
         </h3>
         <p className="text-sm text-gray-500 max-w-sm">
-          It looks like you haven't applied to any jobs yet, or no results match
+          It looks like you haven&apos;t applied to any jobs yet, or no results match
           your current filters. Start exploring opportunities and submit your
           first application!
         </p>

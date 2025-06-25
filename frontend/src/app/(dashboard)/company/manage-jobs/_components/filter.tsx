@@ -3,12 +3,10 @@
 import { useRouter, useSearchParams } from "next/navigation";
 import { Formik, Form, Field } from "formik";
 import {
-  FaSearch,
   FaRedo,
   FaFilter,
   FaChevronDown,
   FaChevronUp,
-  FaTimes,
 } from "react-icons/fa";
 import { useState } from "react";
 import ActiveFiltersDisplay from "./activeFilterDisplay";

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 import React, { useCallback, useEffect, useState } from "react";
 import ModalDeleteJob from "./modalDeleteJob";
