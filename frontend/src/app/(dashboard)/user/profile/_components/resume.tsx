@@ -22,6 +22,7 @@ export default function Resume() {
   const [isCreating, setIsCreating] = useState(false);
   const [loading, setLoading] = useState(true);
   const [isSubscribe, setIsSubscribe] = useState(false);
+  const [isDownloading, setIsDownloading] = useState(false); // ✅ New state
 
   const checkIsSubscribe = useCallback(async () => {
     if (!token) return;
@@ -55,6 +56,8 @@ export default function Resume() {
   }, [token]);
 
   const handleDownloadPdf = async () => {
+    if (isDownloading) return;
+    setIsDownloading(true);
     try {
       const { data } = await axios.get("/resumes/generate-pdf", {
         headers: {
@@ -80,6 +83,8 @@ export default function Resume() {
       } else {
         toast.error("An unexpected error occurred");
       }
+    } finally {
+      setIsDownloading(false);
     }
   };
 
@@ -117,20 +122,22 @@ export default function Resume() {
         <div>
           <button
             onClick={() => {
-              if (isSubscribe) {
+              if (isSubscribe && !isDownloading) {
                 handleDownloadPdf();
               }
             }}
-            disabled={!isSubscribe}
+            disabled={!isSubscribe || isDownloading}
             data-tooltip-id={!isSubscribe ? "pdf-tooltip" : undefined}
             data-tooltip-content="You must subscribe to generate CV"
             className={`text-sm px-4 py-2 rounded-md transition duration-300 ${
               isSubscribe
-                ? "bg-green-600 text-white hover:bg-green-700 hover:scale-105 cursor-pointer"
-                : "bg-gray-200 text-gray-500 cursor-not-allowed"
+                ? isDownloading
+                  ? "bg-gray-300 text-gray-500 cursor-not-allowed"
+                  : "bg-green-600 text-white hover:bg-green-700 hover:scale-105"
+                : "bg-gray-300 text-gray-500 cursor-not-allowed"
             }`}
           >
-            Generate CV
+            {isDownloading ? "Downloading..." : "Generate CV"}
           </button>
 
           {!isSubscribe && (

@@ -18,7 +18,6 @@ const uuid_1 = require("uuid");
 const path_1 = __importDefault(require("path"));
 const ejs_1 = __importDefault(require("ejs"));
 const puppeteer_core_1 = __importDefault(require("puppeteer-core"));
-const chrome_aws_lambda_1 = __importDefault(require("chrome-aws-lambda"));
 const cloudinary_1 = require("../helpers/cloudinary");
 const getUserAssessment_1 = require("../services/assessment/getUserAssessment");
 class SkillAssessmentController {
@@ -326,6 +325,7 @@ class SkillAssessmentController {
             var _a;
             const userId = (_a = req.user) === null || _a === void 0 ? void 0 : _a.id;
             const assessmentId = req.params.id;
+            const BROWSERLESS_WS = `wss://production-sfo.browserless.io/chromium?token=${process.env.BROWSERLESS_KEY}&blockAds=true`;
             try {
                 const assessment = yield prisma_1.default.skillAssessment.findUnique({
                     where: { id: assessmentId },
@@ -337,12 +337,12 @@ class SkillAssessmentController {
                 if (!assessment || assessment.userId !== userId) {
                     res
                         .status(404)
-                        .send({ message: "Assessment not found or unauthorized" });
+                        .json({ message: "Assessment not found or unauthorized" });
                     return;
                 }
-                const templatePath = path_1.default.join(__dirname, "../templates/certificateGenerate.ejs");
+                const templatePath = path_1.default.join(__dirname, "..", "templates", "certificateGenerate.ejs");
                 const html = yield ejs_1.default.renderFile(templatePath, {
-                    userName: assessment.user.firstName + " " + assessment.user.lastName,
+                    userName: `${assessment.user.firstName} ${assessment.user.lastName}`,
                     assessmentTitle: assessment.template.title,
                     score: assessment.score,
                     totalPoints: assessment.totalPoints,
@@ -350,27 +350,50 @@ class SkillAssessmentController {
                     certificateId: assessmentId,
                     domain: process.env.BASE_URL_FRONTEND,
                 });
-                const browser = yield puppeteer_core_1.default.launch({
-                    args: chrome_aws_lambda_1.default.args,
-                    executablePath: yield chrome_aws_lambda_1.default.executablePath,
-                    headless: chrome_aws_lambda_1.default.headless,
-                });
-                const page = yield browser.newPage();
-                yield page.setContent(html, { waitUntil: "networkidle0" });
-                const pdfBuffer = yield page.pdf({
-                    format: "a4",
-                    landscape: true,
-                    printBackground: true,
-                });
-                yield browser.close();
-                res.set({
-                    "Content-Type": "application/pdf",
-                    "Content-Disposition": `attachment; filename="${assessment.user.username}_certificate.pdf"`,
-                });
-                res.status(200).send(pdfBuffer);
+                let browser;
+                try {
+                    browser = yield puppeteer_core_1.default.connect({
+                        browserWSEndpoint: BROWSERLESS_WS,
+                    });
+                }
+                catch (browserErr) {
+                    console.error("Failed to connect to Browserless:", browserErr);
+                    res.status(502).json({
+                        message: "Failed to connect to Browserless. Please ensure API token is valid and the service is available.",
+                    });
+                    return;
+                }
+                try {
+                    const page = yield browser.newPage();
+                    yield page.setContent(html, { waitUntil: "networkidle0" });
+                    const pdfBuffer = yield page.pdf({
+                        format: "a4",
+                        landscape: true,
+                        printBackground: true,
+                    });
+                    yield browser.close();
+                    res.set({
+                        "Content-Type": "application/pdf",
+                        "Content-Disposition": `attachment; filename="${assessment.user.username}_certificate.pdf"`,
+                        "Content-Length": pdfBuffer.length,
+                    });
+                    res.status(200).send(pdfBuffer);
+                    return;
+                }
+                catch (renderErr) {
+                    console.error("PDF render error:", renderErr);
+                    yield browser.close();
+                    res.status(500).json({
+                        message: "Failed to create PDF file.",
+                    });
+                    return;
+                }
             }
             catch (err) {
-                res.status(500).send(err);
+                console.error("Unexpected server error:", err);
+                res.status(500).json({
+                    message: "An unexpected server error occurred.",
+                });
             }
         });
     }

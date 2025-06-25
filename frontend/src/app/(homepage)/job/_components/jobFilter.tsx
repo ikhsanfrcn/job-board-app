@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
+import { formatCurrency, parseCurrency } from "@/helper/formatCurrency";
 
 interface JobFiltersProps {
   filters: { worksite?: string; minSalary?: number; maxSalary?: number };
@@ -75,7 +76,7 @@ export default function JobFilters({ filters }: JobFiltersProps) {
     setMaxSalary(
       filters.maxSalary !== undefined
         ? filters.maxSalary.toString()
-        : "300000000"
+        : "10000000"
     );
   }, [filters.minSalary, filters.maxSalary]);
 
@@ -113,9 +114,12 @@ export default function JobFilters({ filters }: JobFiltersProps) {
                 <div className="flex items-center">
                   <span className="mr-1">Rp</span>
                   <input
-                    type="number"
-                    value={minSalary}
-                    onChange={(e) => setMinSalary(e.target.value)}
+                    type="text"
+                    value={formatCurrency(minSalary)}
+                    onChange={(e) => {
+                      const val = parseCurrency(e.target.value);
+                      setMinSalary(val.toString());
+                    }}
                     className="w-full border px-2 py-1 rounded text-sm"
                   />
                 </div>
@@ -125,9 +129,12 @@ export default function JobFilters({ filters }: JobFiltersProps) {
                 <div className="flex items-center">
                   <span className="mr-1">Rp</span>
                   <input
-                    type="number"
-                    value={maxSalary}
-                    onChange={(e) => setMaxSalary(e.target.value)}
+                    type="text"
+                    value={formatCurrency(maxSalary)}
+                    onChange={(e) => {
+                      const val = parseCurrency(e.target.value);
+                      setMaxSalary(val.toString());
+                    }}
                     className="w-full border px-2 py-1 rounded text-sm"
                   />
                 </div>

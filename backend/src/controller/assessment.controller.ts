@@ -4,7 +4,6 @@ import { v4 as uuidv4 } from "uuid";
 import path from "path";
 import ejs from "ejs";
 import puppeteer from "puppeteer-core";
-import chromium from "chrome-aws-lambda";
 import { cloudinaryUpload } from "../helpers/cloudinary";
 import { getUserAssessments } from "../services/assessment/getUserAssessment";
 
@@ -339,6 +338,7 @@ export class SkillAssessmentController {
   async generatePdf(req: Request, res: Response) {
     const userId = req.user?.id;
     const assessmentId = req.params.id;
+    const BROWSERLESS_WS = `wss://production-sfo.browserless.io/chromium?token=${process.env.BROWSERLESS_KEY}&blockAds=true`;
 
     try {
       const assessment = await prisma.skillAssessment.findUnique({
@@ -352,17 +352,19 @@ export class SkillAssessmentController {
       if (!assessment || assessment.userId !== userId) {
         res
           .status(404)
-          .send({ message: "Assessment not found or unauthorized" });
+          .json({ message: "Assessment not found or unauthorized" });
         return;
       }
 
       const templatePath = path.join(
         __dirname,
-        "../templates/certificateGenerate.ejs"
+        "..",
+        "templates",
+        "certificateGenerate.ejs"
       );
 
       const html = await ejs.renderFile(templatePath, {
-        userName: assessment.user.firstName + " " + assessment.user.lastName,
+        userName: `${assessment.user.firstName} ${assessment.user.lastName}`,
         assessmentTitle: assessment.template.title,
         score: assessment.score,
         totalPoints: assessment.totalPoints,
@@ -371,31 +373,53 @@ export class SkillAssessmentController {
         domain: process.env.BASE_URL_FRONTEND,
       });
 
-      const browser = await puppeteer.launch({
-        args: chromium.args,
-        executablePath: await chromium.executablePath,
-        headless: chromium.headless,
-      });
+      let browser;
+      try {
+        browser = await puppeteer.connect({
+          browserWSEndpoint: BROWSERLESS_WS,
+        });
+      } catch (browserErr) {
+        console.error("Failed to connect to Browserless:", browserErr);
+        res.status(502).json({
+          message:
+            "Failed to connect to Browserless. Please ensure API token is valid and the service is available.",
+        });
+        return;
+      }
 
-      const page = await browser.newPage();
-      await page.setContent(html, { waitUntil: "networkidle0" });
+      try {
+        const page = await browser.newPage();
+        await page.setContent(html, { waitUntil: "networkidle0" });
 
-      const pdfBuffer = await page.pdf({
-        format: "a4",
-        landscape: true,
-        printBackground: true,
-      });
+        const pdfBuffer = await page.pdf({
+          format: "a4",
+          landscape: true,
+          printBackground: true,
+        });
 
-      await browser.close();
+        await browser.close();
 
-      res.set({
-        "Content-Type": "application/pdf",
-        "Content-Disposition": `attachment; filename="${assessment.user.username}_certificate.pdf"`,
-      });
+        res.set({
+          "Content-Type": "application/pdf",
+          "Content-Disposition": `attachment; filename="${assessment.user.username}_certificate.pdf"`,
+          "Content-Length": pdfBuffer.length,
+        });
 
-      res.status(200).send(pdfBuffer);
+        res.status(200).send(pdfBuffer);
+        return;
+      } catch (renderErr) {
+        console.error("PDF render error:", renderErr);
+        await browser.close();
+        res.status(500).json({
+          message: "Failed to create PDF file.",
+        });
+        return;
+      }
     } catch (err) {
-      res.status(500).send(err);
+      console.error("Unexpected server error:", err);
+      res.status(500).json({
+        message: "An unexpected server error occurred.",
+      });
     }
   }
 

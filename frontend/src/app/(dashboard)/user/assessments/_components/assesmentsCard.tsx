@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { IUserAssessment } from "@/types/assessment";
 import { formatDistanceToNow } from "date-fns";
 import { Tooltip } from "react-tooltip";
@@ -5,7 +6,7 @@ import "react-tooltip/dist/react-tooltip.css";
 
 interface IProps {
   assessments: IUserAssessment[];
-  handleDownloadPdf: (assessmentId: string) => void;
+  handleDownloadPdf: (assessmentId: string) => Promise<void>;
   isSubscribe?: boolean;
 }
 
@@ -14,8 +15,22 @@ export default function AssessmentsCard({
   handleDownloadPdf,
   isSubscribe,
 }: IProps) {
+  const [downloadingId, setDownloadingId] = useState<string | null>(null);
+
+  const handleDownload = async (id: string) => {
+    if (downloadingId) return;
+    setDownloadingId(id);
+    try {
+      await handleDownloadPdf(id);
+    } catch (error) {
+      console.error("Download failed:", error);
+    } finally {
+      setDownloadingId(null);
+    }
+  };
+
   return (
-    <div className="w-full p-2">
+    <div className="w-full">
       {assessments.length === 0 ? (
         <div className="flex flex-col items-center justify-center py-20 text-center">
           <h3 className="text-lg font-semibold text-gray-800 mb-2">
@@ -36,6 +51,8 @@ export default function AssessmentsCard({
                 addSuffix: true,
               }
             );
+
+            const isDownloading = downloadingId === item.id;
 
             return (
               <div
@@ -80,21 +97,27 @@ export default function AssessmentsCard({
                 {item.isPassed && (
                   <>
                     <button
-                      data-tooltip-id="download-tooltip"
+                      data-tooltip-id={
+                        !isSubscribe ? "download-tooltip" : undefined
+                      }
                       data-tooltip-content="You must subscribe to download the certificate"
                       onClick={() => {
-                        if (isSubscribe) {
-                          handleDownloadPdf(item.id);
+                        if (isSubscribe && !isDownloading) {
+                          handleDownload(item.id);
                         }
                       }}
-                      disabled={!isSubscribe}
-                      className={`mt-4 text-sm px-3 py-1.5 rounded shadow ${
+                      disabled={!isSubscribe || isDownloading}
+                      className={`mt-4 text-sm px-3 py-1.5 rounded shadow transition ${
                         isSubscribe
-                          ? "bg-green-600 hover:bg-green-700 text-white cursor-pointer"
+                          ? isDownloading
+                            ? "bg-gray-300 text-gray-500 cursor-not-allowed"
+                            : "bg-green-600 hover:bg-green-700 text-white"
                           : "bg-gray-300 text-gray-600 cursor-not-allowed"
                       }`}
                     >
-                      Download Certificate
+                      {isDownloading
+                        ? "Downloading..."
+                        : "Download Certificate"}
                     </button>
 
                     {!isSubscribe && (
