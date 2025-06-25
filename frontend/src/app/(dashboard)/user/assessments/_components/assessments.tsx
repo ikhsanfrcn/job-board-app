@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
@@ -78,7 +79,8 @@ export default function Assessments() {
   }, [token]);
 
   useEffect(() => {
-    fetchAssessments(), checkIsSubscribe();
+    fetchAssessments();
+    checkIsSubscribe();
   }, [fetchAssessments, checkIsSubscribe]);
 
   const handleDownloadPdf = async (assessmentId: string) => {

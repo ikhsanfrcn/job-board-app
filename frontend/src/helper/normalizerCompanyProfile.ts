@@ -30,5 +30,6 @@ export function normalizeCompanyProfile(
     Review: profile.Review ?? [],
     totalJobs: profile.totalJobs ?? 0,
     totalApplicants: profile.totalApplicants ?? 0,
+    totalEmployees: profile.totalEmployees ?? 0,
   };
 }

@@ -1,4 +1,3 @@
-import { formatRupiah } from "@/helper/formatCurrency";
 import { IJob } from "@/types/job";
 
 export const JobContent = ({ job }: { job: IJob }) => (

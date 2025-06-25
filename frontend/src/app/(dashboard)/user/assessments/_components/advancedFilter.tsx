@@ -6,7 +6,7 @@ import { FaSearch, FaTimes } from "react-icons/fa";
 interface AdvancedFiltersProps {
   values: {
     title: string;
-    isPassed: string; // gunakan string agar bisa handle "", "true", "false"
+    isPassed: string;
     sortBy: string;
     sortOrder: string;
   };
