@@ -108,7 +108,7 @@ export default function Subscribe() {
 
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 text-center my-10 px-4">
               <Link
-                href={"/"}
+                href={"/user/profile"}
                 className="h-15 lg:h-30 p-4 flex flex-col items-center justify-center bg-green-100 rounded-md shadow-md border border-green-600 hover:scale-105 transition duration-200"
               >
                 CV Generator
@@ -120,7 +120,7 @@ export default function Subscribe() {
                 Skill Assessment
               </Link>
               <Link
-                href={"/user/profile"}
+                href={"/user/assessments"}
                 className="h-15 lg:h-30 p-4 flex flex-col items-center justify-center bg-gray-100 rounded-md shadow-md border border-gray-600 hover:scale-105 transition duration-200"
               >
                 Certificate Generator
