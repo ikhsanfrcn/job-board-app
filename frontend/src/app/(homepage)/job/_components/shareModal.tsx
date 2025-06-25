@@ -34,9 +34,7 @@ export default function ShareModal({
         <button
           onClick={() =>
             window.open(
-              `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
-                shareUrl
-              )}`,
+              `https://www.facebook.com/sharer/sharer.php?u=https://jobsdoors.vercel.app/job/${jobId}`,
               "_blank"
             )
           }
@@ -64,7 +62,7 @@ export default function ShareModal({
         <button
           onClick={() =>
             window.open(
-              `https://www.linkedin.com/sharing/share-offsite/?url=}`,
+              `https://www.linkedin.com/sharing/share-offsite/?url=https://jobsdoors.vercel.app/job?id=${jobId}`,
               "_blank"
             )
           }

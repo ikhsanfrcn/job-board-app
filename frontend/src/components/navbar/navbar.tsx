@@ -18,14 +18,14 @@ export default function Navbar() {
   const [isOpenSearch, setIsOpenSearch] = useState(false);
   const toggleMenuSearch = () => setIsOpenSearch(!isOpenSearch);
   const searchParams = useSearchParams();
-  const [searchQuery, setSearchQuery] = useState(searchParams.get("title") || "");
+  const [searchQuery, setSearchQuery] = useState(searchParams.get("titleOrCategory") || "");
   const toggleMenu = () => setIsOpen(!isOpen);
   const { data: session } = useSession();
   const isLogin = !!session;
   const router = useRouter();
   const handleSearch = () => {
     if (searchQuery.trim()) {
-      router.push(`/job?title=${searchQuery}`);
+      router.push(`/job?titleOrCategory=${searchQuery}`);
     }
   };
 
