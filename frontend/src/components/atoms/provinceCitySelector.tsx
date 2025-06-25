@@ -13,49 +13,65 @@ export default function ProvinceCitySelector({
 }: ProvinceCitySelectorProps) {
   const [provinces, setProvinces] = useState<any[]>([]);
   const [cities, setCities] = useState<any[]>([]);
-  const [selectedProvince, setSelectedProvince] = useState<string>(
-    provinceValue || ""
-  );
+
+  const [selectedProvinceName, setSelectedProvinceName] = useState<string>(provinceValue || "");
+  const [selectedProvinceId, setSelectedProvinceId] = useState<string>("");
 
   useEffect(() => {
     axios
       .get("https://www.emsifa.com/api-wilayah-indonesia/api/provinces.json")
-      .then((res) => setProvinces(res.data))
+      .then((res) => {
+        setProvinces(res.data);
+
+        if (provinceValue) {
+          const selected = res.data.find((p: any) => p.name === provinceValue);
+          if (selected) {
+            setSelectedProvinceId(selected.id);
+          }
+        }
+      })
       .catch(console.error);
-  }, []);
+  }, [provinceValue]);
 
   useEffect(() => {
-    if (selectedProvince) {
+    if (selectedProvinceId) {
       axios
-        .get(
-          `https://www.emsifa.com/api-wilayah-indonesia/api/regencies/${selectedProvince}.json`
-        )
+        .get(`https://www.emsifa.com/api-wilayah-indonesia/api/regencies/${selectedProvinceId}.json`)
         .then((res) => setCities(res.data))
         .catch(console.error);
     } else {
       setCities([]);
     }
-  }, [selectedProvince]);
+  }, [selectedProvinceId]);
 
   return (
     <>
       <SelectInput
         label="Province"
         name="state"
-        options={provinces.map((p) => ({ label: p.name, value: p.id }))}
-        value={selectedProvince}
-        onChange={(option) => {
-          setSelectedProvince(option.value);
+        options={provinces.map((p) => ({
+          label: p.name,
+          value: p.name,
+          id: p.id,
+        }))}
+        value={selectedProvinceName}
+        onChange={(option: any) => {
+          setSelectedProvinceName(option.value);
+          setSelectedProvinceId(option.id);
           setFieldValue("state", option.value);
           setFieldValue("city", "");
         }}
       />
+
       <SelectInput
         label="City"
         name="city"
-        options={cities.map((c) => ({ label: c.name, value: c.name }))}
+        options={cities.map((c) => ({
+          label: c.name,
+          value: c.name,
+        }))}
         disabled={!cities.length}
-        onChange={(option) => {
+        onChange={(option: any) => {
           setFieldValue("city", option.value);
         }}
       />

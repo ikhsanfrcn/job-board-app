@@ -1,6 +1,6 @@
 import { Field, ErrorMessage } from "formik";
 
-interface SelectInputProps {
+interface SelectInputWithHandlerProps {
   label: string;
   name: string;
   options: { label: string; value: string }[];
@@ -9,12 +9,22 @@ interface SelectInputProps {
   onChange?: (option: any) => void;
 }
 
-export default function SelectInput({
+export default function SelectInputWithHandler({
   label,
   name,
   options,
+  value,
   disabled = false,
-}: SelectInputProps) {
+  onChange,
+}: SelectInputWithHandlerProps) {
+  const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const selectedValue = e.target.value;
+    const selectedOption = options.find(opt => opt.value === selectedValue);
+    if (onChange) {
+      onChange(selectedOption || { value: selectedValue, label: selectedValue });
+    }
+  };
+
   return (
     <div>
       <label className="text-xs font-medium capitalize">{label}:</label>
@@ -23,6 +33,8 @@ export default function SelectInput({
         name={name}
         className="border p-2 rounded w-full"
         disabled={disabled}
+        value={value}
+        onChange={handleChange}
       >
         <option value="">Select {label}</option>
         {options.map((opt) => (
