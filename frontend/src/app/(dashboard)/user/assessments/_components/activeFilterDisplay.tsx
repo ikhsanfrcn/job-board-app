@@ -31,9 +31,8 @@ export default function ActiveFiltersDisplay({
   if (!hasActiveFilters(values)) return null;
 
   const getIsPassedLabel = () => {
-    if (typeof values.isPassed === "boolean") {
-      return values.isPassed ? "Passed" : "Not Passed";
-    }
+    if (values.isPassed === "true") return "Passed";
+    if (values.isPassed === "false") return "Not Passed";
     return null;
   };
 

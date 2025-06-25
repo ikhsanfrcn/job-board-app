@@ -61,7 +61,7 @@ export default function AdvancedFilter({
               as="select"
               id="isPassed"
               name="isPassed"
-              className="w-full text-sm border border-gray-300 px-3 py-2 rounded-md focus:border-green-500 transition-colors outline-none"
+              className="w-full text-sm border border-gray-300 px-3 py-2 pr-8 rounded-md focus:border-green-500 transition-colors outline-none appearance-none"
             >
               <option value="">All</option>
               <option value="true">Passed</option>
