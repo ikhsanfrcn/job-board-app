@@ -1,17 +1,17 @@
 "use client";
 
+import { IFilterUserAssessments } from "@/types/assessment";
 import { Field } from "formik";
 import { FaSearch, FaTimes } from "react-icons/fa";
 
 interface AdvancedFiltersProps {
-  values: {
-    title: string;
-    isPassed: string; // gunakan string agar bisa handle "", "true", "false"
-    sortBy: string;
-    sortOrder: string;
-  };
-  setFieldValue: (field: string, value: any) => void;
-  clearFilter: (field: string, values: any, setFieldValue: any) => void;
+  values: IFilterUserAssessments;
+  setFieldValue: (field: keyof IFilterUserAssessments, value: string) => void;
+  clearFilter: (
+    field: keyof IFilterUserAssessments,
+    values: IFilterUserAssessments,
+    setFieldValue: (field: keyof IFilterUserAssessments, value: string) => void
+  ) => void;
 }
 
 export default function AdvancedFilter({
@@ -22,7 +22,6 @@ export default function AdvancedFilter({
   return (
     <div className="border-t border-gray-200 pt-4">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        {/* Filter by Title */}
         <div>
           <label
             htmlFor="title"
@@ -50,7 +49,6 @@ export default function AdvancedFilter({
           </div>
         </div>
 
-        {/* Filter by isPassed */}
         <div>
           <label
             htmlFor="isPassed"
@@ -82,7 +80,6 @@ export default function AdvancedFilter({
         </div>
       </div>
 
-      {/* Filter Buttons */}
       <div className="flex gap-2 mt-4 pt-4 border-t border-gray-100">
         <button
           type="submit"
@@ -92,7 +89,7 @@ export default function AdvancedFilter({
           <span>Apply Filters</span>
         </button>
         <button
-          type="submit"
+          type="button"
           onClick={() => {
             setFieldValue("title", "");
             setFieldValue("isPassed", "");

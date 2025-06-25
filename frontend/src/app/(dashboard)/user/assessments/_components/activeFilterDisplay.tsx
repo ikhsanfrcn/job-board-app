@@ -1,18 +1,24 @@
 "use client";
 
+import { IFilterUserAssessments } from "@/types/assessment";
 import { FaTimes } from "react-icons/fa";
 
 interface ActiveFiltersDisplayProps {
-  values: {
-    title: string;
-    isPassed: string | boolean;
-    sortBy: string;
-    sortOrder: string;
-  };
+  values: IFilterUserAssessments;
   sortOptions: Array<{ value: string; label: string }>;
-  clearFilter: (field: string, values: any, setFieldValue: any) => void;
-  setFieldValue: (field: string, value: any) => void;
-  hasActiveFilters: (values: any) => boolean;
+  clearFilter: (
+    field: keyof IFilterUserAssessments,
+    values: IFilterUserAssessments,
+    setFieldValue: (
+      field: keyof IFilterUserAssessments,
+      value: string | boolean
+    ) => void
+  ) => void;
+  setFieldValue: (
+    field: keyof IFilterUserAssessments,
+    value: string | boolean
+  ) => void;
+  hasActiveFilters: (values: IFilterUserAssessments) => boolean;
 }
 
 export default function ActiveFiltersDisplay({
@@ -25,15 +31,21 @@ export default function ActiveFiltersDisplay({
   if (!hasActiveFilters(values)) return null;
 
   const getIsPassedLabel = () => {
-    if (values.isPassed === "true" || values.isPassed === true) return "Passed";
-    if (values.isPassed === "false" || values.isPassed === false) return "Not Passed";
+    if (typeof values.isPassed === "boolean") {
+      return values.isPassed ? "Passed" : "Not Passed";
+    }
     return null;
   };
+
+  const sortLabel =
+    sortOptions.find((o) => o.value === values.sortBy)?.label || "Unknown";
 
   return (
     <div className="bg-green-50 border-t border-green-200 px-4 py-3">
       <div className="flex flex-wrap items-center gap-2">
-        <span className="text-sm font-medium text-green-800">Active filters:</span>
+        <span className="text-sm font-medium text-green-800">
+          Active filters:
+        </span>
 
         {values.title && (
           <span className="inline-flex items-center gap-1 bg-green-100 text-green-800 px-2 py-1 rounded-md text-xs">
@@ -62,9 +74,7 @@ export default function ActiveFiltersDisplay({
         )}
 
         <span className="text-xs text-green-600 ml-2">
-          | Sorted by{" "}
-          {sortOptions.find((o) => o.value === values.sortBy)?.label} (
-          {values.sortOrder === "asc" ? "A-Z" : "Z-A"})
+          | Sorted by {sortLabel} ({values.sortOrder === "asc" ? "A-Z" : "Z-A"})
         </span>
       </div>
     </div>

@@ -30,3 +30,10 @@ export interface IUserAssessment {
     lastName: string;
   };
 }
+
+export interface IFilterUserAssessments {
+  title: string;
+  isPassed: string;
+  sortBy: "createdAt" | "title";
+  sortOrder: "asc" | "desc";
+}

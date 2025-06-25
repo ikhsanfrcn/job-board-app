@@ -37,3 +37,10 @@ export interface IMJob {
   isTestActive: boolean;
   createdAt: string;
 }
+
+export interface IFilterJobs {
+  title: string;
+  category: string;
+  sortBy: "createdAt" | "title" | "category";
+  sortOrder: "asc" | "desc";
+}

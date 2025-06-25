@@ -3,12 +3,17 @@
 import { Field } from "formik";
 import { FaSearch, FaTimes } from "react-icons/fa";
 import FormatCurrencyInput from "@/components/atoms/formatCurencyInput";
+import { IFilterApplicants } from "@/types/applicationType";
 
 interface AdvancedFilterProps {
-  values: any;
-  setFieldValue: (field: string, value: any) => void;
+  values: IFilterApplicants;
+  setFieldValue: (field: keyof IFilterApplicants, value: string) => void;
   statusOptions: string[];
-  clearFilter: (field: string, values: any, setFieldValue: any) => void;
+  clearFilter: (
+    field: keyof IFilterApplicants,
+    values: IFilterApplicants,
+    setFieldValue: (field: keyof IFilterApplicants, value: string) => void
+  ) => void;
 }
 
 const educationOptions = [
