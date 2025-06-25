@@ -16,7 +16,8 @@ exports.ResumeController = void 0;
 const prisma_1 = __importDefault(require("../prisma"));
 const path_1 = __importDefault(require("path"));
 const ejs_1 = __importDefault(require("ejs"));
-const puppeteer_1 = __importDefault(require("puppeteer"));
+const chrome_aws_lambda_1 = __importDefault(require("chrome-aws-lambda"));
+const puppeteer_core_1 = __importDefault(require("puppeteer-core"));
 class ResumeController {
     createResume(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -84,9 +85,7 @@ class ResumeController {
                         additional: true,
                     },
                 });
-                res
-                    .status(200)
-                    .send({ message: "Resume created successfully", resume });
+                res.status(200).send({ message: "Resume created successfully", resume });
             }
             catch (err) {
                 console.error(err);
@@ -112,9 +111,7 @@ class ResumeController {
                         additional: true,
                     },
                 });
-                res
-                    .status(200)
-                    .send({ message: "Resume fetched successfully", resume });
+                res.status(200).send({ message: "Resume fetched successfully", resume });
             }
             catch (err) {
                 res.status(400).send(err);
@@ -230,15 +227,17 @@ class ResumeController {
                     resume,
                     user: resume.user,
                 });
-                const browser = yield puppeteer_1.default.launch({
-                    headless: true,
+                const browser = yield puppeteer_core_1.default.launch({
+                    args: chrome_aws_lambda_1.default.args,
+                    executablePath: yield chrome_aws_lambda_1.default.executablePath,
+                    headless: chrome_aws_lambda_1.default.headless,
                 });
                 const page = yield browser.newPage();
                 yield page.setContent(html, {
                     waitUntil: "networkidle0",
                 });
                 const pdfBuffer = yield page.pdf({
-                    format: "A4",
+                    format: "a4",
                     printBackground: true,
                 });
                 yield browser.close();
