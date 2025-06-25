@@ -2,8 +2,9 @@
 
 import { useEffect, useState } from "react";
 import { Modal } from "@/components/atoms/Modal";
-import { FaWhatsapp, FaTwitter, FaLink } from "react-icons/fa";
+import { FaWhatsapp, FaLink, FaFacebook, FaLinkedin } from "react-icons/fa";
 import { toast } from "react-toastify";
+import { FaXTwitter } from "react-icons/fa6";
 
 interface ShareModalProps {
   isOpen: boolean;
@@ -11,7 +12,11 @@ interface ShareModalProps {
   jobId: string;
 }
 
-export default function ShareModal({ isOpen, onClose, jobId }: ShareModalProps) {
+export default function ShareModal({
+  isOpen,
+  onClose,
+  jobId,
+}: ShareModalProps) {
   const [shareUrl, setShareUrl] = useState("");
 
   useEffect(() => {
@@ -29,7 +34,24 @@ export default function ShareModal({ isOpen, onClose, jobId }: ShareModalProps) 
         <button
           onClick={() =>
             window.open(
-              `https://wa.me/?text=${encodeURIComponent(`Check out this job: ${shareUrl}`)}`,
+              `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
+                shareUrl
+              )}`,
+              "_blank"
+            )
+          }
+          className={`${baseButtonStyle} bg-blue-500 text-white hover:bg-blue-600`}
+        >
+          <FaFacebook />
+          Facebook
+        </button>
+
+        <button
+          onClick={() =>
+            window.open(
+              `https://wa.me/?text=${encodeURIComponent(
+                `Check out this job: ${shareUrl}`
+              )}`,
               "_blank"
             )
           }
@@ -37,6 +59,33 @@ export default function ShareModal({ isOpen, onClose, jobId }: ShareModalProps) 
         >
           <FaWhatsapp />
           WhatsApp
+        </button>
+
+        <button
+          onClick={() =>
+            window.open(
+              `https://www.linkedin.com/sharing/share-offsite/?url=}`,
+              "_blank"
+            )
+          }
+          className={`${baseButtonStyle} bg-sky-500 text-white hover:bg-sky-600`}
+        >
+          <FaLinkedin />
+          LinkedIn
+        </button>
+
+        <button
+          onClick={() =>
+            window.open(
+              `https://twitter.com/intent/tweet?text=${encodeURIComponent(
+                `Check out this job: ${shareUrl}`
+              )}`,
+              "_blank"
+            )
+          }
+          className={`${baseButtonStyle} bg-gray-500 text-white hover:bg-gray-600`}
+        >
+          <FaXTwitter />X
         </button>
 
         <button
@@ -53,19 +102,6 @@ export default function ShareModal({ isOpen, onClose, jobId }: ShareModalProps) 
         >
           <FaLink />
           Copy Link
-        </button>
-
-        <button
-          onClick={() =>
-            window.open(
-              `https://twitter.com/intent/tweet?text=${encodeURIComponent(`Check out this job: ${shareUrl}`)}`,
-              "_blank"
-            )
-          }
-          className={`${baseButtonStyle} bg-blue-500 text-white hover:bg-blue-600`}
-        >
-          <FaTwitter />
-          Twitter
         </button>
       </div>
     </Modal>

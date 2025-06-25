@@ -12,7 +12,7 @@ export default function SocialShare() {
       <ul className="flex items-center space-x-5 text-2xl">
         <li>
           <Link
-            href="https://www.facebook.com/sharer/sharer.php?u=https://localhost:3000"
+            href="https://www.facebook.com/sharer/sharer.php?u=https://jobsdoors.vercel.app"
             className="flex items-center justify-center border transition-all duration-200 rounded-full w-10 h-10 hover:bg-blue-500 hover:text-white"
           >
             <FaFacebookF />
@@ -20,7 +20,7 @@ export default function SocialShare() {
         </li>
         <li>
           <Link
-            href="https://www.twitter.com/intent/tweet?url=https://localhost:3000"
+            href="https://www.twitter.com/intent/tweet?url=https://jobsdoors.vercel.app"
             className="flex items-center justify-center border transition-all duration-200 rounded-full w-10 h-10 hover:bg-blue-400 hover:text-white"
           >
             <FaXTwitter />
@@ -28,7 +28,7 @@ export default function SocialShare() {
         </li>
         <li>
           <Link
-            href="https://wa.me/?text=https://localhost:3000"
+            href="https://wa.me/?text=https://jobsdoors.vercel.app"
             className="flex items-center justify-center border transition-all duration-200 rounded-full w-10 h-10 hover:bg-green-600 hover:text-white"
           >
             <FaWhatsapp />
@@ -36,7 +36,7 @@ export default function SocialShare() {
         </li>
         <li>
           <Link
-            href="https://www.linkedin.com/sharing/share-offsite/?url=https://localhost:3000"
+            href="https://www.linkedin.com/sharing/share-offsite/?url=https://jobsdoors.vercel.app"
             className="flex items-center justify-center border transition-all duration-200 rounded-full w-10 h-10 hover:bg-blue-500 hover:text-white"
           >
             <FaLinkedin />
