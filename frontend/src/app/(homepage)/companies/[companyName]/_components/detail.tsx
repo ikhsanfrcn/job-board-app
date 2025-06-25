@@ -1,0 +1,200 @@
+"use client";
+import axios from "@/lib/axios";
+import { ICompanyProfile } from "@/types/companyType";
+import { useCallback, useEffect, useState } from "react";
+import { MdOutlineVerified } from "react-icons/md";
+import SkeletonDetail from "./skeletonDetail";
+import Image from "next/image";
+import Link from "next/link";
+import { IoIosStar } from "react-icons/io";
+import Review from "./review";
+import Jobs from "./jobs";
+import { useSession } from "next-auth/react";
+import { Tooltip } from "react-tooltip";
+import "react-tooltip/dist/react-tooltip.css";
+
+interface IProps {
+  companyName: string;
+}
+
+export default function Detail({ companyName }: IProps) {
+  const { data: user } = useSession();
+  const accessToken = user?.accessToken;
+  const [loading, setLoading] = useState(false);
+  const [isEmployee, setIsEmployee] = useState(false);
+
+  const [detail, setDetail] = useState<ICompanyProfile | null>(null);
+  const [activeTab, setActiveTab] = useState<"Overview" | "Reviews" | "Jobs">(
+    "Overview"
+  );
+
+  const fetchDetail = useCallback(async () => {
+    try {
+      if (!companyName) return;
+      setLoading(true);
+      const { data } = await axios.get(`/company/${companyName}`);
+      setDetail(data.data);
+    } catch (err) {
+      console.error("Error fetching company detail:", err);
+      setDetail(null);
+    } finally {
+      setLoading(false);
+    }
+  }, [companyName]);
+
+  const fetchIsEmployee = useCallback(async () => {
+    try {
+      if (!accessToken) return;
+      const { data } = await axios.get(`/users/is-employee/${detail?.id}`, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+      setIsEmployee(data.isEmployee);
+    } catch (err) {
+      console.log(err);
+    }
+  }, [accessToken, detail?.id]);
+
+  useEffect(() => {
+    fetchDetail();
+  }, [fetchDetail]);
+
+  useEffect(() => {
+    if (detail?.id && accessToken) {
+      fetchIsEmployee();
+    }
+  }, [detail?.id, accessToken, fetchIsEmployee]);
+
+  if (loading || !detail) return <SkeletonDetail />;
+
+  const renderTabContent = () => {
+    switch (activeTab) {
+      case "Overview":
+        return (
+          <div className="mb-5">
+            <div className="flex items-center gap-2 mb-3">
+              <h2 className="text-xl font-semibold">{detail.name} Overview</h2>
+              <div className="flex items-center gap-1 text-xl font-semibold">
+                <p>{detail.averageRating === 0 ? "-" : detail.averageRating}</p>
+                <IoIosStar />
+              </div>
+            </div>
+            <div
+              className="text-sm"
+              dangerouslySetInnerHTML={{ __html: detail.about }}
+            />
+          </div>
+        );
+      case "Reviews":
+        return <Review companyId={detail.id} />;
+
+      case "Jobs":
+        return <Jobs companyId={detail.id} />;
+      default:
+        return null;
+    }
+  };
+
+  return (
+    <div className="w-full border border-gray-200 rounded-xl">
+      <div className="w-full p-4">
+        <div className="w-24 h-24 border border-gray-200 rounded-lg mb-4 overflow-hidden bg-gray-100">
+          {detail.logo && (
+            <Image
+              src={detail.logo}
+              width={200}
+              height={200}
+              alt={detail.name}
+              className="w-full h-full object-contain"
+            />
+          )}
+        </div>
+
+        <div className="flex justify-between items-center mb-2">
+          <div>
+            <h2 className="text-xl font-semibold">{detail.name}</h2>
+            {detail.isVerify && (
+              <div className="flex items-center text-sm ml-1 text-gray-500">
+                <MdOutlineVerified className="mr-1" />
+                <span>Engaged Employer</span>
+              </div>
+            )}
+          </div>
+          <div className="flex gap-2">
+            {accessToken ? (
+              isEmployee ? (
+                <Link href={`/review/${detail.id}`}>
+                  <button className="px-4 py-2 text-white text-sm bg-black rounded-md hover:scale-105 transition duration-300 cursor-pointer">
+                    Add a review
+                  </button>
+                </Link>
+              ) : (
+                <>
+                  <button
+                    data-tooltip-id="review-tooltip"
+                    data-tooltip-content="Only employees can add a review"
+                    className="px-4 py-2 text-white text-sm bg-black/50 rounded-md cursor-not-allowed"
+                    disabled
+                  >
+                    Add a review
+                  </button>
+                  <Tooltip
+                    id="review-tooltip"
+                    place="top"
+                    style={{
+                      backgroundColor: "black",
+                      color: "white",
+                      fontSize: "0.75rem",
+                      borderRadius: "6px",
+                      padding: "6px 10px",
+                    }}
+                  />
+                </>
+              )
+            ) : (
+              <>
+                <button
+                  data-tooltip-id="login-tooltip"
+                  data-tooltip-content="You must be logged in to add a review"
+                  className="px-4 py-2 text-white text-sm bg-black/50 rounded-md cursor-not-allowed"
+                  disabled
+                >
+                  Add a review
+                </button>
+                <Tooltip
+                  id="login-tooltip"
+                  place="top"
+                  style={{
+                    backgroundColor: "black",
+                    color: "white",
+                    fontSize: "0.75rem",
+                    borderRadius: "6px",
+                    padding: "6px 10px",
+                  }}
+                />
+              </>
+            )}
+          </div>
+        </div>
+
+        <div className="w-full flex gap-6 mb-5 border-b border-gray-200">
+          {["Overview", "Reviews", "Jobs"].map((tab) => (
+            <button
+              key={tab}
+              onClick={() => setActiveTab(tab as typeof activeTab)}
+              className={`py-2 border-b-2 transition-all duration-200 text-sm cursor-pointer ${
+                activeTab === tab
+                  ? "border-green-600 text-black"
+                  : "border-transparent text-gray-600 hover:text-black hover:border-green-600"
+              }`}
+            >
+              {tab}
+            </button>
+          ))}
+        </div>
+        {renderTabContent()}
+      </div>
+    </div>
+  );
+}

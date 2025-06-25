@@ -60,10 +60,8 @@ export default function Page() {
     } catch (err) {
       if (err instanceof AxiosError) {
         toast.error(err.response?.data.message);
-        console.log(err);
       } else {
         toast.error("Create skill assessment failed!");
-        console.log(err);
       }
     }
   };
@@ -88,7 +86,7 @@ export default function Page() {
             <span>🏠 / Dashboards / Create Assessment </span>
           </nav>
         </div>
-        <div className="w-full mx-auto p-8 border border-gray-300 shadow-lg rounded-lg my-10 font-sans overflow-y-auto h-[70vh]">
+        <div className="w-full mx-auto p-8 border border-gray-300 shadow-lg rounded-lg my-10 font-sans">
           <h2 className="text-2xl font-semibold mb-6 text-center">
             Create Skill Assessment
           </h2>

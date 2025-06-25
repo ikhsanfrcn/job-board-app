@@ -25,7 +25,7 @@ export default async function getSalaryTrends() {
     if (!app.expectedSalary || !app.job) continue;
 
     const key = `${app.job.title} | ${app.job.city}`;
-    const salary = parseInt(app.expectedSalary);
+    const salary = (app.expectedSalary);
     if (isNaN(salary)) continue;
 
     if (!salaryMap.has(key)) {

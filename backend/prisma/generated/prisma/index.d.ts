@@ -137,12 +137,22 @@ export namespace $Enums {
 export type Gender = (typeof Gender)[keyof typeof Gender]
 
 
+export const WorksiteType: {
+  ONSITE: 'ONSITE',
+  HYBRID: 'HYBRID',
+  REMOTE: 'REMOTE'
+};
+
+export type WorksiteType = (typeof WorksiteType)[keyof typeof WorksiteType]
+
+
 export const ApplicationStatus: {
   PENDING: 'PENDING',
   VIEWED: 'VIEWED',
   SHORTLISTED: 'SHORTLISTED',
   INTERVIEW: 'INTERVIEW',
   OFFERED: 'OFFERED',
+  ACCEPTED: 'ACCEPTED',
   REJECTED: 'REJECTED'
 };
 
@@ -195,6 +205,10 @@ export type SubscriberStatus = (typeof SubscriberStatus)[keyof typeof Subscriber
 export type Gender = $Enums.Gender
 
 export const Gender: typeof $Enums.Gender
+
+export type WorksiteType = $Enums.WorksiteType
+
+export const WorksiteType: typeof $Enums.WorksiteType
 
 export type ApplicationStatus = $Enums.ApplicationStatus
 
@@ -618,7 +632,7 @@ export namespace Prisma {
   export import Exact = $Public.Exact
 
   /**
-   * Prisma Client JS version: 6.8.1
+   * Prisma Client JS version: 6.8.2
    * Query Engine version: 2060c79ba17c6bb9f5823312b6f6b7f4a845738e
    */
   export type PrismaVersion = {
@@ -7122,14 +7136,18 @@ export namespace Prisma {
     id: string | null
     title: string | null
     description: string | null
+    province: string | null
     city: string | null
     category: string | null
+    employmentStatus: $Enums.EmploymentType | null
+    worksite: $Enums.WorksiteType | null
     salaryMin: number | null
     salaryMax: number | null
     deadline: string | null
     companyId: string | null
     isPublished: boolean | null
     isTestActive: boolean | null
+    isDeleted: boolean | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -7138,14 +7156,18 @@ export namespace Prisma {
     id: string | null
     title: string | null
     description: string | null
+    province: string | null
     city: string | null
     category: string | null
+    employmentStatus: $Enums.EmploymentType | null
+    worksite: $Enums.WorksiteType | null
     salaryMin: number | null
     salaryMax: number | null
     deadline: string | null
     companyId: string | null
     isPublished: boolean | null
     isTestActive: boolean | null
+    isDeleted: boolean | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -7154,8 +7176,11 @@ export namespace Prisma {
     id: number
     title: number
     description: number
+    province: number
     city: number
     category: number
+    employmentStatus: number
+    worksite: number
     tags: number
     salaryMin: number
     salaryMax: number
@@ -7163,6 +7188,7 @@ export namespace Prisma {
     companyId: number
     isPublished: number
     isTestActive: number
+    isDeleted: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -7183,14 +7209,18 @@ export namespace Prisma {
     id?: true
     title?: true
     description?: true
+    province?: true
     city?: true
     category?: true
+    employmentStatus?: true
+    worksite?: true
     salaryMin?: true
     salaryMax?: true
     deadline?: true
     companyId?: true
     isPublished?: true
     isTestActive?: true
+    isDeleted?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -7199,14 +7229,18 @@ export namespace Prisma {
     id?: true
     title?: true
     description?: true
+    province?: true
     city?: true
     category?: true
+    employmentStatus?: true
+    worksite?: true
     salaryMin?: true
     salaryMax?: true
     deadline?: true
     companyId?: true
     isPublished?: true
     isTestActive?: true
+    isDeleted?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -7215,8 +7249,11 @@ export namespace Prisma {
     id?: true
     title?: true
     description?: true
+    province?: true
     city?: true
     category?: true
+    employmentStatus?: true
+    worksite?: true
     tags?: true
     salaryMin?: true
     salaryMax?: true
@@ -7224,6 +7261,7 @@ export namespace Prisma {
     companyId?: true
     isPublished?: true
     isTestActive?: true
+    isDeleted?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -7319,8 +7357,11 @@ export namespace Prisma {
     id: string
     title: string
     description: string
+    province: string | null
     city: string
-    category: string
+    category: string | null
+    employmentStatus: $Enums.EmploymentType | null
+    worksite: $Enums.WorksiteType | null
     tags: string[]
     salaryMin: number | null
     salaryMax: number | null
@@ -7328,6 +7369,7 @@ export namespace Prisma {
     companyId: string
     isPublished: boolean
     isTestActive: boolean
+    isDeleted: boolean
     createdAt: Date
     updatedAt: Date
     _count: JobCountAggregateOutputType | null
@@ -7355,8 +7397,11 @@ export namespace Prisma {
     id?: boolean
     title?: boolean
     description?: boolean
+    province?: boolean
     city?: boolean
     category?: boolean
+    employmentStatus?: boolean
+    worksite?: boolean
     tags?: boolean
     salaryMin?: boolean
     salaryMax?: boolean
@@ -7364,6 +7409,7 @@ export namespace Prisma {
     companyId?: boolean
     isPublished?: boolean
     isTestActive?: boolean
+    isDeleted?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     company?: boolean | CompanyDefaultArgs<ExtArgs>
@@ -7377,8 +7423,11 @@ export namespace Prisma {
     id?: boolean
     title?: boolean
     description?: boolean
+    province?: boolean
     city?: boolean
     category?: boolean
+    employmentStatus?: boolean
+    worksite?: boolean
     tags?: boolean
     salaryMin?: boolean
     salaryMax?: boolean
@@ -7386,6 +7435,7 @@ export namespace Prisma {
     companyId?: boolean
     isPublished?: boolean
     isTestActive?: boolean
+    isDeleted?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     company?: boolean | CompanyDefaultArgs<ExtArgs>
@@ -7395,8 +7445,11 @@ export namespace Prisma {
     id?: boolean
     title?: boolean
     description?: boolean
+    province?: boolean
     city?: boolean
     category?: boolean
+    employmentStatus?: boolean
+    worksite?: boolean
     tags?: boolean
     salaryMin?: boolean
     salaryMax?: boolean
@@ -7404,6 +7457,7 @@ export namespace Prisma {
     companyId?: boolean
     isPublished?: boolean
     isTestActive?: boolean
+    isDeleted?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     company?: boolean | CompanyDefaultArgs<ExtArgs>
@@ -7413,8 +7467,11 @@ export namespace Prisma {
     id?: boolean
     title?: boolean
     description?: boolean
+    province?: boolean
     city?: boolean
     category?: boolean
+    employmentStatus?: boolean
+    worksite?: boolean
     tags?: boolean
     salaryMin?: boolean
     salaryMax?: boolean
@@ -7422,11 +7479,12 @@ export namespace Prisma {
     companyId?: boolean
     isPublished?: boolean
     isTestActive?: boolean
+    isDeleted?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type JobOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "city" | "category" | "tags" | "salaryMin" | "salaryMax" | "deadline" | "companyId" | "isPublished" | "isTestActive" | "createdAt" | "updatedAt", ExtArgs["result"]["job"]>
+  export type JobOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "province" | "city" | "category" | "employmentStatus" | "worksite" | "tags" | "salaryMin" | "salaryMax" | "deadline" | "companyId" | "isPublished" | "isTestActive" | "isDeleted" | "createdAt" | "updatedAt", ExtArgs["result"]["job"]>
   export type JobInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     company?: boolean | CompanyDefaultArgs<ExtArgs>
     Application?: boolean | Job$ApplicationArgs<ExtArgs>
@@ -7453,8 +7511,11 @@ export namespace Prisma {
       id: string
       title: string
       description: string
+      province: string | null
       city: string
-      category: string
+      category: string | null
+      employmentStatus: $Enums.EmploymentType | null
+      worksite: $Enums.WorksiteType | null
       tags: string[]
       salaryMin: number | null
       salaryMax: number | null
@@ -7462,6 +7523,7 @@ export namespace Prisma {
       companyId: string
       isPublished: boolean
       isTestActive: boolean
+      isDeleted: boolean
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["job"]>
@@ -7894,8 +7956,11 @@ export namespace Prisma {
     readonly id: FieldRef<"Job", 'String'>
     readonly title: FieldRef<"Job", 'String'>
     readonly description: FieldRef<"Job", 'String'>
+    readonly province: FieldRef<"Job", 'String'>
     readonly city: FieldRef<"Job", 'String'>
     readonly category: FieldRef<"Job", 'String'>
+    readonly employmentStatus: FieldRef<"Job", 'EmploymentType'>
+    readonly worksite: FieldRef<"Job", 'WorksiteType'>
     readonly tags: FieldRef<"Job", 'String[]'>
     readonly salaryMin: FieldRef<"Job", 'Int'>
     readonly salaryMax: FieldRef<"Job", 'Int'>
@@ -7903,6 +7968,7 @@ export namespace Prisma {
     readonly companyId: FieldRef<"Job", 'String'>
     readonly isPublished: FieldRef<"Job", 'Boolean'>
     readonly isTestActive: FieldRef<"Job", 'Boolean'>
+    readonly isDeleted: FieldRef<"Job", 'Boolean'>
     readonly createdAt: FieldRef<"Job", 'DateTime'>
     readonly updatedAt: FieldRef<"Job", 'DateTime'>
   }
@@ -10431,8 +10497,18 @@ export namespace Prisma {
 
   export type AggregateApplication = {
     _count: ApplicationCountAggregateOutputType | null
+    _avg: ApplicationAvgAggregateOutputType | null
+    _sum: ApplicationSumAggregateOutputType | null
     _min: ApplicationMinAggregateOutputType | null
     _max: ApplicationMaxAggregateOutputType | null
+  }
+
+  export type ApplicationAvgAggregateOutputType = {
+    expectedSalary: number | null
+  }
+
+  export type ApplicationSumAggregateOutputType = {
+    expectedSalary: number | null
   }
 
   export type ApplicationMinAggregateOutputType = {
@@ -10441,7 +10517,7 @@ export namespace Prisma {
     jobId: string | null
     status: $Enums.ApplicationStatus | null
     cvUrl: string | null
-    expectedSalary: string | null
+    expectedSalary: number | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -10452,7 +10528,7 @@ export namespace Prisma {
     jobId: string | null
     status: $Enums.ApplicationStatus | null
     cvUrl: string | null
-    expectedSalary: string | null
+    expectedSalary: number | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -10469,6 +10545,14 @@ export namespace Prisma {
     _all: number
   }
 
+
+  export type ApplicationAvgAggregateInputType = {
+    expectedSalary?: true
+  }
+
+  export type ApplicationSumAggregateInputType = {
+    expectedSalary?: true
+  }
 
   export type ApplicationMinAggregateInputType = {
     id?: true
@@ -10542,6 +10626,18 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
+     * Select which fields to average
+    **/
+    _avg?: ApplicationAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: ApplicationSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: ApplicationMinAggregateInputType
@@ -10572,6 +10668,8 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: ApplicationCountAggregateInputType | true
+    _avg?: ApplicationAvgAggregateInputType
+    _sum?: ApplicationSumAggregateInputType
     _min?: ApplicationMinAggregateInputType
     _max?: ApplicationMaxAggregateInputType
   }
@@ -10582,10 +10680,12 @@ export namespace Prisma {
     jobId: string
     status: $Enums.ApplicationStatus
     cvUrl: string
-    expectedSalary: string | null
+    expectedSalary: number | null
     createdAt: Date
     updatedAt: Date
     _count: ApplicationCountAggregateOutputType | null
+    _avg: ApplicationAvgAggregateOutputType | null
+    _sum: ApplicationSumAggregateOutputType | null
     _min: ApplicationMinAggregateOutputType | null
     _max: ApplicationMaxAggregateOutputType | null
   }
@@ -10685,7 +10785,7 @@ export namespace Prisma {
       jobId: string
       status: $Enums.ApplicationStatus
       cvUrl: string
-      expectedSalary: string | null
+      expectedSalary: number | null
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["application"]>
@@ -11119,7 +11219,7 @@ export namespace Prisma {
     readonly jobId: FieldRef<"Application", 'String'>
     readonly status: FieldRef<"Application", 'ApplicationStatus'>
     readonly cvUrl: FieldRef<"Application", 'String'>
-    readonly expectedSalary: FieldRef<"Application", 'String'>
+    readonly expectedSalary: FieldRef<"Application", 'Int'>
     readonly createdAt: FieldRef<"Application", 'DateTime'>
     readonly updatedAt: FieldRef<"Application", 'DateTime'>
   }
@@ -22650,6 +22750,7 @@ export namespace Prisma {
     type: string | null
     amount: number | null
     status: $Enums.PaymentStatus | null
+    externalId: string | null
     invoiceUrl: string | null
     createdAt: Date | null
     expiredAt: Date | null
@@ -22662,6 +22763,7 @@ export namespace Prisma {
     type: string | null
     amount: number | null
     status: $Enums.PaymentStatus | null
+    externalId: string | null
     invoiceUrl: string | null
     createdAt: Date | null
     expiredAt: Date | null
@@ -22674,6 +22776,7 @@ export namespace Prisma {
     type: number
     amount: number
     status: number
+    externalId: number
     invoiceUrl: number
     createdAt: number
     expiredAt: number
@@ -22696,6 +22799,7 @@ export namespace Prisma {
     type?: true
     amount?: true
     status?: true
+    externalId?: true
     invoiceUrl?: true
     createdAt?: true
     expiredAt?: true
@@ -22708,6 +22812,7 @@ export namespace Prisma {
     type?: true
     amount?: true
     status?: true
+    externalId?: true
     invoiceUrl?: true
     createdAt?: true
     expiredAt?: true
@@ -22720,6 +22825,7 @@ export namespace Prisma {
     type?: true
     amount?: true
     status?: true
+    externalId?: true
     invoiceUrl?: true
     createdAt?: true
     expiredAt?: true
@@ -22819,6 +22925,7 @@ export namespace Prisma {
     type: string
     amount: number
     status: $Enums.PaymentStatus
+    externalId: string | null
     invoiceUrl: string | null
     createdAt: Date
     expiredAt: Date
@@ -22850,6 +22957,7 @@ export namespace Prisma {
     type?: boolean
     amount?: boolean
     status?: boolean
+    externalId?: boolean
     invoiceUrl?: boolean
     createdAt?: boolean
     expiredAt?: boolean
@@ -22865,6 +22973,7 @@ export namespace Prisma {
     type?: boolean
     amount?: boolean
     status?: boolean
+    externalId?: boolean
     invoiceUrl?: boolean
     createdAt?: boolean
     expiredAt?: boolean
@@ -22878,6 +22987,7 @@ export namespace Prisma {
     type?: boolean
     amount?: boolean
     status?: boolean
+    externalId?: boolean
     invoiceUrl?: boolean
     createdAt?: boolean
     expiredAt?: boolean
@@ -22891,13 +23001,14 @@ export namespace Prisma {
     type?: boolean
     amount?: boolean
     status?: boolean
+    externalId?: boolean
     invoiceUrl?: boolean
     createdAt?: boolean
     expiredAt?: boolean
     updatedAt?: boolean
   }
 
-  export type TransactionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "type" | "amount" | "status" | "invoiceUrl" | "createdAt" | "expiredAt" | "updatedAt", ExtArgs["result"]["transaction"]>
+  export type TransactionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "type" | "amount" | "status" | "externalId" | "invoiceUrl" | "createdAt" | "expiredAt" | "updatedAt", ExtArgs["result"]["transaction"]>
   export type TransactionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
     Subscriber?: boolean | Transaction$SubscriberArgs<ExtArgs>
@@ -22922,6 +23033,7 @@ export namespace Prisma {
       type: string
       amount: number
       status: $Enums.PaymentStatus
+      externalId: string | null
       invoiceUrl: string | null
       createdAt: Date
       expiredAt: Date
@@ -23356,6 +23468,7 @@ export namespace Prisma {
     readonly type: FieldRef<"Transaction", 'String'>
     readonly amount: FieldRef<"Transaction", 'Int'>
     readonly status: FieldRef<"Transaction", 'PaymentStatus'>
+    readonly externalId: FieldRef<"Transaction", 'String'>
     readonly invoiceUrl: FieldRef<"Transaction", 'String'>
     readonly createdAt: FieldRef<"Transaction", 'DateTime'>
     readonly expiredAt: FieldRef<"Transaction", 'DateTime'>
@@ -28615,8 +28728,11 @@ export namespace Prisma {
     id: 'id',
     title: 'title',
     description: 'description',
+    province: 'province',
     city: 'city',
     category: 'category',
+    employmentStatus: 'employmentStatus',
+    worksite: 'worksite',
     tags: 'tags',
     salaryMin: 'salaryMin',
     salaryMax: 'salaryMax',
@@ -28624,6 +28740,7 @@ export namespace Prisma {
     companyId: 'companyId',
     isPublished: 'isPublished',
     isTestActive: 'isTestActive',
+    isDeleted: 'isDeleted',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -28804,6 +28921,7 @@ export namespace Prisma {
     type: 'type',
     amount: 'amount',
     status: 'status',
+    externalId: 'externalId',
     invoiceUrl: 'invoiceUrl',
     createdAt: 'createdAt',
     expiredAt: 'expiredAt',
@@ -28976,6 +29094,34 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'EmploymentType'
+   */
+  export type EnumEmploymentTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'EmploymentType'>
+    
+
+
+  /**
+   * Reference to a field of type 'EmploymentType[]'
+   */
+  export type ListEnumEmploymentTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'EmploymentType[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'WorksiteType'
+   */
+  export type EnumWorksiteTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'WorksiteType'>
+    
+
+
+  /**
+   * Reference to a field of type 'WorksiteType[]'
+   */
+  export type ListEnumWorksiteTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'WorksiteType[]'>
+    
+
+
+  /**
    * Reference to a field of type 'Int'
    */
   export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
@@ -29000,20 +29146,6 @@ export namespace Prisma {
    * Reference to a field of type 'ApplicationStatus[]'
    */
   export type ListEnumApplicationStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ApplicationStatus[]'>
-    
-
-
-  /**
-   * Reference to a field of type 'EmploymentType'
-   */
-  export type EnumEmploymentTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'EmploymentType'>
-    
-
-
-  /**
-   * Reference to a field of type 'EmploymentType[]'
-   */
-  export type ListEnumEmploymentTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'EmploymentType[]'>
     
 
 
@@ -29305,12 +29437,12 @@ export namespace Prisma {
 
   export type CompanyWhereUniqueInput = Prisma.AtLeast<{
     id?: string
+    name?: string
     email?: string
     website?: string
     AND?: CompanyWhereInput | CompanyWhereInput[]
     OR?: CompanyWhereInput[]
     NOT?: CompanyWhereInput | CompanyWhereInput[]
-    name?: StringFilter<"Company"> | string
     role?: StringFilter<"Company"> | string
     password?: StringFilter<"Company"> | string
     about?: StringNullableFilter<"Company"> | string | null
@@ -29331,7 +29463,7 @@ export namespace Prisma {
     industry?: XOR<IndustryScalarRelationFilter, IndustryWhereInput>
     jobs?: JobListRelationFilter
     Review?: ReviewListRelationFilter
-  }, "id" | "email" | "website">
+  }, "id" | "name" | "email" | "website">
 
   export type CompanyOrderByWithAggregationInput = {
     id?: SortOrder
@@ -29434,8 +29566,11 @@ export namespace Prisma {
     id?: StringFilter<"Job"> | string
     title?: StringFilter<"Job"> | string
     description?: StringFilter<"Job"> | string
+    province?: StringNullableFilter<"Job"> | string | null
     city?: StringFilter<"Job"> | string
-    category?: StringFilter<"Job"> | string
+    category?: StringNullableFilter<"Job"> | string | null
+    employmentStatus?: EnumEmploymentTypeNullableFilter<"Job"> | $Enums.EmploymentType | null
+    worksite?: EnumWorksiteTypeNullableFilter<"Job"> | $Enums.WorksiteType | null
     tags?: StringNullableListFilter<"Job">
     salaryMin?: IntNullableFilter<"Job"> | number | null
     salaryMax?: IntNullableFilter<"Job"> | number | null
@@ -29443,6 +29578,7 @@ export namespace Prisma {
     companyId?: StringFilter<"Job"> | string
     isPublished?: BoolFilter<"Job"> | boolean
     isTestActive?: BoolFilter<"Job"> | boolean
+    isDeleted?: BoolFilter<"Job"> | boolean
     createdAt?: DateTimeFilter<"Job"> | Date | string
     updatedAt?: DateTimeFilter<"Job"> | Date | string
     company?: XOR<CompanyScalarRelationFilter, CompanyWhereInput>
@@ -29455,8 +29591,11 @@ export namespace Prisma {
     id?: SortOrder
     title?: SortOrder
     description?: SortOrder
+    province?: SortOrderInput | SortOrder
     city?: SortOrder
-    category?: SortOrder
+    category?: SortOrderInput | SortOrder
+    employmentStatus?: SortOrderInput | SortOrder
+    worksite?: SortOrderInput | SortOrder
     tags?: SortOrder
     salaryMin?: SortOrderInput | SortOrder
     salaryMax?: SortOrderInput | SortOrder
@@ -29464,6 +29603,7 @@ export namespace Prisma {
     companyId?: SortOrder
     isPublished?: SortOrder
     isTestActive?: SortOrder
+    isDeleted?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     company?: CompanyOrderByWithRelationInput
@@ -29479,8 +29619,11 @@ export namespace Prisma {
     NOT?: JobWhereInput | JobWhereInput[]
     title?: StringFilter<"Job"> | string
     description?: StringFilter<"Job"> | string
+    province?: StringNullableFilter<"Job"> | string | null
     city?: StringFilter<"Job"> | string
-    category?: StringFilter<"Job"> | string
+    category?: StringNullableFilter<"Job"> | string | null
+    employmentStatus?: EnumEmploymentTypeNullableFilter<"Job"> | $Enums.EmploymentType | null
+    worksite?: EnumWorksiteTypeNullableFilter<"Job"> | $Enums.WorksiteType | null
     tags?: StringNullableListFilter<"Job">
     salaryMin?: IntNullableFilter<"Job"> | number | null
     salaryMax?: IntNullableFilter<"Job"> | number | null
@@ -29488,6 +29631,7 @@ export namespace Prisma {
     companyId?: StringFilter<"Job"> | string
     isPublished?: BoolFilter<"Job"> | boolean
     isTestActive?: BoolFilter<"Job"> | boolean
+    isDeleted?: BoolFilter<"Job"> | boolean
     createdAt?: DateTimeFilter<"Job"> | Date | string
     updatedAt?: DateTimeFilter<"Job"> | Date | string
     company?: XOR<CompanyScalarRelationFilter, CompanyWhereInput>
@@ -29500,8 +29644,11 @@ export namespace Prisma {
     id?: SortOrder
     title?: SortOrder
     description?: SortOrder
+    province?: SortOrderInput | SortOrder
     city?: SortOrder
-    category?: SortOrder
+    category?: SortOrderInput | SortOrder
+    employmentStatus?: SortOrderInput | SortOrder
+    worksite?: SortOrderInput | SortOrder
     tags?: SortOrder
     salaryMin?: SortOrderInput | SortOrder
     salaryMax?: SortOrderInput | SortOrder
@@ -29509,6 +29656,7 @@ export namespace Prisma {
     companyId?: SortOrder
     isPublished?: SortOrder
     isTestActive?: SortOrder
+    isDeleted?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: JobCountOrderByAggregateInput
@@ -29525,8 +29673,11 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"Job"> | string
     title?: StringWithAggregatesFilter<"Job"> | string
     description?: StringWithAggregatesFilter<"Job"> | string
+    province?: StringNullableWithAggregatesFilter<"Job"> | string | null
     city?: StringWithAggregatesFilter<"Job"> | string
-    category?: StringWithAggregatesFilter<"Job"> | string
+    category?: StringNullableWithAggregatesFilter<"Job"> | string | null
+    employmentStatus?: EnumEmploymentTypeNullableWithAggregatesFilter<"Job"> | $Enums.EmploymentType | null
+    worksite?: EnumWorksiteTypeNullableWithAggregatesFilter<"Job"> | $Enums.WorksiteType | null
     tags?: StringNullableListFilter<"Job">
     salaryMin?: IntNullableWithAggregatesFilter<"Job"> | number | null
     salaryMax?: IntNullableWithAggregatesFilter<"Job"> | number | null
@@ -29534,6 +29685,7 @@ export namespace Prisma {
     companyId?: StringWithAggregatesFilter<"Job"> | string
     isPublished?: BoolWithAggregatesFilter<"Job"> | boolean
     isTestActive?: BoolWithAggregatesFilter<"Job"> | boolean
+    isDeleted?: BoolWithAggregatesFilter<"Job"> | boolean
     createdAt?: DateTimeWithAggregatesFilter<"Job"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Job"> | Date | string
   }
@@ -29644,7 +29796,7 @@ export namespace Prisma {
     jobId?: StringFilter<"Application"> | string
     status?: EnumApplicationStatusFilter<"Application"> | $Enums.ApplicationStatus
     cvUrl?: StringFilter<"Application"> | string
-    expectedSalary?: StringNullableFilter<"Application"> | string | null
+    expectedSalary?: IntNullableFilter<"Application"> | number | null
     createdAt?: DateTimeFilter<"Application"> | Date | string
     updatedAt?: DateTimeFilter<"Application"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
@@ -29675,7 +29827,7 @@ export namespace Prisma {
     jobId?: StringFilter<"Application"> | string
     status?: EnumApplicationStatusFilter<"Application"> | $Enums.ApplicationStatus
     cvUrl?: StringFilter<"Application"> | string
-    expectedSalary?: StringNullableFilter<"Application"> | string | null
+    expectedSalary?: IntNullableFilter<"Application"> | number | null
     createdAt?: DateTimeFilter<"Application"> | Date | string
     updatedAt?: DateTimeFilter<"Application"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
@@ -29693,8 +29845,10 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: ApplicationCountOrderByAggregateInput
+    _avg?: ApplicationAvgOrderByAggregateInput
     _max?: ApplicationMaxOrderByAggregateInput
     _min?: ApplicationMinOrderByAggregateInput
+    _sum?: ApplicationSumOrderByAggregateInput
   }
 
   export type ApplicationScalarWhereWithAggregatesInput = {
@@ -29706,7 +29860,7 @@ export namespace Prisma {
     jobId?: StringWithAggregatesFilter<"Application"> | string
     status?: EnumApplicationStatusWithAggregatesFilter<"Application"> | $Enums.ApplicationStatus
     cvUrl?: StringWithAggregatesFilter<"Application"> | string
-    expectedSalary?: StringNullableWithAggregatesFilter<"Application"> | string | null
+    expectedSalary?: IntNullableWithAggregatesFilter<"Application"> | number | null
     createdAt?: DateTimeWithAggregatesFilter<"Application"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Application"> | Date | string
   }
@@ -29928,10 +30082,10 @@ export namespace Prisma {
 
   export type UserTestWhereUniqueInput = Prisma.AtLeast<{
     id?: string
-    userId?: string
     AND?: UserTestWhereInput | UserTestWhereInput[]
     OR?: UserTestWhereInput[]
     NOT?: UserTestWhereInput | UserTestWhereInput[]
+    userId?: StringFilter<"UserTest"> | string
     jobId?: StringFilter<"UserTest"> | string
     correctAnswers?: IntFilter<"UserTest"> | number
     totalQuestions?: IntFilter<"UserTest"> | number
@@ -29940,7 +30094,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"UserTest"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
     job?: XOR<JobScalarRelationFilter, JobWhereInput>
-  }, "id" | "userId">
+  }, "id">
 
   export type UserTestOrderByWithAggregationInput = {
     id?: SortOrder
@@ -30410,6 +30564,7 @@ export namespace Prisma {
     type?: StringFilter<"Transaction"> | string
     amount?: IntFilter<"Transaction"> | number
     status?: EnumPaymentStatusFilter<"Transaction"> | $Enums.PaymentStatus
+    externalId?: StringNullableFilter<"Transaction"> | string | null
     invoiceUrl?: StringNullableFilter<"Transaction"> | string | null
     createdAt?: DateTimeFilter<"Transaction"> | Date | string
     expiredAt?: DateTimeFilter<"Transaction"> | Date | string
@@ -30424,6 +30579,7 @@ export namespace Prisma {
     type?: SortOrder
     amount?: SortOrder
     status?: SortOrder
+    externalId?: SortOrderInput | SortOrder
     invoiceUrl?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     expiredAt?: SortOrder
@@ -30434,6 +30590,7 @@ export namespace Prisma {
 
   export type TransactionWhereUniqueInput = Prisma.AtLeast<{
     id?: string
+    externalId?: string
     AND?: TransactionWhereInput | TransactionWhereInput[]
     OR?: TransactionWhereInput[]
     NOT?: TransactionWhereInput | TransactionWhereInput[]
@@ -30447,7 +30604,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Transaction"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
     Subscriber?: SubscriberListRelationFilter
-  }, "id">
+  }, "id" | "externalId">
 
   export type TransactionOrderByWithAggregationInput = {
     id?: SortOrder
@@ -30455,6 +30612,7 @@ export namespace Prisma {
     type?: SortOrder
     amount?: SortOrder
     status?: SortOrder
+    externalId?: SortOrderInput | SortOrder
     invoiceUrl?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     expiredAt?: SortOrder
@@ -30475,6 +30633,7 @@ export namespace Prisma {
     type?: StringWithAggregatesFilter<"Transaction"> | string
     amount?: IntWithAggregatesFilter<"Transaction"> | number
     status?: EnumPaymentStatusWithAggregatesFilter<"Transaction"> | $Enums.PaymentStatus
+    externalId?: StringNullableWithAggregatesFilter<"Transaction"> | string | null
     invoiceUrl?: StringNullableWithAggregatesFilter<"Transaction"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Transaction"> | Date | string
     expiredAt?: DateTimeWithAggregatesFilter<"Transaction"> | Date | string
@@ -31257,14 +31416,18 @@ export namespace Prisma {
     id?: string
     title: string
     description: string
+    province?: string | null
     city: string
-    category: string
+    category?: string | null
+    employmentStatus?: $Enums.EmploymentType | null
+    worksite?: $Enums.WorksiteType | null
     tags?: JobCreatetagsInput | string[]
     salaryMin?: number | null
     salaryMax?: number | null
     deadline: string
     isPublished?: boolean
     isTestActive?: boolean
+    isDeleted?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     company: CompanyCreateNestedOneWithoutJobsInput
@@ -31277,8 +31440,11 @@ export namespace Prisma {
     id?: string
     title: string
     description: string
+    province?: string | null
     city: string
-    category: string
+    category?: string | null
+    employmentStatus?: $Enums.EmploymentType | null
+    worksite?: $Enums.WorksiteType | null
     tags?: JobCreatetagsInput | string[]
     salaryMin?: number | null
     salaryMax?: number | null
@@ -31286,6 +31452,7 @@ export namespace Prisma {
     companyId: string
     isPublished?: boolean
     isTestActive?: boolean
+    isDeleted?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     Application?: ApplicationUncheckedCreateNestedManyWithoutJobInput
@@ -31297,14 +31464,18 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
+    province?: NullableStringFieldUpdateOperationsInput | string | null
     city?: StringFieldUpdateOperationsInput | string
-    category?: StringFieldUpdateOperationsInput | string
+    category?: NullableStringFieldUpdateOperationsInput | string | null
+    employmentStatus?: NullableEnumEmploymentTypeFieldUpdateOperationsInput | $Enums.EmploymentType | null
+    worksite?: NullableEnumWorksiteTypeFieldUpdateOperationsInput | $Enums.WorksiteType | null
     tags?: JobUpdatetagsInput | string[]
     salaryMin?: NullableIntFieldUpdateOperationsInput | number | null
     salaryMax?: NullableIntFieldUpdateOperationsInput | number | null
     deadline?: StringFieldUpdateOperationsInput | string
     isPublished?: BoolFieldUpdateOperationsInput | boolean
     isTestActive?: BoolFieldUpdateOperationsInput | boolean
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     company?: CompanyUpdateOneRequiredWithoutJobsNestedInput
@@ -31317,8 +31488,11 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
+    province?: NullableStringFieldUpdateOperationsInput | string | null
     city?: StringFieldUpdateOperationsInput | string
-    category?: StringFieldUpdateOperationsInput | string
+    category?: NullableStringFieldUpdateOperationsInput | string | null
+    employmentStatus?: NullableEnumEmploymentTypeFieldUpdateOperationsInput | $Enums.EmploymentType | null
+    worksite?: NullableEnumWorksiteTypeFieldUpdateOperationsInput | $Enums.WorksiteType | null
     tags?: JobUpdatetagsInput | string[]
     salaryMin?: NullableIntFieldUpdateOperationsInput | number | null
     salaryMax?: NullableIntFieldUpdateOperationsInput | number | null
@@ -31326,6 +31500,7 @@ export namespace Prisma {
     companyId?: StringFieldUpdateOperationsInput | string
     isPublished?: BoolFieldUpdateOperationsInput | boolean
     isTestActive?: BoolFieldUpdateOperationsInput | boolean
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     Application?: ApplicationUncheckedUpdateManyWithoutJobNestedInput
@@ -31337,8 +31512,11 @@ export namespace Prisma {
     id?: string
     title: string
     description: string
+    province?: string | null
     city: string
-    category: string
+    category?: string | null
+    employmentStatus?: $Enums.EmploymentType | null
+    worksite?: $Enums.WorksiteType | null
     tags?: JobCreatetagsInput | string[]
     salaryMin?: number | null
     salaryMax?: number | null
@@ -31346,6 +31524,7 @@ export namespace Prisma {
     companyId: string
     isPublished?: boolean
     isTestActive?: boolean
+    isDeleted?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -31354,14 +31533,18 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
+    province?: NullableStringFieldUpdateOperationsInput | string | null
     city?: StringFieldUpdateOperationsInput | string
-    category?: StringFieldUpdateOperationsInput | string
+    category?: NullableStringFieldUpdateOperationsInput | string | null
+    employmentStatus?: NullableEnumEmploymentTypeFieldUpdateOperationsInput | $Enums.EmploymentType | null
+    worksite?: NullableEnumWorksiteTypeFieldUpdateOperationsInput | $Enums.WorksiteType | null
     tags?: JobUpdatetagsInput | string[]
     salaryMin?: NullableIntFieldUpdateOperationsInput | number | null
     salaryMax?: NullableIntFieldUpdateOperationsInput | number | null
     deadline?: StringFieldUpdateOperationsInput | string
     isPublished?: BoolFieldUpdateOperationsInput | boolean
     isTestActive?: BoolFieldUpdateOperationsInput | boolean
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -31370,8 +31553,11 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
+    province?: NullableStringFieldUpdateOperationsInput | string | null
     city?: StringFieldUpdateOperationsInput | string
-    category?: StringFieldUpdateOperationsInput | string
+    category?: NullableStringFieldUpdateOperationsInput | string | null
+    employmentStatus?: NullableEnumEmploymentTypeFieldUpdateOperationsInput | $Enums.EmploymentType | null
+    worksite?: NullableEnumWorksiteTypeFieldUpdateOperationsInput | $Enums.WorksiteType | null
     tags?: JobUpdatetagsInput | string[]
     salaryMin?: NullableIntFieldUpdateOperationsInput | number | null
     salaryMax?: NullableIntFieldUpdateOperationsInput | number | null
@@ -31379,6 +31565,7 @@ export namespace Prisma {
     companyId?: StringFieldUpdateOperationsInput | string
     isPublished?: BoolFieldUpdateOperationsInput | boolean
     isTestActive?: BoolFieldUpdateOperationsInput | boolean
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -31489,7 +31676,7 @@ export namespace Prisma {
     id?: string
     status?: $Enums.ApplicationStatus
     cvUrl: string
-    expectedSalary?: string | null
+    expectedSalary?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutApplicationInput
@@ -31503,7 +31690,7 @@ export namespace Prisma {
     jobId: string
     status?: $Enums.ApplicationStatus
     cvUrl: string
-    expectedSalary?: string | null
+    expectedSalary?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
     Interview?: InterviewUncheckedCreateNestedManyWithoutApplicationInput
@@ -31513,7 +31700,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     status?: EnumApplicationStatusFieldUpdateOperationsInput | $Enums.ApplicationStatus
     cvUrl?: StringFieldUpdateOperationsInput | string
-    expectedSalary?: NullableStringFieldUpdateOperationsInput | string | null
+    expectedSalary?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutApplicationNestedInput
@@ -31527,7 +31714,7 @@ export namespace Prisma {
     jobId?: StringFieldUpdateOperationsInput | string
     status?: EnumApplicationStatusFieldUpdateOperationsInput | $Enums.ApplicationStatus
     cvUrl?: StringFieldUpdateOperationsInput | string
-    expectedSalary?: NullableStringFieldUpdateOperationsInput | string | null
+    expectedSalary?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     Interview?: InterviewUncheckedUpdateManyWithoutApplicationNestedInput
@@ -31539,7 +31726,7 @@ export namespace Prisma {
     jobId: string
     status?: $Enums.ApplicationStatus
     cvUrl: string
-    expectedSalary?: string | null
+    expectedSalary?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -31548,7 +31735,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     status?: EnumApplicationStatusFieldUpdateOperationsInput | $Enums.ApplicationStatus
     cvUrl?: StringFieldUpdateOperationsInput | string
-    expectedSalary?: NullableStringFieldUpdateOperationsInput | string | null
+    expectedSalary?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -31559,7 +31746,7 @@ export namespace Prisma {
     jobId?: StringFieldUpdateOperationsInput | string
     status?: EnumApplicationStatusFieldUpdateOperationsInput | $Enums.ApplicationStatus
     cvUrl?: StringFieldUpdateOperationsInput | string
-    expectedSalary?: NullableStringFieldUpdateOperationsInput | string | null
+    expectedSalary?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -32294,6 +32481,7 @@ export namespace Prisma {
     type: string
     amount: number
     status?: $Enums.PaymentStatus
+    externalId?: string | null
     invoiceUrl?: string | null
     createdAt?: Date | string
     expiredAt: Date | string
@@ -32308,6 +32496,7 @@ export namespace Prisma {
     type: string
     amount: number
     status?: $Enums.PaymentStatus
+    externalId?: string | null
     invoiceUrl?: string | null
     createdAt?: Date | string
     expiredAt: Date | string
@@ -32320,6 +32509,7 @@ export namespace Prisma {
     type?: StringFieldUpdateOperationsInput | string
     amount?: IntFieldUpdateOperationsInput | number
     status?: EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
+    externalId?: NullableStringFieldUpdateOperationsInput | string | null
     invoiceUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     expiredAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -32334,6 +32524,7 @@ export namespace Prisma {
     type?: StringFieldUpdateOperationsInput | string
     amount?: IntFieldUpdateOperationsInput | number
     status?: EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
+    externalId?: NullableStringFieldUpdateOperationsInput | string | null
     invoiceUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     expiredAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -32347,6 +32538,7 @@ export namespace Prisma {
     type: string
     amount: number
     status?: $Enums.PaymentStatus
+    externalId?: string | null
     invoiceUrl?: string | null
     createdAt?: Date | string
     expiredAt: Date | string
@@ -32358,6 +32550,7 @@ export namespace Prisma {
     type?: StringFieldUpdateOperationsInput | string
     amount?: IntFieldUpdateOperationsInput | number
     status?: EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
+    externalId?: NullableStringFieldUpdateOperationsInput | string | null
     invoiceUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     expiredAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -32370,6 +32563,7 @@ export namespace Prisma {
     type?: StringFieldUpdateOperationsInput | string
     amount?: IntFieldUpdateOperationsInput | number
     status?: EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
+    externalId?: NullableStringFieldUpdateOperationsInput | string | null
     invoiceUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     expiredAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -33160,6 +33354,20 @@ export namespace Prisma {
     name?: SortOrder
   }
 
+  export type EnumEmploymentTypeNullableFilter<$PrismaModel = never> = {
+    equals?: $Enums.EmploymentType | EnumEmploymentTypeFieldRefInput<$PrismaModel> | null
+    in?: $Enums.EmploymentType[] | ListEnumEmploymentTypeFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.EmploymentType[] | ListEnumEmploymentTypeFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumEmploymentTypeNullableFilter<$PrismaModel> | $Enums.EmploymentType | null
+  }
+
+  export type EnumWorksiteTypeNullableFilter<$PrismaModel = never> = {
+    equals?: $Enums.WorksiteType | EnumWorksiteTypeFieldRefInput<$PrismaModel> | null
+    in?: $Enums.WorksiteType[] | ListEnumWorksiteTypeFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.WorksiteType[] | ListEnumWorksiteTypeFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumWorksiteTypeNullableFilter<$PrismaModel> | $Enums.WorksiteType | null
+  }
+
   export type StringNullableListFilter<$PrismaModel = never> = {
     equals?: string[] | ListStringFieldRefInput<$PrismaModel> | null
     has?: string | StringFieldRefInput<$PrismaModel> | null
@@ -33193,8 +33401,11 @@ export namespace Prisma {
     id?: SortOrder
     title?: SortOrder
     description?: SortOrder
+    province?: SortOrder
     city?: SortOrder
     category?: SortOrder
+    employmentStatus?: SortOrder
+    worksite?: SortOrder
     tags?: SortOrder
     salaryMin?: SortOrder
     salaryMax?: SortOrder
@@ -33202,6 +33413,7 @@ export namespace Prisma {
     companyId?: SortOrder
     isPublished?: SortOrder
     isTestActive?: SortOrder
+    isDeleted?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -33215,14 +33427,18 @@ export namespace Prisma {
     id?: SortOrder
     title?: SortOrder
     description?: SortOrder
+    province?: SortOrder
     city?: SortOrder
     category?: SortOrder
+    employmentStatus?: SortOrder
+    worksite?: SortOrder
     salaryMin?: SortOrder
     salaryMax?: SortOrder
     deadline?: SortOrder
     companyId?: SortOrder
     isPublished?: SortOrder
     isTestActive?: SortOrder
+    isDeleted?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -33231,14 +33447,18 @@ export namespace Prisma {
     id?: SortOrder
     title?: SortOrder
     description?: SortOrder
+    province?: SortOrder
     city?: SortOrder
     category?: SortOrder
+    employmentStatus?: SortOrder
+    worksite?: SortOrder
     salaryMin?: SortOrder
     salaryMax?: SortOrder
     deadline?: SortOrder
     companyId?: SortOrder
     isPublished?: SortOrder
     isTestActive?: SortOrder
+    isDeleted?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -33246,6 +33466,26 @@ export namespace Prisma {
   export type JobSumOrderByAggregateInput = {
     salaryMin?: SortOrder
     salaryMax?: SortOrder
+  }
+
+  export type EnumEmploymentTypeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.EmploymentType | EnumEmploymentTypeFieldRefInput<$PrismaModel> | null
+    in?: $Enums.EmploymentType[] | ListEnumEmploymentTypeFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.EmploymentType[] | ListEnumEmploymentTypeFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumEmploymentTypeNullableWithAggregatesFilter<$PrismaModel> | $Enums.EmploymentType | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedEnumEmploymentTypeNullableFilter<$PrismaModel>
+    _max?: NestedEnumEmploymentTypeNullableFilter<$PrismaModel>
+  }
+
+  export type EnumWorksiteTypeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.WorksiteType | EnumWorksiteTypeFieldRefInput<$PrismaModel> | null
+    in?: $Enums.WorksiteType[] | ListEnumWorksiteTypeFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.WorksiteType[] | ListEnumWorksiteTypeFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumWorksiteTypeNullableWithAggregatesFilter<$PrismaModel> | $Enums.WorksiteType | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedEnumWorksiteTypeNullableFilter<$PrismaModel>
+    _max?: NestedEnumWorksiteTypeNullableFilter<$PrismaModel>
   }
 
   export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -33354,6 +33594,10 @@ export namespace Prisma {
     updatedAt?: SortOrder
   }
 
+  export type ApplicationAvgOrderByAggregateInput = {
+    expectedSalary?: SortOrder
+  }
+
   export type ApplicationMaxOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
@@ -33374,6 +33618,10 @@ export namespace Prisma {
     expectedSalary?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+  }
+
+  export type ApplicationSumOrderByAggregateInput = {
+    expectedSalary?: SortOrder
   }
 
   export type EnumApplicationStatusWithAggregatesFilter<$PrismaModel = never> = {
@@ -33923,6 +34171,7 @@ export namespace Prisma {
     type?: SortOrder
     amount?: SortOrder
     status?: SortOrder
+    externalId?: SortOrder
     invoiceUrl?: SortOrder
     createdAt?: SortOrder
     expiredAt?: SortOrder
@@ -33939,6 +34188,7 @@ export namespace Prisma {
     type?: SortOrder
     amount?: SortOrder
     status?: SortOrder
+    externalId?: SortOrder
     invoiceUrl?: SortOrder
     createdAt?: SortOrder
     expiredAt?: SortOrder
@@ -33951,6 +34201,7 @@ export namespace Prisma {
     type?: SortOrder
     amount?: SortOrder
     status?: SortOrder
+    externalId?: SortOrder
     invoiceUrl?: SortOrder
     createdAt?: SortOrder
     expiredAt?: SortOrder
@@ -34763,6 +35014,14 @@ export namespace Prisma {
     connectOrCreate?: UserTestCreateOrConnectWithoutJobInput | UserTestCreateOrConnectWithoutJobInput[]
     createMany?: UserTestCreateManyJobInputEnvelope
     connect?: UserTestWhereUniqueInput | UserTestWhereUniqueInput[]
+  }
+
+  export type NullableEnumEmploymentTypeFieldUpdateOperationsInput = {
+    set?: $Enums.EmploymentType | null
+  }
+
+  export type NullableEnumWorksiteTypeFieldUpdateOperationsInput = {
+    set?: $Enums.WorksiteType | null
   }
 
   export type JobUpdatetagsInput = {
@@ -35733,6 +35992,40 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
+  export type NestedEnumEmploymentTypeNullableFilter<$PrismaModel = never> = {
+    equals?: $Enums.EmploymentType | EnumEmploymentTypeFieldRefInput<$PrismaModel> | null
+    in?: $Enums.EmploymentType[] | ListEnumEmploymentTypeFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.EmploymentType[] | ListEnumEmploymentTypeFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumEmploymentTypeNullableFilter<$PrismaModel> | $Enums.EmploymentType | null
+  }
+
+  export type NestedEnumWorksiteTypeNullableFilter<$PrismaModel = never> = {
+    equals?: $Enums.WorksiteType | EnumWorksiteTypeFieldRefInput<$PrismaModel> | null
+    in?: $Enums.WorksiteType[] | ListEnumWorksiteTypeFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.WorksiteType[] | ListEnumWorksiteTypeFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumWorksiteTypeNullableFilter<$PrismaModel> | $Enums.WorksiteType | null
+  }
+
+  export type NestedEnumEmploymentTypeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.EmploymentType | EnumEmploymentTypeFieldRefInput<$PrismaModel> | null
+    in?: $Enums.EmploymentType[] | ListEnumEmploymentTypeFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.EmploymentType[] | ListEnumEmploymentTypeFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumEmploymentTypeNullableWithAggregatesFilter<$PrismaModel> | $Enums.EmploymentType | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedEnumEmploymentTypeNullableFilter<$PrismaModel>
+    _max?: NestedEnumEmploymentTypeNullableFilter<$PrismaModel>
+  }
+
+  export type NestedEnumWorksiteTypeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.WorksiteType | EnumWorksiteTypeFieldRefInput<$PrismaModel> | null
+    in?: $Enums.WorksiteType[] | ListEnumWorksiteTypeFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.WorksiteType[] | ListEnumWorksiteTypeFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumWorksiteTypeNullableWithAggregatesFilter<$PrismaModel> | $Enums.WorksiteType | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedEnumWorksiteTypeNullableFilter<$PrismaModel>
+    _max?: NestedEnumWorksiteTypeNullableFilter<$PrismaModel>
+  }
+
   export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel> | null
     in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
@@ -35940,7 +36233,7 @@ export namespace Prisma {
     id?: string
     status?: $Enums.ApplicationStatus
     cvUrl: string
-    expectedSalary?: string | null
+    expectedSalary?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
     job: JobCreateNestedOneWithoutApplicationInput
@@ -35952,7 +36245,7 @@ export namespace Prisma {
     jobId: string
     status?: $Enums.ApplicationStatus
     cvUrl: string
-    expectedSalary?: string | null
+    expectedSalary?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
     Interview?: InterviewUncheckedCreateNestedManyWithoutApplicationInput
@@ -36183,6 +36476,7 @@ export namespace Prisma {
     type: string
     amount: number
     status?: $Enums.PaymentStatus
+    externalId?: string | null
     invoiceUrl?: string | null
     createdAt?: Date | string
     expiredAt: Date | string
@@ -36195,6 +36489,7 @@ export namespace Prisma {
     type: string
     amount: number
     status?: $Enums.PaymentStatus
+    externalId?: string | null
     invoiceUrl?: string | null
     createdAt?: Date | string
     expiredAt: Date | string
@@ -36237,7 +36532,7 @@ export namespace Prisma {
     jobId?: StringFilter<"Application"> | string
     status?: EnumApplicationStatusFilter<"Application"> | $Enums.ApplicationStatus
     cvUrl?: StringFilter<"Application"> | string
-    expectedSalary?: StringNullableFilter<"Application"> | string | null
+    expectedSalary?: IntNullableFilter<"Application"> | number | null
     createdAt?: DateTimeFilter<"Application"> | Date | string
     updatedAt?: DateTimeFilter<"Application"> | Date | string
   }
@@ -36458,6 +36753,7 @@ export namespace Prisma {
     type?: StringFilter<"Transaction"> | string
     amount?: IntFilter<"Transaction"> | number
     status?: EnumPaymentStatusFilter<"Transaction"> | $Enums.PaymentStatus
+    externalId?: StringNullableFilter<"Transaction"> | string | null
     invoiceUrl?: StringNullableFilter<"Transaction"> | string | null
     createdAt?: DateTimeFilter<"Transaction"> | Date | string
     expiredAt?: DateTimeFilter<"Transaction"> | Date | string
@@ -36483,14 +36779,18 @@ export namespace Prisma {
     id?: string
     title: string
     description: string
+    province?: string | null
     city: string
-    category: string
+    category?: string | null
+    employmentStatus?: $Enums.EmploymentType | null
+    worksite?: $Enums.WorksiteType | null
     tags?: JobCreatetagsInput | string[]
     salaryMin?: number | null
     salaryMax?: number | null
     deadline: string
     isPublished?: boolean
     isTestActive?: boolean
+    isDeleted?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     Application?: ApplicationCreateNestedManyWithoutJobInput
@@ -36502,14 +36802,18 @@ export namespace Prisma {
     id?: string
     title: string
     description: string
+    province?: string | null
     city: string
-    category: string
+    category?: string | null
+    employmentStatus?: $Enums.EmploymentType | null
+    worksite?: $Enums.WorksiteType | null
     tags?: JobCreatetagsInput | string[]
     salaryMin?: number | null
     salaryMax?: number | null
     deadline: string
     isPublished?: boolean
     isTestActive?: boolean
+    isDeleted?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     Application?: ApplicationUncheckedCreateNestedManyWithoutJobInput
@@ -36617,8 +36921,11 @@ export namespace Prisma {
     id?: StringFilter<"Job"> | string
     title?: StringFilter<"Job"> | string
     description?: StringFilter<"Job"> | string
+    province?: StringNullableFilter<"Job"> | string | null
     city?: StringFilter<"Job"> | string
-    category?: StringFilter<"Job"> | string
+    category?: StringNullableFilter<"Job"> | string | null
+    employmentStatus?: EnumEmploymentTypeNullableFilter<"Job"> | $Enums.EmploymentType | null
+    worksite?: EnumWorksiteTypeNullableFilter<"Job"> | $Enums.WorksiteType | null
     tags?: StringNullableListFilter<"Job">
     salaryMin?: IntNullableFilter<"Job"> | number | null
     salaryMax?: IntNullableFilter<"Job"> | number | null
@@ -36626,6 +36933,7 @@ export namespace Prisma {
     companyId?: StringFilter<"Job"> | string
     isPublished?: BoolFilter<"Job"> | boolean
     isTestActive?: BoolFilter<"Job"> | boolean
+    isDeleted?: BoolFilter<"Job"> | boolean
     createdAt?: DateTimeFilter<"Job"> | Date | string
     updatedAt?: DateTimeFilter<"Job"> | Date | string
   }
@@ -36808,7 +37116,7 @@ export namespace Prisma {
     id?: string
     status?: $Enums.ApplicationStatus
     cvUrl: string
-    expectedSalary?: string | null
+    expectedSalary?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutApplicationInput
@@ -36820,7 +37128,7 @@ export namespace Prisma {
     userId: string
     status?: $Enums.ApplicationStatus
     cvUrl: string
-    expectedSalary?: string | null
+    expectedSalary?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
     Interview?: InterviewUncheckedCreateNestedManyWithoutApplicationInput
@@ -37146,14 +37454,18 @@ export namespace Prisma {
     id?: string
     title: string
     description: string
+    province?: string | null
     city: string
-    category: string
+    category?: string | null
+    employmentStatus?: $Enums.EmploymentType | null
+    worksite?: $Enums.WorksiteType | null
     tags?: JobCreatetagsInput | string[]
     salaryMin?: number | null
     salaryMax?: number | null
     deadline: string
     isPublished?: boolean
     isTestActive?: boolean
+    isDeleted?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     company: CompanyCreateNestedOneWithoutJobsInput
@@ -37165,8 +37477,11 @@ export namespace Prisma {
     id?: string
     title: string
     description: string
+    province?: string | null
     city: string
-    category: string
+    category?: string | null
+    employmentStatus?: $Enums.EmploymentType | null
+    worksite?: $Enums.WorksiteType | null
     tags?: JobCreatetagsInput | string[]
     salaryMin?: number | null
     salaryMax?: number | null
@@ -37174,6 +37489,7 @@ export namespace Prisma {
     companyId: string
     isPublished?: boolean
     isTestActive?: boolean
+    isDeleted?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     test?: TestUncheckedCreateNestedOneWithoutJobInput
@@ -37297,14 +37613,18 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
+    province?: NullableStringFieldUpdateOperationsInput | string | null
     city?: StringFieldUpdateOperationsInput | string
-    category?: StringFieldUpdateOperationsInput | string
+    category?: NullableStringFieldUpdateOperationsInput | string | null
+    employmentStatus?: NullableEnumEmploymentTypeFieldUpdateOperationsInput | $Enums.EmploymentType | null
+    worksite?: NullableEnumWorksiteTypeFieldUpdateOperationsInput | $Enums.WorksiteType | null
     tags?: JobUpdatetagsInput | string[]
     salaryMin?: NullableIntFieldUpdateOperationsInput | number | null
     salaryMax?: NullableIntFieldUpdateOperationsInput | number | null
     deadline?: StringFieldUpdateOperationsInput | string
     isPublished?: BoolFieldUpdateOperationsInput | boolean
     isTestActive?: BoolFieldUpdateOperationsInput | boolean
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     company?: CompanyUpdateOneRequiredWithoutJobsNestedInput
@@ -37316,8 +37636,11 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
+    province?: NullableStringFieldUpdateOperationsInput | string | null
     city?: StringFieldUpdateOperationsInput | string
-    category?: StringFieldUpdateOperationsInput | string
+    category?: NullableStringFieldUpdateOperationsInput | string | null
+    employmentStatus?: NullableEnumEmploymentTypeFieldUpdateOperationsInput | $Enums.EmploymentType | null
+    worksite?: NullableEnumWorksiteTypeFieldUpdateOperationsInput | $Enums.WorksiteType | null
     tags?: JobUpdatetagsInput | string[]
     salaryMin?: NullableIntFieldUpdateOperationsInput | number | null
     salaryMax?: NullableIntFieldUpdateOperationsInput | number | null
@@ -37325,6 +37648,7 @@ export namespace Prisma {
     companyId?: StringFieldUpdateOperationsInput | string
     isPublished?: BoolFieldUpdateOperationsInput | boolean
     isTestActive?: BoolFieldUpdateOperationsInput | boolean
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     test?: TestUncheckedUpdateOneWithoutJobNestedInput
@@ -37618,14 +37942,18 @@ export namespace Prisma {
     id?: string
     title: string
     description: string
+    province?: string | null
     city: string
-    category: string
+    category?: string | null
+    employmentStatus?: $Enums.EmploymentType | null
+    worksite?: $Enums.WorksiteType | null
     tags?: JobCreatetagsInput | string[]
     salaryMin?: number | null
     salaryMax?: number | null
     deadline: string
     isPublished?: boolean
     isTestActive?: boolean
+    isDeleted?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     company: CompanyCreateNestedOneWithoutJobsInput
@@ -37637,8 +37965,11 @@ export namespace Prisma {
     id?: string
     title: string
     description: string
+    province?: string | null
     city: string
-    category: string
+    category?: string | null
+    employmentStatus?: $Enums.EmploymentType | null
+    worksite?: $Enums.WorksiteType | null
     tags?: JobCreatetagsInput | string[]
     salaryMin?: number | null
     salaryMax?: number | null
@@ -37646,6 +37977,7 @@ export namespace Prisma {
     companyId: string
     isPublished?: boolean
     isTestActive?: boolean
+    isDeleted?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     Application?: ApplicationUncheckedCreateNestedManyWithoutJobInput
@@ -37672,14 +38004,18 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
+    province?: NullableStringFieldUpdateOperationsInput | string | null
     city?: StringFieldUpdateOperationsInput | string
-    category?: StringFieldUpdateOperationsInput | string
+    category?: NullableStringFieldUpdateOperationsInput | string | null
+    employmentStatus?: NullableEnumEmploymentTypeFieldUpdateOperationsInput | $Enums.EmploymentType | null
+    worksite?: NullableEnumWorksiteTypeFieldUpdateOperationsInput | $Enums.WorksiteType | null
     tags?: JobUpdatetagsInput | string[]
     salaryMin?: NullableIntFieldUpdateOperationsInput | number | null
     salaryMax?: NullableIntFieldUpdateOperationsInput | number | null
     deadline?: StringFieldUpdateOperationsInput | string
     isPublished?: BoolFieldUpdateOperationsInput | boolean
     isTestActive?: BoolFieldUpdateOperationsInput | boolean
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     company?: CompanyUpdateOneRequiredWithoutJobsNestedInput
@@ -37691,8 +38027,11 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
+    province?: NullableStringFieldUpdateOperationsInput | string | null
     city?: StringFieldUpdateOperationsInput | string
-    category?: StringFieldUpdateOperationsInput | string
+    category?: NullableStringFieldUpdateOperationsInput | string | null
+    employmentStatus?: NullableEnumEmploymentTypeFieldUpdateOperationsInput | $Enums.EmploymentType | null
+    worksite?: NullableEnumWorksiteTypeFieldUpdateOperationsInput | $Enums.WorksiteType | null
     tags?: JobUpdatetagsInput | string[]
     salaryMin?: NullableIntFieldUpdateOperationsInput | number | null
     salaryMax?: NullableIntFieldUpdateOperationsInput | number | null
@@ -37700,6 +38039,7 @@ export namespace Prisma {
     companyId?: StringFieldUpdateOperationsInput | string
     isPublished?: BoolFieldUpdateOperationsInput | boolean
     isTestActive?: BoolFieldUpdateOperationsInput | boolean
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     Application?: ApplicationUncheckedUpdateManyWithoutJobNestedInput
@@ -37777,14 +38117,18 @@ export namespace Prisma {
     id?: string
     title: string
     description: string
+    province?: string | null
     city: string
-    category: string
+    category?: string | null
+    employmentStatus?: $Enums.EmploymentType | null
+    worksite?: $Enums.WorksiteType | null
     tags?: JobCreatetagsInput | string[]
     salaryMin?: number | null
     salaryMax?: number | null
     deadline: string
     isPublished?: boolean
     isTestActive?: boolean
+    isDeleted?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     company: CompanyCreateNestedOneWithoutJobsInput
@@ -37796,8 +38140,11 @@ export namespace Prisma {
     id?: string
     title: string
     description: string
+    province?: string | null
     city: string
-    category: string
+    category?: string | null
+    employmentStatus?: $Enums.EmploymentType | null
+    worksite?: $Enums.WorksiteType | null
     tags?: JobCreatetagsInput | string[]
     salaryMin?: number | null
     salaryMax?: number | null
@@ -37805,6 +38152,7 @@ export namespace Prisma {
     companyId: string
     isPublished?: boolean
     isTestActive?: boolean
+    isDeleted?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     Application?: ApplicationUncheckedCreateNestedManyWithoutJobInput
@@ -37904,14 +38252,18 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
+    province?: NullableStringFieldUpdateOperationsInput | string | null
     city?: StringFieldUpdateOperationsInput | string
-    category?: StringFieldUpdateOperationsInput | string
+    category?: NullableStringFieldUpdateOperationsInput | string | null
+    employmentStatus?: NullableEnumEmploymentTypeFieldUpdateOperationsInput | $Enums.EmploymentType | null
+    worksite?: NullableEnumWorksiteTypeFieldUpdateOperationsInput | $Enums.WorksiteType | null
     tags?: JobUpdatetagsInput | string[]
     salaryMin?: NullableIntFieldUpdateOperationsInput | number | null
     salaryMax?: NullableIntFieldUpdateOperationsInput | number | null
     deadline?: StringFieldUpdateOperationsInput | string
     isPublished?: BoolFieldUpdateOperationsInput | boolean
     isTestActive?: BoolFieldUpdateOperationsInput | boolean
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     company?: CompanyUpdateOneRequiredWithoutJobsNestedInput
@@ -37923,8 +38275,11 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
+    province?: NullableStringFieldUpdateOperationsInput | string | null
     city?: StringFieldUpdateOperationsInput | string
-    category?: StringFieldUpdateOperationsInput | string
+    category?: NullableStringFieldUpdateOperationsInput | string | null
+    employmentStatus?: NullableEnumEmploymentTypeFieldUpdateOperationsInput | $Enums.EmploymentType | null
+    worksite?: NullableEnumWorksiteTypeFieldUpdateOperationsInput | $Enums.WorksiteType | null
     tags?: JobUpdatetagsInput | string[]
     salaryMin?: NullableIntFieldUpdateOperationsInput | number | null
     salaryMax?: NullableIntFieldUpdateOperationsInput | number | null
@@ -37932,6 +38287,7 @@ export namespace Prisma {
     companyId?: StringFieldUpdateOperationsInput | string
     isPublished?: BoolFieldUpdateOperationsInput | boolean
     isTestActive?: BoolFieldUpdateOperationsInput | boolean
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     Application?: ApplicationUncheckedUpdateManyWithoutJobNestedInput
@@ -37942,7 +38298,7 @@ export namespace Prisma {
     id?: string
     status?: $Enums.ApplicationStatus
     cvUrl: string
-    expectedSalary?: string | null
+    expectedSalary?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutApplicationInput
@@ -37955,7 +38311,7 @@ export namespace Prisma {
     jobId: string
     status?: $Enums.ApplicationStatus
     cvUrl: string
-    expectedSalary?: string | null
+    expectedSalary?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -37980,7 +38336,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     status?: EnumApplicationStatusFieldUpdateOperationsInput | $Enums.ApplicationStatus
     cvUrl?: StringFieldUpdateOperationsInput | string
-    expectedSalary?: NullableStringFieldUpdateOperationsInput | string | null
+    expectedSalary?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutApplicationNestedInput
@@ -37993,7 +38349,7 @@ export namespace Prisma {
     jobId?: StringFieldUpdateOperationsInput | string
     status?: EnumApplicationStatusFieldUpdateOperationsInput | $Enums.ApplicationStatus
     cvUrl?: StringFieldUpdateOperationsInput | string
-    expectedSalary?: NullableStringFieldUpdateOperationsInput | string | null
+    expectedSalary?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -38853,6 +39209,7 @@ export namespace Prisma {
     type: string
     amount: number
     status?: $Enums.PaymentStatus
+    externalId?: string | null
     invoiceUrl?: string | null
     createdAt?: Date | string
     expiredAt: Date | string
@@ -38866,6 +39223,7 @@ export namespace Prisma {
     type: string
     amount: number
     status?: $Enums.PaymentStatus
+    externalId?: string | null
     invoiceUrl?: string | null
     createdAt?: Date | string
     expiredAt: Date | string
@@ -38966,6 +39324,7 @@ export namespace Prisma {
     type?: StringFieldUpdateOperationsInput | string
     amount?: IntFieldUpdateOperationsInput | number
     status?: EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
+    externalId?: NullableStringFieldUpdateOperationsInput | string | null
     invoiceUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     expiredAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -38979,6 +39338,7 @@ export namespace Prisma {
     type?: StringFieldUpdateOperationsInput | string
     amount?: IntFieldUpdateOperationsInput | number
     status?: EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
+    externalId?: NullableStringFieldUpdateOperationsInput | string | null
     invoiceUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     expiredAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -39536,7 +39896,7 @@ export namespace Prisma {
     jobId: string
     status?: $Enums.ApplicationStatus
     cvUrl: string
-    expectedSalary?: string | null
+    expectedSalary?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -39617,6 +39977,7 @@ export namespace Prisma {
     type: string
     amount: number
     status?: $Enums.PaymentStatus
+    externalId?: string | null
     invoiceUrl?: string | null
     createdAt?: Date | string
     expiredAt: Date | string
@@ -39627,7 +39988,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     status?: EnumApplicationStatusFieldUpdateOperationsInput | $Enums.ApplicationStatus
     cvUrl?: StringFieldUpdateOperationsInput | string
-    expectedSalary?: NullableStringFieldUpdateOperationsInput | string | null
+    expectedSalary?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     job?: JobUpdateOneRequiredWithoutApplicationNestedInput
@@ -39639,7 +40000,7 @@ export namespace Prisma {
     jobId?: StringFieldUpdateOperationsInput | string
     status?: EnumApplicationStatusFieldUpdateOperationsInput | $Enums.ApplicationStatus
     cvUrl?: StringFieldUpdateOperationsInput | string
-    expectedSalary?: NullableStringFieldUpdateOperationsInput | string | null
+    expectedSalary?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     Interview?: InterviewUncheckedUpdateManyWithoutApplicationNestedInput
@@ -39650,7 +40011,7 @@ export namespace Prisma {
     jobId?: StringFieldUpdateOperationsInput | string
     status?: EnumApplicationStatusFieldUpdateOperationsInput | $Enums.ApplicationStatus
     cvUrl?: StringFieldUpdateOperationsInput | string
-    expectedSalary?: NullableStringFieldUpdateOperationsInput | string | null
+    expectedSalary?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -39881,6 +40242,7 @@ export namespace Prisma {
     type?: StringFieldUpdateOperationsInput | string
     amount?: IntFieldUpdateOperationsInput | number
     status?: EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
+    externalId?: NullableStringFieldUpdateOperationsInput | string | null
     invoiceUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     expiredAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -39893,6 +40255,7 @@ export namespace Prisma {
     type?: StringFieldUpdateOperationsInput | string
     amount?: IntFieldUpdateOperationsInput | number
     status?: EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
+    externalId?: NullableStringFieldUpdateOperationsInput | string | null
     invoiceUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     expiredAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -39905,6 +40268,7 @@ export namespace Prisma {
     type?: StringFieldUpdateOperationsInput | string
     amount?: IntFieldUpdateOperationsInput | number
     status?: EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
+    externalId?: NullableStringFieldUpdateOperationsInput | string | null
     invoiceUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     expiredAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -39915,14 +40279,18 @@ export namespace Prisma {
     id?: string
     title: string
     description: string
+    province?: string | null
     city: string
-    category: string
+    category?: string | null
+    employmentStatus?: $Enums.EmploymentType | null
+    worksite?: $Enums.WorksiteType | null
     tags?: JobCreatetagsInput | string[]
     salaryMin?: number | null
     salaryMax?: number | null
     deadline: string
     isPublished?: boolean
     isTestActive?: boolean
+    isDeleted?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -39949,14 +40317,18 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
+    province?: NullableStringFieldUpdateOperationsInput | string | null
     city?: StringFieldUpdateOperationsInput | string
-    category?: StringFieldUpdateOperationsInput | string
+    category?: NullableStringFieldUpdateOperationsInput | string | null
+    employmentStatus?: NullableEnumEmploymentTypeFieldUpdateOperationsInput | $Enums.EmploymentType | null
+    worksite?: NullableEnumWorksiteTypeFieldUpdateOperationsInput | $Enums.WorksiteType | null
     tags?: JobUpdatetagsInput | string[]
     salaryMin?: NullableIntFieldUpdateOperationsInput | number | null
     salaryMax?: NullableIntFieldUpdateOperationsInput | number | null
     deadline?: StringFieldUpdateOperationsInput | string
     isPublished?: BoolFieldUpdateOperationsInput | boolean
     isTestActive?: BoolFieldUpdateOperationsInput | boolean
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     Application?: ApplicationUpdateManyWithoutJobNestedInput
@@ -39968,14 +40340,18 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
+    province?: NullableStringFieldUpdateOperationsInput | string | null
     city?: StringFieldUpdateOperationsInput | string
-    category?: StringFieldUpdateOperationsInput | string
+    category?: NullableStringFieldUpdateOperationsInput | string | null
+    employmentStatus?: NullableEnumEmploymentTypeFieldUpdateOperationsInput | $Enums.EmploymentType | null
+    worksite?: NullableEnumWorksiteTypeFieldUpdateOperationsInput | $Enums.WorksiteType | null
     tags?: JobUpdatetagsInput | string[]
     salaryMin?: NullableIntFieldUpdateOperationsInput | number | null
     salaryMax?: NullableIntFieldUpdateOperationsInput | number | null
     deadline?: StringFieldUpdateOperationsInput | string
     isPublished?: BoolFieldUpdateOperationsInput | boolean
     isTestActive?: BoolFieldUpdateOperationsInput | boolean
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     Application?: ApplicationUncheckedUpdateManyWithoutJobNestedInput
@@ -39987,14 +40363,18 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
+    province?: NullableStringFieldUpdateOperationsInput | string | null
     city?: StringFieldUpdateOperationsInput | string
-    category?: StringFieldUpdateOperationsInput | string
+    category?: NullableStringFieldUpdateOperationsInput | string | null
+    employmentStatus?: NullableEnumEmploymentTypeFieldUpdateOperationsInput | $Enums.EmploymentType | null
+    worksite?: NullableEnumWorksiteTypeFieldUpdateOperationsInput | $Enums.WorksiteType | null
     tags?: JobUpdatetagsInput | string[]
     salaryMin?: NullableIntFieldUpdateOperationsInput | number | null
     salaryMax?: NullableIntFieldUpdateOperationsInput | number | null
     deadline?: StringFieldUpdateOperationsInput | string
     isPublished?: BoolFieldUpdateOperationsInput | boolean
     isTestActive?: BoolFieldUpdateOperationsInput | boolean
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -40154,7 +40534,7 @@ export namespace Prisma {
     userId: string
     status?: $Enums.ApplicationStatus
     cvUrl: string
-    expectedSalary?: string | null
+    expectedSalary?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -40173,7 +40553,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     status?: EnumApplicationStatusFieldUpdateOperationsInput | $Enums.ApplicationStatus
     cvUrl?: StringFieldUpdateOperationsInput | string
-    expectedSalary?: NullableStringFieldUpdateOperationsInput | string | null
+    expectedSalary?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutApplicationNestedInput
@@ -40185,7 +40565,7 @@ export namespace Prisma {
     userId?: StringFieldUpdateOperationsInput | string
     status?: EnumApplicationStatusFieldUpdateOperationsInput | $Enums.ApplicationStatus
     cvUrl?: StringFieldUpdateOperationsInput | string
-    expectedSalary?: NullableStringFieldUpdateOperationsInput | string | null
+    expectedSalary?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     Interview?: InterviewUncheckedUpdateManyWithoutApplicationNestedInput
@@ -40196,7 +40576,7 @@ export namespace Prisma {
     userId?: StringFieldUpdateOperationsInput | string
     status?: EnumApplicationStatusFieldUpdateOperationsInput | $Enums.ApplicationStatus
     cvUrl?: StringFieldUpdateOperationsInput | string
-    expectedSalary?: NullableStringFieldUpdateOperationsInput | string | null
+    expectedSalary?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }

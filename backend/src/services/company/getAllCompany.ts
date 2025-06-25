@@ -5,10 +5,13 @@ interface GetAllCompaniesParams {
   name?: string;
   city?: string;
   industryId?: string;
+  sort?: "name_asc" | "name_desc" | "rating_asc" | "rating_desc";
+  page?: number;
+  limit?: number;
 }
 
 export const getAllCompaniesService = async (params: GetAllCompaniesParams) => {
-  const { name, city, industryId } = params;
+  const { name, city, sort, page = 1, limit = 10 } = params;
 
   const filters: Prisma.CompanyWhereInput = {};
 
@@ -18,13 +21,29 @@ export const getAllCompaniesService = async (params: GetAllCompaniesParams) => {
   if (city) {
     filters.city = { contains: city, mode: "insensitive" };
   }
-  if (industryId) {
-    filters.industryId = industryId;
-  }
+
+  let orderBy: Prisma.CompanyOrderByWithRelationInput | undefined;
+
+  if (sort === "name_asc") orderBy = { name: "asc" };
+  else if (sort === "name_desc") orderBy = { name: "desc" };
+
+  const totalCount = await prisma.company.count({ where: filters });
+
+  const skip = (page - 1) * limit;
 
   const companies = await prisma.company.findMany({
     where: filters,
-    include: {
+    orderBy,
+    skip,
+    take: limit,
+    select: {
+      id: true,
+      name: true,
+      about: true,
+      city: true,
+      logo: true,
+      createdAt: true,
+      updatedAt: true,
       Review: {
         select: {
           cultureRating: true,
@@ -33,33 +52,67 @@ export const getAllCompaniesService = async (params: GetAllCompaniesParams) => {
           careerOpportunitiesRating: true,
         },
       },
+      jobs: {
+        select: {
+          id: true,
+          Application: {
+            select: {
+              id: true,
+              status: true,
+            },
+          },
+        },
+      },
     },
   });
 
-  return companies.map((company) => {
+  const mapped = companies.map((company) => {
     const reviews = company.Review;
     const totalReviews = reviews.length;
 
-    let totalRatingSum = 0;
-
-    for (const review of reviews) {
-      const averagePerReview =
+    const totalRatingSum = reviews.reduce((sum, review) => {
+      const avg =
         (review.cultureRating +
           review.workLifeBalanceRating +
           review.facilitiesRating +
-          review.careerOpportunitiesRating) / 4;
+          review.careerOpportunitiesRating) /
+        4;
+      return sum + avg;
+    }, 0);
 
-      totalRatingSum += averagePerReview;
-    }
+    const averageRating = totalReviews > 0 ? totalRatingSum / totalReviews : 0;
 
-    const averageRating =
-      totalReviews > 0 ? totalRatingSum / totalReviews : 0;
+    const totalJobs = company.jobs.length;
 
-    const { Review, ...companyData } = company;
+    const allApplications = company.jobs.flatMap((job) => job.Application);
+    const totalApplicants = allApplications.length;
+
+    const totalAcceptedApplicants = allApplications.filter(
+      (app) => app.status === "ACCEPTED"
+    ).length;
+
+    const { Review, jobs, ...companyData } = company;
 
     return {
       ...companyData,
       averageRating: parseFloat(averageRating.toFixed(1)),
+      totalJobs,
+      totalApplicants,
+      totalEmployees: totalAcceptedApplicants, // jumlah karyawan berdasarkan status "ACCEPTED"
     };
   });
+
+  if (sort === "rating_asc") {
+    mapped.sort((a, b) => a.averageRating - b.averageRating);
+  } else if (sort === "rating_desc") {
+    mapped.sort((a, b) => b.averageRating - a.averageRating);
+  }
+
+  return {
+    data: mapped,
+    total: totalCount,
+    page,
+    limit,
+    totalPages: Math.ceil(totalCount / limit),
+  };
 };

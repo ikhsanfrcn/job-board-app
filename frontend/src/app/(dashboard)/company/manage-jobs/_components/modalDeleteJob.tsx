@@ -20,7 +20,7 @@ export default function ModalDeleteJob({
     >
       <div className="fixed inset-0 bg-black/50 backdrop-blur-sm" />
       <div className="bg-white rounded-lg shadow-lg p-6 z-50 w-full max-w-md">
-        <h3 className="text-lg font-medium mb-4">Delete Job</h3>
+        <h3 className="text-xl font-semibold mb-4 text-center">Delete Job</h3>
         <p>
           Are you sure you want to delete <strong>{deleteJob?.title}</strong>?
         </p>

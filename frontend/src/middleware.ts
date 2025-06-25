@@ -12,11 +12,17 @@ export async function middleware(req: NextRequest) {
     return NextResponse.redirect(new URL("/login", req.url));
   }
 
-   if (!data && req.nextUrl.pathname.startsWith("/dev/dashboard")) {
+  if (!data && req.nextUrl.pathname.startsWith("/dev/dashboard")) {
     return NextResponse.redirect(new URL("/dev/login", req.url));
   }
 
-  if (!data && req.nextUrl.pathname.startsWith("/company/profile")) {
+  if (
+    !data &&
+    req.nextUrl.pathname.startsWith("/company") &&
+    req.nextUrl.pathname !== "/company/login" &&
+    req.nextUrl.pathname !== "/company/register" &&
+    !req.nextUrl.pathname.startsWith("/company/password")
+  ) {
     return NextResponse.redirect(new URL("/company/login", req.url));
   }
 

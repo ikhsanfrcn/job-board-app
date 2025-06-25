@@ -14,6 +14,7 @@ export class TestRouter{
     private initializeRoute(){
         this.router.get("/", this.testController.getAllTest);
         this.router.post("/", this.testController.createTest);
+        this.router.get("/check/:id", this.testController.checkIsTestActive);
         this.router.get("/:jobId", this.testController.getTest);
         this.router.post("/user-test", async (req, res, next) => {
             try {

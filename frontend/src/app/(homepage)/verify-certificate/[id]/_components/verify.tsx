@@ -25,7 +25,6 @@ export default function Verify({ id }: IProps) {
       const { data } = await axios.get(`/assessment/verify/${id}`);
       setCertificate(data.assessment);
     } catch (err) {
-      console.log(err);
       if (err instanceof AxiosError) {
         setError(
           err.response?.data?.message || "Certificate not found or invalid."

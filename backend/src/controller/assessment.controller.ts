@@ -5,6 +5,7 @@ import path from "path";
 import ejs from "ejs";
 import puppeteer from "puppeteer";
 import { cloudinaryUpload } from "../helpers/cloudinary";
+import { getUserAssessments } from "../services/assessment/getUserAssessment";
 
 export class SkillAssessmentController {
   async createAssessment(req: Request, res: Response) {
@@ -32,20 +33,29 @@ export class SkillAssessmentController {
         .status(201)
         .json({ message: "Skill assessment created", newAssessment });
     } catch (err) {
-      console.log(err);
       res.status(400).json(err);
     }
   }
 
   async getAllAssessment(req: Request, res: Response) {
     try {
-      const assessments = await prisma.skillAssessmentTemplate.findMany({
-        orderBy: { createdAt: "asc" },
-      });
+      const page = parseInt(req.query.page as string) || 1;
+      const limit = parseInt(req.query.limit as string) || 5;
+      const skip = (page - 1) * limit;
 
-      res.status(200).json(assessments);
+      const assessments = await prisma.skillAssessmentTemplate.findMany({
+        skip,
+        take: limit,
+        orderBy: { createdAt: "desc" },
+      });
+      const totalAssessments = await prisma.skillAssessmentTemplate.count();
+
+      res.status(200).json({
+        assessments,
+        currentPage: page,
+        totalPages: Math.ceil(totalAssessments / limit),
+      });
     } catch (err) {
-      console.error(err);
       res.status(400).json(err);
     }
   }
@@ -61,7 +71,6 @@ export class SkillAssessmentController {
 
       res.status(200).json(assessment);
     } catch (err) {
-      console.error(err);
       res.status(400).json(err);
     }
   }
@@ -108,7 +117,6 @@ export class SkillAssessmentController {
         updatedAssessment,
       });
     } catch (err) {
-      console.log(err);
       res.status(400).json(err);
     }
   }
@@ -125,7 +133,6 @@ export class SkillAssessmentController {
 
       res.status(200).json({ message: "Assessment deleted successfully" });
     } catch (err) {
-      console.log(err);
       res.status(400).json(err);
     }
   }
@@ -141,7 +148,6 @@ export class SkillAssessmentController {
 
       res.status(200).json(assessment);
     } catch (err) {
-      console.error(err);
       res.status(400).json(err);
     }
   }
@@ -200,7 +206,6 @@ export class SkillAssessmentController {
         answers: {},
       });
     } catch (err) {
-      console.error(err);
       res.status(400).json(err);
     }
   }
@@ -230,7 +235,6 @@ export class SkillAssessmentController {
 
       res.status(201).json(updateSession);
     } catch (err) {
-      console.error(err);
       res.status(400).json(err);
     }
   }
@@ -295,7 +299,6 @@ export class SkillAssessmentController {
         result,
       });
     } catch (err) {
-      console.log(err);
       res.status(400).json(err);
     }
   }
@@ -304,28 +307,30 @@ export class SkillAssessmentController {
     try {
       const userId = req.user?.id;
 
-      const userAssessments = await prisma.skillAssessment.findMany({
-        where: { userId },
-        include: {
-          template: {
-            select: { title: true, category: true, badgeImage: true },
-          },
-          user: {
-            select: {
-              email: true,
-              username: true,
-              firstName: true,
-              lastName: true,
-            },
-          },
-        },
+      if (!userId) throw { message: "Unauthorized" };
+
+      const {
+        title,
+        isPassed,
+        sortBy = "createdAt",
+        sortOrder = "asc",
+        page = 1,
+        limit = 10,
+      } = req.query;
+
+      const assessments = await getUserAssessments({
+        userId,
+        title: title as string,
+        isPassed:
+          isPassed === "true" ? true : isPassed === "false" ? false : undefined,
+        sortBy: sortBy as "createdAt" | "title" | "isPassed",
+        sortOrder: sortOrder as "asc" | "desc",
+        page: parseInt(page as string),
+        limit: parseInt(limit as string),
       });
-      res.status(200).send({
-        message: "User assessments fetched successfully",
-        userAssessments,
-      });
+
+      res.status(200).json(assessments);
     } catch (err) {
-      console.log(err);
       res.status(404).send(err);
     }
   }
@@ -388,7 +393,6 @@ export class SkillAssessmentController {
 
       res.status(200).send(pdfBuffer);
     } catch (err) {
-      console.error(err);
       res.status(500).send(err);
     }
   }
@@ -421,7 +425,6 @@ export class SkillAssessmentController {
         assessment,
       });
     } catch (err) {
-      console.log(err);
       res.status(404).send(err);
     }
   }
@@ -483,7 +486,6 @@ export class SkillAssessmentController {
         totalBadges: allTemplates.length,
       });
     } catch (err) {
-      console.log(err);
       res.status(500).send({
         message: "Error fetching user badges",
         error: err,

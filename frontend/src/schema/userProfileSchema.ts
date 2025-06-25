@@ -7,7 +7,16 @@ export const userProfileSchema = Yup.object({
     .oneOf(["Male", "Female", "PreferNotToSay"])
     .required("Gender is required"),
   dob: Yup.string().required("Date of birth is required"),
-  education: Yup.string().required("Education is required"),
+  education: Yup.string()
+    .oneOf([
+      "High School",
+      "Diploma",
+      "Bachelor",
+      "Master",
+      "Doctorate",
+      "Other",
+    ])
+    .required("Education is required"),
   country: Yup.string().required("Country is required"),
   state: Yup.string().required("State is required"),
   city: Yup.string().required("City is required"),

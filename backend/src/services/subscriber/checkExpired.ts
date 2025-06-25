@@ -13,7 +13,6 @@ export const checkAndExpireSubscribers = async () => {
   });
 
   if (expiredSubscribers.length === 0) {
-    console.log("[EXPIRE CHECK] There are no expired subscriptions.");
     return { count: 0 };
   }
 
@@ -27,7 +26,5 @@ export const checkAndExpireSubscribers = async () => {
       status: "EXPIRED",
     },
   });
-
-  console.log(`[EXPIRE CHECK] ${ids.length} Subscription status changed to EXPIRED.`);
   return { count: ids.length };
 };

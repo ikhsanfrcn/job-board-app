@@ -1,33 +1,68 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
-
 import { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
+import { useRouter, useSearchParams } from "next/navigation";
 import axios from "@/lib/axios";
 import { Application } from "@/types/applicationType";
+import ApplicationCard from "./applicationCard";
+import CvPreviewModal from "@/components/atoms/cvPreviewModal";
+import Pagination from "@/components/atoms/pagination";
+import SkeletonApplication from "./skeletonApplication";
+import Filter from "./filter";
 
 export default function PastApplications() {
   const { data: session } = useSession();
   const [applications, setApplications] = useState<Application[]>([]);
+
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
+  const [limit] = useState(5);
+
   const [loading, setLoading] = useState(false);
+  const [selectedCvUrl, setSelectedCvUrl] = useState<string | null>(null);
+
+  const router = useRouter();
+  const searchParams = useSearchParams();
+
+  useEffect(() => {
+    const pageFromQuery = Number(searchParams.get("page")) || 1;
+    setCurrentPage(pageFromQuery);
+  }, [searchParams]);
+
+  useEffect(() => {
+    if (session?.user) {
+      fetchApplications(currentPage);
+    }
+  }, [session, searchParams]);
 
   const fetchApplications = async (page = 1) => {
     if (!session?.user) return;
-    const token = session?.accessToken;
+    const token = session.accessToken;
+
+    const title = searchParams.get("title") || "";
+    const company = searchParams.get("company") || "";
+    const sortBy = searchParams.get("sortBy") || "createdAt";
+    const sortOrder = searchParams.get("sortOrder") || "desc";
 
     try {
       setLoading(true);
-      const res = await axios.get(`/applications?page=${page}`, {
+      const res = await axios.get(`/applications`, {
         headers: {
           Authorization: `Bearer ${token}`,
+        },
+        params: {
+          page,
+          limit,
+          title,
+          company,
+          sortBy,
+          sortOrder,
         },
       });
 
       setApplications(res.data.applications);
+      console.log(applications);
       setTotalPages(res.data.totalPages);
-      setCurrentPage(res.data.currentPage);
     } catch (error) {
       console.error("Failed to fetch applications:", error);
     } finally {
@@ -35,82 +70,45 @@ export default function PastApplications() {
     }
   };
 
-  useEffect(() => {
-    fetchApplications(currentPage);
-  }, [session, currentPage]);
-
-  const handlePrev = () => {
-    if (currentPage > 1) {
-      setCurrentPage((prev) => prev - 1);
-    }
+  const handleViewDetail = (cvUrl: string) => {
+    setSelectedCvUrl(cvUrl);
   };
 
-  const handleNext = () => {
-    if (currentPage < totalPages) {
-      setCurrentPage((prev) => prev + 1);
-    }
+  const handleCloseModal = () => {
+    setSelectedCvUrl(null);
+  };
+
+  const goToPage = (pageNumber: number) => {
+    const query = new URLSearchParams(searchParams.toString());
+    query.set("page", pageNumber.toString());
+    router.push(`/user/activity/?${query.toString()}`);
   };
 
   return (
     <div className="p-6">
-      <h1 className="text-2xl font-semibold mb-6">Applications</h1>
-
+      <Filter />
       {loading ? (
-        <p>Loading...</p>
-      ) : applications.length === 0 ? (
-        <p>No applications found.</p>
+        <SkeletonApplication />
       ) : (
-        <div className="space-y-4">
-          {applications.map((app) => (
-            <div
-              key={app.id}
-              className="border rounded-lg shadow-sm p-4 hover:shadow-md transition"
-            >
-              <div className="flex justify-between items-center mb-2">
-                <h2 className="text-lg font-semibold">{app.job.title}</h2>
-                <span className="text-sm bg-blue-100 text-blue-700 px-2 py-1 rounded-full">
-                  {app.status}
-                </span>
-              </div>
-              <p className="text-sm text-gray-600">{app.job.city}</p>
-              <p className="text-sm">
-                Salary: {app.job.salaryMin || "Not mentioned"} {app.job.salaryMax || "-"} | Expected: {app.expectedSalary || "-"}
-              </p>
-              <p className="text-sm text-gray-400">
-                Application Date: {app.createdAt.split("T")[0]}
-              </p>
-              <a
-                href={app.cvUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-sm text-blue-600 hover:underline"
-              >
-                View CV
-              </a>
-            </div>
-          ))}
-        </div>
+        <>
+          <ApplicationCard
+            applications={applications}
+            onViewDetail={handleViewDetail}
+          />
+
+          {applications.length > 0 && (
+            <Pagination
+              currentPage={currentPage}
+              totalPages={totalPages}
+              onPageChange={goToPage}
+            />
+          )}
+        </>
       )}
 
-      <div className="flex justify-center mt-6 space-x-4">
-        <button
-          onClick={handlePrev}
-          disabled={currentPage === 1}
-          className="px-4 py-2 border rounded disabled:opacity-50"
-        >
-          Previous
-        </button>
-        <span className="px-2 py-2 text-sm text-gray-600">
-          Page {currentPage} of {totalPages}
-        </span>
-        <button
-          onClick={handleNext}
-          disabled={currentPage === totalPages}
-          className="px-4 py-2 border rounded disabled:opacity-50"
-        >
-          Next
-        </button>
-      </div>
+      {selectedCvUrl && (
+        <CvPreviewModal url={selectedCvUrl} onClose={handleCloseModal} />
+      )}
     </div>
   );
 }

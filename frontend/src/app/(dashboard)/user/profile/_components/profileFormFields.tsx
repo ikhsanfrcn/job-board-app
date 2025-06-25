@@ -3,7 +3,6 @@ import SelectInput from "@/components/atoms/SelectInput";
 import ProvinceCitySelector from "../../../../../components/atoms/provinceCitySelector";
 import TextInput from "@/components/atoms/textInput";
 
-
 interface ProfileFormFieldsProps {
   setFieldValue: (field: string, value: any) => void;
   provinceValue: string;
@@ -41,7 +40,7 @@ export default function ProfileFormFields({
           { label: "Other", value: "Other" },
         ]}
       />
-      <TextInput label="Country" name="country" />
+      <TextInput label="Country" name="country" readOnly />
       <ProvinceCitySelector
         setFieldValue={setFieldValue}
         provinceValue={provinceValue}

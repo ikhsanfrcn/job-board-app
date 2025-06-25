@@ -1,17 +1,17 @@
+"use client";
+
 import { useEffect, useState } from "react";
 import { Modal } from "@/components/atoms/Modal";
 import { FaWhatsapp, FaTwitter, FaLink } from "react-icons/fa";
 import { toast } from "react-toastify";
 
-export const ShareModal = ({
-  isOpen,
-  onClose,
-  jobId
-}: {
+interface ShareModalProps {
   isOpen: boolean;
   onClose: () => void;
   jobId: string;
-}) => {
+}
+
+export default function ShareModal({ isOpen, onClose, jobId }: ShareModalProps) {
   const [shareUrl, setShareUrl] = useState("");
 
   useEffect(() => {
@@ -20,9 +20,12 @@ export const ShareModal = ({
     }
   }, [jobId]);
 
+  const baseButtonStyle =
+    "flex items-center gap-2 px-4 py-2 text-sm rounded-md w-full transition";
+
   return (
     <Modal isOpen={isOpen} onClose={onClose} title="Share this Job" size="sm">
-      <div className="space-y-3">
+      <div className="space-y-2">
         <button
           onClick={() =>
             window.open(
@@ -30,23 +33,23 @@ export const ShareModal = ({
               "_blank"
             )
           }
-          className="flex items-center gap-2 bg-green-500 text-white px-4 py-2 rounded w-full hover:bg-green-600"
+          className={`${baseButtonStyle} bg-green-500 text-white hover:bg-green-600`}
         >
           <FaWhatsapp />
-          Share to WhatsApp
+          WhatsApp
         </button>
 
         <button
           onClick={async () => {
             try {
               await navigator.clipboard.writeText(shareUrl);
-              toast.info("Link copied!");
+              toast.success("Link copied to clipboard!");
               onClose();
             } catch {
-              toast.error("Failed to copy.");
+              toast.error("Failed to copy link.");
             }
           }}
-          className="flex items-center gap-2 bg-gray-600 text-white px-4 py-2 rounded w-full hover:bg-gray-700"
+          className={`${baseButtonStyle} bg-gray-700 text-white hover:bg-gray-800`}
         >
           <FaLink />
           Copy Link
@@ -59,12 +62,12 @@ export const ShareModal = ({
               "_blank"
             )
           }
-          className="flex items-center gap-2 bg-blue-500 text-white px-4 py-2 rounded w-full hover:bg-blue-600"
+          className={`${baseButtonStyle} bg-blue-500 text-white hover:bg-blue-600`}
         >
           <FaTwitter />
-          Share to Twitter
+          Twitter
         </button>
       </div>
     </Modal>
   );
-};
+}

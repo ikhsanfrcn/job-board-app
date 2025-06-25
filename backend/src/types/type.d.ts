@@ -36,10 +36,14 @@ export interface GetCompanyJobsParams {
   companyId: string;
   page?: number;
   size?: number;
+  title?: string;
+  category?: string;
+  sortBy?: "createdAt" | "title" | "category";
+  sortOrder?: "asc" | "desc";
 }
 
 export interface GetJobsParams {
-  title?: string;
+  titleOrCategory?: string;
   city?: string;
   category?: string;
   tags?: string[];
@@ -48,19 +52,35 @@ export interface GetJobsParams {
   size?: number;
   minSalary?: number;
   maxSalary?: number;
+  worksite?: "REMOTE" | "HYBRID" | "ONSITE";
+  date?: string;
+  sort?: string;
 }
 
 export interface CreateApplicationParams {
   userId: string;
   jobId: string;
-  expectedSalary: string;
+  expectedSalary: number;
   cvUrl: string;
 }
 
 export interface GetApplicationsParams {
   userId: string;
+  title?: string;
+  company?: string;
+  status?: string;
+  sortBy?: string;
+  sortOrder?: string;
   page?: number;
-  pageSize?: number;
+  limit?: number;
+}
+
+export interface IGetCompanyParams {
+  jobId: string;
+  companyId: string;
+  status?: string;
+  page: number;
+  limit: number;
 }
 
 export interface CreateInterviewParams {
@@ -81,7 +101,7 @@ export interface UserParams {
   username?: string;
   firstName?: string;
   lastName?: string;
-  gender?: Gender; 
+  gender?: Gender;
   dob?: string;
   education?: string;
   country?: string;
@@ -107,4 +127,14 @@ export interface CompanyParams {
   latitude?: string;
   longitude?: string;
   industryId?: string;
+}
+
+export interface GetUserAssessmentsParams {
+  userId: string;
+  title?: string;
+  isPassed?: boolean;
+  sortBy?: string;
+  sortOrder?: string;
+  page?: number;
+  limit?: number;
 }

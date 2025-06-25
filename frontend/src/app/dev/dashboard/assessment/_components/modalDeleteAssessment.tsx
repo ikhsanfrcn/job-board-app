@@ -36,10 +36,8 @@ export default function ModalDeleteAssessment({
     } catch (err) {
       if (err instanceof AxiosError) {
         toast.error(err.response?.data.message);
-        console.log(err);
       } else {
         toast.error("Delete assessment failed!");
-        console.log(err);
       }
     }
   };
@@ -57,11 +55,12 @@ export default function ModalDeleteAssessment({
                 Delete Assessment
               </h3>
               <p className="text-sm text-gray-500 mt-1">
-                Are you sure you want to delete &quot;{assessment.title}&quot;? This action cannot be undone.
+                Are you sure you want to delete &quot;{assessment.title}&quot;?
+                This action cannot be undone.
               </p>
             </div>
           </div>
-          
+
           <div className="flex gap-5 justify-end">
             <button
               onClick={onClose}

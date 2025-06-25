@@ -1,17 +1,19 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useState, useRef, useEffect } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 
 interface JobFiltersProps {
-  filters: { city?: string; minSalary?: number; maxSalary?: number };
+  filters: { worksite?: string; minSalary?: number; maxSalary?: number };
   setFilters: (filters: {
-    city?: string;
+    worksite?: string;
     minSalary?: number;
     maxSalary?: number;
   }) => void;
 }
 
-export default function JobFilters({ filters, setFilters }: JobFiltersProps) {
+export default function JobFilters({ filters }: JobFiltersProps) {
   const [isSalaryOpen, setIsSalaryOpen] = useState(false);
+  const router = useRouter();
+  const searchParams = useSearchParams();
 
   const [minSalary, setMinSalary] = useState<string>(
     filters.minSalary !== undefined ? filters.minSalary.toString() : "0"
@@ -23,27 +25,33 @@ export default function JobFilters({ filters, setFilters }: JobFiltersProps) {
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   const handleRemoteToggle = () => {
-    if (filters.city === "Remote") {
-      const { city, ...rest } = filters;
-      setFilters({ ...rest });
+    const params = new URLSearchParams(searchParams.toString());
+    if (params.get("worksite") === "remote") {
+      params.delete("worksite");
     } else {
-      setFilters({ ...filters, city: "Remote" });
+      params.set("worksite", "remote");
     }
+    params.set("page", "1");
+    router.push(`/job?${params.toString()}`);
   };
 
   const handleSalarySubmit = () => {
-    const updatedFilters = { ...filters };
+    const params = new URLSearchParams(searchParams.toString());
 
-    const min = Number(minSalary);
-    const max = Number(maxSalary);
+    if (minSalary && !isNaN(Number(minSalary))) {
+      params.set("minSalary", minSalary);
+    } else {
+      params.delete("minSalary");
+    }
 
-    if (!isNaN(min)) updatedFilters.minSalary = min;
-    else delete updatedFilters.minSalary;
+    if (maxSalary && !isNaN(Number(maxSalary))) {
+      params.set("maxSalary", maxSalary);
+    } else {
+      params.delete("maxSalary");
+    }
 
-    if (!isNaN(max)) updatedFilters.maxSalary = max;
-    else delete updatedFilters.maxSalary;
-
-    setFilters(updatedFilters);
+    params.set("page", "1");
+    router.push(`/job?${params.toString()}`);
     setIsSalaryOpen(false);
   };
 
@@ -71,14 +79,18 @@ export default function JobFilters({ filters, setFilters }: JobFiltersProps) {
     );
   }, [filters.minSalary, filters.maxSalary]);
 
+  const handleResetFilters = () => {
+    router.push(`/job`);
+  };
+
   return (
-    <div className="container mx-auto flex flex-wrap gap-4 px-4 py-4 items-center relative">
+    <div className="max-w-7xl container mx-auto flex flex-wrap gap-4 px-4 py-4 items-center relative">
       <button
         onClick={handleRemoteToggle}
         className={`px-4 py-2 rounded-full text-sm transition ${
-          filters.city === "Remote"
-            ? "bg-green-500 text-white"
-            : "bg-gray-100 text-black hover:bg-gray-200"
+          filters.worksite === "remote"
+            ? "bg-green-500 text-white cursor-pointer"
+            : "bg-gray-100 text-black hover:bg-gray-200 cursor-pointer"
         }`}
       >
         Remote only
@@ -87,7 +99,7 @@ export default function JobFilters({ filters, setFilters }: JobFiltersProps) {
       <div className="relative" ref={dropdownRef}>
         <button
           onClick={() => setIsSalaryOpen((prev) => !prev)}
-          className="px-4 py-2 rounded-full text-sm bg-gray-100 text-black hover:bg-gray-200"
+          className="px-4 py-2 rounded-full text-sm bg-gray-100 text-black hover:bg-gray-200 cursor-pointer"
         >
           Salary Range
         </button>
@@ -186,6 +198,52 @@ export default function JobFilters({ filters, setFilters }: JobFiltersProps) {
           </div>
         )}
       </div>
+      <select
+        onChange={(e) => {
+          const params = new URLSearchParams(searchParams.toString());
+          const value = e.target.value;
+
+          if (value) {
+            params.set("date", value);
+          } else {
+            params.delete("date");
+          }
+          params.set("page", "1");
+          router.push(`/job?${params.toString()}`);
+        }}
+        defaultValue={searchParams.get("date") || ""}
+        className="px-4 py-2 rounded-full text-sm bg-gray-100 text-black hover:bg-gray-200 cursor-pointer"
+      >
+        <option value="">All Time</option>
+        <option value="7days">Last 7 Days</option>
+        <option value="1month">Last 1 Month</option>
+      </select>
+      <select
+        onChange={(e) => {
+          const params = new URLSearchParams(searchParams.toString());
+          const value = e.target.value;
+
+          if (value) {
+            params.set("sort", value);
+          } else {
+            params.delete("sort");
+          }
+          params.set("page", "1");
+          router.push(`/job?${params.toString()}`);
+        }}
+        defaultValue={searchParams.get("sort") || ""}
+        className="px-4 py-2 rounded-full text-sm bg-gray-100 text-black hover:bg-gray-200 cursor-pointer"
+      >
+        <option value="newest">Newest</option>
+        <option value="oldest">Oldest</option>
+      </select>
+
+      <button
+        onClick={handleResetFilters}
+        className="px-4 py-2 rounded-full text-sm bg-gray-100 text-black hover:bg-gray-200 cursor-pointer"
+      >
+        Reset Filter
+      </button>
     </div>
   );
 }

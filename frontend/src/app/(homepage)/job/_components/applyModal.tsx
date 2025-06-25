@@ -1,6 +1,8 @@
 import { Modal } from "@/components/atoms/Modal";
+import { formatCurrency, parseCurrency } from "@/helper/formatCurrency";
 import axios from "@/lib/axios";
 import { useState } from "react";
+import { toast } from "react-toastify";
 
 interface Props {
   isOpen: boolean;
@@ -10,7 +12,13 @@ interface Props {
   onSuccess: () => void;
 }
 
-export const ApplyModal = ({ isOpen, onClose, jobId, token, onSuccess }: Props) => {
+export const ApplyModal = ({
+  isOpen,
+  onClose,
+  jobId,
+  token,
+  onSuccess,
+}: Props) => {
   const [expectedSalary, setExpectedSalary] = useState("");
   const [cvFile, setCvFile] = useState<File | null>(null);
   const [status, setStatus] = useState("");
@@ -22,13 +30,19 @@ export const ApplyModal = ({ isOpen, onClose, jobId, token, onSuccess }: Props) 
       return;
     }
 
+    const salary = parseCurrency(expectedSalary);
+    if (!salary || isNaN(salary)) {
+      setStatus("Expected salary must be a valid amount.");
+      return;
+    }
+
     setIsSubmitting(true);
     setStatus("");
 
     try {
       const formData = new FormData();
       formData.append("jobId", jobId);
-      formData.append("expectedSalary", expectedSalary);
+      formData.append("expectedSalary", String(salary));
       formData.append("cvUrl", cvFile);
 
       const config = {
@@ -38,32 +52,43 @@ export const ApplyModal = ({ isOpen, onClose, jobId, token, onSuccess }: Props) 
       };
 
       await axios.post("/applications", formData, config);
-
       setStatus("Applied successfully!");
+      toast.success("Applied successfully!");
       onSuccess();
     } catch (err) {
       console.error(err);
       setStatus("Failed to apply.");
+      toast.error("Failed to apply.");
     } finally {
       setIsSubmitting(false);
     }
   };
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} title="Apply for this Job" size="md">
+    <Modal
+      isOpen={isOpen}
+      onClose={onClose}
+      title="Apply for this Job"
+      size="md"
+    >
       <div className="space-y-4">
         <div>
-          <label className="block text-sm font-medium mb-1">Expected Salary</label>
+          <label className="block text-sm font-medium mb-1">
+            Expected Salary
+          </label>
           <input
-            type="number"
+            type="text"
             value={expectedSalary}
-            onChange={(e) => setExpectedSalary(e.target.value)}
+            onChange={(e) => setExpectedSalary(formatCurrency(e.target.value))}
+            placeholder="e.g Rp 10.000.000"
             className="border px-3 py-2 rounded w-full"
           />
         </div>
 
         <div>
-          <label className="block text-sm font-medium mb-1">Upload CV (PDF)</label>
+          <label className="block text-sm font-medium mb-1">
+            Upload CV (PDF)
+          </label>
           <input
             type="file"
             accept=".pdf"

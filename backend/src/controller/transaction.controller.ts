@@ -1,7 +1,5 @@
 import { Request, Response } from "express";
 import { handleInvoiceStatusUpdate } from "../services/transaction/invoiceUpdate";
-import { getSubscriberById } from "../services/subscriber/getSubsById";
-import { getSubscriberByUser } from "../services/subscriber/getSubsByUser";
 import { cancelPayment } from "../services/transaction/canclePayment";
 import { createTransaction } from "../services/transaction/createTransaction";
 import { createSubscriber } from "../services/subscriber/createSubs";
@@ -23,11 +21,9 @@ export class TransactionController {
       res.status(201).json({
         message: "Transaction created",
         transaction,
-        subscriber
+        subscriber,
       });
     } catch (error: any) {
-      console.log(error);
-
       res.status(error.status || 500).json({ message: error.message });
     }
   }
@@ -56,7 +52,8 @@ export class TransactionController {
 
       const transaction = await getTransactionById(id);
 
-      if (!transaction) throw {
+      if (!transaction)
+        throw {
           status: 400,
           message: "Transaction not found",
         };

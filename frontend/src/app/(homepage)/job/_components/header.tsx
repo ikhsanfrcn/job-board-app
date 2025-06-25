@@ -7,13 +7,15 @@ export default function JobSearchHeader() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const pathname = usePathname();
-  const [title, setTitle] = useState(searchParams.get("title") || "");
+  const [titleOrCategory, setTitleOrCategory] = useState(
+    searchParams.get("titleOrCategory") || ""
+  );
   const [city, setCity] = useState(searchParams.get("city") || "");
 
   const handleSearch = () => {
     const params = new URLSearchParams();
 
-    if (title) params.set("title", title);
+    if (titleOrCategory) params.set("titleOrCategory", titleOrCategory);
     if (city) params.set("city", city);
     params.set("page", "1");
 
@@ -28,8 +30,8 @@ export default function JobSearchHeader() {
           <input
             type="text"
             placeholder="Find your perfect job"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
+            value={titleOrCategory}
+            onChange={(e) => setTitleOrCategory(e.target.value)}
             onKeyDown={(e) => {
               if (e.key === "Enter") handleSearch();
             }}
@@ -40,7 +42,7 @@ export default function JobSearchHeader() {
           <span className="text-gray-500 mr-2">📍</span>
           <input
             type="text"
-            placeholder='City, state, zipcode, or "remote"'
+            placeholder="City"
             value={city}
             onChange={(e) => setCity(e.target.value)}
             onKeyDown={(e) => {

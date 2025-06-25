@@ -12,6 +12,7 @@ import { getAllCompaniesService } from "../services/company/getAllCompany";
 import { getCompanyDetailService } from "../services/company/getCompanyDetail";
 import { updateCompanyLogoService } from "../services/company/updateLogo";
 import { getCompanyJobsService } from "../services/company/getCompanyJobs";
+import { companyPasswordChange } from "../services/company/passwordChange";
 
 export class CompanyController {
   async register(req: Request, res: Response) {
@@ -30,8 +31,6 @@ export class CompanyController {
 
   async verify(req: Request, res: Response) {
     try {
-      console.log(req.user?.id);
-      
       const result = await verifyCompanyAccount(req.user?.id);
       res.status(200).json(result);
     } catch (error: any) {
@@ -123,17 +122,19 @@ export class CompanyController {
 
   async getAllCompanies(req: Request, res: Response) {
     try {
-      const { name, city, industryId } = req.query;
+      const { name, city, sort, page = "1", limit = "10" } = req.query;
 
       const companies = await getAllCompaniesService({
         name: name as string,
         city: city as string,
-        industryId: industryId as string,
+        sort: sort as "name_asc" | "name_desc" | "rating_asc" | "rating_desc",
+        page: parseInt(page as string),
+        limit: parseInt(limit as string),
       });
 
       res.status(200).send({
         message: "Companies fetched successfully",
-        data: companies,
+        ...companies,
       });
     } catch (error: any) {
       res
@@ -141,11 +142,12 @@ export class CompanyController {
         .json({ message: error.message || "Internal server error" });
     }
   }
+
   async getCompanyDetail(req: Request, res: Response) {
     try {
-      const { id: companyId } = req.params;
+      const { companyName } = req.params;
 
-      const company = await getCompanyDetailService(companyId);
+      const company = await getCompanyDetailService(companyName);
 
       if (!company) {
         res.status(404).send({ message: "Company not found" });
@@ -203,4 +205,21 @@ export class CompanyController {
         .json({ message: error.message || "Internal server error" });
     }
   }
+
+  async passwordChange(req: Request, res: Response) {
+        try {
+          const companyId = req.company?.id
+          const { currentPassword, newPassword } = req.body;
+      
+          if (!companyId) {
+            res.status(400).json({ message: "Authorization token is missing or invalid" });
+            return;
+          }
+      
+          const result = await companyPasswordChange(companyId, currentPassword, newPassword);
+          res.status(200).json(result);
+        } catch (error: any) {        
+          res.status(error.status || 500).json({ message: error.message || "Internal server error" });
+        }
+      }
 }

@@ -25,13 +25,11 @@ export default function SideBar() {
 
   const menuItems = [
     { label: "Profile", path: "/user/profile" },
-    { label: "Job Preferences", path: "/user/preferences" },
     { label: "Job Activity", path: "/user/activity" },
     { label: "Assessment History", path: "/user/assessments" },
-    { label: "Following", path: "/user/following" },
-    { label: "Notifications", path: "/user/notifications" },
     { label: "Subscribe", path: "/user/subscribe" },
     { label: "Badges", path: "/user/badges" },
+    { label: "Settings", path: "/user/settings" },
   ];
 
   const isActive = (path: string) =>
@@ -71,9 +69,7 @@ export default function SideBar() {
       setIsModalOpen(false);
       toast.success("Avatar updated successfully");
     } catch (err) {
-      console.log(err);
       if (err instanceof AxiosError) {
-        console.log("Error Response:", err.response);
         toast.error(err.response?.data?.message || "Failed to update avatar");
       }
     }
@@ -134,7 +130,7 @@ export default function SideBar() {
                         "No Badge Earned!"
                       )}
                     </div>
-                    <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-2 py-1 bg-sky-100/95 text-black text-xs rounded opacity-0 group-hover:opacity-100 transition-all z-10 whitespace-nowrap duration-500">
+                    <div className="absolute bottom-full left-10 transform -translate-x-1/2 mb-2 px-2 py-1 bg-sky-100/95 text-black text-xs rounded opacity-0 group-hover:opacity-100 transition-all z-10 whitespace-nowrap duration-500">
                       <div className="font-semibold">{b.title}</div>
                       <div className="text-gray-700">{b.category}</div>
                       <div className="text-gray-700">
@@ -180,7 +176,7 @@ export default function SideBar() {
             </button>
             <HiOutlineLogout className="text-2xl" />
           </div>
-          <Link href="/help">
+          <Link href="/user/help-center">
             <button className="w-full font-medium px-4 py-2 border rounded-lg cursor-pointer">
               Help Center
             </button>

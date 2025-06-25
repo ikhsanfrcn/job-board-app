@@ -104,7 +104,14 @@ export default function Profile() {
             </div>
             <div>
               <p className="text-xs font-medium capitalize">About:</p>
-              <p>{profile.about || "-"}</p>
+              {profile.about ? (
+                <div
+                  className="prose max-w-none"
+                  dangerouslySetInnerHTML={{ __html: profile.about }}
+                />
+              ) : (
+                <p>-</p>
+              )}
             </div>
           </div>
         )}

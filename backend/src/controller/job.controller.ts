@@ -33,38 +33,51 @@ export class JobController {
   }
 
   async getJobs(req: Request, res: Response) {
-    try {
-      const {
-        title,
-        city,
-        category,
-        tags,
-        isPublished,
-        page = "1",
-        size = "10",
-        minSalary,
-        maxSalary,
-      } = req.query;
+  try {
+    const {
+      titleOrCategory,
+      city,
+      category,
+      tags,
+      isPublished,
+      page = "1",
+      size = "10",
+      minSalary,
+      maxSalary,
+      worksite,
+      date,
+      sort,
+    } = req.query;
 
-      const parsedTags = typeof tags === "string" ? tags.split(",") : [];
+    const parsedTags = typeof tags === "string" ? tags.split(",") : [];
 
-      const jobsResult = await getJobs({
-        title: title as string,
-        city: city as string,
-        category: category as string,
-        tags: parsedTags as string[],
-        isPublished: isPublished === "false" ? false : true,
-        page: parseInt(page as string),
-        size: parseInt(size as string),
-        minSalary: minSalary ? parseInt(minSalary as string) : undefined,
-        maxSalary: maxSalary ? parseInt(maxSalary as string) : undefined,
-      });
+    const worksiteParam = (worksite as string | undefined)?.toUpperCase();
+    const allowedWorksites = ["REMOTE", "HYBRID", "ONSITE"] as const;
 
-      res.status(200).json(jobsResult);
-    } catch (error: any) {
-      res.status(error.status || 500).json({ message: error.message });
-    }
+    const normalizedWorksite = allowedWorksites.includes(worksiteParam as any)
+      ? (worksiteParam as "REMOTE" | "HYBRID" | "ONSITE")
+      : undefined;
+
+    const jobsResult = await getJobs({
+      titleOrCategory: titleOrCategory as string,
+      city: city as string,
+      category: category as string,
+      tags: parsedTags,
+      isPublished: isPublished === "false" ? false : true,
+      page: parseInt(page as string),
+      size: parseInt(size as string),
+      minSalary: minSalary ? parseInt(minSalary as string) : undefined,
+      maxSalary: maxSalary ? parseInt(maxSalary as string) : undefined,
+      worksite: normalizedWorksite,
+      date: date as string,
+      sort: sort as string,
+    });
+
+    res.status(200).json(jobsResult);
+  } catch (error: any) {
+    res.status(error.status || 500).json({ message: error.message });
   }
+}
 
   async getById(req: Request, res: Response) {
     try {
@@ -81,10 +94,21 @@ export class JobController {
       const companyId = req.company?.id;
       if (!companyId) throw { status: 401, message: "Unauthorized" };
 
-      const { page = "1", size = "10" } = req.query;
+      const {
+        title,
+        category,
+        sortBy = "createdAt",
+        sortOrder = "desc",
+        page = "1",
+        size = "6",
+      } = req.query;
 
       const result = await getCompanyJobs({
         companyId,
+        title: title as string,
+        category: category as string,
+        sortBy: sortBy as "createdAt" | "title" | "category",
+        sortOrder: sortOrder as "asc" | "desc",
         page: parseInt(page as string),
         size: parseInt(size as string),
       });
@@ -148,8 +172,8 @@ export class JobController {
 
       const job = await deleteJob(id, companyId);
       res.status(200).json(job);
-    } catch (error: any) {
-      res.status(error.status || 500).json({ message: error.message });
+    } catch (err) {
+      res.status(500).json(err);
     }
   }
 }

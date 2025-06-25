@@ -1,5 +1,5 @@
 import Hero from "../../_components/hero";
-import Assessments from "./_components/assessmentSkeleton";
+import Assessments from "./_components/assessments";
 
 export default function assessmentsPage() {
   return (

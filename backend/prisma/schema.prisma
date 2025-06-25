@@ -1,6 +1,6 @@
 generator client {
-  provider = "prisma-client-js"
-  output   = "./generated/prisma"
+  provider      = "prisma-client-js"
+  output        = "./generated/prisma"
   binaryTargets = ["native", "windows", "rhel-openssl-3.0.x"]
 }
 
@@ -21,7 +21,7 @@ model User {
   gender       Gender? @default(PreferNotToSay)
   dob          String?
   education    String?
-  country      String?
+  country      String? @default("Indonesia")
   state        String?
   city         String?
   zipCode      String?
@@ -52,12 +52,12 @@ enum Gender {
 
 model Company {
   id           String   @id @default(uuid())
-  name         String
+  name         String   @unique
   email        String   @unique
   role         String   @default("company")
   password     String
   about        String?
-  country      String?
+  country      String?  @default("Indonesia")
   state        String?
   city         String?
   zipCode      String?
@@ -85,26 +85,36 @@ model Industry {
 }
 
 model Job {
-  id           String   @id @default(uuid())
-  title        String
-  description  String
-  city         String
-  category     String
-  tags         String[]
-  salaryMin    Int?
-  salaryMax    Int?
-  deadline     String
-  companyId    String
-  isPublished  Boolean  @default(false)
-  isTestActive Boolean  @default(false)
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
+  id               String          @id @default(uuid())
+  title            String
+  description      String
+  province         String?
+  city             String
+  category         String?
+  employmentStatus EmploymentType?
+  worksite         WorksiteType?
+  tags             String[]
+  salaryMin        Int?
+  salaryMax        Int?
+  deadline         String
+  companyId        String
+  isPublished      Boolean         @default(false)
+  isTestActive     Boolean         @default(false)
+  isDeleted        Boolean         @default(false)
+  createdAt        DateTime        @default(now())
+  updatedAt        DateTime        @updatedAt
 
   company Company @relation(fields: [companyId], references: [id])
 
   Application Application[]
   test        Test?
   userTest    UserTest[]
+}
+
+enum WorksiteType {
+  ONSITE
+  HYBRID
+  REMOTE
 }
 
 model Jobdesc {
@@ -129,7 +139,7 @@ model Application {
   jobId          String
   status         ApplicationStatus @default(PENDING)
   cvUrl          String
-  expectedSalary String?
+  expectedSalary Int?
   createdAt      DateTime          @default(now())
   updatedAt      DateTime          @updatedAt
 
@@ -145,6 +155,7 @@ enum ApplicationStatus {
   SHORTLISTED
   INTERVIEW
   OFFERED
+  ACCEPTED
   REJECTED
 }
 
@@ -187,7 +198,7 @@ model Test {
 
 model UserTest {
   id              String   @id @default(uuid())
-  userId          String   @unique
+  userId          String
   jobId           String
   correctAnswers  Int
   totalQuestions  Int
@@ -301,6 +312,7 @@ model Transaction {
   type       String
   amount     Int
   status     PaymentStatus @default(PENDING)
+  externalId String?       @unique
   invoiceUrl String?
   createdAt  DateTime      @default(now())
   expiredAt  DateTime
@@ -326,7 +338,7 @@ model Subscriber {
   createdAt     DateTime         @default(now())
   updatedAt     DateTime         @updatedAt
   transactionId String?
-  transaction   Transaction?     @relation(fields: [transactionId], references: [id])
+  transaction   Transaction?     @relation(fields: [transactionId], references: [externalId])
 }
 
 enum SubscriberStatus {

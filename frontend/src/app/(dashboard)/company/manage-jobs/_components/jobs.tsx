@@ -3,60 +3,87 @@ import React, { useCallback, useEffect, useState } from "react";
 import ModalDeleteJob from "./modalDeleteJob";
 import ModalEditJob from "./modalEditJob";
 import ModalCreateJob from "./modalCreateJob";
-import JobCardSkeleton from "./skeletonJob";
 import { IMJob } from "@/types/job";
 import { AxiosError } from "axios";
 import { toast } from "react-toastify";
 import axios from "@/lib/axios";
 import { useSession } from "next-auth/react";
 import JobsCard from "./jobsCard";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { ITest } from "@/types/test";
 import ModalCreateTest from "./modalCreateTest";
+import JobFilters from "./filter";
+import Pagination from "@/components/atoms/pagination";
+import SkeltonJob from "./skeletonJob";
 
 export default function Jobs() {
   const { data: company } = useSession();
   const token = company?.accessToken;
   const router = useRouter();
+  const searchParams = useSearchParams();
+
   const [jobs, setJobs] = useState<IMJob[]>([]);
   const [tests, setTests] = useState<ITest[]>([]);
   const [editJob, setEditJob] = useState<IMJob | null>(null);
   const [deleteJob, setDeleteJob] = useState<IMJob | null>(null);
   const [isCreateOpen, setIsCreateOpen] = useState(false);
   const [isCreateTestOpen, setIsCreateTestOpen] = useState(false);
-  const [selectedJobForTest, setSelectedJobForTest] = useState<IMJob | null>(null);
+  const [selectedJobForTest, setSelectedJobForTest] = useState<IMJob | null>(
+    null
+  );
   const [loading, setLoading] = useState(false);
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+
+  useEffect(() => {
+    const pageFromUrl = parseInt(searchParams.get("page") || "1", 10);
+    if (pageFromUrl !== currentPage) setCurrentPage(pageFromUrl);
+  }, [searchParams]);
 
   const fetchJobs = useCallback(async () => {
     if (!token) return;
+
     try {
       setLoading(true);
+
+      const params = new URLSearchParams(searchParams.toString());
+      params.set("page", currentPage.toString());
+      params.set("size", "6");
+
       const { data } = await axios.get("/jobs/admin", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+        headers: { Authorization: `Bearer ${token}` },
+        params: Object.fromEntries(params.entries()),
       });
+
       setJobs(data.data.jobs);
-      const response = await axios.get(`/test`);
-      setTests(response.data.tests);
+      setTotalPages(data.data.pagination.totalPages);
+
+      const testResponse = await axios.get("/test");
+      setTests(testResponse.data.tests);
     } catch (err) {
       console.error("Failed to fetch jobs", err);
     } finally {
       setLoading(false);
     }
-  }, [token]);
+  }, [token, searchParams]);
 
   useEffect(() => {
     fetchJobs();
   }, [fetchJobs]);
 
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+    const query = new URLSearchParams(searchParams.toString());
+    query.set("page", page.toString());
+    router.push(`/company/manage-jobs?${query.toString()}`);
+  };
+
   const handleDelete = async () => {
     if (!deleteJob || !token) return;
     try {
       await axios.delete(`/jobs/${deleteJob.id}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+        headers: { Authorization: `Bearer ${token}` },
       });
       setJobs((prev) => prev.filter((job) => job.id !== deleteJob.id));
       setDeleteJob(null);
@@ -72,19 +99,16 @@ export default function Jobs() {
     if (!token) return;
     try {
       await axios.patch(`/jobs/${updatedJob.id}`, updatedJob, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+        headers: { Authorization: `Bearer ${token}` },
       });
-
       setJobs((prev) =>
         prev.map((job) => (job.id === updatedJob.id ? updatedJob : job))
       );
       setEditJob(null);
-      toast.info("Update Success !");
+      toast.info("Update Success!");
     } catch (err) {
       if (err instanceof AxiosError) {
-        toast.error(err.response?.data?.message || "Update Failed !");
+        toast.error(err.response?.data?.message || "Update Failed!");
       }
     }
   };
@@ -92,17 +116,14 @@ export default function Jobs() {
   const handleCreate = async (newJob: IMJob) => {
     try {
       await axios.post("/jobs", newJob, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+        headers: { Authorization: `Bearer ${token}` },
       });
-
-      setJobs((prev) => [...prev, newJob]);
+      fetchJobs();
       setIsCreateOpen(false);
-      toast.success("Create Success !");
+      toast.success("Create Success!");
     } catch (err) {
       if (err instanceof AxiosError) {
-        toast.error(err.response?.data?.message || "Create Failed !");
+        toast.error(err.response?.data?.message || "Create Failed!");
       }
     }
   };
@@ -113,10 +134,12 @@ export default function Jobs() {
       const existingTest = tests.find((test) => test.jobId === job.id);
       if (existingTest) {
         const newActiveState = !existingTest.isActive;
-        const endPoint = newActiveState
+        const endpoint = newActiveState
           ? `/test/${job.id}/activate`
           : `/test/${job.id}/deactivate`;
-        await axios.patch(endPoint);
+
+        await axios.patch(endpoint);
+
         setTests((prev) =>
           prev.map((test) =>
             test.id === existingTest.id
@@ -129,8 +152,9 @@ export default function Jobs() {
             j.id === job.id ? { ...j, isTestActive: newActiveState } : j
           )
         );
-        toast.info(`Test ${newActiveState ? "enabled" : "disabled"} successfully.`);
-        return;
+        toast.info(
+          `Test ${newActiveState ? "enabled" : "disabled"} successfully.`
+        );
       } else {
         setSelectedJobForTest(job);
         setIsCreateTestOpen(true);
@@ -155,24 +179,36 @@ export default function Jobs() {
     setSelectedJobForTest(null);
   };
 
-  if (loading) {
-    return <JobCardSkeleton />;
-  }
   return (
     <div className="w-full p-6 space-y-4">
-      <div className="flex justify-end items-center mb-4">
+      <JobFilters />
+
+      <div className="w-full flex justify-end">
         <button
           onClick={() => setIsCreateOpen(true)}
-          className="bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600 transition duration-300">
-            Add Job
+          className="w-full md:w-auto bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600 transition duration-300 cursor-pointer"
+        >
+          Add New Job
         </button>
       </div>
-      <JobsCard
-        jobs={jobs}
-        setEditJob={setEditJob}
-        setDeleteJob={setDeleteJob}
-        onTestToggle={handleTestToggle}
+
+      {loading ? (
+        <SkeltonJob />
+      ) : (
+        <JobsCard
+          jobs={jobs}
+          setEditJob={setEditJob}
+          setDeleteJob={setDeleteJob}
+          onTestToggle={handleTestToggle}
+        />
+      )}
+
+      <Pagination
+        currentPage={currentPage}
+        totalPages={totalPages}
+        onPageChange={handlePageChange}
       />
+
       <ModalEditJob
         editJob={editJob}
         setEditJob={setEditJob}

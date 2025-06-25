@@ -50,9 +50,11 @@ export class CompanyRouter {
       this.authMiddleware.verifyToken,
       this.companyController.updateLogo
     );
+    this.router.patch("/change-password", this.authMiddleware.verifyToken, this.companyController.passwordChange)
 
     this.router.get("/:id/jobs", this.companyController.getCompanyJobs);
-    this.router.get("/:id", this.companyController.getCompanyDetail);
+    this.router.get("/:companyName", this.companyController.getCompanyDetail);
+
   }
 
   getRouter(): Router {

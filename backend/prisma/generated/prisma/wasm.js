@@ -20,11 +20,11 @@ exports.Prisma = Prisma
 exports.$Enums = {}
 
 /**
- * Prisma Client JS version: 6.8.1
+ * Prisma Client JS version: 6.8.2
  * Query Engine version: 2060c79ba17c6bb9f5823312b6f6b7f4a845738e
  */
 Prisma.prismaVersion = {
-  client: "6.8.1",
+  client: "6.8.2",
   engine: "2060c79ba17c6bb9f5823312b6f6b7f4a845738e"
 }
 
@@ -177,8 +177,11 @@ exports.Prisma.JobScalarFieldEnum = {
   id: 'id',
   title: 'title',
   description: 'description',
+  province: 'province',
   city: 'city',
   category: 'category',
+  employmentStatus: 'employmentStatus',
+  worksite: 'worksite',
   tags: 'tags',
   salaryMin: 'salaryMin',
   salaryMax: 'salaryMax',
@@ -186,6 +189,7 @@ exports.Prisma.JobScalarFieldEnum = {
   companyId: 'companyId',
   isPublished: 'isPublished',
   isTestActive: 'isTestActive',
+  isDeleted: 'isDeleted',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -324,6 +328,7 @@ exports.Prisma.TransactionScalarFieldEnum = {
   type: 'type',
   amount: 'amount',
   status: 'status',
+  externalId: 'externalId',
   invoiceUrl: 'invoiceUrl',
   createdAt: 'createdAt',
   expiredAt: 'expiredAt',
@@ -416,15 +421,6 @@ exports.Gender = exports.$Enums.Gender = {
   Female: 'Female'
 };
 
-exports.ApplicationStatus = exports.$Enums.ApplicationStatus = {
-  PENDING: 'PENDING',
-  VIEWED: 'VIEWED',
-  SHORTLISTED: 'SHORTLISTED',
-  INTERVIEW: 'INTERVIEW',
-  OFFERED: 'OFFERED',
-  REJECTED: 'REJECTED'
-};
-
 exports.EmploymentType = exports.$Enums.EmploymentType = {
   FULLTIME: 'FULLTIME',
   PARTTIME: 'PARTTIME',
@@ -433,6 +429,22 @@ exports.EmploymentType = exports.$Enums.EmploymentType = {
   SELFEMPLOYED: 'SELFEMPLOYED',
   INTERN: 'INTERN',
   SEASONAL: 'SEASONAL'
+};
+
+exports.WorksiteType = exports.$Enums.WorksiteType = {
+  ONSITE: 'ONSITE',
+  HYBRID: 'HYBRID',
+  REMOTE: 'REMOTE'
+};
+
+exports.ApplicationStatus = exports.$Enums.ApplicationStatus = {
+  PENDING: 'PENDING',
+  VIEWED: 'VIEWED',
+  SHORTLISTED: 'SHORTLISTED',
+  INTERVIEW: 'INTERVIEW',
+  OFFERED: 'OFFERED',
+  ACCEPTED: 'ACCEPTED',
+  REJECTED: 'REJECTED'
 };
 
 exports.AdditionalCategory = exports.$Enums.AdditionalCategory = {
