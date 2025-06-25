@@ -17,9 +17,9 @@ export default function ProfileMobile() {
   };
 
   return (
-    <div>
+    <div className="relative md:hidden">
       <div
-        className="w-10 h-10 overflow-hidden rounded-full"
+        className="w-10 h-10 overflow-hidden rounded-full cursor-pointer"
         onClick={toggleDropdown}
       >
         <Image
@@ -34,48 +34,50 @@ export default function ProfileMobile() {
         />
       </div>
       {isDropdownVisible && (
-        <div className="w-64 absolute bg-white text-black p-3 border-2 border-gray-300 rounded shadow-lg mt-4">
+        <div className="absolute z-[60]  w-64 bg-white text-black rounded-xl shadow-lg border border-gray-200 overflow-hidden">
           {email ? (
-            <div>
-              <div className="text-black hover:text-gray-800 font-semibold w-full text-left px-2 py-1 rounded-md hover:bg-gray-100 hover:scale-105 transition duration-300 cursor-pointer mb-2">
-                <p className="text-lg font-bold">{username}</p>
-                <p className="text-sm">{email}</p>
+            <div className="p-4 space-y-3">
+              <div>
+                <p className="text-lg font-semibold">{username}</p>
+                <p className="text-sm text-gray-500">{email}</p>
               </div>
-              <div className="border-t border-gray-300 my-2" />
+
+              <hr className="border-gray-200" />
+
               <Link
                 href={role === "company" ? "/company/profile" : "/user/profile"}
               >
-                <button className="text-black hover:text-gray-800 font-semibold w-full text-left px-2 py-1 rounded-md hover:bg-gray-100 hover:scale-105 transition duration-300 cursor-pointer mb-2">
+                <button className="w-full text-left text-sm px-3 py-2 hover:bg-gray-100 rounded-md transition duration-200 font-medium">
                   My Account
                 </button>
               </Link>
               <Link href="/">
-                <button className="text-black hover:text-gray-800 font-semibold w-full text-left px-2 py-1 rounded-md hover:bg-gray-100 hover:scale-105 transition duration-300 cursor-pointer mb-2">
+                <button className="w-full text-left text-sm px-3 py-2 hover:bg-gray-100 rounded-md transition duration-200 font-medium">
                   Back to Home
                 </button>
               </Link>
-              <div className="border-t border-gray-300 my-2" />
+
+              <hr className="border-gray-200" />
+
               <button
-                className="w-full text-left px-2 py-1 flex flex-row items-center justify-between text-red-500 hover:text-red-700 font-semibold rounded-md hover:bg-gray-100 hover:scale-105 transition duration-300 cursor-pointer"
                 onClick={() => signOut()}
+                className="w-full flex items-center justify-between text-left text-sm px-3 py-2 text-red-500 hover:text-red-600 hover:bg-gray-100 rounded-md transition duration-200 font-medium"
               >
-                <p>Logout</p>
-                <FaSignOutAlt className="text-xl" />
+                <span>Logout</span>
+                <FaSignOutAlt className="text-base" />
               </button>
             </div>
           ) : (
-            <div className="flex flex-col">
-              <Link
-                href="/login"
-                className="text-black hover:text-gray-800 font-semibold w-full text-left px-2 py-1 rounded-md hover:bg-gray-100 hover:scale-105 transition duration-300 cursor-pointer mb-2"
-              >
-                Login
+            <div className="p-4 space-y-2">
+              <Link href="/login">
+                <div className="text-sm px-3 py-2 hover:bg-gray-100 rounded-md transition duration-200 cursor-pointer font-medium">
+                  Login
+                </div>
               </Link>
-              <Link
-                href="/register"
-                className="text-black hover:text-gray-800 font-semibold w-full text-left px-2 py-1 rounded-md hover:bg-gray-100 hover:scale-105 transition duration-300 cursor-pointer mb-2"
-              >
-                Register
+              <Link href="/register">
+                <div className="text-sm px-3 py-2 hover:bg-gray-100 rounded-md transition duration-200 cursor-pointer font-medium">
+                  Register
+                </div>
               </Link>
             </div>
           )}

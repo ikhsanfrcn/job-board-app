@@ -16,7 +16,6 @@ exports.ResumeController = void 0;
 const prisma_1 = __importDefault(require("../prisma"));
 const path_1 = __importDefault(require("path"));
 const ejs_1 = __importDefault(require("ejs"));
-const chrome_aws_lambda_1 = __importDefault(require("chrome-aws-lambda"));
 const puppeteer_core_1 = __importDefault(require("puppeteer-core"));
 class ResumeController {
     createResume(req, res) {
@@ -207,6 +206,7 @@ class ResumeController {
         return __awaiter(this, void 0, void 0, function* () {
             var _a;
             const userId = (_a = req.user) === null || _a === void 0 ? void 0 : _a.id;
+            const BROWSERLESS_WS = `wss://production-sfo.browserless.io/chromium?token=${process.env.BROWSERLESS_KEY}&blockAds=true`;
             try {
                 const resume = yield prisma_1.default.userResume.findUnique({
                     where: { userId },
@@ -219,7 +219,7 @@ class ResumeController {
                     },
                 });
                 if (!resume) {
-                    res.status(404).send({ message: "Resume not found" });
+                    res.status(404).json({ message: "Resume not found" });
                     return;
                 }
                 const templatePath = path_1.default.join(__dirname, "..", "templates", "cvGenerate.ejs");
@@ -227,31 +227,48 @@ class ResumeController {
                     resume,
                     user: resume.user,
                 });
-                const browser = yield puppeteer_core_1.default.launch({
-                    args: chrome_aws_lambda_1.default.args,
-                    executablePath: yield chrome_aws_lambda_1.default.executablePath,
-                    headless: chrome_aws_lambda_1.default.headless,
-                });
-                const page = yield browser.newPage();
-                yield page.setContent(html, {
-                    waitUntil: "networkidle0",
-                });
-                const pdfBuffer = yield page.pdf({
-                    format: "a4",
-                    printBackground: true,
-                });
-                yield browser.close();
-                res.set({
-                    "Content-Type": "application/pdf",
-                    "Content-Disposition": "attachment; filename=resume.pdf",
-                    "Content-Length": pdfBuffer.length,
-                });
-                res.status(200).send(pdfBuffer);
-                return;
+                let browser;
+                try {
+                    browser = yield puppeteer_core_1.default.connect({
+                        browserWSEndpoint: BROWSERLESS_WS,
+                    });
+                }
+                catch (browserErr) {
+                    console.error("Failed to connect to Browserless:", browserErr);
+                    res.status(502).json({
+                        message: "Failed to connect to Browserless. Please ensure API token is valid and the service is available.",
+                    });
+                    return;
+                }
+                try {
+                    const page = yield browser.newPage();
+                    yield page.setContent(html, { waitUntil: "networkidle0" });
+                    const pdfBuffer = yield page.pdf({
+                        format: "a4",
+                        printBackground: true,
+                    });
+                    yield browser.close();
+                    res.set({
+                        "Content-Type": "application/pdf",
+                        "Content-Disposition": "attachment; filename=resume.pdf",
+                        "Content-Length": pdfBuffer.length,
+                    });
+                    res.status(200).send(pdfBuffer);
+                }
+                catch (renderErr) {
+                    console.error("PDF render error:", renderErr);
+                    yield browser.close();
+                    res.status(500).json({
+                        message: "Failed to create PDF file.",
+                    });
+                    return;
+                }
             }
             catch (err) {
-                console.error(err);
-                res.status(500).send(err);
+                console.error("Unexpected server error:", err);
+                res.status(500).json({
+                    message: "An unexpected server error occurred.",
+                });
             }
         });
     }

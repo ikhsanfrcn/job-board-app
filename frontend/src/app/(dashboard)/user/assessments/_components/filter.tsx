@@ -71,7 +71,7 @@ export default function Filter() {
         <div className="bg-white border border-gray-200 rounded-lg mb-6">
           <div className="p-4">
             <Form>
-              <div className="flex flex-col sm:flex-row gap-4 items-end">
+              <div className="flex flex-wrap gap-4 items-end">
                 <div className="flex-1 min-w-0">
                   <label
                     htmlFor="sortBy"
@@ -122,7 +122,7 @@ export default function Filter() {
                   </Field>
                 </div>
 
-                <div className="flex gap-2">
+                <div className="flex flex-wrap gap-4">
                   <button
                     type="button"
                     onClick={() => setShowAdvanced(!showAdvanced)}

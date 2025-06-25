@@ -25,12 +25,7 @@ export default function SidebarMobile() {
   };
 
   useEffect(() => {
-    if (isMenuOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "auto";
-    }
-
+    document.body.style.overflow = isMenuOpen ? "hidden" : "auto";
     return () => {
       document.body.style.overflow = "auto";
     };
@@ -42,13 +37,23 @@ export default function SidebarMobile() {
     }`;
 
   return (
-    <div className="relative">
-      <button onClick={toggleMenu} className="text-black text-3xl">
+    <div className="md:hidden">
+      <button
+        onClick={toggleMenu}
+        className="text-black text-3xl z-[100] relative"
+      >
         {isMenuOpen ? <HiX /> : <HiOutlineMenu />}
       </button>
 
+      {isMenuOpen && (
+        <div
+          onClick={toggleMenu}
+          className="fixed inset-0 bg-black/50 z-[49] backdrop-blur-sm"
+        ></div>
+      )}
+
       <div
-        className={`fixed top-0 left-0 w-64 h-full bg-gray-800 text-white transform transition-transform duration-300 ease-in-out z-50 ${
+        className={`fixed top-0 left-0 w-64 h-full bg-gray-800 text-white transform transition-transform duration-300 ease-in-out z-[50] ${
           isMenuOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >
@@ -118,7 +123,7 @@ export default function SidebarMobile() {
                     onClick={toggleMenu}
                   >
                     <HiOutlineCalendar className="inline-block mr-4" />
-                    Assessments History
+                    Assessments
                   </Link>
                 </li>
                 <li>
@@ -156,13 +161,6 @@ export default function SidebarMobile() {
           </ul>
         </div>
       </div>
-
-      {isMenuOpen && (
-        <div
-          onClick={toggleMenu}
-          className="fixed inset-0 bg-black opacity-50 z-40"
-        ></div>
-      )}
     </div>
   );
 }
