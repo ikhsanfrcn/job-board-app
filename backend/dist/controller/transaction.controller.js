@@ -52,6 +52,7 @@ class TransactionController {
                 res.status(200).json({ message: "Success" });
             }
             catch (error) {
+                console.log(error);
                 res.status(error.status || 500).json({ message: error.message });
             }
         });

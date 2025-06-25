@@ -16,7 +16,7 @@ exports.handleInvoiceStatusUpdate = void 0;
 const prisma_1 = __importDefault(require("../../prisma"));
 const handleInvoiceStatusUpdate = (status, externalId) => __awaiter(void 0, void 0, void 0, function* () {
     const transaction = yield prisma_1.default.transaction.findUnique({
-        where: { id: externalId },
+        where: { externalId: externalId },
     });
     if (!transaction) {
         throw `Transaction not found for ID: ${externalId}`;
@@ -26,7 +26,7 @@ const handleInvoiceStatusUpdate = (status, externalId) => __awaiter(void 0, void
         const endDate = new Date();
         endDate.setMonth(endDate.getMonth() + 1);
         yield prisma_1.default.transaction.update({
-            where: { id: externalId },
+            where: { externalId: externalId },
             data: {
                 status: "PAID",
             },
@@ -37,13 +37,13 @@ const handleInvoiceStatusUpdate = (status, externalId) => __awaiter(void 0, void
                 status: "ACTIVE",
                 startDate: now,
                 endDate,
-                transactionId: transaction.id,
+                transactionId: transaction.externalId,
             },
         });
     }
     else if (status === "EXPIRED") {
         yield prisma_1.default.transaction.update({
-            where: { id: externalId },
+            where: { externalId: externalId },
             data: { status: "EXPIRED" },
         });
     }
