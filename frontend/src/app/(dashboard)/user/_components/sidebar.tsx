@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -22,6 +21,7 @@ export default function SideBar() {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [badge, setBadge] = useState<any[]>([]);
   const [showAllBadges, setShowAllBadges] = useState(false);
+  const [isUploading, setIsUploading] = useState(false)
 
   const menuItems = [
     { label: "Profile", path: "/user/profile" },
@@ -55,6 +55,8 @@ export default function SideBar() {
 
   const handleUpdateAvatar = async () => {
     if (!selectedFile || !token) return;
+
+    setIsUploading(true);
     const formData = new FormData();
     formData.append("image", selectedFile);
     try {
@@ -72,6 +74,8 @@ export default function SideBar() {
       if (err instanceof AxiosError) {
         toast.error(err.response?.data?.message || "Failed to update avatar");
       }
+    } finally {
+      setIsUploading(false);
     }
   };
 
@@ -194,6 +198,7 @@ export default function SideBar() {
         selectedFile={selectedFile}
         setSelectedFile={setSelectedFile}
         onUpload={handleUpdateAvatar}
+        isUploading={isUploading}
       />
     </aside>
   );

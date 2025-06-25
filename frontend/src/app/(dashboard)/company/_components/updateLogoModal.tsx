@@ -10,6 +10,7 @@ interface IProps {
   selectedFile: File | null;
   setSelectedFile: (file: File | null) => void;
   onUpload: () => void;
+  isUploading: boolean;
 }
 
 export default function UpdateLogoModal({
@@ -18,6 +19,7 @@ export default function UpdateLogoModal({
   selectedFile,
   setSelectedFile,
   onUpload,
+  isUploading,
 }: IProps) {
   return (
     <Transition appear show={isOpen} as={Fragment}>
@@ -86,11 +88,15 @@ export default function UpdateLogoModal({
                     Cancel
                   </button>
                   <button
-                    className="px-4 py-2 bg-gray-500 text-white rounded"
+                    className="px-4 py-2 bg-gray-500 text-white rounded disabled:opacity-50"
                     onClick={onUpload}
-                    disabled={!selectedFile}
+                    disabled={isUploading || !selectedFile}
                   >
-                    Upload
+                    {isUploading ? (
+                      <span>Uploading...</span>
+                    ) : (
+                      <span>Upload</span>
+                    )}
                   </button>
                 </div>
               </Dialog.Panel>
