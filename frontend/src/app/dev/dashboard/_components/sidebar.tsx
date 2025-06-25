@@ -19,7 +19,6 @@ import { redirect } from "next/navigation";
 interface MenuItem {
   id: string;
   label: string;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   icon: React.ComponentType<any>;
   href?: string;
   children?: MenuItem[];

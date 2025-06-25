@@ -2,26 +2,26 @@
 
 import { useRouter, useSearchParams } from "next/navigation";
 import { Formik, Form, Field } from "formik";
-import {
-  FaRedo,
-  FaFilter,
-  FaChevronDown,
-  FaChevronUp,
-} from "react-icons/fa";
+import { FaRedo, FaFilter, FaChevronDown, FaChevronUp } from "react-icons/fa";
 import { useState } from "react";
 import AdvancedFilter from "./advancedFilter";
 import ActiveFiltersDisplay from "./activeFilterDisplay";
+import { IFilterUserAssessments } from "@/types/assessment";
 
 export default function Filter() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const [showAdvanced, setShowAdvanced] = useState(false);
 
-  const initialValues = {
+  const initialValues: IFilterUserAssessments = {
     title: searchParams.get("title") || "",
     isPassed: searchParams.get("isPassed") || "",
-    sortBy: searchParams.get("sortBy") || "createdAt",
-    sortOrder: searchParams.get("sortOrder") || "desc",
+    sortBy:
+      (searchParams.get("sortBy") as IFilterUserAssessments["sortBy"]) ||
+      "createdAt",
+    sortOrder:
+      (searchParams.get("sortOrder") as IFilterUserAssessments["sortOrder"]) ||
+      "desc",
   };
 
   const sortOptions = [
@@ -47,14 +47,18 @@ export default function Filter() {
     setShowAdvanced(false);
   };
 
-  const clearFilter = (field: string, values: any, setFieldValue: any) => {
+  const clearFilter = (
+    field: keyof IFilterUserAssessments,
+    values: IFilterUserAssessments,
+    setFieldValue: (field: keyof IFilterUserAssessments, value: string) => void
+  ) => {
     setFieldValue(field, "");
     const newValues = { ...values, [field]: "" };
     handleSubmit(newValues);
   };
 
-  const hasActiveFilters = (values: any) => {
-    return values.title || values.isPassed;
+  const hasActiveFilters = (values: IFilterUserAssessments) => {
+    return !!values.title || !!values.isPassed;
   };
 
   return (
@@ -80,9 +84,11 @@ export default function Filter() {
                     id="sortBy"
                     name="sortBy"
                     className="w-full text-sm border border-gray-300 px-3 py-2 rounded-md focus:border-green-500 transition-colors outline-none"
-                    onChange={(e: any) => {
+                    onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
+                      const value = e.target
+                        .value as IFilterUserAssessments["sortBy"];
                       setFieldValue("sortBy", e.target.value);
-                      handleSubmit({ ...values, sortBy: e.target.value });
+                      handleSubmit({ ...values, sortBy: value });
                     }}
                   >
                     {sortOptions.map((option) => (
@@ -102,12 +108,13 @@ export default function Filter() {
                   </label>
                   <Field
                     as="select"
-                    id="sortOrder"
                     name="sortOrder"
-                    className="w-full text-sm border border-gray-300 px-3 py-2 rounded-md focus:border-green-500 transition-colors outline-none"
-                    onChange={(e: any) => {
-                      setFieldValue("sortOrder", e.target.value);
-                      handleSubmit({ ...values, sortOrder: e.target.value });
+                    className="w-full text-sm border border-gray-300 px-3 py-2 rounded-md focus:border-green-500 outline-none transition-colors"
+                    onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
+                      const value = e.target
+                        .value as IFilterUserAssessments["sortOrder"];
+                      setFieldValue("sortOrder", value);
+                      handleSubmit({ ...values, sortOrder: value });
                     }}
                   >
                     <option value="desc">Descending (Z-A)</option>

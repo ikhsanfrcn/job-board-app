@@ -2,109 +2,96 @@
 
 import { useRouter, useSearchParams } from "next/navigation";
 import { Formik, Form, Field } from "formik";
-import {
-  FaSearch,
-  FaRedo,
-  FaFilter,
-  FaChevronDown,
-  FaChevronUp,
-  FaTimes,
-} from "react-icons/fa";
+import { FaRedo, FaFilter, FaChevronDown, FaChevronUp } from "react-icons/fa";
 import { useState } from "react";
-import FormatCurrencyInput from "@/components/atoms/formatCurencyInput";
 import ActiveFilterDisplay from "./activeFilterDisplay";
 import AdvancedFilter from "./advancedFilter";
+import { IFilterApplicants } from "@/types/applicationType";
 
 interface Props {
   jobId: string;
   statusOptions: string[];
 }
 
+const sortOptions: { value: IFilterApplicants["sortBy"]; label: string }[] = [
+  { value: "createdAt", label: "Applied At" },
+  { value: "status", label: "Status" },
+  { value: "expectedSalary", label: "Expected Salary" },
+  { value: "user.firstName", label: "First Name" },
+  { value: "user.education", label: "Education" },
+];
+
 export default function Filter({ jobId, statusOptions }: Props) {
   const searchParams = useSearchParams();
   const router = useRouter();
   const [showAdvanced, setShowAdvanced] = useState(false);
 
-  const initialValues = {
+  const initialValues: IFilterApplicants = {
     status: searchParams.get("status") || "",
     userFirstName: searchParams.get("userFirstName") || "",
     usereducation: searchParams.get("usereducation") || "",
     expectedSalary: searchParams.get("expectedSalary") || "",
     age: searchParams.get("age") || "",
-    sortBy: searchParams.get("sortBy") || "createdAt",
-    sortOrder: searchParams.get("sortOrder") || "asc",
+    sortBy:
+      (searchParams.get("sortBy") as IFilterApplicants["sortBy"]) || "createdAt",
+    sortOrder:
+      (searchParams.get("sortOrder") as IFilterApplicants["sortOrder"]) || "asc",
   };
 
-  const sortOptions = [
-    { value: "createdAt", label: "Applied At" },
-    { value: "status", label: "Status" },
-    { value: "expectedSalary", label: "Expected Salary" },
-    { value: "user.firstName", label: "First Name" },
-    { value: "user.education", label: "Education" },
-  ];
-
-  const educationOptions = [
-    { value: "", label: "All Education" },
-    { value: "High School", label: "High School" },
-    { value: "Diploma", label: "Diploma" },
-    { value: "Bachelor", label: "Bachelor" },
-    { value: "Master", label: "Master" },
-    { value: "Doctorate", label: "Doctorate" },
-    { value: "Other", label: "Other" },
-  ];
-
-  const handleSubmit = (values: typeof initialValues) => {
+  const handleSubmit = (values: IFilterApplicants) => {
     const params = new URLSearchParams();
 
     if (values.status) params.set("status", values.status);
     if (values.userFirstName) params.set("userFirstName", values.userFirstName);
     if (values.usereducation) params.set("usereducation", values.usereducation);
-    if (values.expectedSalary)
-      params.set("expectedSalary", values.expectedSalary);
+    if (values.expectedSalary) params.set("expectedSalary", values.expectedSalary);
     if (values.age) params.set("age", values.age);
 
     if (values.sortBy) params.set("sortBy", values.sortBy);
     if (values.sortOrder) params.set("sortOrder", values.sortOrder);
 
     params.set("page", "1");
+
     router.push(`/company/manage-jobs/${jobId}?${params.toString()}`);
   };
 
   const handleReset = () => {
-    router.push(
-      `/company/manage-jobs/${jobId}?page=1&sortBy=createdAt&sortOrder=asc`
-    );
+    router.push(`/company/manage-jobs/${jobId}?page=1&sortBy=createdAt&sortOrder=asc`);
     setShowAdvanced(false);
   };
 
-  const clearFilter = (field: string, values: any, setFieldValue: any) => {
+  const clearFilter = (
+    field: keyof IFilterApplicants,
+    values: IFilterApplicants,
+    setFieldValue: (field: keyof IFilterApplicants, value: string) => void
+  ) => {
     setFieldValue(field, "");
     const newValues = { ...values, [field]: "" };
     handleSubmit(newValues);
   };
 
-  const hasActiveFilters = (values: any) => {
+  const hasActiveFilters = (values: IFilterApplicants): boolean => {
     return (
-      values.status ||
-      values.userFirstName ||
-      values.usereducation ||
-      values.expectedSalary ||
-      values.age
+      !!values.status ||
+      !!values.userFirstName ||
+      !!values.usereducation ||
+      !!values.expectedSalary ||
+      !!values.age
     );
   };
 
-  const getActiveFiltersCount = (values: any) => {
-    let count = 0;
-    if (values.status) count++;
-    if (values.userFirstName) count++;
-    if (values.usereducation) count++;
-    if (values.expectedSalary) count++;
-    if (values.age) count++;
-    return count;
+  const getActiveFiltersCount = (values: IFilterApplicants): number => {
+    return [
+      values.status,
+      values.userFirstName,
+      values.usereducation,
+      values.expectedSalary,
+      values.age,
+    ].filter(Boolean).length;
   };
 
   return (
-    <Formik
+    <Formik<IFilterApplicants>
       initialValues={initialValues}
       onSubmit={handleSubmit}
       enableReinitialize
@@ -126,9 +113,9 @@ export default function Filter({ jobId, statusOptions }: Props) {
                     id="sortBy"
                     name="sortBy"
                     className="w-full text-sm border border-gray-300 px-3 py-2 rounded-md focus:border-green-500 transition-colors outline-none"
-                    onChange={(e: any) => {
+                    onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
                       setFieldValue("sortBy", e.target.value);
-                      handleSubmit({ ...values, sortBy: e.target.value });
+                      handleSubmit({ ...values, sortBy: e.target.value as IFilterApplicants["sortBy"] });
                     }}
                   >
                     {sortOptions.map((option) => (
@@ -151,9 +138,9 @@ export default function Filter({ jobId, statusOptions }: Props) {
                     id="sortOrder"
                     name="sortOrder"
                     className="w-full text-sm border border-gray-300 px-3 py-2 rounded-md focus:border-green-500 transition-colors outline-none"
-                    onChange={(e: any) => {
+                    onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
                       setFieldValue("sortOrder", e.target.value);
-                      handleSubmit({ ...values, sortOrder: e.target.value });
+                      handleSubmit({ ...values, sortOrder: e.target.value as IFilterApplicants["sortOrder"] });
                     }}
                   >
                     <option value="asc">Ascending (A-Z)</option>
@@ -200,9 +187,7 @@ export default function Filter({ jobId, statusOptions }: Props) {
 
               <div
                 className={`transition-all duration-300 ease-in-out overflow-hidden ${
-                  showAdvanced
-                    ? "max-h-[600px] opacity-100 mt-4"
-                    : "max-h-0 opacity-0"
+                  showAdvanced ? "max-h-[600px] opacity-100 mt-4" : "max-h-0 opacity-0"
                 }`}
               >
                 <AdvancedFilter

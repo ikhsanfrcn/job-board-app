@@ -7,7 +7,6 @@ import { FaSignOutAlt } from "react-icons/fa";
 
 export default function ProfileMobile() {
   const { data: session } = useSession();
-  console.log(session);
   const email = session?.user?.email;
   const username = session?.user?.username;
   const role = session?.user?.role;

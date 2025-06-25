@@ -44,3 +44,25 @@ export interface IApplication {
   };
   user: IUserProfileWithTest;
 }
+
+export interface IFilterApplicants {
+  status: string;
+  userFirstName: string;
+  usereducation: string;
+  expectedSalary: string;
+  age: string;
+  sortBy:
+    | "createdAt"
+    | "status"
+    | "expectedSalary"
+    | "user.firstName"
+    | "user.education";
+  sortOrder: "asc" | "desc";
+}
+
+export interface IFilterUserApplicants {
+  title: string;
+  company: string;
+  sortBy: "createdAt" | "title";
+  sortOrder: "asc" | "desc";
+}

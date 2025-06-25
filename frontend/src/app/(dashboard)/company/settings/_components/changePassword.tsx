@@ -54,7 +54,6 @@ export const ChangePassword: React.FC = () => {
         resetForm();
 
         toast.success(response.data.message);
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
       } catch (error: any) {
         const errorMessage =
           error.response?.data?.message ||

@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import SelectInput from "@/components/atoms/SelectInput";
 import ProvinceCitySelector from "../../../../../components/atoms/provinceCitySelector";
 import TextInput from "@/components/atoms/textInput";

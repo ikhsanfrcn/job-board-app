@@ -24,7 +24,6 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
         },
       },
       async profile(profile) {
-        console.log("Google Profile:", profile);
         const userData = {
           username: profile.given_name,
           email: profile.email,

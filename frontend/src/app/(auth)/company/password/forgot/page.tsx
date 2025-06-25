@@ -34,7 +34,6 @@ export default function Page() {
       typeof error.response?.data === "object" &&
       error.response?.data !== null &&
       "message" in error.response.data
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         ? (error.response.data as any).message
         : "Failed to send reset email";
 

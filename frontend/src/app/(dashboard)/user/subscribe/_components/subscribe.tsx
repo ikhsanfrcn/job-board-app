@@ -43,7 +43,6 @@ export default function Subscribe() {
       );
 
       setSubscribe(result);
-      console.log(result);
     } catch (err) {
       console.log(err);
     } finally {

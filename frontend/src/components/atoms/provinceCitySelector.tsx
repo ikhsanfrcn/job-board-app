@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useState } from "react";
 import axios from "@/lib/axios";
 import SelectInput from "@/components/atoms/SelectInput";

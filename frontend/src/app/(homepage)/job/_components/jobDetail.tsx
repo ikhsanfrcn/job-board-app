@@ -36,7 +36,6 @@ export default function JobDetail({ job }: { job: IJob }) {
           headers: { Authorization: `Bearer ${token}` },
         });
         const applied = res.data.applications.some(
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           (app: any) => app.jobId === job.id
         );
         setHasApplied(applied);

@@ -11,17 +11,21 @@ import {
 import { useState } from "react";
 import ActiveFiltersDisplay from "./activeFilterDisplay";
 import AdvancedFilter from "./advancedFilter";
+import { IFilterJobs } from "@/types/job";
+
+
 
 export default function JobFilters() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const [showAdvanced, setShowAdvanced] = useState(false);
 
-  const initialValues = {
+  const initialValues: IFilterJobs = {
     title: searchParams.get("title") || "",
     category: searchParams.get("category") || "",
-    sortBy: searchParams.get("sortBy") || "createdAt",
-    sortOrder: searchParams.get("sortOrder") || "desc",
+    sortBy: (searchParams.get("sortBy") as IFilterJobs["sortBy"]) || "createdAt",
+    sortOrder:
+      (searchParams.get("sortOrder") as IFilterJobs["sortOrder"]) || "desc",
   };
 
   const sortOptions = [
@@ -48,14 +52,18 @@ export default function JobFilters() {
     setShowAdvanced(false);
   };
 
-  const clearFilter = (field: string, values: any, setFieldValue: any) => {
+  const clearFilter = (
+    field: keyof IFilterJobs,
+    values: IFilterJobs,
+    setFieldValue: (field: keyof IFilterJobs, value: string) => void
+  ) => {
     setFieldValue(field, "");
     const newValues = { ...values, [field]: "" };
     handleSubmit(newValues);
   };
 
-  const hasActiveFilters = (values: any) => {
-    return values.title || values.category;
+  const hasActiveFilters = (values: IFilterJobs): boolean => {
+    return !!values.title || !!values.category;
   };
 
   return (
@@ -81,9 +89,10 @@ export default function JobFilters() {
                     id="sortBy"
                     name="sortBy"
                     className="w-full text-sm border border-gray-300 px-3 py-2 rounded-md focus:border-green-500 transition-colors outline-none"
-                    onChange={(e: any) => {
-                      setFieldValue("sortBy", e.target.value);
-                      handleSubmit({ ...values, sortBy: e.target.value });
+                    onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
+                      const value = e.target.value as IFilterJobs["sortBy"];
+                      setFieldValue("sortBy", value);
+                      handleSubmit({ ...values, sortBy: value });
                     }}
                   >
                     {sortOptions.map((option) => (
@@ -106,9 +115,10 @@ export default function JobFilters() {
                     id="sortOrder"
                     name="sortOrder"
                     className="w-full text-sm border border-gray-300 px-3 py-2 rounded-md focus:border-green-500 transition-colors outline-none"
-                    onChange={(e: any) => {
-                      setFieldValue("sortOrder", e.target.value);
-                      handleSubmit({ ...values, sortOrder: e.target.value });
+                    onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
+                      const value = e.target.value as IFilterJobs["sortOrder"];
+                      setFieldValue("sortOrder", value);
+                      handleSubmit({ ...values, sortOrder: value });
                     }}
                   >
                     <option value="desc">Descending (Z-A)</option>
