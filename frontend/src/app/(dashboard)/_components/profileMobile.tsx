@@ -10,7 +10,6 @@ export default function ProfileMobile() {
   console.log(session);
   const email = session?.user?.email;
   const username = session?.user?.username;
-  const avatar = session?.user?.avatar as string;
   const role = session?.user?.role;
   const [isDropdownVisible, setDropdownVisible] = useState(false);
 
