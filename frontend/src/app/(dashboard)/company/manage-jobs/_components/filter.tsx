@@ -2,18 +2,11 @@
 
 import { useRouter, useSearchParams } from "next/navigation";
 import { Formik, Form, Field } from "formik";
-import {
-  FaRedo,
-  FaFilter,
-  FaChevronDown,
-  FaChevronUp,
-} from "react-icons/fa";
+import { FaRedo, FaFilter, FaChevronDown, FaChevronUp } from "react-icons/fa";
 import { useState } from "react";
 import ActiveFiltersDisplay from "./activeFilterDisplay";
 import AdvancedFilter from "./advancedFilter";
 import { IFilterJobs } from "@/types/job";
-
-
 
 export default function JobFilters() {
   const searchParams = useSearchParams();
@@ -23,7 +16,8 @@ export default function JobFilters() {
   const initialValues: IFilterJobs = {
     title: searchParams.get("title") || "",
     category: searchParams.get("category") || "",
-    sortBy: (searchParams.get("sortBy") as IFilterJobs["sortBy"]) || "createdAt",
+    sortBy:
+      (searchParams.get("sortBy") as IFilterJobs["sortBy"]) || "createdAt",
     sortOrder:
       (searchParams.get("sortOrder") as IFilterJobs["sortOrder"]) || "desc",
   };
@@ -76,7 +70,7 @@ export default function JobFilters() {
         <div className="bg-white border border-gray-200 rounded-lg mb-6">
           <div className="p-4">
             <Form>
-              <div className="flex flex-col sm:flex-row gap-4 items-end">
+              <div className="flex flex-wrap gap-4 items-end">
                 <div className="flex-1 min-w-0">
                   <label
                     htmlFor="sortBy"
@@ -126,7 +120,7 @@ export default function JobFilters() {
                   </Field>
                 </div>
 
-                <div className="flex gap-2">
+                <div className="flex flex-wrap gap-4">
                   <button
                     type="button"
                     onClick={() => setShowAdvanced(!showAdvanced)}
