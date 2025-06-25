@@ -33,9 +33,11 @@ export default function Filter({ jobId, statusOptions }: Props) {
     expectedSalary: searchParams.get("expectedSalary") || "",
     age: searchParams.get("age") || "",
     sortBy:
-      (searchParams.get("sortBy") as IFilterApplicants["sortBy"]) || "createdAt",
+      (searchParams.get("sortBy") as IFilterApplicants["sortBy"]) ||
+      "createdAt",
     sortOrder:
-      (searchParams.get("sortOrder") as IFilterApplicants["sortOrder"]) || "asc",
+      (searchParams.get("sortOrder") as IFilterApplicants["sortOrder"]) ||
+      "asc",
   };
 
   const handleSubmit = (values: IFilterApplicants) => {
@@ -44,7 +46,8 @@ export default function Filter({ jobId, statusOptions }: Props) {
     if (values.status) params.set("status", values.status);
     if (values.userFirstName) params.set("userFirstName", values.userFirstName);
     if (values.usereducation) params.set("usereducation", values.usereducation);
-    if (values.expectedSalary) params.set("expectedSalary", values.expectedSalary);
+    if (values.expectedSalary)
+      params.set("expectedSalary", values.expectedSalary);
     if (values.age) params.set("age", values.age);
 
     if (values.sortBy) params.set("sortBy", values.sortBy);
@@ -56,7 +59,9 @@ export default function Filter({ jobId, statusOptions }: Props) {
   };
 
   const handleReset = () => {
-    router.push(`/company/manage-jobs/${jobId}?page=1&sortBy=createdAt&sortOrder=asc`);
+    router.push(
+      `/company/manage-jobs/${jobId}?page=1&sortBy=createdAt&sortOrder=asc`
+    );
     setShowAdvanced(false);
   };
 
@@ -100,7 +105,7 @@ export default function Filter({ jobId, statusOptions }: Props) {
         <div className="bg-white border border-gray-200 rounded-lg mb-6">
           <div className="p-4">
             <Form>
-              <div className="flex flex-col sm:flex-row gap-4 items-end">
+              <div className="flex flex-wrap gap-4 items-end">
                 <div className="flex-1 min-w-0">
                   <label
                     htmlFor="sortBy"
@@ -115,7 +120,10 @@ export default function Filter({ jobId, statusOptions }: Props) {
                     className="w-full text-sm border border-gray-300 px-3 py-2 rounded-md focus:border-green-500 transition-colors outline-none"
                     onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
                       setFieldValue("sortBy", e.target.value);
-                      handleSubmit({ ...values, sortBy: e.target.value as IFilterApplicants["sortBy"] });
+                      handleSubmit({
+                        ...values,
+                        sortBy: e.target.value as IFilterApplicants["sortBy"],
+                      });
                     }}
                   >
                     {sortOptions.map((option) => (
@@ -140,7 +148,11 @@ export default function Filter({ jobId, statusOptions }: Props) {
                     className="w-full text-sm border border-gray-300 px-3 py-2 rounded-md focus:border-green-500 transition-colors outline-none"
                     onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
                       setFieldValue("sortOrder", e.target.value);
-                      handleSubmit({ ...values, sortOrder: e.target.value as IFilterApplicants["sortOrder"] });
+                      handleSubmit({
+                        ...values,
+                        sortOrder: e.target
+                          .value as IFilterApplicants["sortOrder"],
+                      });
                     }}
                   >
                     <option value="asc">Ascending (A-Z)</option>
@@ -148,7 +160,7 @@ export default function Filter({ jobId, statusOptions }: Props) {
                   </Field>
                 </div>
 
-                <div className="flex gap-2">
+                <div className="flex flex-wrap gap-4">
                   <button
                     type="button"
                     onClick={() => setShowAdvanced(!showAdvanced)}
@@ -187,7 +199,9 @@ export default function Filter({ jobId, statusOptions }: Props) {
 
               <div
                 className={`transition-all duration-300 ease-in-out overflow-hidden ${
-                  showAdvanced ? "max-h-[600px] opacity-100 mt-4" : "max-h-0 opacity-0"
+                  showAdvanced
+                    ? "max-h-[600px] opacity-100 mt-4"
+                    : "max-h-0 opacity-0"
                 }`}
               >
                 <AdvancedFilter

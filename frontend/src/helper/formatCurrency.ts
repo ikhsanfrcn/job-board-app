@@ -24,4 +24,3 @@ export const formatRupiah = (
 
   return formatted.replace("Rp", "Rp.");
 };
-

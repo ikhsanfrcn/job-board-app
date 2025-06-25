@@ -2,7 +2,6 @@ import { Request, Response } from "express";
 import prisma from "../prisma";
 import path from "path";
 import ejs from "ejs";
-import chromium from "chrome-aws-lambda";
 import puppeteer from "puppeteer-core";
 
 export class ResumeController {
@@ -196,6 +195,7 @@ export class ResumeController {
 
   async generatePdf(req: Request, res: Response) {
     const userId = req.user?.id;
+    const BROWSERLESS_WS = `wss://production-sfo.browserless.io/chromium?token=${process.env.BROWSERLESS_KEY}&blockAds=true`;
 
     try {
       const resume = await prisma.userResume.findUnique({
@@ -210,7 +210,7 @@ export class ResumeController {
       });
 
       if (!resume) {
-        res.status(404).send({ message: "Resume not found" });
+        res.status(404).json({ message: "Resume not found" });
         return;
       }
 
@@ -220,41 +220,56 @@ export class ResumeController {
         "templates",
         "cvGenerate.ejs"
       );
-
       const html = await ejs.renderFile(templatePath, {
         resume,
         user: resume.user,
       });
 
-      const browser = await puppeteer.launch({
-        args: chromium.args,
-        executablePath: await chromium.executablePath,
-        headless: chromium.headless,
-      });
+      let browser;
+      try {
+        browser = await puppeteer.connect({
+          browserWSEndpoint: BROWSERLESS_WS,
+        });
+      } catch (browserErr) {
+        console.error("Failed to connect to Browserless:", browserErr);
+        res.status(502).json({
+          message:
+            "Failed to connect to Browserless. Please ensure API token is valid and the service is available.",
+        });
+        return;
+      }
 
-      const page = await browser.newPage();
-      await page.setContent(html, {
-        waitUntil: "networkidle0",
-      });
+      try {
+        const page = await browser.newPage();
+        await page.setContent(html, { waitUntil: "networkidle0" });
 
-      const pdfBuffer = await page.pdf({
-        format: "a4",
-        printBackground: true,
-      });
+        const pdfBuffer = await page.pdf({
+          format: "a4",
+          printBackground: true,
+        });
 
-      await browser.close();
+        await browser.close();
 
-      res.set({
-        "Content-Type": "application/pdf",
-        "Content-Disposition": "attachment; filename=resume.pdf",
-        "Content-Length": pdfBuffer.length,
-      });
+        res.set({
+          "Content-Type": "application/pdf",
+          "Content-Disposition": "attachment; filename=resume.pdf",
+          "Content-Length": pdfBuffer.length,
+        });
 
-      res.status(200).send(pdfBuffer);
-      return;
+        res.status(200).send(pdfBuffer);
+      } catch (renderErr) {
+        console.error("PDF render error:", renderErr);
+        await browser.close();
+        res.status(500).json({
+          message: "Failed to create PDF file.",
+        });
+        return;
+      }
     } catch (err) {
-      console.error(err);
-      res.status(500).send(err);
+      console.error("Unexpected server error:", err);
+      res.status(500).json({
+        message: "An unexpected server error occurred.",
+      });
     }
   }
 }
