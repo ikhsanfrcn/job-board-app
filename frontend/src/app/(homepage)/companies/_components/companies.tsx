@@ -36,7 +36,6 @@ export default function Companies() {
           limit: 6,
         },
       });
-      console.log(data);
       setCompanies(data.data);
       setTotalPages(data.totalPages);
     } catch (err) {

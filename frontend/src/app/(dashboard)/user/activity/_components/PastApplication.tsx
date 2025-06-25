@@ -62,7 +62,6 @@ export default function PastApplications() {
       });
 
       setApplications(res.data.applications);
-      console.log(applications);
       setTotalPages(res.data.totalPages);
     } catch (error) {
       console.error("Failed to fetch applications:", error);

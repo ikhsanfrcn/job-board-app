@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Dialog } from "@headlessui/react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { useEffect, useState } from "react";

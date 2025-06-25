@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Field, FieldArray } from "formik";
 
 export default function CreateExperience({ values }: any) {
