@@ -6,6 +6,9 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "JobsDoors",
   description: "Where Talent Meets Destiny",
+  openGraph: {
+    url: "https://res.cloudinary.com/dyjsmoxmq/image/upload/v1750841349/xrlsuwj0odnxzllaxyog.png"
+  }
 };
 
 export default function RootLayout({
