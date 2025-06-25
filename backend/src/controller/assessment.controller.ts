@@ -3,7 +3,8 @@ import prisma from "../prisma";
 import { v4 as uuidv4 } from "uuid";
 import path from "path";
 import ejs from "ejs";
-import puppeteer from "puppeteer";
+import puppeteer from "puppeteer-core";
+import chromium from "chrome-aws-lambda";
 import { cloudinaryUpload } from "../helpers/cloudinary";
 import { getUserAssessments } from "../services/assessment/getUserAssessment";
 
@@ -371,15 +372,16 @@ export class SkillAssessmentController {
       });
 
       const browser = await puppeteer.launch({
-        headless: true,
-        args: ["--no-sandbox", "--disable-setuid-sandbox"],
+        args: chromium.args,
+        executablePath: await chromium.executablePath,
+        headless: chromium.headless,
       });
 
       const page = await browser.newPage();
       await page.setContent(html, { waitUntil: "networkidle0" });
 
       const pdfBuffer = await page.pdf({
-        format: "A4",
+        format: "a4",
         landscape: true,
         printBackground: true,
       });
@@ -425,6 +427,7 @@ export class SkillAssessmentController {
         assessment,
       });
     } catch (err) {
+      console.log(err);
       res.status(404).send(err);
     }
   }
