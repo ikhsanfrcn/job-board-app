@@ -67,7 +67,7 @@ export default function Page() {
         </h2>
         <p className="text-xl">Where Talent Meets Destiny</p>
       </div>
-      <div className="relative flex flex-col items-center justify-center w-[480px] rounded-sm mx-auto pb-8 h-fit md:h-full z-10">
+      <div className="relative flex flex-col items-center justify-center w-full md:w-[480px] rounded-sm mx-auto pb-8 h-fit md:h-full z-10">
         <Formik
           initialValues={initialValues}
           validationSchema={LoginSchema}
@@ -147,7 +147,7 @@ export default function Page() {
             );
           }}
         </Formik>
-        <div className="relative w-[77%] md:w-[80%] mt-5">
+        <div className="relative w-[75%] md:w-[80%] mt-5">
           <hr className="text-gray-400 w-full" />
           <label
             htmlFor="or"
@@ -158,7 +158,7 @@ export default function Page() {
         </div>
         <button
           onClick={() => signIn("google", { redirectTo: "/" })}
-          className="flex justify-between items-center border w-[77%] md:w-[80%] my-5 py-2 px-3 font-semibold text-md text-shadow-sm rounded-sm cursor-pointer hover:border-green-600"
+          className="flex justify-between items-center border w-[75%] md:w-[80%] my-5 py-2 px-3 font-semibold text-md text-shadow-sm rounded-sm cursor-pointer hover:border-green-600"
         >
           <FcGoogle className="text-2xl" />
           Continue with Google<span>&nbsp;</span>

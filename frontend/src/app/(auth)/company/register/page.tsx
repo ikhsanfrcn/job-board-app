@@ -66,7 +66,7 @@ export default function Page() {
         </h2>
         <p className="text-xl">Find the Talent That Drives Success</p>
       </div>
-      <div className="relative flex flex-col items-center justify-center w-[480px] rounded-sm mx-auto pb-8 h-fit md:h-full z-10">
+      <div className="relative flex flex-col items-center justify-center w-full md:w-[480px] rounded-sm mx-auto pb-8 h-fit md:h-full z-10">
         <Formik
           initialValues={initialValues}
           validationSchema={CompanyRegisterSchema}
