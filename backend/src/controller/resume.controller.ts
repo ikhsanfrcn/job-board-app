@@ -2,7 +2,8 @@ import { Request, Response } from "express";
 import prisma from "../prisma";
 import path from "path";
 import ejs from "ejs";
-import puppeteer from "puppeteer";
+import chromium from "chrome-aws-lambda";
+import puppeteer from "puppeteer-core";
 
 export class ResumeController {
   async createResume(req: Request, res: Response) {
@@ -79,9 +80,7 @@ export class ResumeController {
         },
       });
 
-      res
-        .status(200)
-        .send({ message: "Resume created successfully", resume });
+      res.status(200).send({ message: "Resume created successfully", resume });
     } catch (err) {
       console.error(err);
       res.status(400).send(err);
@@ -104,9 +103,7 @@ export class ResumeController {
           additional: true,
         },
       });
-      res
-        .status(200)
-        .send({ message: "Resume fetched successfully", resume });
+      res.status(200).send({ message: "Resume fetched successfully", resume });
     } catch (err) {
       res.status(400).send(err);
     }
@@ -230,7 +227,9 @@ export class ResumeController {
       });
 
       const browser = await puppeteer.launch({
-        headless: true,
+        args: chromium.args,
+        executablePath: await chromium.executablePath,
+        headless: chromium.headless,
       });
 
       const page = await browser.newPage();
@@ -239,7 +238,7 @@ export class ResumeController {
       });
 
       const pdfBuffer = await page.pdf({
-        format: "A4",
+        format: "a4",
         printBackground: true,
       });
 

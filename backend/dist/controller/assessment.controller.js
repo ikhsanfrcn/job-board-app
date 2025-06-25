@@ -17,7 +17,8 @@ const prisma_1 = __importDefault(require("../prisma"));
 const uuid_1 = require("uuid");
 const path_1 = __importDefault(require("path"));
 const ejs_1 = __importDefault(require("ejs"));
-const puppeteer_1 = __importDefault(require("puppeteer"));
+const puppeteer_core_1 = __importDefault(require("puppeteer-core"));
+const chrome_aws_lambda_1 = __importDefault(require("chrome-aws-lambda"));
 const cloudinary_1 = require("../helpers/cloudinary");
 const getUserAssessment_1 = require("../services/assessment/getUserAssessment");
 class SkillAssessmentController {
@@ -349,14 +350,15 @@ class SkillAssessmentController {
                     certificateId: assessmentId,
                     domain: process.env.BASE_URL_FRONTEND,
                 });
-                const browser = yield puppeteer_1.default.launch({
-                    headless: true,
-                    args: ["--no-sandbox", "--disable-setuid-sandbox"],
+                const browser = yield puppeteer_core_1.default.launch({
+                    args: chrome_aws_lambda_1.default.args,
+                    executablePath: yield chrome_aws_lambda_1.default.executablePath,
+                    headless: chrome_aws_lambda_1.default.headless,
                 });
                 const page = yield browser.newPage();
                 yield page.setContent(html, { waitUntil: "networkidle0" });
                 const pdfBuffer = yield page.pdf({
-                    format: "A4",
+                    format: "a4",
                     landscape: true,
                     printBackground: true,
                 });
@@ -400,6 +402,7 @@ class SkillAssessmentController {
                 });
             }
             catch (err) {
+                console.log(err);
                 res.status(404).send(err);
             }
         });
