@@ -30,7 +30,7 @@ export default function Page() {
       action.resetForm();
 
       await signIn("credentials", {
-        redirect: false,
+        redirectTo: "/",
         id: user.id,
         name: user.name,
         email: user.email,
@@ -38,7 +38,6 @@ export default function Page() {
         avatar: user.logo || "",
         accessToken: data.access_token,
       });
-      console.log(user.logo);
       
     } catch (err) {
       if (err instanceof AxiosError) {
