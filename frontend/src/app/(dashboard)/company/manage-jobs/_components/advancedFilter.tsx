@@ -1,17 +1,17 @@
 "use client";
 
+import { IFilterJobs } from "@/types/job";
 import { Field } from "formik";
 import { FaSearch, FaTimes } from "react-icons/fa";
 
 interface AdvancedFiltersProps {
-  values: {
-    title: string;
-    category: string;
-    sortBy: string;
-    sortOrder: string;
-  };
-  setFieldValue: (field: string, value: any) => void;
-  clearFilter: (field: string, values: any, setFieldValue: any) => void;
+  values: IFilterJobs;
+  setFieldValue: (field: keyof IFilterJobs, value: string) => void;
+  clearFilter: (
+    field: keyof IFilterJobs,
+    values: IFilterJobs,
+    setFieldValue: (field: keyof IFilterJobs, value: string) => void
+  ) => void;
 }
 
 export default function AdvancedFilter({

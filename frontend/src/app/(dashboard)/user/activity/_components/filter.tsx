@@ -6,17 +6,22 @@ import { FaRedo, FaFilter, FaChevronDown, FaChevronUp } from "react-icons/fa";
 import { useState } from "react";
 import AdvancedFilter from "./advancedFilter";
 import ActiveFiltersDisplay from "./activeFilterDisplay";
+import { IFilterUserApplicants } from "@/types/applicationType";
 
 export default function Filter() {
-  const searchParams = useSearchParams();
   const router = useRouter();
+  const searchParams = useSearchParams();
   const [showAdvanced, setShowAdvanced] = useState(false);
 
-  const initialValues = {
+  const initialValues: IFilterUserApplicants = {
     title: searchParams.get("title") || "",
     company: searchParams.get("company") || "",
-    sortBy: searchParams.get("sortBy") || "createdAt",
-    sortOrder: searchParams.get("sortOrder") || "desc",
+    sortBy:
+      (searchParams.get("sortBy") as IFilterUserApplicants["sortBy"]) ||
+      "createdAt",
+    sortOrder:
+      (searchParams.get("sortOrder") as IFilterUserApplicants["sortOrder"]) ||
+      "desc",
   };
 
   const sortOptions = [
@@ -29,11 +34,11 @@ export default function Filter() {
 
     if (values.title) params.set("title", values.title);
     if (values.company) params.set("company", values.company);
-
     if (values.sortBy) params.set("sortBy", values.sortBy);
     if (values.sortOrder) params.set("sortOrder", values.sortOrder);
 
     params.set("page", "1");
+
     router.push(`/user/activity?${params.toString()}`);
   };
 
@@ -42,14 +47,18 @@ export default function Filter() {
     setShowAdvanced(false);
   };
 
-  const clearFilter = (field: string, values: any, setFieldValue: any) => {
+  const clearFilter = (
+    field: keyof IFilterUserApplicants,
+    values: IFilterUserApplicants,
+    setFieldValue: (field: keyof IFilterUserApplicants, value: string) => void
+  ) => {
     setFieldValue(field, "");
     const newValues = { ...values, [field]: "" };
     handleSubmit(newValues);
   };
 
-  const hasActiveFilters = (values: any) => {
-    return values.title || values.company;
+  const hasActiveFilters = (values: IFilterUserApplicants) => {
+    return !!values.title || !!values.company;
   };
 
   return (
@@ -63,6 +72,7 @@ export default function Filter() {
           <div className="p-4">
             <Form>
               <div className="flex flex-col sm:flex-row gap-4 items-end">
+                {/* Sort By */}
                 <div className="flex-1 min-w-0">
                   <label
                     htmlFor="sortBy"
@@ -72,22 +82,24 @@ export default function Filter() {
                   </label>
                   <Field
                     as="select"
-                    id="sortBy"
                     name="sortBy"
-                    className="w-full text-sm border border-gray-300 px-3 py-2 rounded-md focus:border-green-500 transition-colors outline-none"
-                    onChange={(e: any) => {
-                      setFieldValue("sortBy", e.target.value);
-                      handleSubmit({ ...values, sortBy: e.target.value });
+                    className="w-full text-sm border border-gray-300 px-3 py-2 rounded-md focus:border-green-500 outline-none transition-colors"
+                    onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
+                      const value = e.target
+                        .value as IFilterUserApplicants["sortBy"];
+                      setFieldValue("sortBy", value);
+                      handleSubmit({ ...values, sortBy: value });
                     }}
                   >
-                    {sortOptions.map((option) => (
-                      <option key={option.value} value={option.value}>
-                        {option.label}
+                    {sortOptions.map((opt) => (
+                      <option key={opt.value} value={opt.value}>
+                        {opt.label}
                       </option>
                     ))}
                   </Field>
                 </div>
 
+                {/* Sort Order */}
                 <div className="flex-1 min-w-0">
                   <label
                     htmlFor="sortOrder"
@@ -97,12 +109,13 @@ export default function Filter() {
                   </label>
                   <Field
                     as="select"
-                    id="sortOrder"
                     name="sortOrder"
-                    className="w-full text-sm border border-gray-300 px-3 py-2 rounded-md focus:border-green-500 transition-colors outline-none"
-                    onChange={(e: any) => {
-                      setFieldValue("sortOrder", e.target.value);
-                      handleSubmit({ ...values, sortOrder: e.target.value });
+                    className="w-full text-sm border border-gray-300 px-3 py-2 rounded-md focus:border-green-500 outline-none transition-colors"
+                    onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
+                      const value = e.target
+                        .value as IFilterUserApplicants["sortOrder"];
+                      setFieldValue("sortOrder", value);
+                      handleSubmit({ ...values, sortOrder: value });
                     }}
                   >
                     <option value="desc">Descending (Z-A)</option>
@@ -114,7 +127,7 @@ export default function Filter() {
                   <button
                     type="button"
                     onClick={() => setShowAdvanced(!showAdvanced)}
-                    className={`flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-md border transition-all duration-200 outline-none ${
+                    className={`flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-md border transition duration-200 outline-none ${
                       showAdvanced || hasActiveFilters(values)
                         ? "bg-green-50 border-green-200 text-green-700 hover:bg-green-100"
                         : "bg-white border-gray-300 text-gray-700 hover:bg-gray-50"
@@ -138,7 +151,7 @@ export default function Filter() {
                     <button
                       type="button"
                       onClick={handleReset}
-                      className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-gray-600 bg-gray-100 border border-gray-300 rounded-md hover:bg-gray-200 transition-colors outline-none"
+                      className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-gray-600 bg-gray-100 border border-gray-300 rounded-md hover:bg-gray-200 transition"
                     >
                       <FaRedo className="text-xs" />
                       <span>Reset</span>

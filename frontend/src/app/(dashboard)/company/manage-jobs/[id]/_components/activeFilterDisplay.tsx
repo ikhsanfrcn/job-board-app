@@ -1,11 +1,16 @@
 "use client";
 
+import { IFilterApplicants } from "@/types/applicationType";
 import { FaTimes } from "react-icons/fa";
 
 interface ActiveFilterDisplayProps {
-  values: any;
-  clearFilter: (field: string, values: any, setFieldValue: any) => void;
-  setFieldValue: (field: string, value: any) => void;
+  values: IFilterApplicants;
+  clearFilter: (
+    field: keyof IFilterApplicants,
+    values: IFilterApplicants,
+    setFieldValue: (field: keyof IFilterApplicants, value: string) => void
+  ) => void;
+  setFieldValue: (field: keyof IFilterApplicants, value: string) => void;
   sortOptions: Array<{ value: string; label: string }>;
 }
 

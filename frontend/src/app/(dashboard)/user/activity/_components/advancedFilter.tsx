@@ -1,17 +1,17 @@
 "use client";
 
+import { IFilterUserApplicants } from "@/types/applicationType";
 import { Field } from "formik";
 import { FaSearch, FaTimes } from "react-icons/fa";
 
 interface AdvancedFiltersProps {
-  values: {
-    title: string;
-    company: string;
-    sortBy: string;
-    sortOrder: string;
-  };
-  setFieldValue: (field: string, value: any) => void;
-  clearFilter: (field: string, values: any, setFieldValue: any) => void;
+  values: IFilterUserApplicants;
+  setFieldValue: (field: keyof IFilterUserApplicants, value: string) => void;
+  clearFilter: (
+    field: keyof IFilterUserApplicants,
+    values: IFilterUserApplicants,
+    setFieldValue: (field: keyof IFilterUserApplicants, value: string) => void
+  ) => void;
 }
 
 export default function AdvancedFilter({
@@ -19,62 +19,45 @@ export default function AdvancedFilter({
   setFieldValue,
   clearFilter,
 }: AdvancedFiltersProps) {
+  const renderField = (
+    name: keyof AdvancedFiltersProps["values"],
+    label: string,
+    placeholder: string
+  ) => (
+    <div>
+      <label
+        htmlFor={name}
+        className="block text-sm font-medium text-gray-700 mb-2"
+      >
+        {label}
+      </label>
+      <div className="relative">
+        <Field
+          id={name}
+          name={name}
+          type="text"
+          placeholder={placeholder}
+          className="w-full text-sm border border-gray-300 px-3 py-2 pr-8 rounded-md focus:border-green-500 transition-colors outline-none"
+        />
+        {values[name] && (
+          <button
+            type="button"
+            onClick={() => clearFilter(name, values, setFieldValue)}
+            aria-label={`Clear ${label}`}
+            className="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors outline-none"
+          >
+            <FaTimes className="text-xs" />
+          </button>
+        )}
+      </div>
+    </div>
+  );
+
   return (
     <div className="border-t border-gray-200 pt-4">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div>
-          <label
-            htmlFor="title"
-            className="block text-sm font-medium text-gray-700 mb-2"
-          >
-            Job Title
-          </label>
-          <div className="relative">
-            <Field
-              id="title"
-              name="title"
-              type="text"
-              placeholder="e.g. Fullstack Developer"
-              className="w-full text-sm border border-gray-300 px-3 py-2 pr-8 rounded-md focus:border-green-500 transition-colors outline-none"
-            />
-            {values.title && (
-              <button
-                type="button"
-                onClick={() => clearFilter("title", values, setFieldValue)}
-                className="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors outline-none"
-              >
-                <FaTimes className="text-xs" />
-              </button>
-            )}
-          </div>
-        </div>
-
-        <div>
-          <label
-            htmlFor="company"
-            className="block text-sm font-medium text-gray-700 mb-2"
-          >
-            Company
-          </label>
-          <div className="relative">
-            <Field
-              id="company"
-              name="company"
-              type="text"
-              placeholder="e.g. Google"
-              className="w-full text-sm border border-gray-300 px-3 py-2 pr-8 rounded-md focus:border-green-500 transition-colors outline-none"
-            />
-            {values.company && (
-              <button
-                type="button"
-                onClick={() => clearFilter("company", values, setFieldValue)}
-                className="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors outline-none"
-              >
-                <FaTimes className="text-xs" />
-              </button>
-            )}
-          </div>
-        </div>
+        {renderField("title", "Job Title", "e.g. Fullstack Developer")}
+        {renderField("company", "Company", "e.g. Google")}
       </div>
 
       <div className="flex gap-2 mt-4 pt-4 border-t border-gray-100">
@@ -85,8 +68,9 @@ export default function AdvancedFilter({
           <FaSearch className="text-xs" />
           <span>Apply Filters</span>
         </button>
+
         <button
-          type="submit"
+          type="button"
           onClick={() => {
             setFieldValue("title", "");
             setFieldValue("company", "");

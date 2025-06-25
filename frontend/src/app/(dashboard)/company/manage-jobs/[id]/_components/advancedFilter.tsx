@@ -3,12 +3,17 @@
 import { Field } from "formik";
 import { FaSearch, FaTimes } from "react-icons/fa";
 import FormatCurrencyInput from "@/components/atoms/formatCurencyInput";
+import { IFilterApplicants } from "@/types/applicationType";
 
 interface AdvancedFilterProps {
-  values: any;
-  setFieldValue: (field: string, value: any) => void;
+  values: IFilterApplicants;
+  setFieldValue: (field: keyof IFilterApplicants, value: string) => void;
   statusOptions: string[];
-  clearFilter: (field: string, values: any, setFieldValue: any) => void;
+  clearFilter: (
+    field: keyof IFilterApplicants,
+    values: IFilterApplicants,
+    setFieldValue: (field: keyof IFilterApplicants, value: string) => void
+  ) => void;
 }
 
 const educationOptions = [
@@ -104,7 +109,7 @@ export default function AdvancedFilter({
               as="select"
               id="usereducation"
               name="usereducation"
-              className="w-full text-sm border border-gray-300 px-3 py-2 rounded-md focus:border-green-500 transition-colors appearance-none outline-none"
+              className="w-full text-sm border border-gray-300 px-3 py-2 pr-8 rounded-md focus:border-green-500 transition-colors outline-none appearance-none"
             >
               {educationOptions.map((option) => (
                 <option key={option.value} value={option.value}>

@@ -1,18 +1,18 @@
 "use client";
 
+import { IFilterJobs } from "@/types/job";
 import { FaTimes } from "react-icons/fa";
 
 interface ActiveFiltersDisplayProps {
-  values: {
-    title: string;
-    category: string;
-    sortBy: string;
-    sortOrder: string;
-  };
+  values: IFilterJobs;
   sortOptions: Array<{ value: string; label: string }>;
-  clearFilter: (field: string, values: any, setFieldValue: any) => void;
-  setFieldValue: (field: string, value: any) => void;
-  hasActiveFilters: (values: any) => boolean;
+  clearFilter: (
+    field: keyof IFilterJobs,
+    values: IFilterJobs,
+    setFieldValue: (field: keyof IFilterJobs, value: string) => void
+  ) => void;
+  setFieldValue: (field: keyof IFilterJobs, value: string) => void;
+  hasActiveFilters: (values: IFilterJobs) => boolean;
 }
 
 export default function ActiveFiltersDisplay({
