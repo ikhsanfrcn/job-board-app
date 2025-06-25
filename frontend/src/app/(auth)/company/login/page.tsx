@@ -35,9 +35,10 @@ export default function Page() {
         name: user.name,
         email: user.email,
         role: user.role,
-        avatar: user.avatar || "",
+        avatar: user.logo || "",
         accessToken: data.access_token,
       });
+      
     } catch (err) {
       if (err instanceof AxiosError) {
         toast.error(err.response?.data?.message || "Login failed");

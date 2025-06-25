@@ -46,7 +46,6 @@ export const JobListingsPage: React.FC = () => {
       setJobs((prev) => (page === 1 ? jobList : [...prev, ...jobList]));
       setTotalPages(pagination.totalPages);
 
-      // Auto select first job if none selected and not coming from query
       if (page === 1) {
         if (jobList.length > 0 && !jobIdFromQuery) {
           setSelectedJob(jobList[0]);
@@ -75,8 +74,7 @@ export const JobListingsPage: React.FC = () => {
       console.error("Failed to fetch job by ID:", error);
     }
   };
-
-  // Re-run when searchParams change
+  
   useEffect(() => {
     const city = searchParams.get("city") || undefined;
     const titleOrCategory = searchParams.get("titleOrCategory") || undefined;
@@ -106,7 +104,6 @@ export const JobListingsPage: React.FC = () => {
     setInitialLoad(true);
   }, [searchParams]);
 
-  // Fetch jobs when filters or page change (debounced by initialLoad flag)
   useEffect(() => {
     if (initialLoad) {
       fetchJobs(page, filters);
@@ -114,7 +111,6 @@ export const JobListingsPage: React.FC = () => {
     }
   }, [initialLoad]);
 
-  // Fetch specific job by ID from query
   useEffect(() => {
     if (jobIdFromQuery) {
       fetchJobById(jobIdFromQuery);
@@ -134,7 +130,6 @@ export const JobListingsPage: React.FC = () => {
 
   const onJobClick = (job: IJob) => {
     setSelectedJob(job);
-    window.history.replaceState(null, "", `?id=${job.id}`);
   };
 
   return (
