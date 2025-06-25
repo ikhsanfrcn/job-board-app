@@ -30,14 +30,16 @@ export default function Page() {
       action.resetForm();
 
       await signIn("credentials", {
-        redirectTo: "/",
+        redirect: false,
         id: user.id,
         name: user.name,
         email: user.email,
         role: user.role,
-        avatar: user.avatar || "",
+        avatar: user.logo || "",
         accessToken: data.access_token,
       });
+      console.log(user.logo);
+      
     } catch (err) {
       if (err instanceof AxiosError) {
         toast.error(err.response?.data?.message || "Login failed");
