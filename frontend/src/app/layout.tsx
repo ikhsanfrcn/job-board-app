@@ -18,6 +18,9 @@ export const metadata: Metadata = {
   title: "JobsDoors",
   description: "Where Talent Meets Destiny",
   icons: "/door.svg",
+  openGraph: {
+    url: "https://res.cloudinary.com/dyjsmoxmq/image/upload/v1750841349/xrlsuwj0odnxzllaxyog.png"
+  }
 };
 
 export default function RootLayout({
