@@ -7,6 +7,7 @@ import { AxiosError } from "axios";
 import { Field, Form, Formik, FormikHelpers, FormikProps } from "formik";
 import { signIn } from "next-auth/react";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import { FcGoogle } from "react-icons/fc";
@@ -14,6 +15,9 @@ import { toast } from "react-toastify";
 
 export default function Page() {
   const [showPassword, setShowPassword] = useState(false);
+   const searchParams = useSearchParams();
+
+  const callbackUrl = searchParams.get("callbackUrl") || "/";
 
   const initialValues: ILoginForm = {
     username: "",
@@ -29,9 +33,10 @@ export default function Page() {
       const user = data.data;
       toast.success("Login Success !");
       action.resetForm();
+      
 
       await signIn("credentials", {
-        redirectTo: "/",
+        callbackUrl,
         id: user.id,
         name: user.username,
         email: user.email,

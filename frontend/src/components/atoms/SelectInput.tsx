@@ -1,12 +1,11 @@
-import { Field, ErrorMessage } from "formik";
+import { Field, ErrorMessage, useFormikContext } from "formik";
 
 interface SelectInputProps {
   label: string;
   name: string;
   options: { label: string; value: string }[];
-  value?: string;
   disabled?: boolean;
-  onChange?: (option: any) => void;
+  onChange?: (value: string) => void; // hanya kirim value, lebih simpel
 }
 
 export default function SelectInput({
@@ -14,7 +13,10 @@ export default function SelectInput({
   name,
   options,
   disabled = false,
+  onChange,
 }: SelectInputProps) {
+  const { setFieldValue } = useFormikContext();
+
   return (
     <div>
       <label className="text-xs font-medium capitalize">{label}:</label>
@@ -23,6 +25,13 @@ export default function SelectInput({
         name={name}
         className="border p-2 rounded w-full"
         disabled={disabled}
+        onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
+          setFieldValue(name, e.target.value);
+
+          if (onChange) {
+            onChange(e.target.value);
+          }
+        }}
       >
         <option value="">Select {label}</option>
         {options.map((opt) => (

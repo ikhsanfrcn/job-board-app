@@ -18,7 +18,13 @@ const cloudinary_1 = require("../../helpers/cloudinary");
 function updateAvatar(userId, file) {
     return __awaiter(this, void 0, void 0, function* () {
         if (!file)
-            throw { message: "avatar is required" };
+            throw { message: "Avatar is required" };
+        const allowedTypes = ["image/jpeg", "image/png", "image/jpg"];
+        if (!allowedTypes.includes(file.mimetype))
+            throw { message: "Only .jpg, .jpeg, and .png files are allowed" };
+        const maxSize = 1 * 1024 * 1024;
+        if (file.size > maxSize)
+            throw { message: "File size must be less than 1MB" };
         const { secure_url } = yield (0, cloudinary_1.cloudinaryUpload)(file, "jobsdoors", "image");
         yield prisma_1.default.user.update({
             where: { id: userId },

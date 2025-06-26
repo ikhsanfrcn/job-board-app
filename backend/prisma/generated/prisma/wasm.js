@@ -20,12 +20,12 @@ exports.Prisma = Prisma
 exports.$Enums = {}
 
 /**
- * Prisma Client JS version: 6.10.1
- * Query Engine version: 9b628578b3b7cae625e8c927178f15a170e74a9c
+ * Prisma Client JS version: 6.8.1
+ * Query Engine version: 2060c79ba17c6bb9f5823312b6f6b7f4a845738e
  */
 Prisma.prismaVersion = {
-  client: "6.10.1",
-  engine: "9b628578b3b7cae625e8c927178f15a170e74a9c"
+  client: "6.8.1",
+  engine: "2060c79ba17c6bb9f5823312b6f6b7f4a845738e"
 }
 
 Prisma.PrismaClientKnownRequestError = () => {
@@ -141,7 +141,8 @@ exports.Prisma.UserScalarFieldEnum = {
   isVerify: 'isVerify',
   verificationSent: 'verificationSent',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  socialLogin: 'socialLogin'
 };
 
 exports.Prisma.CompanyScalarFieldEnum = {
@@ -161,6 +162,7 @@ exports.Prisma.CompanyScalarFieldEnum = {
   website: 'website',
   logo: 'logo',
   isVerify: 'isVerify',
+  verificationSent: 'verificationSent',
   industryId: 'industryId',
   latitude: 'latitude',
   longitude: 'longitude',

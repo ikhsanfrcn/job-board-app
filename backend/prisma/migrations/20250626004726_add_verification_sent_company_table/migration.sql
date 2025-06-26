@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "Company" ADD COLUMN     "verificationSent" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP;
