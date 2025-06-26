@@ -7,6 +7,8 @@ import { updateUserSchema } from "../validation/userValidation";
 import prisma from "../prisma";
 import { isSubscribeService } from "../services/user/isSubscribe";
 import { userPasswordChange } from "../services/user/passwordChange";
+import { requestUserEmailChange } from "../services/user/requestEmailChange";
+import { userChangeEmail } from "../services/user/changeEmail";
 
 export class UserController {
   async getUserProfile(req: Request, res: Response) {
@@ -114,4 +116,39 @@ export class UserController {
         res.status(error.status || 500).json({ message: error.message || "Internal server error" });
       }
     }
+
+    async requestEmailChange(req: Request, res: Response) {
+          try {
+            const userId = req.user?.id as string;
+            console.log(userId);
+            const result = await requestUserEmailChange(userId);
+            
+            res.status(200).json(result);
+          } catch (error: any) {
+            console.log(error);
+            
+            res
+              .status(error.status || 500)
+              .json({ message: error.message || "Internal server error" });
+          }
+        }
+      
+        async changeEmail(req: Request, res: Response) {
+        try {
+          const authHeader = req.headers.authorization;
+          const { newEmail } = req.body;
+      
+          if (!authHeader || !authHeader.startsWith("Bearer ")) {
+            res.status(400).json({ message: "Authorization token is missing or invalid" });
+            return;
+          }
+      
+          const token = authHeader.split(" ")[1];
+      
+          const result = await userChangeEmail(token, newEmail);
+          res.status(200).json(result);
+        } catch (error: any) {
+          res.status(error.status || 500).json({ message: error.message || "Internal server error" });
+        }
+      }
 }

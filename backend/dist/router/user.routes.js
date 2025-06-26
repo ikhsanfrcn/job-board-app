@@ -21,6 +21,8 @@ class UserRouter {
         this.router.get("/is-employee/:id", this.authMiddleware.verifyToken, this.userController.isEmployee);
         this.router.get("/is-subscribe", this.authMiddleware.verifyToken, this.userController.isSubscribe);
         this.router.patch("/change-password", this.authMiddleware.verifyToken, this.userController.passwordChange);
+        this.router.post("/request-email-change", this.authMiddleware.verifyToken, this.userController.requestEmailChange);
+        this.router.patch("/change-email", this.authMiddleware.verifyToken, this.userController.changeEmail);
     }
     getRouter() {
         return this.router;
