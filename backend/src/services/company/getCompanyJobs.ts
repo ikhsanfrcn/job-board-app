@@ -15,7 +15,7 @@ export const getCompanyJobsService = async ({
 
   const [jobs, total] = await Promise.all([
     prisma.job.findMany({
-      where: { companyId },
+      where: { companyId, isDeleted: false },
       skip,
       take: limit,
       orderBy: { createdAt: "desc" },

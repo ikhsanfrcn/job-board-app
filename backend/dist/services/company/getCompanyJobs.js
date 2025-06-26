@@ -18,7 +18,7 @@ const getCompanyJobsService = (_a) => __awaiter(void 0, [_a], void 0, function* 
     const skip = (page - 1) * limit;
     const [jobs, total] = yield Promise.all([
         prisma_1.default.job.findMany({
-            where: { companyId },
+            where: { companyId, isDeleted: false },
             skip,
             take: limit,
             orderBy: { createdAt: "desc" },

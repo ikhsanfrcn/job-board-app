@@ -9,6 +9,7 @@ import { createJobSchema } from "@/schema/jobSchema";
 import { employmentType } from "@/types/employmentType";
 import { worksiteType } from "@/types/worksiteType";
 import FormatCurrencyInput from "@/components/atoms/formatCurencyInput";
+import { ICity, IProvince } from "@/types/region";
 
 interface IProps {
   editJob: IMJob | null;
@@ -21,8 +22,8 @@ export default function ModalEditJob({
   setEditJob,
   handleEditSave,
 }: IProps) {
-  const [provinces, setProvinces] = useState<any[]>([]);
-  const [cities, setCities] = useState<any[]>([]);
+  const [provinces, setProvinces] = useState<IProvince[]>([]);
+  const [cities, setCities] = useState<ICity[]>([]);
   const [selectedProvinceId, setSelectedProvinceId] = useState("");
 
   const fetchProvinces = async () => {
@@ -196,7 +197,7 @@ export default function ModalEditJob({
                   }}
                 >
                   <option value="">Select Province</option>
-                  {provinces.map((prov: any) => (
+                  {provinces.map((prov: IProvince) => (
                     <option key={prov.id} value={prov.id}>
                       {prov.name}
                     </option>
@@ -221,7 +222,7 @@ export default function ModalEditJob({
                   value={values.city}
                 >
                   <option value="">Select City</option>
-                  {cities.map((city: any) => (
+                  {cities.map((city: ICity) => (
                     <option key={city.id} value={city.name}>
                       {city.name}
                     </option>

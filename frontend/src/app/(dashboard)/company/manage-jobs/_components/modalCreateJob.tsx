@@ -7,6 +7,7 @@ import { IMJob } from "@/types/job";
 import { employmentType } from "@/types/employmentType";
 import { worksiteType } from "@/types/worksiteType";
 import FormatCurrencyInput from "@/components/atoms/formatCurencyInput";
+import { ICity, IProvince } from "@/types/region";
 
 interface IProps {
   isOpen: boolean;
@@ -19,8 +20,8 @@ export default function ModalCreateJob({
   onClose,
   handleCreate,
 }: IProps) {
-  const [provinces, setProvinces] = useState<any[]>([]);
-  const [cities, setCities] = useState<any[]>([]);
+  const [provinces, setProvinces] = useState<IProvince[]>([]);
+  const [cities, setCities] = useState<ICity[]>([]);
   const [selectedProvinceId, setSelectedProvinceId] = useState("");
 
   const fetchProvinces = async () => {
@@ -195,7 +196,7 @@ export default function ModalCreateJob({
                   }}
                 >
                   <option value="">Select Province</option>
-                  {provinces.map((prov: any) => (
+                  {provinces.map((prov: IProvince) => (
                     <option key={prov.id} value={prov.id}>
                       {prov.name}
                     </option>
@@ -219,7 +220,7 @@ export default function ModalCreateJob({
                   }
                 >
                   <option value="">Select City</option>
-                  {cities.map((city: any) => (
+                  {cities.map((city: ICity) => (
                     <option key={city.id} value={city.name}>
                       {city.name}
                     </option>

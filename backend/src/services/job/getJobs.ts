@@ -18,7 +18,7 @@ export const getJobs = async ({
   const skip = (page - 1) * size;
   const take = size;
 
-  const where: any = { isPublished };
+  const where: any = { isPublished, isDeleted: false };
 
   if (titleOrCategory) {
     where.OR = [

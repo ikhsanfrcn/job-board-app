@@ -2,7 +2,7 @@ import prisma from "../../prisma";
 
 export const getJobById = async (id: string) => {
   const job = await prisma.job.findUnique({
-    where: { id },
+    where: { id, isDeleted: false },
     include: {
       company: {
         select: {
