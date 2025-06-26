@@ -57,6 +57,10 @@ exports.registerCompanySchema = yup.object({
         .min(8, "Password must be at least 8 characters")
         .required("Password is required"),
     industryId: yup.string().required("Industry is required"),
+    phoneNumber: yup
+        .string()
+        .required("Phone number is required")
+        .matches(/^[0-9+() -]{7,15}$/, "Invalid phone number"),
 });
 exports.registerDevSchema = yup.object({
     email: yup
