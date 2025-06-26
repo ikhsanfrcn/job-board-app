@@ -6,6 +6,13 @@ export const deleteJob = async (id: string, companyId: string) => {
   if (job.companyId !== companyId) {
     throw { status: 403, message: "You are not authorized to delete this job" };
   }
-  const deletedJob = await prisma.job.delete({ where: { id } });
+
+  const deletedJob = await prisma.job.update({
+    where: { id },
+    data: {
+      isDeleted: true,
+    },
+  });
+
   return { message: "Job deleted", deletedJob };
 };

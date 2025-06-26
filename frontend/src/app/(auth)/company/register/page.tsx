@@ -29,6 +29,7 @@ export default function Page() {
     email: "",
     password: "",
     industryId: "",
+    phoneNumber: "",
   };
 
   const onRegister = async (
@@ -66,7 +67,7 @@ export default function Page() {
         </h2>
         <p className="text-xl">Find the Talent That Drives Success</p>
       </div>
-      <div className="relative flex flex-col items-center justify-center w-[480px] rounded-sm mx-auto pb-8 h-fit md:h-full z-10">
+      <div className="relative flex flex-col items-center justify-center w-full md:w-[480px] rounded-sm mx-auto pb-8 h-fit md:h-full z-10">
         <Formik
           initialValues={initialValues}
           validationSchema={CompanyRegisterSchema}
@@ -156,6 +157,20 @@ export default function Page() {
                     </div>
                   )}
                 </div>
+                <div>
+                    <label htmlFor="phoneNumber" className="text-xs tracking-wide">
+                      Phone Number
+                    </label>
+                    <Field
+                      name="phoneNumber"
+                      className="mb-1 px-2 py-2 border border-gray-400 rounded-md w-full focus:outline-none focus:ring-0 focus:border-sky-400 shadow-sm"
+                    />
+                    {touched.phoneNumber && errors.phoneNumber ? (
+                      <div className="text-red-500 text-[12px]">
+                        {errors.phoneNumber}
+                      </div>
+                    ) : null}
+                  </div>
                 <IndustrySelectorModal
                   isOpen={isIndustryModalOpen}
                   onClose={() => setIndustryModalOpen(false)}
@@ -194,7 +209,7 @@ export default function Page() {
         isOpen={showModal}
         onClose={() => {
           setShowModal(false);
-          router.push("/login");
+          router.push("/company/login");
         }}
       />
     </div>

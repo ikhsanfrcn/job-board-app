@@ -632,8 +632,8 @@ export namespace Prisma {
   export import Exact = $Public.Exact
 
   /**
-   * Prisma Client JS version: 6.10.1
-   * Query Engine version: 9b628578b3b7cae625e8c927178f15a170e74a9c
+   * Prisma Client JS version: 6.8.1
+   * Query Engine version: 2060c79ba17c6bb9f5823312b6f6b7f4a845738e
    */
   export type PrismaVersion = {
     client: string
@@ -3313,6 +3313,7 @@ export namespace Prisma {
     verificationSent: Date | null
     createdAt: Date | null
     updatedAt: Date | null
+    socialLogin: boolean | null
   }
 
   export type UserMaxAggregateOutputType = {
@@ -3337,6 +3338,7 @@ export namespace Prisma {
     verificationSent: Date | null
     createdAt: Date | null
     updatedAt: Date | null
+    socialLogin: boolean | null
   }
 
   export type UserCountAggregateOutputType = {
@@ -3361,6 +3363,7 @@ export namespace Prisma {
     verificationSent: number
     createdAt: number
     updatedAt: number
+    socialLogin: number
     _all: number
   }
 
@@ -3387,6 +3390,7 @@ export namespace Prisma {
     verificationSent?: true
     createdAt?: true
     updatedAt?: true
+    socialLogin?: true
   }
 
   export type UserMaxAggregateInputType = {
@@ -3411,6 +3415,7 @@ export namespace Prisma {
     verificationSent?: true
     createdAt?: true
     updatedAt?: true
+    socialLogin?: true
   }
 
   export type UserCountAggregateInputType = {
@@ -3435,6 +3440,7 @@ export namespace Prisma {
     verificationSent?: true
     createdAt?: true
     updatedAt?: true
+    socialLogin?: true
     _all?: true
   }
 
@@ -3532,6 +3538,7 @@ export namespace Prisma {
     verificationSent: Date
     createdAt: Date
     updatedAt: Date
+    socialLogin: boolean
     _count: UserCountAggregateOutputType | null
     _min: UserMinAggregateOutputType | null
     _max: UserMaxAggregateOutputType | null
@@ -3573,6 +3580,7 @@ export namespace Prisma {
     verificationSent?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    socialLogin?: boolean
     Application?: boolean | User$ApplicationArgs<ExtArgs>
     Review?: boolean | User$ReviewArgs<ExtArgs>
     userTest?: boolean | User$userTestArgs<ExtArgs>
@@ -3606,6 +3614,7 @@ export namespace Prisma {
     verificationSent?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    socialLogin?: boolean
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -3630,6 +3639,7 @@ export namespace Prisma {
     verificationSent?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    socialLogin?: boolean
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectScalar = {
@@ -3654,9 +3664,10 @@ export namespace Prisma {
     verificationSent?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    socialLogin?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "username" | "email" | "role" | "password" | "firstName" | "lastName" | "gender" | "dob" | "education" | "country" | "state" | "city" | "zipCode" | "regionNumber" | "phoneNumber" | "avatar" | "isVerify" | "verificationSent" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "username" | "email" | "role" | "password" | "firstName" | "lastName" | "gender" | "dob" | "education" | "country" | "state" | "city" | "zipCode" | "regionNumber" | "phoneNumber" | "avatar" | "isVerify" | "verificationSent" | "createdAt" | "updatedAt" | "socialLogin", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     Application?: boolean | User$ApplicationArgs<ExtArgs>
     Review?: boolean | User$ReviewArgs<ExtArgs>
@@ -3705,6 +3716,7 @@ export namespace Prisma {
       verificationSent: Date
       createdAt: Date
       updatedAt: Date
+      socialLogin: boolean
     }, ExtArgs["result"]["user"]>
     composites: {}
   }
@@ -4157,6 +4169,7 @@ export namespace Prisma {
     readonly verificationSent: FieldRef<"User", 'DateTime'>
     readonly createdAt: FieldRef<"User", 'DateTime'>
     readonly updatedAt: FieldRef<"User", 'DateTime'>
+    readonly socialLogin: FieldRef<"User", 'Boolean'>
   }
     
 
@@ -4782,6 +4795,7 @@ export namespace Prisma {
     website: string | null
     logo: string | null
     isVerify: boolean | null
+    verificationSent: Date | null
     industryId: string | null
     latitude: string | null
     longitude: string | null
@@ -4806,6 +4820,7 @@ export namespace Prisma {
     website: string | null
     logo: string | null
     isVerify: boolean | null
+    verificationSent: Date | null
     industryId: string | null
     latitude: string | null
     longitude: string | null
@@ -4830,6 +4845,7 @@ export namespace Prisma {
     website: number
     logo: number
     isVerify: number
+    verificationSent: number
     industryId: number
     latitude: number
     longitude: number
@@ -4856,6 +4872,7 @@ export namespace Prisma {
     website?: true
     logo?: true
     isVerify?: true
+    verificationSent?: true
     industryId?: true
     latitude?: true
     longitude?: true
@@ -4880,6 +4897,7 @@ export namespace Prisma {
     website?: true
     logo?: true
     isVerify?: true
+    verificationSent?: true
     industryId?: true
     latitude?: true
     longitude?: true
@@ -4904,6 +4922,7 @@ export namespace Prisma {
     website?: true
     logo?: true
     isVerify?: true
+    verificationSent?: true
     industryId?: true
     latitude?: true
     longitude?: true
@@ -5001,6 +5020,7 @@ export namespace Prisma {
     website: string | null
     logo: string | null
     isVerify: boolean
+    verificationSent: Date
     industryId: string
     latitude: string | null
     longitude: string | null
@@ -5042,6 +5062,7 @@ export namespace Prisma {
     website?: boolean
     logo?: boolean
     isVerify?: boolean
+    verificationSent?: boolean
     industryId?: boolean
     latitude?: boolean
     longitude?: boolean
@@ -5070,6 +5091,7 @@ export namespace Prisma {
     website?: boolean
     logo?: boolean
     isVerify?: boolean
+    verificationSent?: boolean
     industryId?: boolean
     latitude?: boolean
     longitude?: boolean
@@ -5095,6 +5117,7 @@ export namespace Prisma {
     website?: boolean
     logo?: boolean
     isVerify?: boolean
+    verificationSent?: boolean
     industryId?: boolean
     latitude?: boolean
     longitude?: boolean
@@ -5120,6 +5143,7 @@ export namespace Prisma {
     website?: boolean
     logo?: boolean
     isVerify?: boolean
+    verificationSent?: boolean
     industryId?: boolean
     latitude?: boolean
     longitude?: boolean
@@ -5127,7 +5151,7 @@ export namespace Prisma {
     updatedAt?: boolean
   }
 
-  export type CompanyOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "role" | "password" | "about" | "country" | "state" | "city" | "zipCode" | "regionNumber" | "phoneNumber" | "address" | "website" | "logo" | "isVerify" | "industryId" | "latitude" | "longitude" | "createdAt" | "updatedAt", ExtArgs["result"]["company"]>
+  export type CompanyOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "role" | "password" | "about" | "country" | "state" | "city" | "zipCode" | "regionNumber" | "phoneNumber" | "address" | "website" | "logo" | "isVerify" | "verificationSent" | "industryId" | "latitude" | "longitude" | "createdAt" | "updatedAt", ExtArgs["result"]["company"]>
   export type CompanyInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     industry?: boolean | IndustryDefaultArgs<ExtArgs>
     jobs?: boolean | Company$jobsArgs<ExtArgs>
@@ -5165,6 +5189,7 @@ export namespace Prisma {
       website: string | null
       logo: string | null
       isVerify: boolean
+      verificationSent: Date
       industryId: string
       latitude: string | null
       longitude: string | null
@@ -5612,6 +5637,7 @@ export namespace Prisma {
     readonly website: FieldRef<"Company", 'String'>
     readonly logo: FieldRef<"Company", 'String'>
     readonly isVerify: FieldRef<"Company", 'Boolean'>
+    readonly verificationSent: FieldRef<"Company", 'DateTime'>
     readonly industryId: FieldRef<"Company", 'String'>
     readonly latitude: FieldRef<"Company", 'String'>
     readonly longitude: FieldRef<"Company", 'String'>
@@ -28683,7 +28709,8 @@ export namespace Prisma {
     isVerify: 'isVerify',
     verificationSent: 'verificationSent',
     createdAt: 'createdAt',
-    updatedAt: 'updatedAt'
+    updatedAt: 'updatedAt',
+    socialLogin: 'socialLogin'
   };
 
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -28706,6 +28733,7 @@ export namespace Prisma {
     website: 'website',
     logo: 'logo',
     isVerify: 'isVerify',
+    verificationSent: 'verificationSent',
     industryId: 'industryId',
     latitude: 'latitude',
     longitude: 'longitude',
@@ -29247,6 +29275,7 @@ export namespace Prisma {
     verificationSent?: DateTimeFilter<"User"> | Date | string
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
+    socialLogin?: BoolFilter<"User"> | boolean
     Application?: ApplicationListRelationFilter
     Review?: ReviewListRelationFilter
     userTest?: UserTestListRelationFilter
@@ -29279,6 +29308,7 @@ export namespace Prisma {
     verificationSent?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    socialLogin?: SortOrder
     Application?: ApplicationOrderByRelationAggregateInput
     Review?: ReviewOrderByRelationAggregateInput
     userTest?: UserTestOrderByRelationAggregateInput
@@ -29314,6 +29344,7 @@ export namespace Prisma {
     verificationSent?: DateTimeFilter<"User"> | Date | string
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
+    socialLogin?: BoolFilter<"User"> | boolean
     Application?: ApplicationListRelationFilter
     Review?: ReviewListRelationFilter
     userTest?: UserTestListRelationFilter
@@ -29346,6 +29377,7 @@ export namespace Prisma {
     verificationSent?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    socialLogin?: SortOrder
     _count?: UserCountOrderByAggregateInput
     _max?: UserMaxOrderByAggregateInput
     _min?: UserMinOrderByAggregateInput
@@ -29376,6 +29408,7 @@ export namespace Prisma {
     verificationSent?: DateTimeWithAggregatesFilter<"User"> | Date | string
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
+    socialLogin?: BoolWithAggregatesFilter<"User"> | boolean
   }
 
   export type CompanyWhereInput = {
@@ -29398,6 +29431,7 @@ export namespace Prisma {
     website?: StringNullableFilter<"Company"> | string | null
     logo?: StringNullableFilter<"Company"> | string | null
     isVerify?: BoolFilter<"Company"> | boolean
+    verificationSent?: DateTimeFilter<"Company"> | Date | string
     industryId?: StringFilter<"Company"> | string
     latitude?: StringNullableFilter<"Company"> | string | null
     longitude?: StringNullableFilter<"Company"> | string | null
@@ -29425,6 +29459,7 @@ export namespace Prisma {
     website?: SortOrderInput | SortOrder
     logo?: SortOrderInput | SortOrder
     isVerify?: SortOrder
+    verificationSent?: SortOrder
     industryId?: SortOrder
     latitude?: SortOrderInput | SortOrder
     longitude?: SortOrderInput | SortOrder
@@ -29455,6 +29490,7 @@ export namespace Prisma {
     address?: StringNullableFilter<"Company"> | string | null
     logo?: StringNullableFilter<"Company"> | string | null
     isVerify?: BoolFilter<"Company"> | boolean
+    verificationSent?: DateTimeFilter<"Company"> | Date | string
     industryId?: StringFilter<"Company"> | string
     latitude?: StringNullableFilter<"Company"> | string | null
     longitude?: StringNullableFilter<"Company"> | string | null
@@ -29482,6 +29518,7 @@ export namespace Prisma {
     website?: SortOrderInput | SortOrder
     logo?: SortOrderInput | SortOrder
     isVerify?: SortOrder
+    verificationSent?: SortOrder
     industryId?: SortOrder
     latitude?: SortOrderInput | SortOrder
     longitude?: SortOrderInput | SortOrder
@@ -29512,6 +29549,7 @@ export namespace Prisma {
     website?: StringNullableWithAggregatesFilter<"Company"> | string | null
     logo?: StringNullableWithAggregatesFilter<"Company"> | string | null
     isVerify?: BoolWithAggregatesFilter<"Company"> | boolean
+    verificationSent?: DateTimeWithAggregatesFilter<"Company"> | Date | string
     industryId?: StringWithAggregatesFilter<"Company"> | string
     latitude?: StringNullableWithAggregatesFilter<"Company"> | string | null
     longitude?: StringNullableWithAggregatesFilter<"Company"> | string | null
@@ -31020,6 +31058,7 @@ export namespace Prisma {
     verificationSent?: Date | string
     createdAt?: Date | string
     updatedAt?: Date | string
+    socialLogin?: boolean
     Application?: ApplicationCreateNestedManyWithoutUserInput
     Review?: ReviewCreateNestedManyWithoutUserInput
     userTest?: UserTestCreateNestedManyWithoutUserInput
@@ -31052,6 +31091,7 @@ export namespace Prisma {
     verificationSent?: Date | string
     createdAt?: Date | string
     updatedAt?: Date | string
+    socialLogin?: boolean
     Application?: ApplicationUncheckedCreateNestedManyWithoutUserInput
     Review?: ReviewUncheckedCreateNestedManyWithoutUserInput
     userTest?: UserTestUncheckedCreateNestedManyWithoutUserInput
@@ -31084,6 +31124,7 @@ export namespace Prisma {
     verificationSent?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    socialLogin?: BoolFieldUpdateOperationsInput | boolean
     Application?: ApplicationUpdateManyWithoutUserNestedInput
     Review?: ReviewUpdateManyWithoutUserNestedInput
     userTest?: UserTestUpdateManyWithoutUserNestedInput
@@ -31116,6 +31157,7 @@ export namespace Prisma {
     verificationSent?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    socialLogin?: BoolFieldUpdateOperationsInput | boolean
     Application?: ApplicationUncheckedUpdateManyWithoutUserNestedInput
     Review?: ReviewUncheckedUpdateManyWithoutUserNestedInput
     userTest?: UserTestUncheckedUpdateManyWithoutUserNestedInput
@@ -31148,6 +31190,7 @@ export namespace Prisma {
     verificationSent?: Date | string
     createdAt?: Date | string
     updatedAt?: Date | string
+    socialLogin?: boolean
   }
 
   export type UserUpdateManyMutationInput = {
@@ -31172,6 +31215,7 @@ export namespace Prisma {
     verificationSent?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    socialLogin?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type UserUncheckedUpdateManyInput = {
@@ -31196,6 +31240,7 @@ export namespace Prisma {
     verificationSent?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    socialLogin?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type CompanyCreateInput = {
@@ -31215,6 +31260,7 @@ export namespace Prisma {
     website?: string | null
     logo?: string | null
     isVerify?: boolean
+    verificationSent?: Date | string
     latitude?: string | null
     longitude?: string | null
     createdAt?: Date | string
@@ -31241,6 +31287,7 @@ export namespace Prisma {
     website?: string | null
     logo?: string | null
     isVerify?: boolean
+    verificationSent?: Date | string
     industryId: string
     latitude?: string | null
     longitude?: string | null
@@ -31267,6 +31314,7 @@ export namespace Prisma {
     website?: NullableStringFieldUpdateOperationsInput | string | null
     logo?: NullableStringFieldUpdateOperationsInput | string | null
     isVerify?: BoolFieldUpdateOperationsInput | boolean
+    verificationSent?: DateTimeFieldUpdateOperationsInput | Date | string
     latitude?: NullableStringFieldUpdateOperationsInput | string | null
     longitude?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -31293,6 +31341,7 @@ export namespace Prisma {
     website?: NullableStringFieldUpdateOperationsInput | string | null
     logo?: NullableStringFieldUpdateOperationsInput | string | null
     isVerify?: BoolFieldUpdateOperationsInput | boolean
+    verificationSent?: DateTimeFieldUpdateOperationsInput | Date | string
     industryId?: StringFieldUpdateOperationsInput | string
     latitude?: NullableStringFieldUpdateOperationsInput | string | null
     longitude?: NullableStringFieldUpdateOperationsInput | string | null
@@ -31319,6 +31368,7 @@ export namespace Prisma {
     website?: string | null
     logo?: string | null
     isVerify?: boolean
+    verificationSent?: Date | string
     industryId: string
     latitude?: string | null
     longitude?: string | null
@@ -31343,6 +31393,7 @@ export namespace Prisma {
     website?: NullableStringFieldUpdateOperationsInput | string | null
     logo?: NullableStringFieldUpdateOperationsInput | string | null
     isVerify?: BoolFieldUpdateOperationsInput | boolean
+    verificationSent?: DateTimeFieldUpdateOperationsInput | Date | string
     latitude?: NullableStringFieldUpdateOperationsInput | string | null
     longitude?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -31366,6 +31417,7 @@ export namespace Prisma {
     website?: NullableStringFieldUpdateOperationsInput | string | null
     logo?: NullableStringFieldUpdateOperationsInput | string | null
     isVerify?: BoolFieldUpdateOperationsInput | boolean
+    verificationSent?: DateTimeFieldUpdateOperationsInput | Date | string
     industryId?: StringFieldUpdateOperationsInput | string
     latitude?: NullableStringFieldUpdateOperationsInput | string | null
     longitude?: NullableStringFieldUpdateOperationsInput | string | null
@@ -33124,6 +33176,7 @@ export namespace Prisma {
     verificationSent?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    socialLogin?: SortOrder
   }
 
   export type UserMaxOrderByAggregateInput = {
@@ -33148,6 +33201,7 @@ export namespace Prisma {
     verificationSent?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    socialLogin?: SortOrder
   }
 
   export type UserMinOrderByAggregateInput = {
@@ -33172,6 +33226,7 @@ export namespace Prisma {
     verificationSent?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    socialLogin?: SortOrder
   }
 
   export type StringWithAggregatesFilter<$PrismaModel = never> = {
@@ -33274,6 +33329,7 @@ export namespace Prisma {
     website?: SortOrder
     logo?: SortOrder
     isVerify?: SortOrder
+    verificationSent?: SortOrder
     industryId?: SortOrder
     latitude?: SortOrder
     longitude?: SortOrder
@@ -33298,6 +33354,7 @@ export namespace Prisma {
     website?: SortOrder
     logo?: SortOrder
     isVerify?: SortOrder
+    verificationSent?: SortOrder
     industryId?: SortOrder
     latitude?: SortOrder
     longitude?: SortOrder
@@ -33322,6 +33379,7 @@ export namespace Prisma {
     website?: SortOrder
     logo?: SortOrder
     isVerify?: SortOrder
+    verificationSent?: SortOrder
     industryId?: SortOrder
     latitude?: SortOrder
     longitude?: SortOrder
@@ -36971,6 +37029,7 @@ export namespace Prisma {
     website?: string | null
     logo?: string | null
     isVerify?: boolean
+    verificationSent?: Date | string
     latitude?: string | null
     longitude?: string | null
     createdAt?: Date | string
@@ -36996,6 +37055,7 @@ export namespace Prisma {
     website?: string | null
     logo?: string | null
     isVerify?: boolean
+    verificationSent?: Date | string
     latitude?: string | null
     longitude?: string | null
     createdAt?: Date | string
@@ -37050,6 +37110,7 @@ export namespace Prisma {
     website?: StringNullableFilter<"Company"> | string | null
     logo?: StringNullableFilter<"Company"> | string | null
     isVerify?: BoolFilter<"Company"> | boolean
+    verificationSent?: DateTimeFilter<"Company"> | Date | string
     industryId?: StringFilter<"Company"> | string
     latitude?: StringNullableFilter<"Company"> | string | null
     longitude?: StringNullableFilter<"Company"> | string | null
@@ -37074,6 +37135,7 @@ export namespace Prisma {
     website?: string | null
     logo?: string | null
     isVerify?: boolean
+    verificationSent?: Date | string
     latitude?: string | null
     longitude?: string | null
     createdAt?: Date | string
@@ -37099,6 +37161,7 @@ export namespace Prisma {
     website?: string | null
     logo?: string | null
     isVerify?: boolean
+    verificationSent?: Date | string
     industryId: string
     latitude?: string | null
     longitude?: string | null
@@ -37227,6 +37290,7 @@ export namespace Prisma {
     website?: NullableStringFieldUpdateOperationsInput | string | null
     logo?: NullableStringFieldUpdateOperationsInput | string | null
     isVerify?: BoolFieldUpdateOperationsInput | boolean
+    verificationSent?: DateTimeFieldUpdateOperationsInput | Date | string
     latitude?: NullableStringFieldUpdateOperationsInput | string | null
     longitude?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -37252,6 +37316,7 @@ export namespace Prisma {
     website?: NullableStringFieldUpdateOperationsInput | string | null
     logo?: NullableStringFieldUpdateOperationsInput | string | null
     isVerify?: BoolFieldUpdateOperationsInput | boolean
+    verificationSent?: DateTimeFieldUpdateOperationsInput | Date | string
     industryId?: StringFieldUpdateOperationsInput | string
     latitude?: NullableStringFieldUpdateOperationsInput | string | null
     longitude?: NullableStringFieldUpdateOperationsInput | string | null
@@ -37405,6 +37470,7 @@ export namespace Prisma {
     verificationSent?: Date | string
     createdAt?: Date | string
     updatedAt?: Date | string
+    socialLogin?: boolean
     Review?: ReviewCreateNestedManyWithoutUserInput
     userTest?: UserTestCreateNestedManyWithoutUserInput
     userResume?: UserResumeCreateNestedManyWithoutUserInput
@@ -37436,6 +37502,7 @@ export namespace Prisma {
     verificationSent?: Date | string
     createdAt?: Date | string
     updatedAt?: Date | string
+    socialLogin?: boolean
     Review?: ReviewUncheckedCreateNestedManyWithoutUserInput
     userTest?: UserTestUncheckedCreateNestedManyWithoutUserInput
     userResume?: UserResumeUncheckedCreateNestedManyWithoutUserInput
@@ -37558,6 +37625,7 @@ export namespace Prisma {
     verificationSent?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    socialLogin?: BoolFieldUpdateOperationsInput | boolean
     Review?: ReviewUpdateManyWithoutUserNestedInput
     userTest?: UserTestUpdateManyWithoutUserNestedInput
     userResume?: UserResumeUpdateManyWithoutUserNestedInput
@@ -37589,6 +37657,7 @@ export namespace Prisma {
     verificationSent?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    socialLogin?: BoolFieldUpdateOperationsInput | boolean
     Review?: ReviewUncheckedUpdateManyWithoutUserNestedInput
     userTest?: UserTestUncheckedUpdateManyWithoutUserNestedInput
     userResume?: UserResumeUncheckedUpdateManyWithoutUserNestedInput
@@ -37704,6 +37773,7 @@ export namespace Prisma {
     verificationSent?: Date | string
     createdAt?: Date | string
     updatedAt?: Date | string
+    socialLogin?: boolean
     Application?: ApplicationCreateNestedManyWithoutUserInput
     userTest?: UserTestCreateNestedManyWithoutUserInput
     userResume?: UserResumeCreateNestedManyWithoutUserInput
@@ -37735,6 +37805,7 @@ export namespace Prisma {
     verificationSent?: Date | string
     createdAt?: Date | string
     updatedAt?: Date | string
+    socialLogin?: boolean
     Application?: ApplicationUncheckedCreateNestedManyWithoutUserInput
     userTest?: UserTestUncheckedCreateNestedManyWithoutUserInput
     userResume?: UserResumeUncheckedCreateNestedManyWithoutUserInput
@@ -37766,6 +37837,7 @@ export namespace Prisma {
     website?: string | null
     logo?: string | null
     isVerify?: boolean
+    verificationSent?: Date | string
     latitude?: string | null
     longitude?: string | null
     createdAt?: Date | string
@@ -37791,6 +37863,7 @@ export namespace Prisma {
     website?: string | null
     logo?: string | null
     isVerify?: boolean
+    verificationSent?: Date | string
     industryId: string
     latitude?: string | null
     longitude?: string | null
@@ -37837,6 +37910,7 @@ export namespace Prisma {
     verificationSent?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    socialLogin?: BoolFieldUpdateOperationsInput | boolean
     Application?: ApplicationUpdateManyWithoutUserNestedInput
     userTest?: UserTestUpdateManyWithoutUserNestedInput
     userResume?: UserResumeUpdateManyWithoutUserNestedInput
@@ -37868,6 +37942,7 @@ export namespace Prisma {
     verificationSent?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    socialLogin?: BoolFieldUpdateOperationsInput | boolean
     Application?: ApplicationUncheckedUpdateManyWithoutUserNestedInput
     userTest?: UserTestUncheckedUpdateManyWithoutUserNestedInput
     userResume?: UserResumeUncheckedUpdateManyWithoutUserNestedInput
@@ -37905,6 +37980,7 @@ export namespace Prisma {
     website?: NullableStringFieldUpdateOperationsInput | string | null
     logo?: NullableStringFieldUpdateOperationsInput | string | null
     isVerify?: BoolFieldUpdateOperationsInput | boolean
+    verificationSent?: DateTimeFieldUpdateOperationsInput | Date | string
     latitude?: NullableStringFieldUpdateOperationsInput | string | null
     longitude?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -37930,6 +38006,7 @@ export namespace Prisma {
     website?: NullableStringFieldUpdateOperationsInput | string | null
     logo?: NullableStringFieldUpdateOperationsInput | string | null
     isVerify?: BoolFieldUpdateOperationsInput | boolean
+    verificationSent?: DateTimeFieldUpdateOperationsInput | Date | string
     industryId?: StringFieldUpdateOperationsInput | string
     latitude?: NullableStringFieldUpdateOperationsInput | string | null
     longitude?: NullableStringFieldUpdateOperationsInput | string | null
@@ -38068,6 +38145,7 @@ export namespace Prisma {
     verificationSent?: Date | string
     createdAt?: Date | string
     updatedAt?: Date | string
+    socialLogin?: boolean
     Application?: ApplicationCreateNestedManyWithoutUserInput
     Review?: ReviewCreateNestedManyWithoutUserInput
     userResume?: UserResumeCreateNestedManyWithoutUserInput
@@ -38099,6 +38177,7 @@ export namespace Prisma {
     verificationSent?: Date | string
     createdAt?: Date | string
     updatedAt?: Date | string
+    socialLogin?: boolean
     Application?: ApplicationUncheckedCreateNestedManyWithoutUserInput
     Review?: ReviewUncheckedCreateNestedManyWithoutUserInput
     userResume?: UserResumeUncheckedCreateNestedManyWithoutUserInput
@@ -38197,6 +38276,7 @@ export namespace Prisma {
     verificationSent?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    socialLogin?: BoolFieldUpdateOperationsInput | boolean
     Application?: ApplicationUpdateManyWithoutUserNestedInput
     Review?: ReviewUpdateManyWithoutUserNestedInput
     userResume?: UserResumeUpdateManyWithoutUserNestedInput
@@ -38228,6 +38308,7 @@ export namespace Prisma {
     verificationSent?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    socialLogin?: BoolFieldUpdateOperationsInput | boolean
     Application?: ApplicationUncheckedUpdateManyWithoutUserNestedInput
     Review?: ReviewUncheckedUpdateManyWithoutUserNestedInput
     userResume?: UserResumeUncheckedUpdateManyWithoutUserNestedInput
@@ -38376,6 +38457,7 @@ export namespace Prisma {
     verificationSent?: Date | string
     createdAt?: Date | string
     updatedAt?: Date | string
+    socialLogin?: boolean
     Application?: ApplicationCreateNestedManyWithoutUserInput
     Review?: ReviewCreateNestedManyWithoutUserInput
     userTest?: UserTestCreateNestedManyWithoutUserInput
@@ -38407,6 +38489,7 @@ export namespace Prisma {
     verificationSent?: Date | string
     createdAt?: Date | string
     updatedAt?: Date | string
+    socialLogin?: boolean
     Application?: ApplicationUncheckedCreateNestedManyWithoutUserInput
     Review?: ReviewUncheckedCreateNestedManyWithoutUserInput
     userTest?: UserTestUncheckedCreateNestedManyWithoutUserInput
@@ -38564,6 +38647,7 @@ export namespace Prisma {
     verificationSent?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    socialLogin?: BoolFieldUpdateOperationsInput | boolean
     Application?: ApplicationUpdateManyWithoutUserNestedInput
     Review?: ReviewUpdateManyWithoutUserNestedInput
     userTest?: UserTestUpdateManyWithoutUserNestedInput
@@ -38595,6 +38679,7 @@ export namespace Prisma {
     verificationSent?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    socialLogin?: BoolFieldUpdateOperationsInput | boolean
     Application?: ApplicationUncheckedUpdateManyWithoutUserNestedInput
     Review?: ReviewUncheckedUpdateManyWithoutUserNestedInput
     userTest?: UserTestUncheckedUpdateManyWithoutUserNestedInput
@@ -38971,6 +39056,7 @@ export namespace Prisma {
     verificationSent?: Date | string
     createdAt?: Date | string
     updatedAt?: Date | string
+    socialLogin?: boolean
     Application?: ApplicationCreateNestedManyWithoutUserInput
     Review?: ReviewCreateNestedManyWithoutUserInput
     userTest?: UserTestCreateNestedManyWithoutUserInput
@@ -39002,6 +39088,7 @@ export namespace Prisma {
     verificationSent?: Date | string
     createdAt?: Date | string
     updatedAt?: Date | string
+    socialLogin?: boolean
     Application?: ApplicationUncheckedCreateNestedManyWithoutUserInput
     Review?: ReviewUncheckedCreateNestedManyWithoutUserInput
     userTest?: UserTestUncheckedCreateNestedManyWithoutUserInput
@@ -39081,6 +39168,7 @@ export namespace Prisma {
     verificationSent?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    socialLogin?: BoolFieldUpdateOperationsInput | boolean
     Application?: ApplicationUpdateManyWithoutUserNestedInput
     Review?: ReviewUpdateManyWithoutUserNestedInput
     userTest?: UserTestUpdateManyWithoutUserNestedInput
@@ -39112,6 +39200,7 @@ export namespace Prisma {
     verificationSent?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    socialLogin?: BoolFieldUpdateOperationsInput | boolean
     Application?: ApplicationUncheckedUpdateManyWithoutUserNestedInput
     Review?: ReviewUncheckedUpdateManyWithoutUserNestedInput
     userTest?: UserTestUncheckedUpdateManyWithoutUserNestedInput
@@ -39159,6 +39248,7 @@ export namespace Prisma {
     verificationSent?: Date | string
     createdAt?: Date | string
     updatedAt?: Date | string
+    socialLogin?: boolean
     Application?: ApplicationCreateNestedManyWithoutUserInput
     Review?: ReviewCreateNestedManyWithoutUserInput
     userTest?: UserTestCreateNestedManyWithoutUserInput
@@ -39190,6 +39280,7 @@ export namespace Prisma {
     verificationSent?: Date | string
     createdAt?: Date | string
     updatedAt?: Date | string
+    socialLogin?: boolean
     Application?: ApplicationUncheckedCreateNestedManyWithoutUserInput
     Review?: ReviewUncheckedCreateNestedManyWithoutUserInput
     userTest?: UserTestUncheckedCreateNestedManyWithoutUserInput
@@ -39268,6 +39359,7 @@ export namespace Prisma {
     verificationSent?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    socialLogin?: BoolFieldUpdateOperationsInput | boolean
     Application?: ApplicationUpdateManyWithoutUserNestedInput
     Review?: ReviewUpdateManyWithoutUserNestedInput
     userTest?: UserTestUpdateManyWithoutUserNestedInput
@@ -39299,6 +39391,7 @@ export namespace Prisma {
     verificationSent?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    socialLogin?: BoolFieldUpdateOperationsInput | boolean
     Application?: ApplicationUncheckedUpdateManyWithoutUserNestedInput
     Review?: ReviewUncheckedUpdateManyWithoutUserNestedInput
     userTest?: UserTestUncheckedUpdateManyWithoutUserNestedInput
@@ -39473,6 +39566,7 @@ export namespace Prisma {
     verificationSent?: Date | string
     createdAt?: Date | string
     updatedAt?: Date | string
+    socialLogin?: boolean
     Application?: ApplicationCreateNestedManyWithoutUserInput
     Review?: ReviewCreateNestedManyWithoutUserInput
     userTest?: UserTestCreateNestedManyWithoutUserInput
@@ -39504,6 +39598,7 @@ export namespace Prisma {
     verificationSent?: Date | string
     createdAt?: Date | string
     updatedAt?: Date | string
+    socialLogin?: boolean
     Application?: ApplicationUncheckedCreateNestedManyWithoutUserInput
     Review?: ReviewUncheckedCreateNestedManyWithoutUserInput
     userTest?: UserTestUncheckedCreateNestedManyWithoutUserInput
@@ -39588,6 +39683,7 @@ export namespace Prisma {
     verificationSent?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    socialLogin?: BoolFieldUpdateOperationsInput | boolean
     Application?: ApplicationUpdateManyWithoutUserNestedInput
     Review?: ReviewUpdateManyWithoutUserNestedInput
     userTest?: UserTestUpdateManyWithoutUserNestedInput
@@ -39619,6 +39715,7 @@ export namespace Prisma {
     verificationSent?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    socialLogin?: BoolFieldUpdateOperationsInput | boolean
     Application?: ApplicationUncheckedUpdateManyWithoutUserNestedInput
     Review?: ReviewUncheckedUpdateManyWithoutUserNestedInput
     userTest?: UserTestUncheckedUpdateManyWithoutUserNestedInput
@@ -39693,6 +39790,7 @@ export namespace Prisma {
     verificationSent?: Date | string
     createdAt?: Date | string
     updatedAt?: Date | string
+    socialLogin?: boolean
     Application?: ApplicationCreateNestedManyWithoutUserInput
     Review?: ReviewCreateNestedManyWithoutUserInput
     userTest?: UserTestCreateNestedManyWithoutUserInput
@@ -39724,6 +39822,7 @@ export namespace Prisma {
     verificationSent?: Date | string
     createdAt?: Date | string
     updatedAt?: Date | string
+    socialLogin?: boolean
     Application?: ApplicationUncheckedCreateNestedManyWithoutUserInput
     Review?: ReviewUncheckedCreateNestedManyWithoutUserInput
     userTest?: UserTestUncheckedCreateNestedManyWithoutUserInput
@@ -39808,6 +39907,7 @@ export namespace Prisma {
     verificationSent?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    socialLogin?: BoolFieldUpdateOperationsInput | boolean
     Application?: ApplicationUpdateManyWithoutUserNestedInput
     Review?: ReviewUpdateManyWithoutUserNestedInput
     userTest?: UserTestUpdateManyWithoutUserNestedInput
@@ -39839,6 +39939,7 @@ export namespace Prisma {
     verificationSent?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    socialLogin?: BoolFieldUpdateOperationsInput | boolean
     Application?: ApplicationUncheckedUpdateManyWithoutUserNestedInput
     Review?: ReviewUncheckedUpdateManyWithoutUserNestedInput
     userTest?: UserTestUncheckedUpdateManyWithoutUserNestedInput
@@ -40450,6 +40551,7 @@ export namespace Prisma {
     website?: string | null
     logo?: string | null
     isVerify?: boolean
+    verificationSent?: Date | string
     latitude?: string | null
     longitude?: string | null
     createdAt?: Date | string
@@ -40473,6 +40575,7 @@ export namespace Prisma {
     website?: NullableStringFieldUpdateOperationsInput | string | null
     logo?: NullableStringFieldUpdateOperationsInput | string | null
     isVerify?: BoolFieldUpdateOperationsInput | boolean
+    verificationSent?: DateTimeFieldUpdateOperationsInput | Date | string
     latitude?: NullableStringFieldUpdateOperationsInput | string | null
     longitude?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -40498,6 +40601,7 @@ export namespace Prisma {
     website?: NullableStringFieldUpdateOperationsInput | string | null
     logo?: NullableStringFieldUpdateOperationsInput | string | null
     isVerify?: BoolFieldUpdateOperationsInput | boolean
+    verificationSent?: DateTimeFieldUpdateOperationsInput | Date | string
     latitude?: NullableStringFieldUpdateOperationsInput | string | null
     longitude?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -40523,6 +40627,7 @@ export namespace Prisma {
     website?: NullableStringFieldUpdateOperationsInput | string | null
     logo?: NullableStringFieldUpdateOperationsInput | string | null
     isVerify?: BoolFieldUpdateOperationsInput | boolean
+    verificationSent?: DateTimeFieldUpdateOperationsInput | Date | string
     latitude?: NullableStringFieldUpdateOperationsInput | string | null
     longitude?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string

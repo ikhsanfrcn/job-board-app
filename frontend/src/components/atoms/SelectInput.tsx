@@ -1,29 +1,21 @@
-import { Field, ErrorMessage } from "formik";
+import { Field, ErrorMessage, useFormikContext } from "formik";
 
-interface SelectInputWithHandlerProps {
+interface SelectInputProps {
   label: string;
   name: string;
   options: { label: string; value: string }[];
-  value?: string;
   disabled?: boolean;
-  onChange?: (option: any) => void;
+  onChange?: (value: string) => void;
 }
 
-export default function SelectInputWithHandler({
+export default function SelectInput({
   label,
   name,
   options,
-  value,
   disabled = false,
   onChange,
-}: SelectInputWithHandlerProps) {
-  const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const selectedValue = e.target.value;
-    const selectedOption = options.find(opt => opt.value === selectedValue);
-    if (onChange) {
-      onChange(selectedOption || { value: selectedValue, label: selectedValue });
-    }
-  };
+}: SelectInputProps) {
+  const { setFieldValue } = useFormikContext();
 
   return (
     <div>
@@ -33,8 +25,13 @@ export default function SelectInputWithHandler({
         name={name}
         className="border p-2 rounded w-full"
         disabled={disabled}
-        value={value}
-        onChange={handleChange}
+        onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
+          setFieldValue(name, e.target.value);
+
+          if (onChange) {
+            onChange(e.target.value);
+          }
+        }}
       >
         <option value="">Select {label}</option>
         {options.map((opt) => (

@@ -22,7 +22,7 @@ const googleAuth = (params) => __awaiter(void 0, void 0, void 0, function* () {
     if (!user) {
         const hashed = yield (0, password_1.hashPassword)(params.password);
         user = yield prisma_1.default.user.create({
-            data: Object.assign(Object.assign({}, params), { password: hashed, isVerify: true }),
+            data: Object.assign(Object.assign({}, params), { password: hashed, isVerify: true, socialLogin: true }),
         });
     }
     const access_token = (0, token_1.generateToken)({ id: user.id, role: "User" });

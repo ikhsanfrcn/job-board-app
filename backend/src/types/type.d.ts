@@ -5,6 +5,7 @@ export interface RegisterCompanyParams {
   email: string;
   password: string;
   industryId: string;
+  phoneNumber: string;
 }
 
 export interface AuthParams {

@@ -10,7 +10,7 @@ export const googleAuth = async (params: AuthParams) => {
   if (!user) {
     const hashed = await hashPassword(params.password);
     user = await prisma.user.create({
-      data: { ...params, password: hashed, isVerify: true },
+      data: { ...params, password: hashed, isVerify: true, socialLogin: true },
     });
   }
 

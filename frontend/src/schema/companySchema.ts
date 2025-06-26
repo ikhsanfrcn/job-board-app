@@ -15,6 +15,10 @@ export const CompanyRegisterSchema = yup.object().shape({
     .matches(/[^\w]/, "Password requires a symbol")
     .required("Password is required!"),
   industryId: yup.string().required("Industry is required!"),
+  phoneNumber: yup
+    .string()
+    .required("Phone number is required")
+    .matches(/^[0-9+() -]{7,15}$/, "Invalid phone number"),
 });
 
 export const CompanyLoginSchema = yup.object().shape({

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import { IJob } from "@/types/job";
 import { useSession } from "next-auth/react";
 import axios from "@/lib/axios";
@@ -10,6 +11,7 @@ import ShareModal from "./shareModal";
 import { TestConfirmModal } from "./testModal";
 import JobHeader from "./jobHeader";
 import LoginModal from "./loginModal";
+import { ConfirmModal } from "@/components/atoms/ConfirmModal";
 
 export default function JobDetail({ job }: { job: IJob }) {
   const [isApplyModalOpen, setIsApplyModalOpen] = useState(false);
@@ -18,9 +20,12 @@ export default function JobDetail({ job }: { job: IJob }) {
   const [hasApplied, setHasApplied] = useState(false);
   const [isChecking, setIsChecking] = useState(true);
   const [showTestConfirmModal, setShowTestConfirmModal] = useState(false);
+  const [showIncompleteProfileModal, setShowIncompleteProfileModal] =
+    useState(false);
 
   const { data: session } = useSession();
   const token = session?.accessToken;
+  const router = useRouter();
 
   useEffect(() => {
     const checkIfApplied = async () => {
@@ -45,15 +50,39 @@ export default function JobDetail({ job }: { job: IJob }) {
         setIsChecking(false);
       }
     };
+
     checkIfApplied();
   }, [job.id, token]);
+
+  const getUserProfile = async () => {
+    try {
+      const res = await axios.get("/users/profile", {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      return res.data.user;
+    } catch (err) {
+      console.error("Error fetching user profile:", err);
+      return null;
+    }
+  };
+
+  const isUserProfileIncomplete = (profile: any): boolean => {
+    const requiredFields = [
+      "firstName",
+      "state",
+      "city",
+      "dob",
+      "education",
+      "gender",
+    ];
+    return requiredFields.some((field) => !profile?.[field]);
+  };
 
   const checkIfTestActive = async (): Promise<boolean> => {
     try {
       const res = await axios.get(`/test/check/${job.id}`, {
         headers: token ? { Authorization: `Bearer ${token}` } : {},
       });
-
       return res.data?.isTestActive === true;
     } catch (err) {
       console.error("Error checking test status:", err);
@@ -71,6 +100,13 @@ export default function JobDetail({ job }: { job: IJob }) {
       return;
     }
 
+    const userProfile = await getUserProfile();
+
+    if (!userProfile || isUserProfileIncomplete(userProfile)) {
+      setShowIncompleteProfileModal(true);
+      return;
+    }
+
     const isTestActive = await checkIfTestActive();
     const isTestDone = checkIfTestCompleted();
 
@@ -83,9 +119,13 @@ export default function JobDetail({ job }: { job: IJob }) {
 
   const handleProceedToTest = () => {
     setShowTestConfirmModal(false);
-    window.location.href = `/usertest/${job.id}`;
+    router.push(`/usertest/${job.id}`);
   };
-  
+
+  const handleRedirectToProfile = () => {
+    setShowIncompleteProfileModal(false);
+    router.push("/user/profile");
+  };
 
   return (
     <div className="border rounded-lg max-h-screen overflow-y-auto">
@@ -119,12 +159,20 @@ export default function JobDetail({ job }: { job: IJob }) {
       <LoginModal
         isOpen={isLoginModalOpen}
         onClose={() => setIsLoginModalOpen(false)}
+        jobId={job.id}
       />
 
       <TestConfirmModal
         isOpen={showTestConfirmModal}
         onClose={() => setShowTestConfirmModal(false)}
         onProceed={handleProceedToTest}
+      />
+
+      <ConfirmModal
+        isOpen={showIncompleteProfileModal}
+        onCancel={() => setShowIncompleteProfileModal(false)}
+        onConfirm={handleRedirectToProfile}
+        message="Data diri Anda belum lengkap. Apakah Anda ingin melengkapi sekarang?"
       />
     </div>
   );

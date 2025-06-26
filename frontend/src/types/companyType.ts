@@ -5,6 +5,7 @@ export interface ICompanyRegisterForm {
   email: string;
   password: string;
   industryId: string;
+  phoneNumber: string;
 }
 
 export interface ICompanyLoginForm {

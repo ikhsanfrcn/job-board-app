@@ -21,6 +21,12 @@ const requestUserPasswordReset = (email) => __awaiter(void 0, void 0, void 0, fu
     const user = yield prisma_1.default.user.findUnique({ where: { email } });
     if (!user)
         throw { status: 400, message: "User not found" };
+    if (user.socialLogin) {
+        throw {
+            status: 400,
+            message: "Users who register with social login cannot reset their password with this feature.",
+        };
+    }
     const token = (0, jsonwebtoken_1.sign)({ id: user.id }, process.env.JWT_SECRET, {
         expiresIn: "1h",
     });

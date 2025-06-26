@@ -22,6 +22,7 @@ export const getCompanyJobs = async ({
   // Filter
   const filters: Prisma.JobWhereInput = {
     companyId,
+    isDeleted: false,
     ...(title && {
       title: {
         contains: title,

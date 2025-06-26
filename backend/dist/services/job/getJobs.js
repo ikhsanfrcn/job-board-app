@@ -17,7 +17,7 @@ const prisma_1 = __importDefault(require("../../prisma"));
 const getJobs = (_a) => __awaiter(void 0, [_a], void 0, function* ({ titleOrCategory, city, category, tags, isPublished = true, page = 1, size = 10, minSalary, maxSalary, worksite, date, sort, }) {
     const skip = (page - 1) * size;
     const take = size;
-    const where = { isPublished };
+    const where = { isPublished, isDeleted: false };
     if (titleOrCategory) {
         where.OR = [
             {

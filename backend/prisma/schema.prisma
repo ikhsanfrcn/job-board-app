@@ -34,6 +34,7 @@ model User {
 
   createdAt          DateTime            @default(now())
   updatedAt          DateTime            @updatedAt
+  socialLogin        Boolean             @default(false)
   Application        Application[]
   Review             Review[]
   userTest           UserTest[]
@@ -51,27 +52,28 @@ enum Gender {
 }
 
 model Company {
-  id           String   @id @default(uuid())
-  name         String   @unique
-  email        String   @unique
-  role         String   @default("company")
-  password     String
-  about        String?
-  country      String?  @default("Indonesia")
-  state        String?
-  city         String?
-  zipCode      String?
-  regionNumber String?
-  phoneNumber  String?
-  address      String?
-  website      String?  @unique
-  logo         String?  @default("https://res.cloudinary.com/dbq88i6pk/image/upload/v1744257650/profile-default-icon-512x511-v4sw4m29_cyf3m5.png")
-  isVerify     Boolean  @default(false)
-  industryId   String
-  latitude     String?
-  longitude    String?
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
+  id               String   @id @default(uuid())
+  name             String   @unique
+  email            String   @unique
+  role             String   @default("company")
+  password         String
+  about            String?
+  country          String?  @default("Indonesia")
+  state            String?
+  city             String?
+  zipCode          String?
+  regionNumber     String?
+  phoneNumber      String?
+  address          String?
+  website          String?  @unique
+  logo             String?  @default("https://res.cloudinary.com/dbq88i6pk/image/upload/v1744257650/profile-default-icon-512x511-v4sw4m29_cyf3m5.png")
+  isVerify         Boolean  @default(false)
+  verificationSent DateTime @default(now())
+  industryId       String
+  latitude         String?
+  longitude        String?
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
 
   industry Industry @relation(fields: [industryId], references: [id])
   jobs     Job[]

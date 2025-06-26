@@ -20,7 +20,12 @@ const deleteJob = (id, companyId) => __awaiter(void 0, void 0, void 0, function*
     if (job.companyId !== companyId) {
         throw { status: 403, message: "You are not authorized to delete this job" };
     }
-    const deletedJob = yield prisma_1.default.job.delete({ where: { id } });
+    const deletedJob = yield prisma_1.default.job.update({
+        where: { id },
+        data: {
+            isDeleted: true,
+        },
+    });
     return { message: "Job deleted", deletedJob };
 });
 exports.deleteJob = deleteJob;
