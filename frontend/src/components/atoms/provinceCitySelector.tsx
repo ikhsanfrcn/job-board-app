@@ -43,21 +43,17 @@ export default function ProvinceCitySelector({
         label="Province"
         name="state"
         options={provinces.map((p) => ({ label: p.name, value: p.id }))}
-        value={selectedProvince}
-        onChange={(option) => {
-          setSelectedProvince(option.value);
-          setFieldValue("state", option.value);
+        onChange={(value) => {
+          setSelectedProvince(value);
           setFieldValue("city", "");
         }}
       />
+
       <SelectInput
         label="City"
         name="city"
         options={cities.map((c) => ({ label: c.name, value: c.name }))}
         disabled={!cities.length}
-        onChange={(option) => {
-          setFieldValue("city", option.value);
-        }}
       />
     </>
   );

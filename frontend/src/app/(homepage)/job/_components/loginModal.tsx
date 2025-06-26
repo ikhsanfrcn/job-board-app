@@ -1,18 +1,20 @@
 "use client";
 
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { Modal } from "@/components/atoms/Modal";
 
 interface LoginModalProps {
   isOpen: boolean;
   onClose: () => void;
+  jobId: string;
 }
 
-export default function LoginModal({ isOpen, onClose }: LoginModalProps) {
+export default function LoginModal({ isOpen, onClose, jobId }: LoginModalProps) {
   const router = useRouter();
+   const pathname = usePathname();
 
   const handleLoginRedirect = () => {
-    router.push("/login");
+     router.push(`/login?callbackUrl=${encodeURIComponent(`${pathname}?id=${jobId}`)}`);
   };
 
   return (

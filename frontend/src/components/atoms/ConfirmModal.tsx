@@ -11,7 +11,7 @@ interface ConfirmModalProps {
 
 export const ConfirmModal = ({ isOpen, onConfirm, onCancel, message }: ConfirmModalProps) => {
   return (
-    <Modal isOpen={isOpen} onClose={onCancel} title="Confirm Delete" size="sm">
+    <Modal isOpen={isOpen} onClose={onCancel} title="Confirmation" size="sm">
       <p>{message}</p>
       <div className="mt-6 flex justify-end gap-2">
         <button
@@ -24,7 +24,7 @@ export const ConfirmModal = ({ isOpen, onConfirm, onCancel, message }: ConfirmMo
           onClick={onConfirm}
           className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700"
         >
-          Delete
+          OK
         </button>
       </div>
     </Modal>

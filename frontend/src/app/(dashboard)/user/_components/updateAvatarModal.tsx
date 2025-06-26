@@ -3,6 +3,7 @@
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment } from "react";
 import Image from "next/image";
+import { validateFile } from "@/components/atoms/validateFile";
 
 interface IProps {
   isOpen: boolean;
@@ -21,6 +22,14 @@ export default function UpdateAvatarModal({
   onUpload,
   isUploading,
 }: IProps) {
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    if (validateFile(file)) {
+      setSelectedFile(file);
+    }
+  };
   return (
     <Transition appear show={isOpen} as={Fragment}>
       <Dialog as="div" className="relative z-50" onClose={onClose}>
@@ -68,11 +77,8 @@ export default function UpdateAvatarModal({
 
                   <input
                     type="file"
-                    accept="image/*"
-                    onChange={(e) => {
-                      const file = e.target.files?.[0];
-                      if (file) setSelectedFile(file);
-                    }}
+                    accept=".jpg,.jpeg,.png"
+                    onChange={handleFileChange}
                     className="px-4 py-2 border border-gray-200 rounded-lg"
                   />
                 </div>

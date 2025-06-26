@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import axios from "@/lib/axios";
 import { useSession } from "next-auth/react";
@@ -17,40 +17,37 @@ type PlanType = {
 export default function SubscriptionPage() {
   const { data: session } = useSession();
   const router = useRouter();
-
+  const pathname = usePathname();
   const [loadingPlan, setLoadingPlan] = useState<string | null>(null);
   const [isSubscribed, setIsSubscribed] = useState<boolean | null>(null);
   const [plans, setPlans] = useState<PlanType[]>([]);
   const [loadingPlans, setLoadingPlans] = useState<boolean>(true);
 
   useEffect(() => {
-  const fetchPlans = async () => {
-    try {
-      const res = await axios.get("/subscriptions", );
+    const fetchPlans = async () => {
+      try {
+        const res = await axios.get("/subscriptions");
 
-      const formattedPlans = res.data.data.map((plan: any) => ({
-        name: plan.name,
-        price: plan.price,
-        type: plan.type,
-        features: Array.isArray(plan.features) ? plan.features : []
-      }));
+        const formattedPlans = res.data.data.map((plan: any) => ({
+          name: plan.name,
+          price: plan.price,
+          type: plan.type,
+          features: Array.isArray(plan.features) ? plan.features : [],
+        }));
 
-      setPlans(formattedPlans);
-    } catch (error) {
-      console.error("Failed to fetch plans:", error);
-      toast.error("Gagal mengambil data subscription.");
-    } finally {
-      setLoadingPlans(false);
-    }
-  };
+        setPlans(formattedPlans);
+      } catch (error) {
+        console.error("Failed to fetch plans:", error);
+        toast.error("Gagal mengambil data subscription.");
+      } finally {
+        setLoadingPlans(false);
+      }
+    };
 
-  fetchPlans()
-
-}, []);
-
+    fetchPlans();
+  }, []);
 
   useEffect(() => {
-
     const fetchSubscriptionStatus = async () => {
       try {
         const token = session?.accessToken;
@@ -74,7 +71,11 @@ export default function SubscriptionPage() {
           return;
         }
 
-        if (!subscription.startDate || !subscription.endDate || subscription.status === "CANCELED") {
+        if (
+          !subscription.startDate ||
+          !subscription.endDate ||
+          subscription.status === "CANCELED"
+        ) {
           setIsSubscribed(false);
           return;
         }
@@ -114,6 +115,10 @@ export default function SubscriptionPage() {
     );
   }
 
+   const handleLoginRedirect = () => {
+    router.push(`/login?callbackUrl=${encodeURIComponent(pathname)}`);
+  };
+
   return (
     <div className="min-h-screen bg-white flex flex-col items-center justify-center px-4">
       <h1 className="text-3xl font-bold text-blue-900 mb-2">
@@ -143,7 +148,7 @@ export default function SubscriptionPage() {
               onSubscribe={() => {
                 if (!session) {
                   toast.info("Please login first to subscribe.");
-                  router.push("/login");
+                  handleLoginRedirect()
                   return;
                 }
                 handleSubscribe(plan.type);
@@ -156,36 +161,35 @@ export default function SubscriptionPage() {
   );
 
   async function handleSubscribe(planType: string) {
-  try {
-    setLoadingPlan(planType);
-    const token = session?.accessToken;
+    try {
+      setLoadingPlan(planType);
+      const token = session?.accessToken;
 
-    const selectedPlan = plans.find(plan => plan.type === planType);
-    if (!selectedPlan) {
-      toast.error("Plan not found");
-      return;
-    }
-
-    const response = await axios.post(
-      "/transactions",
-      {
-        type: planType,
-        amount: selectedPlan.price, 
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+      const selectedPlan = plans.find((plan) => plan.type === planType);
+      if (!selectedPlan) {
+        toast.error("Plan not found");
+        return;
       }
-    );
 
-    const transactionId = response.data.transaction.data.externalId;
-    router.push(`/subscription/${transactionId}`);
-  } catch (err: any) {
-    toast.error(err.response?.data?.message || "Subscription failed");
-  } finally {
-    setLoadingPlan(null);
+      const response = await axios.post(
+        "/transactions",
+        {
+          type: planType,
+          amount: selectedPlan.price,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      const transactionId = response.data.transaction.data.externalId;
+      router.push(`/subscription/${transactionId}`);
+    } catch (err: any) {
+      toast.error(err.response?.data?.message || "Subscription failed");
+    } finally {
+      setLoadingPlan(null);
+    }
   }
-}
-
 }
