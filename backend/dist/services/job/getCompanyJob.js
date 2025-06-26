@@ -18,7 +18,7 @@ const getCompanyJobs = (_a) => __awaiter(void 0, [_a], void 0, function* ({ comp
     const skip = (page - 1) * size;
     const take = size;
     // Filter
-    const filters = Object.assign(Object.assign({ companyId }, (title && {
+    const filters = Object.assign(Object.assign({ companyId, isDeleted: false }, (title && {
         title: {
             contains: title,
             mode: "insensitive",

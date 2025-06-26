@@ -16,7 +16,7 @@ exports.getJobById = void 0;
 const prisma_1 = __importDefault(require("../../prisma"));
 const getJobById = (id) => __awaiter(void 0, void 0, void 0, function* () {
     const job = yield prisma_1.default.job.findUnique({
-        where: { id },
+        where: { id, isDeleted: false },
         include: {
             company: {
                 select: {

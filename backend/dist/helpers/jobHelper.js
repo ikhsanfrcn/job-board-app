@@ -15,7 +15,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.ensureJobExists = void 0;
 const prisma_1 = __importDefault(require("../prisma"));
 const ensureJobExists = (id) => __awaiter(void 0, void 0, void 0, function* () {
-    const job = yield prisma_1.default.job.findUnique({ where: { id } });
+    const job = yield prisma_1.default.job.findFirst({
+        where: {
+            id,
+            isDeleted: false,
+        },
+    });
     if (!job)
         throw { status: 404, message: "Job not found" };
     return job;
