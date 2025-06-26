@@ -237,7 +237,7 @@ export default function ModalCreateJob({
                 <Field
                   name="category"
                   className="w-full border px-3 py-2 rounded"
-                  placeholder="Category"
+                  placeholder="e.g. Desgin"
                 />
                 <ErrorMessage
                   name="category"

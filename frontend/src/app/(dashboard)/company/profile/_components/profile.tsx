@@ -7,6 +7,7 @@ import axios from "@/lib/axios";
 import { MdOutlineModeEdit } from "react-icons/md";
 import ProfileForm from "./profileForm";
 import ProfileSkeleton from "./profileSkeleton";
+import { IProvince } from "@/types/region";
 
 export default function Profile() {
   const { data: company } = useSession();
@@ -15,6 +16,22 @@ export default function Profile() {
   const [profile, setProfile] = useState<ICompanyProfile>();
   const [isEditing, setIsEditing] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [provinces, setProvinces] = useState<IProvince[]>();
+
+  const fetchProvinces = async () => {
+    try {
+      const response = await axios.get(
+        "https://www.emsifa.com/api-wilayah-indonesia/api/provinces.json"
+      );
+      setProvinces(response.data);
+    } catch (error) {
+      console.error("Failed to fetch provinces:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchProvinces();
+  }, [fetchProvinces]);
 
   const fetchProfile = useCallback(async () => {
     if (!token) return;
@@ -76,7 +93,10 @@ export default function Profile() {
             </div>
             <div>
               <p className="text-xs font-medium capitalize">State:</p>
-              <p>{profile.state || "-"}</p>
+              <p>
+                {provinces?.find((prov) => prov.id === profile.state)?.name ||
+                  "-"}
+              </p>
             </div>
             <div>
               <p className="text-xs font-medium capitalize">City:</p>
