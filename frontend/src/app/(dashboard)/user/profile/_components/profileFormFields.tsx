@@ -22,16 +22,15 @@ export default function ProfileFormFields({
   const handleRequestEmailChange = async () => {
     setLoading(true);
     try {
-      const response = await axios.post("/users/request-email-change", {
+      await axios.post("/users/request-email-change", {},
+        {
         headers: {
           Authorization: `Bearer ${token}`
         }
       });
       toast.info("Request email change sent successfully!");
-      console.log(response);
-    } catch (error) {
-      console.log("Failed to request email change", error);
-      toast.error("Failed to request email change");
+    } catch (error: any) {
+      toast.error(error);
     } finally {
       setLoading(false);
     }
@@ -42,12 +41,12 @@ export default function ProfileFormFields({
       <TextInput label="First Name" name="firstName" />
       <TextInput label="Last Name" name="lastName" />
       <TextInput label="Username" name="username" readOnly />
-      <div className="flex items-center gap-2">
+      <div className="flex items-end gap-2">
         <TextInput label="Email" name="email" readOnly />
         <button
           type="button"
           onClick={handleRequestEmailChange}
-          className="px-3 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 disabled:opacity-50"
+          className="px-3 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 disabled:opacity-50 cursor-pointer"
           disabled={loading}
         >
           {loading ? "Requesting..." : "Request Change"}
