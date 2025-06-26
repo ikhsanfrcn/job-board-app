@@ -7,6 +7,7 @@ import { IUserProfile } from "@/types/userProfile";
 import { MdOutlineModeEdit } from "react-icons/md";
 import ProfileForm from "./profileForm";
 import ProfileSkeleton from "./profileSkeleton";
+import { IProvince } from "@/types/region";
 
 export default function Profile() {
   const { data: user } = useSession();
@@ -15,6 +16,22 @@ export default function Profile() {
   const [profile, setProfile] = useState<IUserProfile>();
   const [isEditing, setIsEditing] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [provinces, setProvinces] = useState<IProvince[]>();
+
+  const fetchProvinces = async () => {
+    try {
+      const response = await axios.get(
+        "https://www.emsifa.com/api-wilayah-indonesia/api/provinces.json"
+      );
+      setProvinces(response.data);
+    } catch (error) {
+      console.error("Failed to fetch provinces:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchProvinces();
+  }, [fetchProvinces]);
 
   const fetchUserProfile = useCallback(async () => {
     if (!token) return;
@@ -36,7 +53,6 @@ export default function Profile() {
   useEffect(() => {
     fetchUserProfile();
   }, [fetchUserProfile]);
-
 
   if (loading) return <ProfileSkeleton />;
   if (!profile) return <div className="p-6">No user profile</div>;
@@ -100,7 +116,10 @@ export default function Profile() {
             </div>
             <div>
               <p className="text-xs font-medium capitalize">State:</p>
-              <p>{profile.state || "-"}</p>
+              <p>
+                {provinces?.find((prov) => prov.id === profile.state)?.name ||
+                  "-"}
+              </p>
             </div>
             <div>
               <p className="text-xs font-medium capitalize">City:</p>
