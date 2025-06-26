@@ -11,6 +11,10 @@ export interface IResetForm {
   newPassword: string;
 }
 
+export interface IEmailChange {
+  newEmail: string;
+}
+
 export interface IRegForm {
   username: string;
   email: string;

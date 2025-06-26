@@ -51,6 +51,8 @@ export class UserRouter {
     );
 
     this.router.patch("/change-password", this.authMiddleware.verifyToken, this.userController.passwordChange);
+    this.router.post("/request-email-change", this.authMiddleware.verifyToken, this.userController.requestEmailChange);
+    this.router.patch("/change-email", this.authMiddleware.verifyToken, this.userController.changeEmail);
   }
   getRouter(): Router {
     return this.router;
