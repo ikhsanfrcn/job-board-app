@@ -45,8 +45,8 @@ export default function ProfileFormFields({
         provinceValue={provinceValue}
       />
       <TextInput label="Zip Code" name="zipCode" />
-      <TextInput label="Region Number" name="regionNumber" />
-      <TextInput label="Phone Number" name="phoneNumber" />
+      <TextInput type="number" label="Region Number" name="regionNumber" />
+      <TextInput type="number" label="Phone Number" name="phoneNumber" />
     </>
   );
 }

@@ -25,16 +25,13 @@ export default function VerifyUser({ token }: { token: string }) {
             },
           }
         );
-        toast.success(data.message || "Verification successful");
         setStatusMessage("Your account has been successfully verified.");
         setIsSuccess(true);
       } catch (err) {
         if (err instanceof AxiosError) {
           const msg = err.response?.data?.message || "Verification failed";
-          toast.error(msg);
           setStatusMessage(msg);
         } else {
-          toast.error("Unexpected error");
           setStatusMessage("Unexpected error during verification.");
         }
       } finally {

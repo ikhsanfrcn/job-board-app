@@ -5,7 +5,7 @@ interface SelectInputProps {
   name: string;
   options: { label: string; value: string }[];
   disabled?: boolean;
-  onChange?: (value: string) => void; // hanya kirim value, lebih simpel
+  onChange?: (value: string) => void;
 }
 
 export default function SelectInput({
