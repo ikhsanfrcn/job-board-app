@@ -48,6 +48,13 @@ export const ResetSchema = yup.object().shape({
     .required("Password is required!"),
 });
 
+export const changeEmailSchema = yup.object().shape({
+  newEmail: yup
+    .string()
+    .email("Invalid email format")
+    .required("Email is required!"),
+});
+
 export const LoginDevSchema = yup.object().shape({
   email: yup
     .string()

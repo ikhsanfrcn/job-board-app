@@ -13,3 +13,7 @@ export const buildCompanyResetPasswordLink = (token: string) => {
 export const buildVerificationLinkCompany = (token: string) => {
   return `${process.env.BASE_URL_FRONTEND}/verify/company/${token}`;
 }
+
+export const buildChangeEmailLink = (token: string) => {
+  return `${process.env.BASE_URL_FRONTEND}/email/change/${token}`;
+};

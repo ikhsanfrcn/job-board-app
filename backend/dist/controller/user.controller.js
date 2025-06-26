@@ -21,6 +21,8 @@ const userValidation_1 = require("../validation/userValidation");
 const prisma_1 = __importDefault(require("../prisma"));
 const isSubscribe_1 = require("../services/user/isSubscribe");
 const passwordChange_1 = require("../services/user/passwordChange");
+const requestEmailChange_1 = require("../services/user/requestEmailChange");
+const changeEmail_1 = require("../services/user/changeEmail");
 class UserController {
     getUserProfile(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -136,6 +138,41 @@ class UserController {
                     return;
                 }
                 const result = yield (0, passwordChange_1.userPasswordChange)(userId, currentPassword, newPassword);
+                res.status(200).json(result);
+            }
+            catch (error) {
+                res.status(error.status || 500).json({ message: error.message || "Internal server error" });
+            }
+        });
+    }
+    requestEmailChange(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            var _a;
+            try {
+                const userId = (_a = req.user) === null || _a === void 0 ? void 0 : _a.id;
+                console.log(userId);
+                const result = yield (0, requestEmailChange_1.requestUserEmailChange)(userId);
+                res.status(200).json(result);
+            }
+            catch (error) {
+                console.log(error);
+                res
+                    .status(error.status || 500)
+                    .json({ message: error.message || "Internal server error" });
+            }
+        });
+    }
+    changeEmail(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const authHeader = req.headers.authorization;
+                const { newEmail } = req.body;
+                if (!authHeader || !authHeader.startsWith("Bearer ")) {
+                    res.status(400).json({ message: "Authorization token is missing or invalid" });
+                    return;
+                }
+                const token = authHeader.split(" ")[1];
+                const result = yield (0, changeEmail_1.userChangeEmail)(token, newEmail);
                 res.status(200).json(result);
             }
             catch (error) {
