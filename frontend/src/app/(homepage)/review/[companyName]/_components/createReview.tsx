@@ -11,12 +11,13 @@ import { VscCircleSlash } from "react-icons/vsc";
 import SkeletonReview from "./skeletonReview";
 import { ReviewSchema } from "@/schema/reviewSchema";
 import { useSession } from "next-auth/react";
+import FormatCurrencyInput from "@/components/atoms/formatCurencyInput";
 
 interface IProps {
-  companyId: string;
+  companyName: string;
 }
 
-export default function CreateReview({ companyId }: IProps) {
+export default function CreateReview({ companyName }: IProps) {
   const { data: user } = useSession();
   const accessToken = user?.accessToken;
 
@@ -34,7 +35,7 @@ export default function CreateReview({ companyId }: IProps) {
     if (!accessToken) return;
     try {
       setLoading(true);
-      const { data } = await axios.get(`/company/${companyId}`);
+      const { data } = await axios.get(`/company/${companyName}`);
       setDetail(data.data);
     } catch (err) {
       console.error(err);
@@ -42,7 +43,7 @@ export default function CreateReview({ companyId }: IProps) {
     } finally {
       setLoading(false);
     }
-  }, [companyId, accessToken]);
+  }, [companyName, accessToken]);
 
   useEffect(() => {
     fetchDetail();
@@ -55,7 +56,7 @@ export default function CreateReview({ companyId }: IProps) {
     try {
       const { agreed, ...dataToSend } = values;
 
-      await axios.post(`/reviews/${companyId}`, dataToSend, {
+      await axios.post(`/reviews/${detail?.id}`, dataToSend, {
         headers: {
           Authorization: `Bearer ${accessToken}`,
         },
@@ -241,9 +242,8 @@ export default function CreateReview({ companyId }: IProps) {
 
             <div>
               <label className="text-xs">Salary Estimate*</label>
-              <Field
+              <FormatCurrencyInput
                 name="salaryEstimate"
-                min="0"
                 className="w-full border border-gray-300 rounded-lg px-4 py-2"
               />
               {errors.salaryEstimate && touched.salaryEstimate && (
