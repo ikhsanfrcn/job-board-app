@@ -41,6 +41,6 @@ const userChangeEmail = (token, newEmail) => __awaiter(void 0, void 0, void 0, f
             link: (0, linkBuilder_1.buildVerificationLinkUser)(newtoken),
         },
     });
-    return { message: "Change password success" };
+    return { message: "Change email success, check your email" };
 });
 exports.userChangeEmail = userChangeEmail;
