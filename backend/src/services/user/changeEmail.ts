@@ -32,5 +32,5 @@ export const userChangeEmail = async (token: string, newEmail: string) => {
       },
     });
 
-  return { message: "Change password success" };
+  return { message: "Change email success, check your email" };
 };
