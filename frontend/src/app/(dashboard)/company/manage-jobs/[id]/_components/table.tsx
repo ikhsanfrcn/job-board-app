@@ -38,9 +38,8 @@ export default function Table({
   const handleTestResultClick = (app: IApplication) => {
     const testData = app.user.userTest?.[0];
     if (testData && onViewTestResult) {
-      const fullName = `${app.user.firstName || ""} ${
-        app.user.lastName || ""
-      }`.trim();
+      const fullName = `${app.user.firstName || ""} ${app.user.lastName || ""
+        }`.trim();
       onViewTestResult(testData, fullName);
     }
   };
@@ -142,16 +141,15 @@ export default function Table({
               <td className="p-3 border-b capitalize">
                 <span
                   className={`px-3 py-1 text-xs font-semibold rounded-full
-                ${
-                  {
-                    PENDING: "bg-yellow-100 text-yellow-800",
-                    VIEWED: "bg-gray-100 text-gray-800",
-                    SHORTLISTED: "bg-blue-100 text-blue-800",
-                    INTERVIEW: "bg-purple-100 text-purple-800",
-                    OFFERED: "bg-green-100 text-green-800",
-                    REJECTED: "bg-red-100 text-red-800",
-                  }[app.status] || "bg-gray-100 text-gray-700"
-                }`}
+                ${{
+                      PENDING: "bg-yellow-100 text-yellow-800",
+                      VIEWED: "bg-gray-100 text-gray-800",
+                      SHORTLISTED: "bg-blue-100 text-blue-800",
+                      INTERVIEW: "bg-purple-100 text-purple-800",
+                      OFFERED: "bg-green-100 text-green-800",
+                      REJECTED: "bg-red-100 text-red-800",
+                    }[app.status] || "bg-gray-100 text-gray-700"
+                    }`}
                 >
                   {app.status.toLowerCase()}
                 </span>
@@ -172,15 +170,26 @@ export default function Table({
                       className="absolute z-10 mt-2 right-0 w-40 bg-white border border-gray-200 rounded shadow-lg p-2 space-y-1"
                     >
                       {["PENDING", "VIEWED"].includes(app.status) && (
-                        <button
-                          onClick={() => {
-                            onUpdateStatus(app.id, "SHORTLISTED");
-                            setOpenId(null);
-                          }}
-                          className="w-full text-left px-3 py-1.5 text-sm text-gray-700 hover:bg-gray-100 rounded cursor-pointer"
-                        >
-                          Mark as Shortlisted
-                        </button>
+                        <>
+                          <button
+                            onClick={() => {
+                              onUpdateStatus(app.id, "SHORTLISTED");
+                              setOpenId(null);
+                            }}
+                            className="w-full text-left px-3 py-1.5 text-sm text-gray-700 hover:bg-gray-100 rounded cursor-pointer"
+                          >
+                            Mark as Shortlisted
+                          </button>
+                          <button
+                            onClick={() => {
+                              onRejectClick(app.id);
+                              setOpenId(null);
+                            }}
+                            className="w-full text-left px-3 py-1.5 text-sm text-red-600 hover:bg-red-100 rounded cursor-pointer"
+                          >
+                            Mark as Rejected
+                          </button>
+                        </>
                       )}
 
                       {app.status === "SHORTLISTED" && (

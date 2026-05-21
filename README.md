@@ -228,7 +228,3 @@ The app sends automated emails for:
 - Subscription renewal reminders
 
 ---
-
-## 📄 License
-
-This project is licensed under the [ISC License](https://opensource.org/licenses/ISC).
