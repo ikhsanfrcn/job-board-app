@@ -124,7 +124,7 @@ export default function Detail({ companyName }: IProps) {
           <div className="flex gap-2">
             {accessToken ? (
               isEmployee ? (
-                <Link href={`/review/${detail.id}`}>
+                <Link href={`/review/${detail.name}`}>
                   <button className="px-4 py-2 text-white text-sm bg-black rounded-md hover:scale-105 transition duration-300 cursor-pointer">
                     Add a review
                   </button>

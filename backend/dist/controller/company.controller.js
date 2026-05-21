@@ -233,14 +233,18 @@ class CompanyController {
                 const companyId = (_a = req.company) === null || _a === void 0 ? void 0 : _a.id;
                 const { currentPassword, newPassword } = req.body;
                 if (!companyId) {
-                    res.status(400).json({ message: "Authorization token is missing or invalid" });
+                    res
+                        .status(400)
+                        .json({ message: "Authorization token is missing or invalid" });
                     return;
                 }
                 const result = yield (0, passwordChange_1.companyPasswordChange)(companyId, currentPassword, newPassword);
                 res.status(200).json(result);
             }
             catch (error) {
-                res.status(error.status || 500).json({ message: error.message || "Internal server error" });
+                res
+                    .status(error.status || 500)
+                    .json({ message: error.message || "Internal server error" });
             }
         });
     }
